@@ -40,6 +40,43 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Mode variables */
+        body.dark-mode {
+            --bg-light: #121212;
+            --card-bg: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --text-muted: #aaaaaa;
+        }
+        
+        body.dark-mode .nav-pills { background: #1e1e1e; }
+        body.dark-mode .nav-pills a { background: rgba(255,255,255,0.05); }
+        body.dark-mode .checklist-container, body.dark-mode .mini-card, body.dark-mode .riyadh-group { background: #1e1e1e; color: #e0e0e0; }
+
+        /* Print Mode */
+        @media print {
+            header, nav, .alert, .btn, .map-container, footer, .distance-calc, .btn-share-nav { display: none !important; }
+            body { background: white; color: black; }
+            .card, .checklist-container { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .distance-calc {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--gold);
+            margin-bottom: 30px;
         }
 
         /* الهيدر والبانر الرئيسي */
@@ -504,6 +541,12 @@
         <button type="button" class="btn-share-nav" onclick="sharePage()" title="مشاركة الدليل">
             📤 شارك الصفحة
         </button>
+        <button type="button" class="btn-share-nav" onclick="toggleDarkMode()" style="background: #333; color: #fff;">
+            🌙 ليلي
+        </button>
+        <button type="button" class="btn-share-nav" onclick="window.print()" style="background: #eee;">
+            🖨️ طباعة
+        </button>
     </nav>
 
     <div class="container">
@@ -513,6 +556,11 @@
         <div class="alert">
             💡 نصيحة: تجنب أوقات الذروة في مدينة الرياض، واستخدم الدائري الجديد (الالتفاف الخارجي) لتوفير الوقت.
         </div>
+
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d14631393.18957422!2d40.94132034999999!3d23.633535999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!3m2!1d25.2854473!2d51.5310398!4m5!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2sMakkah%20Saudi%20Arabia!3m2!1d21.3890824!2d39.8579118!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
         <div class="grid">
             <div class="card">
                 <h3>🛣️ طريق 80 السريع (المسار الرئيسي)</h3>
@@ -530,6 +578,26 @@
 
         <!-- قسم المحطات -->
         <h2 class="section-title" id="stations">⛽ محطات الوقود والراحة - طريق 80 السريع (المسار الرئيسي)</h2>
+        
+        <div class="distance-calc">
+            <h3 style="margin-bottom: 10px; color: var(--primary-qatar);">⏳ حاسبة المسافة المتبقية المباشرة</h3>
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة:</p>
+            <select id="stationSelect" class="time-input" style="color: black; background: white; margin-bottom: 15px;" onchange="calcRemaining()">
+                <option value="1480">الانطلاق (الدوحة)</option>
+                <option value="1390">منفذ أبو سمرة</option>
+                <option value="1210">محطة ساسكو خريص</option>
+                <option value="950">بداية الرياض (الدريس)</option>
+                <option value="910">نهاية الرياض (فيولكس)</option>
+                <option value="550">ساسكو القويعية</option>
+                <option value="200">ساسكو نخلة (طريق مكة)</option>
+                <option value="70">الميقات (السيل الكبير)</option>
+            </select>
+            <div style="display: flex; gap: 20px; font-weight: bold; font-size: 1.1rem; color: var(--primary-qatar);">
+                <div>المسافة المتبقية: <span id="remDist">1480</span> كم</div>
+                <div>الوقت المتبقي تقريباً: <span id="remTime">14.8</span> ساعة قيادة</div>
+            </div>
+        </div>
+
         <div class="grid">
             
             <div class="card" style="border-top-color: #555;">
@@ -925,6 +993,24 @@
                     alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
                 }
             }
+        }
+
+        // 4. الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('makkahDarkMode', isDark);
+        }
+        if (localStorage.getItem('makkahDarkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // 5. حاسبة المسافة المتبقية
+        function calcRemaining() {
+            const km = document.getElementById('stationSelect').value;
+            document.getElementById('remDist').innerText = km;
+            const hours = Math.round((km / 100) * 10) / 10; // Approx 100km/h
+            document.getElementById('remTime').innerText = hours;
         }
     </script>
 </body>
