@@ -49,6 +49,8 @@
             --card-bg: #1e1e1e;
             --text-dark: #e0e0e0;
             --text-muted: #aaaaaa;
+            --primary-qatar: #ffffff; /* Titles become white */
+            --primary-dark: #ffffff;
         }
         
         body.dark-mode .nav-pills { background: #1e1e1e; }
@@ -225,6 +227,26 @@
         .btn-share-nav:hover {
             background-color: #c4a133;
             transform: translateY(-2px);
+        }
+
+        .btn-icon-nav {
+            background-color: #eee;
+            color: #333;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .btn-icon-nav:hover {
+            transform: scale(1.1);
         }
 
         /* الحاوية الرئيسية */
@@ -537,15 +559,15 @@
         <a href="#tips">💡 نصائح مهمة</a>
         <a href="#emergency">📞 أرقام الطوارئ</a>
         
-        <!-- زر المشاركة المدمج -->
+        <!-- أزرار الإجراءات -->
         <button type="button" class="btn-share-nav" onclick="sharePage()" title="مشاركة الدليل">
             📤 شارك الصفحة
         </button>
-        <button type="button" class="btn-share-nav" onclick="toggleDarkMode()" style="background: #333; color: #fff;">
-            🌙 ليلي
+        <button type="button" class="btn-icon-nav" id="themeToggleBtn" onclick="toggleDarkMode()" style="background: #333; color: #fff;" title="تغيير المظهر">
+            🌙
         </button>
-        <button type="button" class="btn-share-nav" onclick="window.print()" style="background: #eee;">
-            🖨️ طباعة
+        <button type="button" class="btn-icon-nav" onclick="window.print()" title="طباعة">
+            🖨️
         </button>
     </nav>
 
@@ -1000,9 +1022,27 @@
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             localStorage.setItem('makkahDarkMode', isDark);
+            updateThemeBtn(isDark);
         }
+        
+        function updateThemeBtn(isDark) {
+            const btn = document.getElementById('themeToggleBtn');
+            if (isDark) {
+                btn.innerHTML = '☀️';
+                btn.style.background = '#f1c40f';
+                btn.style.color = '#333';
+            } else {
+                btn.innerHTML = '🌙';
+                btn.style.background = '#333';
+                btn.style.color = '#fff';
+            }
+        }
+
         if (localStorage.getItem('makkahDarkMode') === 'true') {
             document.body.classList.add('dark-mode');
+            updateThemeBtn(true);
+        } else {
+            updateThemeBtn(false);
         }
 
         // 5. حاسبة المسافة المتبقية
