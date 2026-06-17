@@ -106,6 +106,29 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
+        .share-btn {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: #2c3e50;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4);
+            margin-bottom: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(241, 196, 15, 0.6);
+        }
+
         .footer {
             font-size: 1rem;
             color: #dcdde1;
@@ -138,9 +161,35 @@
             <a href="./oman/" class="country-link">عُمان <img src="https://flagcdn.com/w40/om.png" alt="عُمان" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
         </div>
 
+        <button id="shareButton" class="share-btn">مشاركة الصفحة 🔗</button>
+
         <div class="footer">
             تم تصميم الصفحة بواسطة معاذ بلال
         </div>
     </div>
+
+    <script>
+        document.getElementById('shareButton').addEventListener('click', async () => {
+            const shareData = {
+                title: 'دليل السفر البري إلى مكة',
+                text: 'دليل شامل للسفر البري إلى مكة المكرمة من دول الخليج. تذكرونا بدعوة صالحة 🤲',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            } else {
+                navigator.clipboard.writeText(shareData.url).then(() => {
+                    alert('تم نسخ الرابط بنجاح! يمكنك مشاركته الآن.');
+                }).catch(err => {
+                    console.log('Error copying link:', err);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
