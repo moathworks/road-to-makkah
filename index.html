@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makkah Routes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .countries {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .country-link {
+            text-decoration: none;
+            background: #3498db;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .country-link:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Makkah Routes</h1>
+        <div class="countries">
+            <a href="./qatar/" class="country-link">Qatar 🇶🇦</a>
+            <a href="./ksa/" class="country-link">Saudi Arabia 🇸🇦</a>
+            <a href="./uae/" class="country-link">United Arab Emirates 🇦🇪</a>
+            <a href="./bahrain/" class="country-link">Bahrain 🇧🇭</a>
+            <a href="./kuwait/" class="country-link">Kuwait 🇰🇼</a>
+            <a href="./oman/" class="country-link">Oman 🇴🇲</a>
+        </div>
+    </div>
+</body>
+</html>
