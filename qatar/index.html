@@ -706,6 +706,10 @@
             <div class="progress-bar-container">
                 <div class="progress-bar" id="checklist-progress"></div>
             </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button id="selectAllBtn" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">✅ تحديد الكل</button>
+                <button id="deselectAllBtn" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">❌ إلغاء تحديد الكل</button>
+            </div>
             <div class="checklist-grid">
                 <div>
                     <h3 style="margin-bottom: 15px; color: var(--primary-dark);">📄 الوثائق والاتصالات</h3>
@@ -884,6 +888,16 @@
             updateProgress(); 
         }
         window.addEventListener('DOMContentLoaded', loadChecklistState);
+
+        document.getElementById('selectAllBtn').addEventListener('click', () => {
+            checkboxes.forEach(box => box.checked = true);
+            updateProgress();
+        });
+
+        document.getElementById('deselectAllBtn').addEventListener('click', () => {
+            checkboxes.forEach(box => box.checked = false);
+            updateProgress();
+        });
 
         // 3. دالة المشاركة الخالية من الانهيارات (Crash-free)
         function sharePage() {
