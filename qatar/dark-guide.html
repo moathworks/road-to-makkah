@@ -765,7 +765,7 @@
                 <div class="planner-group">
                     <span>وقت الوصول المتوقع*</span>
                     <strong id="remArrival" style="color: var(--gold);">--:--</strong>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على جهازك (<span id="remTime">14.8</span> ساعة قيادة)</span>
+                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
                 </div>
             </div>
             
@@ -1324,7 +1324,18 @@
             const km = kmVal || 1480;
             document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
             const hours = Math.round((km / 100) * 10) / 10;
-            document.getElementById('remTime').innerText = hours;
+            
+            const h = Math.floor(hours);
+            const m = Math.round((hours - h) * 60);
+            let timeStr = '';
+            if (h > 0 && m > 0) {
+                timeStr = h + ' ساعة و ' + m + ' دقيقة';
+            } else if (h > 0) {
+                timeStr = h + ' ساعة';
+            } else {
+                timeStr = m + ' دقيقة';
+            }
+            document.getElementById('remTime').innerText = timeStr;
 
             // حساب وقت الوصول المتوقع من الموقع المختار والوقت الحالي للجهاز
             const now = new Date();

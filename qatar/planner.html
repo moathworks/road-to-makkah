@@ -1171,7 +1171,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.85rem; color: var(--primary-qatar);">
                     <div>المسافة المتبقية: <span id="mRemDist">1480</span> كم</div>
-                    <div>الزمن التقريبي: <span id="mRemTime">14.8</span> ساعة قيادة</div>
+                    <div>الزمن التقريبي: <span id="mRemTime">14 ساعة و 48 دقيقة</span> قيادة</div>
                 </div>
             </div>
         </div>
@@ -1536,7 +1536,18 @@
             const km = kmVal || 1480;
             document.getElementById('mRemDist').innerText = km;
             const hours = Math.round((km / 100) * 10) / 10;
-            document.getElementById('mRemTime').innerText = hours;
+            
+            const h = Math.floor(hours);
+            const m = Math.round((hours - h) * 60);
+            let timeStr = '';
+            if (h > 0 && m > 0) {
+                timeStr = h + ' ساعة و ' + m + ' دقيقة';
+            } else if (h > 0) {
+                timeStr = h + ' ساعة';
+            } else {
+                timeStr = m + ' دقيقة';
+            }
+            document.getElementById('mRemTime').innerText = timeStr;
         }
 
         // جلب درجة الحرارة الفعلية لمكة المكرمة
