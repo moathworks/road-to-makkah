@@ -1301,14 +1301,27 @@
             }
         }
 
-        // فتح وإغلاق النوافذ المنبثقة
-        function openModal(id, tabId) {
+        // فتح وإغلاق النوافذ المنبثقة بدعم زر الرجوع في الجوال
+        function openModal(id, tabId, fromHistory = false) {
+            if (!fromHistory) {
+                const anyOpen = !!document.querySelector('.modal-overlay.open');
+                const state = { modalId: id, tabId: tabId };
+                if (anyOpen) {
+                    history.replaceState(state, "");
+                } else {
+                    history.pushState(state, "");
+                }
+            }
+
             // إغلاق كل المودالات أولاً
             const modals = document.querySelectorAll('.modal-overlay');
             modals.forEach(modal => modal.classList.remove('open'));
             
             // فتح المودال الهدف
-            document.getElementById(id).classList.add('open');
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('open');
+            }
             if (tabId) {
                 setActiveTab(tabId);
             } else {
@@ -1317,23 +1330,46 @@
         }
 
         function closeModal(id) {
-            document.getElementById(id).classList.remove('open');
-            setActiveTab(null);
+            if (history.state && history.state.modalId === id) {
+                history.back();
+            } else {
+                const target = document.getElementById(id);
+                if (target) {
+                    target.classList.remove('open');
+                }
+                setActiveTab(null);
+            }
         }
 
         function closeAllModals() {
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => modal.classList.remove('open'));
-            setActiveTab(null);
+            if (history.state && history.state.modalId) {
+                history.back();
+            } else {
+                const modals = document.querySelectorAll('.modal-overlay');
+                modals.forEach(modal => modal.classList.remove('open'));
+                setActiveTab(null);
+            }
         }
 
         // إغلاق المودال عند النقر خارج البطاقة
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('open');
-                setActiveTab(null);
+                const id = event.target.id;
+                closeModal(id);
             }
         }
+
+        // الاستماع لحدث الرجوع في المتصفح أو زر الجوال
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.modalId) {
+                openModal(event.state.modalId, event.state.tabId, true);
+            } else {
+                // إغلاق كل المودالات إذا لم يكن هناك مودال مفتوح في التاريخ
+                const modals = document.querySelectorAll('.modal-overlay');
+                modals.forEach(modal => modal.classList.remove('open'));
+                setActiveTab(null);
+            }
+        });
 
         // نظام قائمة المهام (Checklist) المدمجة
         const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
@@ -1380,7 +1416,13 @@
             }
             updateProgress(); 
         }
-        window.addEventListener('DOMContentLoaded', loadChecklistState);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            // استعادة المودال المفتوح عند تحديث الصفحة إن وجد في التاريخ
+            if (history.state && history.state.modalId) {
+                openModal(history.state.modalId, history.state.tabId, true);
+            }
+        });
 
         document.getElementById('modalSelectAllBtn').addEventListener('click', () => {
             checkboxes.forEach(box => box.checked = true);
