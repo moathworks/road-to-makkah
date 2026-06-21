@@ -752,22 +752,29 @@
                 </div>
             </div>
 
-            <!-- حاسبة المسافة المتبقية المباشرة -->
-            <div class="distance-calc" style="background: rgba(212, 175, 55, 0.05); margin-bottom: 20px; border-color: rgba(212, 175, 55, 0.2); text-align: right;">
-                <p style="margin-bottom: 8px; font-size: 0.9rem; color: var(--text-light); font-weight: bold;">⏳ حاسبة المسافة المتبقية المباشرة:</p>
-                <select id="stationSelect" class="time-input" onchange="calcRemaining()" style="margin-bottom: 12px; background: rgba(0, 0, 0, 0.3);">
-                    <option value="1480">الانطلاق (الدوحة)</option>
-                    <option value="1390">منفذ أبو سمرة</option>
-                    <option value="1210">محطة ساسكو خريص</option>
-                    <option value="950">بداية الرياض (الدريس)</option>
-                    <option value="910">نهاية الرياض (فيولكس)</option>
-                    <option value="550">ساسكو القويعية</option>
-                    <option value="200">ساسكو نخلة (طريق مكة)</option>
-                    <option value="70">الميقات (السيل الكبير)</option>
-                </select>
-                <div style="display: flex; gap: 20px; font-weight: bold; font-size: 1rem; color: var(--gold);">
-                    <div>المسافة المتبقية: <span id="remDist">1480</span> كم</div>
-                    <div>الوقت المتبقي تقريباً: <span id="remTime">14.8</span> ساعة قيادة</div>
+            <!-- حاسبة المسافة المتبقية المباشرة بنموذج وتقسيم الحاسبة الأولى -->
+            <div class="trip-planner" style="margin-top: 15px; margin-bottom: 25px;">
+                <div class="planner-group">
+                    <span>الموقع الحالي (المحطة)</span>
+                    <select id="stationSelect" class="planner-input" onchange="calcRemaining()" style="background: rgba(0, 0, 0, 0.4); text-align: center;">
+                        <option value="1480">الانطلاق (الدوحة)</option>
+                        <option value="1390">منفذ أبو سمرة</option>
+                        <option value="1210">محطة ساسكو خريص</option>
+                        <option value="950">بداية الرياض (الدريس)</option>
+                        <option value="910">نهاية الرياض (فيولكس)</option>
+                        <option value="550">ساسكو القويعية</option>
+                        <option value="200">ساسكو نخلة (طريق مكة)</option>
+                        <option value="70">الميقات (السيل الكبير)</option>
+                    </select>
+                </div>
+                <div class="planner-group">
+                    <span>المسافة المتبقية</span>
+                    <strong id="remDist">1,480 كم</strong>
+                </div>
+                <div class="planner-group">
+                    <span>وقت الوصول المتوقع*</span>
+                    <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على جهازك (<span id="remTime">14.8</span> ساعة قيادة)</span>
                 </div>
             </div>
             
@@ -1262,7 +1269,10 @@
             }
             updateProgress();
         }
-        window.addEventListener('DOMContentLoaded', loadChecklistState);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            calcRemaining();
+        });
 
         document.getElementById('selectAllBtn').addEventListener('click', () => {
             toggles.forEach(toggle => toggle.checked = true);
@@ -1276,10 +1286,18 @@
 
         // حاسبة المسافة المتبقية
         function calcRemaining() {
-            const km = document.getElementById('stationSelect').value;
-            document.getElementById('remDist').innerText = km;
+            const km = parseFloat(document.getElementById('stationSelect').value);
+            document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
             const hours = Math.round((km / 100) * 10) / 10;
             document.getElementById('remTime').innerText = hours;
+
+            // حساب وقت الوصول المتوقع من الموقع المختار والوقت الحالي للجهاز
+            const now = new Date();
+            const totalMinutes = Math.round(hours * 60);
+            now.setMinutes(now.getMinutes() + totalMinutes);
+
+            const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('remArrival').innerText = now.toLocaleDateString('ar-QA', options);
         }
 
         // مشاركة الصفحة

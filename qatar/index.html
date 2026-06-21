@@ -879,21 +879,28 @@
         
         <!-- حاسبة المسافة المتبقية المباشرة -->
         <div class="section-header">⏳ حاسبة المسافة المتبقية المباشرة</div>
-        <div class="distance-calc">
-            <p style="margin-bottom: 12px; font-size: 0.95rem;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة المكرمة:</p>
-            <select id="stationSelect" class="calc-select" onchange="calcRemaining()">
-                <option value="1480">الانطلاق (الدوحة)</option>
-                <option value="1390">منفذ أبو سمرة</option>
-                <option value="1210">محطة ساسكو خريص</option>
-                <option value="950">بداية الرياض (الدريس)</option>
-                <option value="910">نهاية الرياض (فيولكس)</option>
-                <option value="550">ساسكو القويعية</option>
-                <option value="200">ساسكو نخلة (طريق مكة)</option>
-                <option value="70">الميقات (السيل الكبير)</option>
-            </select>
-            <div class="calc-results">
-                <div>المسافة المتبقية: <span id="remDist">1480</span> كم</div>
-                <div>الوقت المتبقي تقريباً: <span id="remTime">14.8</span> ساعة قيادة</div>
+        <div class="trip-planner" style="margin-bottom: 30px; background: rgba(0, 0, 0, 0.35);">
+            <div class="planner-group">
+                <span>الموقع الحالي (المحطة)</span>
+                <select id="stationSelect" class="planner-input" onchange="calcRemaining()" style="background: rgba(255, 255, 255, 0.08); text-align: center; border-radius: 8px;">
+                    <option value="1480">الانطلاق (الدوحة)</option>
+                    <option value="1390">منفذ أبو سمرة</option>
+                    <option value="1210">محطة ساسكو خريص</option>
+                    <option value="950">بداية الرياض (الدريس)</option>
+                    <option value="910">نهاية الرياض (فيولكس)</option>
+                    <option value="550">ساسكو القويعية</option>
+                    <option value="200">ساسكو نخلة (طريق مكة)</option>
+                    <option value="70">الميقات (السيل الكبير)</option>
+                </select>
+            </div>
+            <div class="planner-group">
+                <span>المسافة المتبقية</span>
+                <strong id="remDist">1,480 كم</strong>
+            </div>
+            <div class="planner-group">
+                <span>وقت الوصول المتوقع*</span>
+                <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                <span style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px; color: rgba(255, 255, 255, 0.7);">*بناءً على جهازك (<span id="remTime">14.8</span> ساعة قيادة)</span>
             </div>
         </div>
 
@@ -1254,7 +1261,10 @@
             }
             updateProgress(); 
         }
-        window.addEventListener('DOMContentLoaded', loadChecklistState);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            calcRemaining();
+        });
 
         document.getElementById('selectAllBtn').addEventListener('click', () => {
             checkboxes.forEach(box => box.checked = true);
@@ -1324,10 +1334,18 @@
 
         // 5. حاسبة المسافة المتبقية
         function calcRemaining() {
-            const km = document.getElementById('stationSelect').value;
-            document.getElementById('remDist').innerText = km;
+            const km = parseFloat(document.getElementById('stationSelect').value);
+            document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
             const hours = Math.round((km / 100) * 10) / 10; // Approx 100km/h
             document.getElementById('remTime').innerText = hours;
+
+            // حساب وقت الوصول المتوقع من الموقع المختار والوقت الحالي للجهاز
+            const now = new Date();
+            const totalMinutes = Math.round(hours * 60);
+            now.setMinutes(now.getMinutes() + totalMinutes);
+
+            const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('remArrival').innerText = now.toLocaleDateString('ar-QA', options);
         }
 
         // 6. التحكم في القائمة المنسدلة في الجوال
