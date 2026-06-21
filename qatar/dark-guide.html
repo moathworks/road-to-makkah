@@ -702,7 +702,7 @@
         }
 
         .qatar .emergency-number {
-            color: #ff7d99;
+            color: var(--gold);
         }
 
         /* الفوتر */
@@ -953,8 +953,12 @@
         }
 
         body.light-mode .emergency-box.qatar {
-            background: rgba(138, 21, 56, 0.04);
-            border-color: rgba(138, 21, 56, 0.15);
+            background: var(--primary-qatar);
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .emergency-box.qatar h4 {
+            color: rgba(255, 255, 255, 0.85) !important;
         }
 
         body.light-mode .emergency-box.saudi {
@@ -980,7 +984,7 @@
         }
 
         body.light-mode .emergency-box.qatar .emergency-number {
-            color: var(--primary-qatar) !important;
+            color: var(--gold) !important;
         }
 
         body.light-mode .emergency-box.saudi .emergency-number {
