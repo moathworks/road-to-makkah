@@ -681,8 +681,8 @@
         }
 
         .emergency-box.qatar {
-            border-color: rgba(231, 76, 60, 0.2);
-            background: rgba(231, 76, 60, 0.03);
+            border-color: rgba(138, 21, 56, 0.25);
+            background: rgba(138, 21, 56, 0.04);
         }
 
         .emergency-box h4 {
@@ -702,7 +702,7 @@
         }
 
         .qatar .emergency-number {
-            color: #e74c3c;
+            color: #ff7d99;
         }
 
         /* الفوتر */
@@ -953,8 +953,8 @@
         }
 
         body.light-mode .emergency-box.qatar {
-            background: rgba(192, 57, 43, 0.04);
-            border-color: rgba(192, 57, 43, 0.15);
+            background: rgba(138, 21, 56, 0.04);
+            border-color: rgba(138, 21, 56, 0.15);
         }
 
         body.light-mode .emergency-box.saudi {
@@ -980,7 +980,7 @@
         }
 
         body.light-mode .emergency-box.qatar .emergency-number {
-            color: #c0392b;
+            color: var(--primary-qatar) !important;
         }
 
         body.light-mode .emergency-box.saudi .emergency-number {
@@ -997,25 +997,21 @@
         }
 
         body.light-mode footer {
-            background: #ffffff;
-            border: 1px solid rgba(138, 21, 56, 0.12);
-            border-radius: var(--border-radius);
-            padding: 25px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-            margin-top: 40px;
-            color: var(--text-muted);
+            background: linear-gradient(135deg, #5A0E25, #8A1538) !important;
+            border-color: rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15) !important;
         }
 
         body.light-mode footer p {
-            color: var(--primary-dark) !important;
+            color: #ffffff !important;
         }
 
         body.light-mode footer p:nth-child(2) {
-            color: var(--primary-qatar) !important;
+            color: var(--gold) !important;
         }
 
         body.light-mode footer p:last-child {
-            color: var(--text-muted) !important;
+            color: rgba(255, 255, 255, 0.7) !important;
             opacity: 0.95 !important;
         }
     </style>
@@ -1033,7 +1029,13 @@
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
                     ☀️
                 </button>
-                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">📤</button>
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
             </div>
         </header>
 
