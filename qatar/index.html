@@ -881,18 +881,8 @@
         <div class="section-header">⏳ حاسبة المسافة المتبقية المباشرة</div>
         <div class="trip-planner" style="margin-bottom: 30px; background: rgba(0, 0, 0, 0.35);">
             <div class="planner-group">
-                <span>الموقع الحالي (المحطة)</span>
-                <select id="stationSelect" class="planner-input" onchange="calcRemaining()" style="background: rgba(255, 255, 255, 0.08); text-align: center; border-radius: 8px;">
-                    <option value="1480">الانطلاق (الدوحة)</option>
-                    <option value="1390">منفذ أبو سمرة</option>
-                    <option value="1210">محطة ساسكو خريص</option>
-                    <option value="950">بداية الرياض (الدريس)</option>
-                    <option value="910">نهاية الرياض (فيولكس)</option>
-                    <option value="550">ساسكو القويعية</option>
-                    <option value="200">ساسكو نخلة (طريق مكة)</option>
-                    <option value="70">الميقات (السيل الكبير)</option>
-                </select>
-                <a href="#" id="autoDetectLink" onclick="autoDetectLocation(event)" style="font-size: 0.75rem; color: var(--gold); text-decoration: none; margin-top: 5px; display: inline-flex; align-items: center; gap: 3px;">📍 تحديد تلقائي للموقع</a>
+                <span>الموقع الحالي (تلقائي)</span>
+                <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
             </div>
             <div class="planner-group">
                 <span>المسافة المتبقية</span>
@@ -1264,7 +1254,7 @@
         }
         window.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
-            calcRemaining();
+            initGeolocation();
         });
 
         document.getElementById('selectAllBtn').addEventListener('click', () => {
@@ -1345,15 +1335,12 @@
             { id: '70', name: 'الميقات (السيل الكبير)', lat: 21.6267, lon: 40.4267 }
         ];
 
-        function autoDetectLocation(e) {
-            if (e) e.preventDefault();
+        function initGeolocation() {
             if (!navigator.geolocation) {
-                alert('تحديد الموقع الجغرافي غير مدعوم في متصفحك.');
+                document.getElementById('currentLocationName').innerText = 'الدوحة (افتراضي)';
+                calcRemaining(1480);
                 return;
             }
-
-            const detectLink = document.getElementById('autoDetectLink');
-            if (detectLink) detectLink.innerText = '📍 جاري تحديد الموقع...';
 
             navigator.geolocation.getCurrentPosition(function(position) {
                 const userLat = position.coords.latitude;
@@ -1372,23 +1359,17 @@
                     }
                 });
 
-                const selectElement = document.getElementById('stationSelect');
-                if (selectElement) {
-                    selectElement.value = closestStation.id;
-                    calcRemaining();
-                    alert('📍 تم تحديد موقعك التلقائي: الأقرب هو ' + closestStation.name);
-                }
-
-                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+                document.getElementById('currentLocationName').innerText = closestStation.name;
+                calcRemaining(parseFloat(closestStation.id));
             }, function(error) {
-                alert('فشل تحديد الموقع. يرجى التأكد من تفعيل صلاحية الوصول للموقع في جهازك.');
-                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+                document.getElementById('currentLocationName').innerText = 'الدوحة (افتراضي)';
+                calcRemaining(1480);
             });
         }
 
         // 5. حاسبة المسافة المتبقية
-        function calcRemaining() {
-            const km = parseFloat(document.getElementById('stationSelect').value);
+        function calcRemaining(kmVal) {
+            const km = kmVal || 1480;
             document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
             const hours = Math.round((km / 100) * 10) / 10; // Approx 100km/h
             document.getElementById('remTime').innerText = hours;

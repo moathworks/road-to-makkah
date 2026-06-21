@@ -1165,19 +1165,9 @@
             <h3 class="modal-title">⏳ حاسبة المسافة المتبقية المباشرة</h3>
             
             <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 20px;">
-                <p style="margin-bottom: 12px; font-size: 0.9rem; color: var(--text-dark); text-align: center;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة:</p>
-                <select id="modalStationSelect" class="calc-input" onchange="calcModalRemaining()" style="margin-bottom: 10px;">
-                    <option value="1480">الانطلاق (الدوحة)</option>
-                    <option value="1390">منفذ أبو سمرة</option>
-                    <option value="1210">محطة ساسكو خريص</option>
-                    <option value="950">بداية الرياض (الدريس)</option>
-                    <option value="910">نهاية الرياض (فيولكس)</option>
-                    <option value="550">ساسكو القويعية</option>
-                    <option value="200">ساسكو نخلة (طريق مكة)</option>
-                    <option value="70">الميقات (السيل الكبير)</option>
-                </select>
                 <div style="text-align: center; margin-bottom: 15px;">
-                    <a href="#" id="modalAutoDetectLink" onclick="autoDetectModalLocation(event)" style="font-size: 0.8rem; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; font-weight: bold;">📍 تحديد تلقائي للموقع</a>
+                    <span style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 4px;">الموقع الحالي (تلقائي):</span>
+                    <strong id="modalCurrentLocationName" style="font-size: 1.05rem; color: var(--primary-qatar);">جاري تحديد الموقع...</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.85rem; color: var(--primary-qatar);">
                     <div>المسافة المتبقية: <span id="mRemDist">1480</span> كم</div>
@@ -1452,6 +1442,7 @@
         }
         window.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
+            initModalGeolocation();
             // استعادة المودال المفتوح عند تحديث الصفحة إن وجد في التاريخ
             if (history.state && history.state.modalId) {
                 openModal(history.state.modalId, history.state.tabId, true);
@@ -1508,15 +1499,12 @@
             { id: '70', name: 'الميقات (السيل الكبير)', lat: 21.6267, lon: 40.4267 }
         ];
 
-        function autoDetectModalLocation(e) {
-            if (e) e.preventDefault();
+        function initModalGeolocation() {
             if (!navigator.geolocation) {
-                alert('تحديد الموقع الجغرافي غير مدعوم في متصفحك.');
+                document.getElementById('modalCurrentLocationName').innerText = 'الدوحة (افتراضي)';
+                calcModalRemaining(1480);
                 return;
             }
-
-            const detectLink = document.getElementById('modalAutoDetectLink');
-            if (detectLink) detectLink.innerText = '📍 جاري تحديد الموقع...';
 
             navigator.geolocation.getCurrentPosition(function(position) {
                 const userLat = position.coords.latitude;
@@ -1535,23 +1523,17 @@
                     }
                 });
 
-                const selectElement = document.getElementById('modalStationSelect');
-                if (selectElement) {
-                    selectElement.value = closestStation.id;
-                    calcModalRemaining();
-                    alert('📍 تم تحديد موقعك التلقائي: الأقرب هو ' + closestStation.name);
-                }
-
-                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+                document.getElementById('modalCurrentLocationName').innerText = closestStation.name;
+                calcModalRemaining(parseFloat(closestStation.id));
             }, function(error) {
-                alert('فشل تحديد الموقع. يرجى التأكد من تفعيل صلاحية الوصول للموقع في جهازك.');
-                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+                document.getElementById('modalCurrentLocationName').innerText = 'الدوحة (افتراضي)';
+                calcModalRemaining(1480);
             });
         }
 
         // حاسبة المسافة المتبقية المباشرة
-        function calcModalRemaining() {
-            const km = document.getElementById('modalStationSelect').value;
+        function calcModalRemaining(kmVal) {
+            const km = kmVal || 1480;
             document.getElementById('mRemDist').innerText = km;
             const hours = Math.round((km / 100) * 10) / 10;
             document.getElementById('mRemTime').innerText = hours;
