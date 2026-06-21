@@ -57,9 +57,82 @@
             --toggle-color: #ffffff;
         }
         
-        body.dark-mode .nav-pills { background: #1e1e1e; }
-        body.dark-mode .nav-pills a { background: rgba(255,255,255,0.05); }
-        body.dark-mode .checklist-container, body.dark-mode .mini-card, body.dark-mode .riyadh-group { background: #1e1e1e; color: #e0e0e0; }
+        body.dark-mode header {
+            background: linear-gradient(135deg, #1e1e1e, #121212);
+            border-bottom: 5px solid var(--gold);
+        }
+        
+        body.dark-mode .nav-pills {
+            background: #1e1e1e;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        body.dark-mode .nav-pills a {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+        }
+        body.dark-mode .nav-pills a:hover {
+            background: var(--gold);
+            color: #121212;
+        }
+        body.dark-mode .nav-brand {
+            color: var(--gold);
+        }
+        body.dark-mode .menu-toggle-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        body.dark-mode .nav-items {
+            border-bottom-color: var(--gold);
+        }
+        body.dark-mode .checklist-container, 
+        body.dark-mode .mini-card, 
+        body.dark-mode .riyadh-group {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        body.dark-mode .mini-card p {
+            color: var(--text-muted);
+        }
+        body.dark-mode .distance-badge {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            border-color: rgba(212, 175, 55, 0.25);
+        }
+        body.dark-mode .alert {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            border-right-color: var(--gold);
+        }
+        body.dark-mode .progress-bar-container {
+            background-color: #333;
+        }
+        body.dark-mode .btn-maps {
+            background: rgba(26, 115, 232, 0.15);
+            color: #5da2ff;
+            border-color: #5da2ff;
+        }
+        body.dark-mode .btn-maps:hover {
+            background: #1a73e8;
+            color: white;
+        }
+        body.dark-mode .btn-najm {
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+        body.dark-mode .btn-najm:hover {
+            background: #2ecc71;
+            color: #121212;
+        }
+        body.dark-mode footer {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        body.dark-mode .distance-calc select {
+            color: white !important;
+            background: #1e1e1e !important;
+            border-color: rgba(255,255,255,0.15) !important;
+        }
 
         /* Print Mode */
         @media print {
