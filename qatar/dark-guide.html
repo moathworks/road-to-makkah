@@ -728,7 +728,7 @@
             <div class="header-logo">
                 🕋 دليل <span>قطر ← مكة</span> 2026
             </div>
-            <button class="quick-access-btn" onclick="location.href='planner.html'">🧭 المخطط الذكي</button>
+            <button class="quick-access-btn" onclick="sharePage()">📤 مشاركة الدليل</button>
         </header>
 
         <!-- البانر الرئيسي الفاخر -->
@@ -1272,6 +1272,34 @@
             document.getElementById('remDist').innerText = km;
             const hours = Math.round((km / 100) * 10) / 10;
             document.getElementById('remTime').innerText = hours;
+        }
+
+        // مشاركة الصفحة
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            
+            if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
+                navigator.share({
+                    title: title,
+                    text: 'دليل السفر البري من قطر إلى مكة المكرمة 🕋',
+                    url: url
+                }).catch(function(error) {
+                    console.log('حدث خطأ أثناء محاولة المشاركة:', error);
+                });
+            } else {
+                try {
+                    const tempInput = document.createElement('input');
+                    tempInput.value = url;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('✅ تم نسخ رابط الصفحة بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+                } catch (err) {
+                    alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+                }
+            }
         }
     </script>
 </body>

@@ -271,6 +271,8 @@
             border-radius: var(--border-radius);
             width: 100%;
             max-width: 420px;
+            max-height: 85vh;
+            overflow-y: auto;
             padding: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             animation: modalFadeIn 0.3s ease-out;
@@ -291,6 +293,7 @@
             font-size: 1.4rem;
             cursor: pointer;
             color: var(--text-muted);
+            z-index: 10;
         }
 
         .modal-title {
@@ -346,11 +349,9 @@
 
         /* قائمة المهام في المودال */
         .checklist-modal-list {
-            max-height: 380px;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             padding-left: 5px;
         }
 
@@ -451,6 +452,11 @@
             font-weight: bold;
         }
 
+        .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
         .distance-badge-mini {
             background: #fdf3d8;
             color: #856404;
@@ -460,6 +466,92 @@
             font-weight: bold;
             display: inline-block;
             margin-bottom: 5px;
+        }
+
+        /* خرائط المسارات والاتجاهات */
+        .route-info-box {
+            background: #fcfcfc;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .route-info-box h4 {
+            color: var(--primary-qatar);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .route-info-box p {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .route-btn {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* الملاحظات والنصائح */
+        .tip-item {
+            background: #fffcf4;
+            border-right: 4px solid var(--gold);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tip-item h4 {
+            font-size: 0.95rem;
+            color: #b5952f;
+            margin-bottom: 5px;
+        }
+
+        .tip-item p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* أرقام الطوارئ */
+        .emergency-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid #ccc;
+        }
+
+        .emergency-item.saudi {
+            border-left-color: #2ecc71;
+        }
+
+        .emergency-item.qatar {
+            border-left-color: var(--primary-qatar);
+        }
+
+        .emergency-item span {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .emergency-item strong {
+            font-size: 1.2rem;
+            color: var(--primary-qatar);
+        }
+
+        .emergency-item.saudi strong {
+            color: #27ae60;
         }
     </style>
 </head>
@@ -493,14 +585,21 @@
                         <span class="card-icon">✔️</span>
                     </div>
                     <h3>قائمة الفحص</h3>
-                    <button class="action-btn" onclick="openModal('checklistModal')">فتح القائمة</button>
+                    <button class="action-btn" onclick="openModal('checklistModal', 'nav-list')">فتح القائمة</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">⛽</span>
                     </div>
                     <h3>حاسبة الوقود</h3>
-                    <button class="action-btn" onclick="openModal('fuelModal')">احسب الآن</button>
+                    <button class="action-btn" onclick="openModal('fuelModal', null)">احسب الآن</button>
+                </div>
+                <div class="sub-card" style="grid-column: 1 / -1; min-height: 120px;">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">⏱️</span>
+                    </div>
+                    <h3>حاسبة الوصول والوقت</h3>
+                    <button class="action-btn" onclick="openModal('arrivalModal', null)">تخطيط الوقت</button>
                 </div>
             </div>
         </div>
@@ -513,15 +612,22 @@
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🗺️</span>
                     </div>
-                    <h3>خريطة الطريق</h3>
-                    <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="action-btn">عرض الخريطة</a>
+                    <h3>خرائط المسارات</h3>
+                    <button class="action-btn" onclick="openModal('routesModal', 'nav-route')">عرض المسار</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🏪</span>
                     </div>
                     <h3>محطات الوقود</h3>
-                    <button class="action-btn" onclick="openModal('stationsModal')">عرض القائمة</button>
+                    <button class="action-btn" onclick="openModal('stationsModal', null)">عرض القائمة</button>
+                </div>
+                <div class="sub-card" style="grid-column: 1 / -1; min-height: 120px;">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">💡</span>
+                    </div>
+                    <h3>إرشادات السلامة</h3>
+                    <button class="action-btn" onclick="openModal('tipsModal', null)">قراءة النصائح</button>
                 </div>
             </div>
         </div>
@@ -529,32 +635,39 @@
         <!-- قسم الوصول -->
         <div class="section-group">
             <h2 class="group-title">🕋 الوصول (Arrival)</h2>
-            <div class="cards-grid" style="grid-template-columns: 1fr;">
-                <div class="sub-card" style="min-height: 120px;">
+            <div class="cards-grid">
+                <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🤲</span>
                     </div>
-                    <h3>أدعية وأذكار السفر</h3>
-                    <button class="action-btn" onclick="openModal('prayersModal')" style="max-width: 200px;">اقرأ الأدعية</button>
+                    <h3>أدعية السفر</h3>
+                    <button class="action-btn" onclick="openModal('prayersModal', 'nav-prayers')">اقرأ الأدعية</button>
+                </div>
+                <div class="sub-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">📞</span>
+                    </div>
+                    <h3>أرقام الطوارئ</h3>
+                    <button class="action-btn" onclick="openModal('emergencyModal', null)">عرض الأرقام</button>
                 </div>
             </div>
         </div>
 
-        <!-- شريط التنقل السفلي المطور -->
+        <!-- شريط التنقل السفلي المطور (تفاعلي بالكامل كـ SPA) -->
         <nav class="bottom-nav">
-            <button class="nav-link active" onclick="location.href='index.html'">
+            <button class="nav-link active" id="nav-home" onclick="closeAllModals()">
                 <span class="nav-link-icon">🏠</span>
                 <span>الرئيسية</span>
             </button>
-            <button class="nav-link" onclick="location.href='index.html#routes'">
+            <button class="nav-link" id="nav-route" onclick="openModal('routesModal', 'nav-route')">
                 <span class="nav-link-icon">📍</span>
                 <span>المسار</span>
             </button>
-            <button class="nav-link" onclick="openModal('checklistModal')">
+            <button class="nav-link" id="nav-list" onclick="openModal('checklistModal', 'nav-list')">
                 <span class="nav-link-icon">📋</span>
                 <span>القائمة</span>
             </button>
-            <button class="nav-link" onclick="openModal('prayersModal')">
+            <button class="nav-link" id="nav-prayers" onclick="openModal('prayersModal', 'nav-prayers')">
                 <span class="nav-link-icon">🌙</span>
                 <span>أدعية</span>
             </button>
@@ -584,6 +697,25 @@
                     <div>لترات الوقود المطلوبة: <span id="res-liters" style="font-weight: 700;">118.4</span> لتر</div>
                     <div style="margin-top: 8px;">التكلفة الإجمالية التقريبية:</div>
                     <div class="calc-result-text"><span id="res-total">258</span> ريال</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال حاسبة الوصول -->
+    <div class="modal-overlay" id="arrivalModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('arrivalModal')">✕</button>
+            <h3 class="modal-title">⏱️ حاسبة وقت الوصول المتوقع</h3>
+            <div class="calc-form">
+                <div class="calc-group">
+                    <label>حدد توقيت الانطلاق:</label>
+                    <input type="datetime-local" id="departure-time" class="calc-input" onchange="calculateArrivalTime()">
+                </div>
+                <div class="calc-result" style="background: rgba(212, 175, 55, 0.1); border-color: var(--gold);">
+                    <div style="font-size: 0.85rem; color: #555;">الوقت المتوقع للوصول (تقريباً)*:</div>
+                    <div class="calc-result-text" id="estimated-arrival" style="font-size: 1.1rem; margin-top: 5px;">--:--</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px; color: #777;">*بناءً على 16 ساعة قيادة واستراحة</div>
                 </div>
             </div>
         </div>
@@ -634,6 +766,32 @@
         </div>
     </div>
 
+    <!-- مودال المسارات والاتجاهات -->
+    <div class="modal-overlay" id="routesModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('routesModal')">✕</button>
+            <h3 class="modal-title">🗺️ خرائط مسارات السفر</h3>
+            
+            <div style="width: 100%; height: 200px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; border: 1px solid #eee;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d14631393.18957422!2d40.94132034999999!3d23.633535999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!3m2!1d25.2854473!2d51.5310398!4m5!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2sMakkah%20Saudi%20Arabia!3m2!1d21.3890824!2d39.8579118" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="route-info-box">
+                <h4>🛣️ طريق 80 السريع (الرئيسي)</h4>
+                <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
+                <p style="font-size: 0.75rem; color: #888;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ومزود بمحطات نموذجية كبرى.</p>
+                <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="route-btn">📍 تتبع في خرائط Google</a>
+            </div>
+
+            <div class="route-info-box" style="margin-bottom: 0;">
+                <h4>🔄 مسار تفافي حول الرياض</h4>
+                <p><strong>خط السير:</strong> الدوحة ← سلوى ← خريص ← طريق الملك سلمان للربط مع طريق الحجاز.</p>
+                <p style="font-size: 0.75rem; color: #888;">يُنصح به لتجنب زحام العاصمة في ساعات النهار الذروة.</p>
+                <a href="https://maps.app.goo.gl/sAEA6GnRGFU48n5U9" target="_blank" class="route-btn" style="background:transparent; border:1px solid var(--gold); color:#b5952f;">📍 تتبع في خرائط Google</a>
+            </div>
+        </div>
+    </div>
+
     <!-- مودال المحطات -->
     <div class="modal-overlay" id="stationsModal">
         <div class="modal-card" style="max-height: 85vh; overflow-y: auto;">
@@ -644,7 +802,7 @@
             <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 20px;">
                 <h4 style="font-size: 0.95rem; color: var(--primary-qatar); margin-bottom: 8px;">⏳ حاسبة المسافة المتبقية</h4>
                 <select id="modalStationSelect" class="calc-input" style="color: black; background: white; margin-bottom: 10px;" onchange="calcModalRemaining()">
-                    <option value="1480">الانطلاق (الدوحة)</option>
+                    <option value="1480">الإنطلاق (الدوحة)</option>
                     <option value="1390">منفذ أبو سمرة</option>
                     <option value="1210">محطة ساسكو خريص</option>
                     <option value="950">بداية الرياض (الدريس)</option>
@@ -716,7 +874,7 @@
 
                 <!-- محطات داخل الرياض (المسار الالتفافي) -->
                 <div class="riyadh-box" style="border-right-color: var(--gold); background: #fdfdf9;">
-                    <div class="riyadh-box-title" style="color: #b5952f;">🔄 محطات الرياض - المسار الالتفافي (الملك سلمان)</div>
+                    <div class="riyadh-box-title" style="color: #b5952f;">🔄 محطات الرياض - المسار الالتفافي</div>
                     <div class="riyadh-station-item">
                         <strong>1. محطة الدريس (الرياض)</strong>
                         <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
@@ -764,30 +922,53 @@
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~20 كم عن أورنج الراية</div>
                     <strong>14. محطة ساسكو - تبرك</strong>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">من المحطات النموذجية الموثوقة بعد مغادرة منطقة الرياض.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">نموذجية وموثوقة بعد مغادرة منطقة الرياض.</p>
                     <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~60 كم عن ساسكو تبرك</div>
                     <strong>15. محطة ساسكو - القويعية</strong>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
                     <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~350 كم عن القويعية</div>
                     <strong>16. محطة نخلة ساسكو</strong>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">محطة نموذجية كبرى على طريق الرياض - مكة توفر جميع الخدمات.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">محطة كبرى على طريق مكة توفر جميع الخدمات.</p>
                     <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px;">
                     <div class="distance-badge-mini" style="background:#eafaf1; color:#1e8449;">تبعد ~300 كم عن ساسكو نخلة</div>
                     <strong>17. محطة ساسكو (السيل الكبير)</strong>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">بالقرب من الميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
                     <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال النصائح والإرشادات -->
+    <div class="modal-overlay" id="tipsModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('tipsModal')">✕</button>
+            <h3 class="modal-title">💡 نصائح السفر وإرشادات السلامة</h3>
+            
+            <div class="tip-item">
+                <h4>😴 الإرهاق والنعاس</h4>
+                <p>لا تكابر أبداً بالقيادة عند شعورك بأدنى نعاس. توقف في أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة لتستعيد نشاطك.</p>
+            </div>
+            
+            <div class="tip-item">
+                <h4>📸 كاميرات الرصد (ساهر)</h4>
+                <p>السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم التزاماً كاملاً بربط حزام الأمان، وتجنب استخدام الجوال نهائياً أثناء القيادة.</p>
+            </div>
+
+            <div class="tip-item" style="margin-bottom:0; border-right-color:#e74c3c;">
+                <h4 style="color:#e74c3c;">🐪 الجمال السائبة</h4>
+                <p>احذر من الجمال السائبة في الليل والصباح الباكر، خاصة بعد القويعية وحتى الطائف. التزم بالسرعة المحددة والإضاءة المناسبة.</p>
             </div>
         </div>
     </div>
@@ -817,20 +998,77 @@
         </div>
     </div>
 
+    <!-- مودال أرقام الطوارئ -->
+    <div class="modal-overlay" id="emergencyModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('emergencyModal')">✕</button>
+            <h3 class="modal-title">📞 أرقام الطوارئ الهامة</h3>
+            
+            <div class="emergency-item qatar">
+                <span>🇶🇦 الطوارئ الموحد (قطر)</span>
+                <strong>999</strong>
+            </div>
+
+            <div class="emergency-item saudi">
+                <span>🇸🇦 أمن الطرق والعمليات الموحدة (السعودية)</span>
+                <strong>911</strong>
+            </div>
+
+            <div class="emergency-item saudi">
+                <span>🇸🇦 الإسعاف / الهلال الأحمر (السعودية)</span>
+                <strong>997</strong>
+            </div>
+
+            <div class="emergency-item saudi" style="border-left-color: #f39c12;">
+                <span>🇸🇦 نجم لإدارة حوادث السير (السعودية)</span>
+                <strong style="color: #d35400;">920000560</strong>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // مزامنة حالة شريط التبويبات السفلي
+        function setActiveTab(tabId) {
+            const tabs = document.querySelectorAll('.nav-link');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            if (tabId) {
+                document.getElementById(tabId).classList.add('active');
+            } else {
+                document.getElementById('nav-home').classList.add('active');
+            }
+        }
+
         // فتح وإغلاق النوافذ المنبثقة
-        function openModal(id) {
+        function openModal(id, tabId) {
+            // إغلاق كل المودالات أولاً
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => modal.classList.remove('open'));
+            
+            // فتح المودال الهدف
             document.getElementById(id).classList.add('open');
+            if (tabId) {
+                setActiveTab(tabId);
+            } else {
+                setActiveTab(null);
+            }
         }
 
         function closeModal(id) {
             document.getElementById(id).classList.remove('open');
+            setActiveTab(null);
+        }
+
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => modal.classList.remove('open'));
+            setActiveTab(null);
         }
 
         // إغلاق المودال عند النقر خارج البطاقة
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.classList.remove('open');
+                setActiveTab(null);
             }
         }
 
@@ -902,6 +1140,21 @@
 
             document.getElementById('res-liters').textContent = liters.toFixed(1);
             document.getElementById('res-total').textContent = Math.round(totalCost);
+        }
+
+        // حساب وقت الوصول المتوقع
+        function calculateArrivalTime() {
+            const depInput = document.getElementById('departure-time').value;
+            const arrDisplay = document.getElementById('estimated-arrival');
+            if (depInput) {
+                const depDate = new Date(depInput);
+                depDate.setHours(depDate.getHours() + 16);
+                
+                const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                arrDisplay.textContent = depDate.toLocaleDateString('ar-QA', options);
+            } else {
+                arrDisplay.textContent = '--:--';
+            }
         }
 
         // حاسبة المسافة المتبقية المباشرة
