@@ -20,6 +20,8 @@
             --border-radius: 12px;
             --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --toggle-bg: rgba(138, 21, 56, 0.08);
+            --toggle-color: #8A1538;
         }
 
         /* الإعدادات القياسية للنزول السلس */
@@ -51,6 +53,8 @@
             --text-muted: #aaaaaa;
             --primary-qatar: #ffffff; /* Titles become white */
             --primary-dark: #ffffff;
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --toggle-color: #ffffff;
         }
         
         body.dark-mode .nav-pills { background: #1e1e1e; }
@@ -171,17 +175,29 @@
 
         /* شريط التنقل (التبويبات) وزر المشاركة */
         .nav-pills {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 20px;
             background: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 100;
+            padding: 15px 20px;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .nav-brand {
+            display: none;
+        }
+
+        .menu-toggle-btn {
+            display: none;
         }
 
         .nav-pills a {
@@ -496,24 +512,103 @@
                 transform: translate(50%, -50%);
                 font-size: 380px;
             }
-            /* ترتيب الأزرار (التبويبات) في الجوال */
+            /* شريط التبويبات في الجوال */
             .nav-pills {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 20px;
+            }
+            
+            .nav-brand {
+                display: flex;
+                align-items: center;
+                font-weight: 700;
+                font-size: 1.1rem;
+                color: var(--primary-qatar);
+            }
+            
+            .menu-toggle-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--toggle-bg);
+                color: var(--toggle-color);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-weight: 700;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .menu-toggle-btn:hover, .menu-toggle-btn.active {
+                background: #8A1538;
+                color: white;
+            }
+            
+            body.dark-mode .menu-toggle-btn:hover, body.dark-mode .menu-toggle-btn.active {
+                background: var(--gold);
+                color: #121212;
+            }
+            
+            /* إخفاء القائمة افتراضياً في الجوال */
+            .nav-items {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: white;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 15px;
+                border-bottom: 3px solid var(--primary-qatar);
+                z-index: 99;
+            }
+            
+            body.dark-mode .nav-items {
+                background: #1e1e1e;
+                border-bottom-color: var(--gold);
+            }
+            
+            /* تفعيل القائمة عند النقر */
+            .nav-items.open {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-                padding: 10px;
                 gap: 8px;
+                animation: fadeInMenu 0.3s ease-out forwards;
             }
-            .nav-pills a {
+
+            @keyframes fadeInMenu {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .nav-items a {
                 max-width: 100%;
                 font-size: 0.9rem;
                 padding: 8px;
             }
+            
             /* جعل زر المشاركة يأخذ العرض كاملاً في الأسفل داخل الشريط */
             .btn-share-nav {
                 grid-column: 1 / -1;
                 max-width: 100%;
                 padding: 12px;
                 font-size: 1rem;
+            }
+
+            /* تنسيق أزرار المظهر والطباعة بالجوال */
+            .nav-items .btn-icon-nav {
+                justify-self: center;
+                margin: 5px 0;
             }
         }
     </style>
@@ -552,23 +647,32 @@
 
     <!-- شريط التنقل السريع (التبويبات متساوية الحجم) وزر المشاركة -->
     <nav class="nav-pills" id="nav-bar">
-        <a href="#routes">🗺️ المسارات</a>
-        <a href="#stations">⛽ المحطات</a>
-        <a href="#checklist">✅ قائمة الفحص</a>
-        <a href="#duaa">🤲 الأدعية</a>
-        <a href="#tips">💡 نصائح مهمة</a>
-        <a href="#emergency">📞 أرقام الطوارئ</a>
-        
-        <!-- أزرار الإجراءات -->
-        <button type="button" class="btn-share-nav" onclick="sharePage()" title="مشاركة الدليل">
-            📤 شارك الصفحة
+        <!-- عنوان وزر تفعيل القائمة للجوال -->
+        <div class="nav-brand">🗺️ التنقل السريع</div>
+        <button type="button" class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleMenu()" title="القائمة">
+            <span class="menu-toggle-text">القائمة</span>
+            <span class="menu-toggle-icon">☰</span>
         </button>
-        <button type="button" class="btn-icon-nav" id="themeToggleBtn" onclick="toggleDarkMode()" style="background: #333; color: #fff;" title="تغيير المظهر">
-            🌙
-        </button>
-        <button type="button" class="btn-icon-nav" onclick="window.print()" title="طباعة">
-            🖨️
-        </button>
+
+        <div class="nav-items" id="navItems">
+            <a href="#routes" onclick="closeMenu()">🗺️ المسارات</a>
+            <a href="#stations" onclick="closeMenu()">⛽ المحطات</a>
+            <a href="#checklist" onclick="closeMenu()">✅ قائمة الفحص</a>
+            <a href="#duaa" onclick="closeMenu()">🤲 الأدعية</a>
+            <a href="#tips" onclick="closeMenu()">💡 نصائح مهمة</a>
+            <a href="#emergency" onclick="closeMenu()">📞 أرقام الطوارئ</a>
+            
+            <!-- أزرار الإجراءات -->
+            <button type="button" class="btn-share-nav" onclick="sharePage(); closeMenu();" title="مشاركة الدليل">
+                📤 شارك الصفحة
+            </button>
+            <button type="button" class="btn-icon-nav" id="themeToggleBtn" onclick="toggleDarkMode()" style="background: #333; color: #fff;" title="تغيير المظهر">
+                🌙
+            </button>
+            <button type="button" class="btn-icon-nav" onclick="window.print()" title="طباعة">
+                🖨️
+            </button>
+        </div>
     </nav>
 
     <div class="container">
@@ -1052,6 +1156,44 @@
             const hours = Math.round((km / 100) * 10) / 10; // Approx 100km/h
             document.getElementById('remTime').innerText = hours;
         }
+
+        // 6. التحكم في القائمة المنسدلة في الجوال
+        function toggleMenu() {
+            const navItems = document.getElementById('navItems');
+            const menuToggleBtn = document.getElementById('menuToggleBtn');
+            const isOpen = navItems.classList.toggle('open');
+            menuToggleBtn.classList.toggle('active', isOpen);
+            
+            const toggleIcon = menuToggleBtn.querySelector('.menu-toggle-icon');
+            const toggleText = menuToggleBtn.querySelector('.menu-toggle-text');
+            if (isOpen) {
+                toggleIcon.textContent = '✕';
+                toggleText.textContent = 'إغلاق';
+            } else {
+                toggleIcon.textContent = '☰';
+                toggleText.textContent = 'القائمة';
+            }
+        }
+
+        function closeMenu() {
+            const navItems = document.getElementById('navItems');
+            const menuToggleBtn = document.getElementById('menuToggleBtn');
+            if (navItems.classList.contains('open')) {
+                navItems.classList.remove('open');
+                menuToggleBtn.classList.remove('active');
+                menuToggleBtn.querySelector('.menu-toggle-icon').textContent = '☰';
+                menuToggleBtn.querySelector('.menu-toggle-text').textContent = 'القائمة';
+            }
+        }
+
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', function(event) {
+            const navBar = document.getElementById('nav-bar');
+            const navItems = document.getElementById('navItems');
+            if (navItems && navItems.classList.contains('open') && !navBar.contains(event.target)) {
+                closeMenu();
+            }
+        });
     </script>
 </body>
 </html>
