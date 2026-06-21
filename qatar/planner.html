@@ -789,12 +789,19 @@
                     <h3>حاسبة الوقود</h3>
                     <button class="action-btn" onclick="openModal('fuelModal', null)">احسب الآن</button>
                 </div>
-                <div class="sub-card" style="grid-column: 1 / -1; min-height: 120px;">
+                <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">⏱️</span>
                     </div>
                     <h3>حاسبة الوصول والوقت</h3>
                     <button class="action-btn" onclick="openModal('arrivalModal', null)">تخطيط الوقت</button>
+                </div>
+                <div class="sub-card">
+                    <div class="card-icon-wrapper">
+                        <span class="card-icon">⏳</span>
+                    </div>
+                    <h3>حاسبة المسافة</h3>
+                    <button class="action-btn" onclick="openModal('remainingModal', null)">احسب المسافة</button>
                 </div>
             </div>
         </div>
@@ -1004,25 +1011,6 @@
             <button class="modal-close" onclick="closeModal('stationsModal')">✕</button>
             <h3 class="modal-title">🏪 محطات الوقود والراحة الموصى بها</h3>
 
-            <!-- حاسبة المسافة المتبقية المباشرة المدمجة -->
-            <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 20px;">
-                <h4 style="font-size: 0.95rem; color: var(--primary-qatar); margin-bottom: 8px;">⏳ حاسبة المسافة المتبقية</h4>
-                <select id="modalStationSelect" class="calc-input" style="color: black; background: white; margin-bottom: 10px;" onchange="calcModalRemaining()">
-                    <option value="1480">الانطلاق (الدوحة)</option>
-                    <option value="1390">منفذ أبو سمرة</option>
-                    <option value="1210">محطة ساسكو خريص</option>
-                    <option value="950">بداية الرياض (الدريس)</option>
-                    <option value="910">نهاية الرياض (فيولكس)</option>
-                    <option value="550">ساسكو القويعية</option>
-                    <option value="200">ساسكو نخلة (طريق مكة)</option>
-                    <option value="70">الميقات (السيل الكبير)</option>
-                </select>
-                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.85rem; color: var(--primary-qatar);">
-                    <div>المسافة المتبقية: <span id="mRemDist">1480</span> كم</div>
-                    <div>الزمن التقريبي: <span id="mRemTime">14.8</span> ساعة قيادة</div>
-                </div>
-            </div>
-
             <!-- قائمة المحطات السبعة عشر بالتفصيل -->
             <div style="display: flex; flex-direction: column; gap: 14px;">
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
@@ -1081,7 +1069,7 @@
                     </div>
                     <div class="riyadh-station-item">
                         <strong>10. محطة فيولكس (آخر الرياض)</strong>
-                        <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">آخر فرصة للتزود بالخدمات داخل النطاق العمراني للعاصمة.</p>
+                        <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">آخر فرصة للتزود بالخدمات داخل النطاق عمران للعاصمة.</p>
                         <a href="https://maps.app.goo.gl/fyzwVFQRsiGUL23q8" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
                     </div>
                 </div>
@@ -1165,6 +1153,32 @@
                     <strong>17. محطة ساسكو (السيل الكبير)</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
                     <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال حاسبة المسافة المتبقية المباشرة -->
+    <div class="modal-overlay" id="remainingModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('remainingModal')">✕</button>
+            <h3 class="modal-title">⏳ حاسبة المسافة المتبقية المباشرة</h3>
+            
+            <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 12px; border: 1px solid var(--gold); margin-bottom: 20px;">
+                <p style="margin-bottom: 12px; font-size: 0.9rem; color: var(--text-dark); text-align: center;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة:</p>
+                <select id="modalStationSelect" class="calc-input" onchange="calcModalRemaining()" style="margin-bottom: 15px;">
+                    <option value="1480">الانطلاق (الدوحة)</option>
+                    <option value="1390">منفذ أبو سمرة</option>
+                    <option value="1210">محطة ساسكو خريص</option>
+                    <option value="950">بداية الرياض (الدريس)</option>
+                    <option value="910">نهاية الرياض (فيولكس)</option>
+                    <option value="550">ساسكو القويعية</option>
+                    <option value="200">ساسكو نخلة (طريق مكة)</option>
+                    <option value="70">الميقات (السيل الكبير)</option>
+                </select>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.85rem; color: var(--primary-qatar);">
+                    <div>المسافة المتبقية: <span id="mRemDist">1480</span> كم</div>
+                    <div>الزمن التقريبي: <span id="mRemTime">14.8</span> ساعة قيادة</div>
                 </div>
             </div>
         </div>

@@ -128,12 +128,6 @@
             color: #e0e0e0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        body.dark-mode .distance-calc select {
-            color: white !important;
-            background: #1e1e1e !important;
-            border-color: rgba(255,255,255,0.15) !important;
-        }
-
         /* Print Mode */
         @media print {
             header, nav, .alert, .btn, .map-container, footer, .distance-calc, .btn-share-nav { display: none !important; }
@@ -151,11 +145,118 @@
         }
 
         .distance-calc {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.08);
             padding: 20px;
-            border-radius: 12px;
+            border-radius: var(--border-radius, 12px);
             border: 1px solid var(--gold);
             margin-bottom: 30px;
+        }
+
+        .calc-select {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            color: var(--text-dark);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            margin-top: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        
+        .calc-select option {
+            background-color: #ffffff;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .calc-select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        body.dark-mode .calc-select option {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        .calc-results {
+            display: flex;
+            gap: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary-qatar);
+            margin-top: 15px;
+        }
+
+        body.dark-mode .calc-results {
+            color: var(--gold);
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-qatar);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 4px solid var(--gold);
+            padding-right: 12px;
+        }
+
+        /* حاسبة الرحلة والتخطيط */
+        .trip-planner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .planner-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .planner-group span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 6px;
+        }
+
+        .planner-group strong {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .planner-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .planner-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
         }
 
         /* الهيدر والبانر الرئيسي */
@@ -694,25 +795,23 @@
             <h1>دليل السفر البري من قطر إلى مكة 2026</h1>
             <p>منصة تفاعلية تجمع مسارات الرحلة، محطات التوقف، أدعية السفر، وقائمة الفحص الذكية قبل الانطلاق لضمان رحلة ميسرة لعمرة مقبولة.</p>
             
-            <div class="header-stats">
-                <div class="stat-box">
+            <div class="trip-planner">
+                <div class="planner-group">
                     <span>الوجهة النهائية</span>
                     <strong>مكة المكرمة 🕋</strong>
                 </div>
-                <div class="stat-box">
+                <div class="planner-group">
                     <span>المسافة التقريبية</span>
                     <strong>1,480 كم</strong>
                 </div>
-                
-                <div class="stat-box">
+                <div class="planner-group">
                     <span>حدد توقيت الانطلاق</span>
-                    <input type="datetime-local" id="departure-time" class="time-input">
+                    <input type="datetime-local" id="departure-time" class="planner-input">
                 </div>
-
-                <div class="stat-box" style="background: rgba(212, 175, 55, 0.3); border-color: var(--gold);">
+                <div class="planner-group">
                     <span>الوقت المتوقع للوصول (تقريباً)*</span>
-                    <strong id="estimated-arrival" style="font-size: 1rem;">--:--</strong>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px;">*بناءً على 16 ساعة قيادة واستراحة</span>
+                    <strong id="estimated-arrival" style="color: var(--gold);">--:--</strong>
+                    <span style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px; color: rgba(255, 255, 255, 0.7);">*بناءً على 16 ساعة قيادة واستراحة</span>
                 </div>
             </div>
         </div>
@@ -778,10 +877,11 @@
         <!-- قسم المحطات -->
         <h2 class="section-title" id="stations">⛽ محطات الوقود والراحة - طريق 80 السريع (المسار الرئيسي)</h2>
         
+        <!-- حاسبة المسافة المتبقية المباشرة -->
+        <div class="section-header">⏳ حاسبة المسافة المتبقية المباشرة</div>
         <div class="distance-calc">
-            <h3 style="margin-bottom: 10px; color: var(--primary-qatar);">⏳ حاسبة المسافة المتبقية المباشرة</h3>
-            <p style="margin-bottom: 10px; font-size: 0.95rem;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة:</p>
-            <select id="stationSelect" class="time-input" style="color: black; background: white; margin-bottom: 15px;" onchange="calcRemaining()">
+            <p style="margin-bottom: 12px; font-size: 0.95rem;">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة المكرمة:</p>
+            <select id="stationSelect" class="calc-select" onchange="calcRemaining()">
                 <option value="1480">الانطلاق (الدوحة)</option>
                 <option value="1390">منفذ أبو سمرة</option>
                 <option value="1210">محطة ساسكو خريص</option>
@@ -791,7 +891,7 @@
                 <option value="200">ساسكو نخلة (طريق مكة)</option>
                 <option value="70">الميقات (السيل الكبير)</option>
             </select>
-            <div style="display: flex; gap: 20px; font-weight: bold; font-size: 1.1rem; color: var(--primary-qatar);">
+            <div class="calc-results">
                 <div>المسافة المتبقية: <span id="remDist">1480</span> كم</div>
                 <div>الوقت المتبقي تقريباً: <span id="remTime">14.8</span> ساعة قيادة</div>
             </div>
