@@ -13,7 +13,7 @@
             --gold: #D4AF37;
             --gold-glow: rgba(212, 175, 55, 0.4);
             --bg-dark: #0A0507; /* خلفية داكنة جداً مع لمسة عنابية */
-            --card-bg: rgba(30, 16, 21, 0.45); /* زجاجي عنابي داكن */
+            --card-bg: rgba(30, 16, 21, 0.55); /* زجاجي عنابي داكن */
             --card-border: rgba(255, 255, 255, 0.05);
             --text-light: #F5EAEF;
             --text-muted: #A9929C;
@@ -310,48 +310,82 @@
             display: inline-block;
         }
 
-        /* محطات الخدمة الكاروسيل */
+        /* حاسبة المسافة المتبقية */
+        .distance-calc {
+            background: rgba(212, 175, 55, 0.08);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .time-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .time-input option {
+            background-color: #120307;
+            color: white;
+        }
+
+        /* شبكة المحطات المفصلة */
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
         .station-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--border-radius);
             padding: 20px;
-            min-width: 250px;
-            flex: 1 0 250px;
-            scroll-snap-align: start;
             backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .station-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
         }
 
         .station-card h4 {
             font-size: 1.1rem;
             color: #fff;
             margin-bottom: 6px;
+            font-weight: 800;
         }
 
         .station-card p {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 16px;
         }
 
-        .station-features {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .feature-tag {
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-light);
-            padding: 4px 8px;
-            border-radius: 6px;
+        .distance-badge-dark {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 15px;
             font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+            align-self: flex-start;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .btn-station-map {
@@ -366,12 +400,79 @@
             text-align: center;
             text-decoration: none;
             transition: all 0.3s;
+            margin-top: auto;
         }
 
         .btn-station-map:hover {
             background: var(--gold);
             color: #120307;
             border-color: var(--gold);
+        }
+
+        /* مجموعات محطات الرياض */
+        .riyadh-group-dark {
+            grid-column: 1 / -1;
+            border: 1px solid rgba(26, 115, 232, 0.25);
+            background: rgba(26, 115, 232, 0.05);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .riyadh-group-dark h3 {
+            color: #5da2ff;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .riyadh-inner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .mini-card-dark {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 4px solid #1a73e8;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mini-card-dark h5 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .mini-card-dark p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.12);
+            color: #5da2ff;
+            border: 1px solid rgba(26, 115, 232, 0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: white;
         }
 
         /* قائمة الفحص الذكية بسحّابات (Switches) */
@@ -417,6 +518,17 @@
             gap: 15px;
         }
 
+        .checklist-section-title {
+            grid-column: 1 / -1;
+            font-size: 1.05rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 6px;
+        }
+
         .switch-item {
             display: flex;
             justify-content: space-between;
@@ -432,8 +544,13 @@
             background: rgba(255, 255, 255, 0.04);
         }
 
+        .switch-item.completed .switch-label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
         .switch-label {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-light);
         }
@@ -444,6 +561,7 @@
             display: inline-block;
             width: 46px;
             height: 24px;
+            flex-shrink: 0;
         }
 
         .switch input {
@@ -482,6 +600,30 @@
             transform: translateX(22px);
         }
 
+        /* أزرار تحديد الكل بقائمة المهام */
+        .checklist-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checklist-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .checklist-btn:hover {
+            background: var(--gold);
+            color: #120307;
+        }
+
         /* النصائح وأدعية السفر */
         .tips-grid {
             display: grid;
@@ -517,7 +659,7 @@
         /* أرقام الطوارئ */
         .emergency-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
             margin-bottom: 50px;
         }
@@ -537,7 +679,7 @@
         }
 
         .emergency-box h4 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 6px;
         }
@@ -571,9 +713,6 @@
 
         /* التجاوب للتصميم */
         @media (max-width: 768px) {
-            .emergency-grid {
-                grid-template-columns: 1fr;
-            }
             .hero-title {
                 font-size: 1.5rem;
             }
@@ -623,78 +762,239 @@
             <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="btn-map-link">🔗 فتح المسار في خرائط Google للتمكين من الملاحة المباشرة</a>
         </div>
 
-        <!-- مسارات السفر الرئيسية -->
+        <!-- خيارات مسارات السفر البري -->
         <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
         <div class="carousel-container">
             <div class="route-card">
-                <h4>طريق 80 السريع (الرئيسي)</h4>
-                <p>الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← مكة.</p>
-                <div class="route-badge">المسافة: 1,480 كم</div>
+                <h4>طريق 80 السريع (المسار الرئيسي)</h4>
+                <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
+                <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
+                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,480 كم</div>
             </div>
             <div class="route-card">
-                <h4>مسار الرياض الالتفافي</h4>
-                <p>سلوى ← طريق خريص ← طريق الملك سلمان للالتفاف حول زحمة وسط الرياض.</p>
-                <div class="route-badge">المسافة: 1,510 كم</div>
-            </div>
-            <div class="route-card">
-                <h4>مسار الطائف المباشر</h4>
-                <p>الدوحة ← سلوى ← الهفوف ← الرياض ← طريق الحجاز ← الطائف (الميقات).</p>
-                <div class="route-badge">المسافة: 1,420 كم</div>
+                <h4>مسار التفافي حول الرياض</h4>
+                <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
+                <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
+                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,510 كم</div>
             </div>
         </div>
 
-        <!-- محطات الوقود والراحة -->
-        <div class="section-header">⛽ محطات الوقود والراحة الموصى بها</div>
-        <div class="carousel-container">
+        <!-- حاسبة المسافة المتبقية المباشرة -->
+        <div class="section-header">⏳ حاسبة المسافة المتبقية المباشرة</div>
+        <div class="distance-calc">
+            <p style="margin-bottom: 12px; font-size: 0.95rem; color: var(--text-light);">اختر المحطة التي تتواجد فيها الآن لمعرفة المسافة والوقت المتبقي للوصول إلى مكة المكرمة:</p>
+            <select id="stationSelect" class="time-input" onchange="calcRemaining()">
+                <option value="1480">الانطلاق (الدوحة)</option>
+                <option value="1390">منفذ أبو سمرة</option>
+                <option value="1210">محطة ساسكو خريص</option>
+                <option value="950">بداية الرياض (الدريس)</option>
+                <option value="910">نهاية الرياض (فيولكس)</option>
+                <option value="550">ساسكو القويعية</option>
+                <option value="200">ساسكو نخلة (طريق مكة)</option>
+                <option value="70">الميقات (السيل الكبير)</option>
+            </select>
+            <div style="display: flex; gap: 30px; font-weight: bold; font-size: 1.1rem; color: var(--gold); margin-top: 15px;">
+                <div>المسافة المتبقية: <span id="remDist">1480</span> كم</div>
+                <div>الوقت المتبقي تقريباً: <span id="remTime">14.8</span> ساعة قيادة</div>
+            </div>
+        </div>
+
+        <!-- محطات الوقود والراحة بالتفصيل -->
+        <div class="section-header">⛽ محطات الوقود والراحة بالتفصيل</div>
+        <div class="stations-grid">
+            
             <div class="station-card">
                 <div>
-                    <h4>محطة أبو سمرة (منفذ قطر)</h4>
-                    <p>آخر نقطة للتزود بالوقود القطري وشراء المستلزمات الأساسية قبل دخول المنفذ.</p>
-                </div>
-                <div class="station-features">
-                    <span class="feature-tag">⛽ وقود</span>
-                    <span class="feature-tag">🏪 تموينات</span>
+                    <div class="distance-badge-dark">يبعد ~90 كم عن نقطة الانطلاق</div>
+                    <h4>1. محطة وقود أبو سمرة</h4>
+                    <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
                 </div>
                 <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
+
             <div class="station-card">
                 <div>
-                    <h4>محطة ساسكو (طريق خريص)</h4>
-                    <p>تقع بعد الهفوف باتجاه الرياض، محطة ممتازة ومتكاملة للراحة وتناول وجبة خفيفة.</p>
-                </div>
-                <div class="station-features">
-                    <span class="feature-tag">⛽ وقود</span>
-                    <span class="feature-tag">🍔 مطاعم</span>
+                    <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
+                    <h4>2. محطة ساسكو / الدريس</h4>
+                    <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
                 </div>
                 <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
+
+            <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
+            <div class="riyadh-group-dark">
+                <h3>🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">تبعد بداية الرياض حوالي ~140 كم عن محطة خريص السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
+                
+                <div class="riyadh-inner-grid">
+                    <div class="mini-card-dark">
+                        <h5>3. الدريس (بداية الرياض)</h5>
+                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.</p>
+                        <div style="display:flex; gap:6px; margin-top:auto;">
+                            <a href="https://maps.app.goo.gl/hoHU5xtpKkq53HC56" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
+                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" class="btn-maps-mini">🗺️ خريطة 2</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mini-card-dark">
+                        <h5>4. محطة ساسكو (الرياض)</h5>
+                        <p>تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.</p>
+                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>5. محطة شل (الرياض)</h5>
+                        <p>تتميز بخدمة سريعة للتزود بالوقود وشراء القهوة والمشروبات الباردة.</p>
+                        <a href="https://maps.app.goo.gl/wRiekfx54WCTQGyd8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>6. الدريس (الرياض)</h5>
+                        <p>يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).</p>
+                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>7. محطة درب (الرياض)</h5>
+                        <p>خيارات جيدة للوجبات السريعة وتموينات الطريق للمسافرين.</p>
+                        <a href="https://maps.app.goo.gl/3p9aSkBCEFQgjuXg6" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>8. محطة جي أويل (الرياض)</h5>
+                        <p>محطة حديثة توفر دورات مياه نظيفة وخدمات مريحة للمسافرين.</p>
+                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>9. الدريس - طويق (آخر الرياض)</h5>
+                        <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
+                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark">
+                        <h5>10. محطة فيولكس (آخر الرياض)</h5>
+                        <p>آخر فرصة للتزود بالخدمات داخل النطاق العمراني للعاصمة.</p>
+                        <a href="https://maps.app.goo.gl/fyzwVFQRsiGUL23q8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إطار محطات الرياض (المسار التفافي) -->
+            <div class="riyadh-group-dark" style="border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
+                <h3 style="color: var(--gold);">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+                
+                <div class="riyadh-inner-grid">
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>1. محطة الدريس (الرياض)</h5>
+                        <p>محطة ممتازة للتزود بالوقود في بداية المسار الالتفافي.</p>
+                        <div style="display:flex; gap:6px; margin-top:auto;">
+                            <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
+                            <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank" class="btn-maps-mini">🗺️ خريطة 2</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>2. محطة الدريس (الرياض)</h5>
+                        <p>محطة بديلة وخدمات أساسية على امتداد الطريق الدائري.</p>
+                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>3. ساسكو المطار (الرياض)</h5>
+                        <p>محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
+                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>4. محطة بترولي (الرياض)</h5>
+                        <p>يتوفر بها مطعم "برغرايزر" للوجبات السريعة وخدمات طريق متكاملة.</p>
+                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>5. محطة جي أويل (الرياض)</h5>
+                        <p>نقطة التقاء ممتازة للراحة وتعبئة الوقود قبل استكمال طريق الحجاز.</p>
+                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="station-card">
                 <div>
-                    <h4>محطة ساسكو نخلة (القويعية)</h4>
-                    <p>من المحطات النموذجية الرائعة التي تحتوي على مرافق نظيفة ومطاعم متنوعة وسوبرماركت نخلة.</p>
+                    <div class="distance-badge-dark">تبعد ~40 كم عن آخر الرياض</div>
+                    <h4>11. محطة بترومين (مطعم البيك)</h4>
+                    <p>أول محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
                 </div>
-                <div class="station-features">
-                    <span class="feature-tag">⛽ وقود</span>
-                    <span class="feature-tag">🏨 استراحة</span>
+                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~25 كم عن بترومين</div>
+                    <h4>12. محطة أورنج - اجزالا</h4>
+                    <p>استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~15 كم عن أورنج اجزالا</div>
+                    <h4>13. محطة أورنج - الراية</h4>
+                    <p>خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~20 كم عن أورنج الراية</div>
+                    <h4>14. محطة ساسكو - تبرك</h4>
+                    <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~60 كم عن ساسكو تبرك</div>
+                    <h4>15. محطة ساسكو - القويعية</h4>
+                    <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
                 </div>
                 <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
+
             <div class="station-card">
                 <div>
-                    <h4>محطة ساسكو (ميقات السيل)</h4>
-                    <p>أفضل محطة ونقطة توقف تقع بالقرب من الميقات للاغتسال وارتداء ملابس الإحرام.</p>
+                    <div class="distance-badge-dark">تبعد ~350 كم عن القويعية</div>
+                    <h4>16. محطة نخلة ساسكو</h4>
+                    <p>محطة كبرى على طريق الرياض - مكة توفر جميع الخدمات والمطاعم المتميزة.</p>
                 </div>
-                <div class="station-features">
-                    <span class="feature-tag">⛽ وقود</span>
-                    <span class="feature-tag">🚿 مغاسل إحرام</span>
+                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark" style="background:rgba(46, 204, 113, 0.1); color:#2ecc71; border-color:rgba(46,204,113,0.2);">تبعد ~300 كم عن ساسكو نخلة</div>
+                    <h4>17. محطة ساسكو (السيل الكبير)</h4>
+                    <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
                 </div>
                 <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
+
         </div>
 
-        <!-- قائمة الفحص الذكية -->
+        <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
         <div class="section-header">✅ قائمة الفحص الذكية قبل السفر</div>
         <div class="checklist-wrapper">
+            
+            <div class="checklist-btn-group">
+                <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
+                <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
+            </div>
+
             <div class="progress-container">
                 <div class="progress-header">
                     <span>مدى جاهزيتك للرحلة</span>
@@ -706,48 +1006,146 @@
             </div>
             
             <div class="checklist-grid">
+                
+                <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
+
                 <div class="switch-item">
-                    <span class="switch-label">جواز السفر صالح (6 أشهر على الأقل)</span>
+                    <span class="switch-label">جوازات السفر صالحة (6 أشهر على الأقل)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">البطاقة الشخصية القطرية (QID)</span>
+                    <span class="switch-label">البطاقة الشخصية القطرية QID</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">تأشيرة الدخول السعودية وتصريح نسك</span>
+                    <span class="switch-label">تأشيرة السعودية</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">فحص ضغط إطارات السيارات والسبير</span>
+                    <span class="switch-label">تصريح العمرة (نسك Nusuk)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">شاحن السيارة للجوال وبطارية إضافية</span>
+                    <span class="switch-label">استمارة السيارة ورخصة القيادة</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">تأمين المركبة البري ساري المفعول</span>
+                    <span class="switch-label">تأمين السيارة (للسعودية)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
+                <div class="switch-item">
+                    <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تحميل خرائط Google Maps</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">دليل العمرة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
+
+                <div class="switch-item">
+                    <span class="switch-label">فحص ضغط الإطارات والسبير</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">فحص زيوت المحرك والفرامل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">فحص مياه الراديتر</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">فحص تكييف السيارة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">صندوق الإسعافات الأولية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">طفاية حريق ومثلث السلامة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مبلغ نقدي (كاش) سعودي</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">شاحن السيارة للجوال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">بطارية شحن إضافية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
             </div>
         </div>
 
@@ -755,13 +1153,15 @@
         <div class="tips-grid">
             <div class="tip-card">
                 <h3>🤲 أدعية وأذكار السفر</h3>
-                <p><strong>عند الركوب والانطلاق:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون."</p>
-                <p><strong>أثناء نزول استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق."</p>
+                <p><strong>دعاء السفر بالكامل:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى..."</p>
+                <p><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق."</p>
+                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.</p>
             </div>
             <div class="tip-card">
                 <h3>💡 نصائح وإرشادات السلامة</h3>
-                <p>🛑 <strong>التعب والنعاس:</strong> يرجى ألا تكابر أبداً بالقيادة عند شعورك بالنعاس، توقف مباشرة بأقرب محطة خدمة وخذ استراحة كافية.</p>
-                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في المسارات الليلية بعد القويعية.</p>
+                <p>😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
+                <p>📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام الأمان وتفادى استخدام الجوال.</p>
+                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
             </div>
         </div>
 
@@ -780,6 +1180,11 @@
                 <h4>الهلال الأحمر (إسعاف)</h4>
                 <div class="emergency-number">997</div>
             </div>
+            <div class="emergency-box saudi" style="border-color: rgba(0, 108, 53, 0.2); background: rgba(0, 108, 53, 0.03);">
+                <h4>نجم للحوادث (السعودية)</h4>
+                <div class="emergency-number" style="font-size: 1.45rem; color: #2ecc71; margin-top: 5px;">920000560</div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">إدارة حوادث السير للمركبات المؤمنة</p>
+            </div>
         </div>
 
         <!-- الفوتر -->
@@ -797,7 +1202,6 @@
             const arrDisplay = document.getElementById('arr-time');
             if (depInput) {
                 const depDate = new Date(depInput);
-                // السفر البري يستغرق حوالي 16 ساعة بالمتوسط شامل التوقفات
                 depDate.setHours(depDate.getHours() + 16);
                 
                 const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -807,16 +1211,67 @@
             }
         }
 
-        // تحديث جاهزية السفر
+        // نظام قائمة المهام بسحّابات (Checklist)
+        const toggles = document.querySelectorAll('.checklist-toggle');
+        const progressBarFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+
         function updateProgress() {
-            const toggles = document.querySelectorAll('.checklist-toggle');
             let checkedCount = 0;
             toggles.forEach(toggle => {
-                if (toggle.checked) checkedCount++;
+                const parent = toggle.closest('.switch-item');
+                if (toggle.checked) {
+                    checkedCount++;
+                    if (parent) parent.classList.add('completed');
+                } else {
+                    if (parent) parent.classList.remove('completed');
+                }
             });
             const percent = Math.round((checkedCount / toggles.length) * 100);
-            document.getElementById('progress-fill').style.width = percent + '%';
-            document.getElementById('progress-percent').textContent = percent + '%';
+            progressBarFill.style.width = percent + '%';
+            progressPercent.textContent = percent + '%';
+            saveChecklistState();
+        }
+
+        toggles.forEach((toggle, index) => {
+            toggle.id = 'check-' + index;
+            toggle.addEventListener('change', updateProgress);
+        });
+
+        function saveChecklistState() {
+            const state = {};
+            toggles.forEach(toggle => { state[toggle.id] = toggle.checked; });
+            localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
+        }
+
+        function loadChecklistState() {
+            const savedState = localStorage.getItem('meccaTripChecklist');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                toggles.forEach(toggle => {
+                    if (state[toggle.id] !== undefined) toggle.checked = state[toggle.id];
+                });
+            }
+            updateProgress();
+        }
+        window.addEventListener('DOMContentLoaded', loadChecklistState);
+
+        document.getElementById('selectAllBtn').addEventListener('click', () => {
+            toggles.forEach(toggle => toggle.checked = true);
+            updateProgress();
+        });
+
+        document.getElementById('deselectAllBtn').addEventListener('click', () => {
+            toggles.forEach(toggle => toggle.checked = false);
+            updateProgress();
+        });
+
+        // حاسبة المسافة المتبقية
+        function calcRemaining() {
+            const km = document.getElementById('stationSelect').value;
+            document.getElementById('remDist').innerText = km;
+            const hours = Math.round((km / 100) * 10) / 10;
+            document.getElementById('remTime').innerText = hours;
         }
     </script>
 </body>
