@@ -724,6 +724,16 @@
             color: #27ae60;
         }
 
+        .app-footer {
+            text-align: center;
+            padding: 24px 0 10px 0;
+            border-top: 1.5px dashed rgba(138, 21, 56, 0.15);
+            margin-top: 30px;
+        }
+        body.dark-mode .app-footer {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
         /* الطباعة والتصميم الداكن */
         @media print {
             .bottom-nav, .quick-actions-bar, .modal-close {
@@ -837,6 +847,13 @@
                 </div>
             </div>
         </div>
+        
+        <!-- الفوتر -->
+        <footer class="app-footer">
+            <p style="font-size: 1rem; font-weight: bold; margin-bottom: 5px; color: var(--text-dark);">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
+            <p style="font-size: 0.95rem; margin-bottom: 12px; color: var(--gold); font-weight: bold;">تذكرونا بدعوة صالحة 🤲</p>
+            <p style="opacity: 0.7; font-size: 0.8rem; color: var(--text-muted);">تم تصميم الصفحة بواسطة معاذ بلال</p>
+        </footer>
 
         <!-- شريط التنقل السفلي المطور (تفاعلي بالكامل كـ SPA) -->
         <nav class="bottom-nav">
