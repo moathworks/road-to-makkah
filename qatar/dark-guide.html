@@ -65,22 +65,28 @@
             color: var(--gold);
         }
 
-        .quick-access-btn {
-            background: linear-gradient(135deg, var(--gold), #b39025);
-            color: #121212;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.85rem;
+        #themeToggleBtn, .quick-access-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px var(--gold-glow);
+            padding: 0;
+            line-height: 1;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .quick-access-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        #themeToggleBtn:hover, .quick-access-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         /* البانر الرئيسي الفاخر */
@@ -712,29 +718,7 @@
             margin-bottom: 10px;
         }
 
-        #themeToggleBtn {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.15rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            padding: 0;
-            line-height: 1;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        #themeToggleBtn:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.15);
-        }
+        /* تم توحيد نمط زر التبديل والمشاركة في الأعلى */
 
         /* التجاوب للتصميم */
         @media (max-width: 768px) {
@@ -750,12 +734,16 @@
             --bg-dark: #F9F7F1;
             --card-bg: #FFFFFF;
             --card-border: rgba(0, 0, 0, 0.08);
-            --text-light: #2A2A2A;
-            --text-muted: #777777;
+            --text-light: #1A1A1A;
+            --text-muted: #505050;
         }
 
         body.light-mode .header-logo {
             color: var(--primary-qatar);
+        }
+
+        body.light-mode .header-logo span {
+            color: var(--primary-qatar) !important;
         }
 
         body.light-mode header {
@@ -763,14 +751,25 @@
         }
 
         body.light-mode #themeToggleBtn {
-            background: #1e1e1e !important;
-            color: #fff !important;
+            background: var(--primary-qatar) !important;
+            color: #ffffff !important;
             border: 1.5px solid var(--primary-qatar) !important;
             box-shadow: 0 2px 10px rgba(138, 21, 56, 0.15);
         }
 
         body.light-mode #themeToggleBtn:hover {
-            background: #2a2a2a !important;
+            background: var(--primary-dark) !important;
+        }
+
+        body.light-mode .quick-access-btn {
+            background: #ffffff !important;
+            color: var(--primary-qatar) !important;
+            border: 1.5px solid var(--primary-qatar) !important;
+            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.1);
+        }
+
+        body.light-mode .quick-access-btn:hover {
+            background: rgba(138, 21, 56, 0.05) !important;
         }
 
         body.light-mode .hero-section {
@@ -785,6 +784,26 @@
 
         body.light-mode .hero-subtitle {
             color: rgba(255, 255, 255, 0.85);
+        }
+
+        body.light-mode .hero-section .planner-group span {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        body.light-mode .hero-section .planner-group strong {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #currentLocationName {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remDist {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remTime {
+            color: rgba(255, 255, 255, 0.85) !important;
         }
 
         body.light-mode .section-header {
@@ -807,6 +826,151 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
         }
 
+        body.light-mode .route-card p strong,
+        body.light-mode .station-card p strong,
+        body.light-mode .mini-card-dark p strong {
+            color: var(--text-light) !important;
+        }
+
+        body.light-mode .route-badge {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark[style*="color:#2ecc71"],
+        body.light-mode .station-card [style*="color:#2ecc71"] {
+            color: #1b5e20 !important;
+            background: rgba(27, 94, 32, 0.06) !important;
+            border-color: rgba(27, 94, 32, 0.2) !important;
+        }
+
+        body.light-mode .btn-station-map {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border: 1px solid rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .btn-station-map:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .btn-map-link {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .btn-map-link:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .riyadh-group-dark {
+            background: rgba(26, 115, 232, 0.04);
+            border-color: rgba(26, 115, 232, 0.2);
+        }
+
+        body.light-mode .riyadh-group-dark h3 {
+            color: #0b57d0;
+        }
+
+        body.light-mode .riyadh-group-dark p {
+            color: #444746;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] {
+            background: rgba(138, 21, 56, 0.03) !important;
+            border-color: rgba(138, 21, 56, 0.2) !important;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] h3 {
+            color: var(--primary-qatar) !important;
+        }
+
+        body.light-mode .mini-card-dark {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .mini-card-dark h5 {
+            color: #1a1c1e;
+        }
+
+        body.light-mode .mini-card-dark p {
+            color: #5f6368;
+        }
+
+        body.light-mode .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.06);
+            color: #1a73e8;
+            border-color: rgba(26, 115, 232, 0.15);
+        }
+
+        body.light-mode .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: #ffffff;
+        }
+
+        body.light-mode .checklist-btn {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .checklist-btn:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+        }
+
+        body.light-mode .progress-bar-bg {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .progress-bar-fill {
+            background: linear-gradient(90deg, var(--primary-qatar), #c02d53);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode input:checked + .slider {
+            background-color: var(--primary-qatar);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode .checklist-section-title {
+            color: var(--primary-qatar);
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .emergency-box.qatar {
+            background: rgba(192, 57, 43, 0.04);
+            border-color: rgba(192, 57, 43, 0.15);
+        }
+
+        body.light-mode .emergency-box.saudi {
+            background: rgba(27, 94, 32, 0.04);
+            border-color: rgba(27, 94, 32, 0.15);
+        }
+
+        body.light-mode .emergency-box[style*="background"] {
+            background: rgba(27, 94, 32, 0.04) !important;
+            border-color: rgba(27, 94, 32, 0.15) !important;
+        }
+
+        body.light-mode .emergency-box[style*="background"] .emergency-number {
+            color: #1b5e20 !important;
+        }
+
         body.light-mode .emergency-box h4 {
             color: var(--text-muted);
         }
@@ -816,11 +980,11 @@
         }
 
         body.light-mode .emergency-box.qatar .emergency-number {
-            color: #e74c3c;
+            color: #c0392b;
         }
 
         body.light-mode .emergency-box.saudi .emergency-number {
-            color: #2ecc71;
+            color: #1b5e20;
         }
 
         body.light-mode .switch-item {
@@ -833,13 +997,26 @@
         }
 
         body.light-mode footer {
-            background: rgba(0, 0, 0, 0.02);
-            border-top-color: rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+            border: 1px solid rgba(138, 21, 56, 0.12);
+            border-radius: var(--border-radius);
+            padding: 25px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            margin-top: 40px;
             color: var(--text-muted);
         }
 
         body.light-mode footer p {
-            color: var(--primary-dark);
+            color: var(--primary-dark) !important;
+        }
+
+        body.light-mode footer p:nth-child(2) {
+            color: var(--primary-qatar) !important;
+        }
+
+        body.light-mode footer p:last-child {
+            color: var(--text-muted) !important;
+            opacity: 0.95 !important;
         }
     </style>
 </head>
@@ -856,7 +1033,7 @@
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
                     ☀️
                 </button>
-                <button class="quick-access-btn" onclick="sharePage()">📤 مشاركة الدليل</button>
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">📤</button>
             </div>
         </header>
 
