@@ -892,6 +892,7 @@
                     <option value="200">ساسكو نخلة (طريق مكة)</option>
                     <option value="70">الميقات (السيل الكبير)</option>
                 </select>
+                <a href="#" id="autoDetectLink" onclick="autoDetectLocation(event)" style="font-size: 0.75rem; color: var(--gold); text-decoration: none; margin-top: 5px; display: inline-flex; align-items: center; gap: 3px;">📍 تحديد تلقائي للموقع</a>
             </div>
             <div class="planner-group">
                 <span>المسافة المتبقية</span>
@@ -1330,6 +1331,59 @@
             updateThemeBtn(true);
         } else {
             updateThemeBtn(false);
+        }
+
+        // محطات الرحلة للتحديد الجغرافي التلقائي
+        const STATIONS = [
+            { id: '1480', name: 'الانطلاق (الدوحة)', lat: 25.2854, lon: 51.5310 },
+            { id: '1390', name: 'منفذ أبو سمرة', lat: 24.7441, lon: 50.8354 },
+            { id: '1210', name: 'محطة ساسكو خريص', lat: 25.1278, lon: 48.1633 },
+            { id: '950', name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
+            { id: '910', name: 'نهاية الرياض (فيولكس)', lat: 24.5122, lon: 46.5022 },
+            { id: '550', name: 'ساسكو القويعية', lat: 24.0489, lon: 45.2494 },
+            { id: '200', name: 'ساسكو نخلة (طريق مكة)', lat: 21.9056, lon: 41.2222 },
+            { id: '70', name: 'الميقات (السيل الكبير)', lat: 21.6267, lon: 40.4267 }
+        ];
+
+        function autoDetectLocation(e) {
+            if (e) e.preventDefault();
+            if (!navigator.geolocation) {
+                alert('تحديد الموقع الجغرافي غير مدعوم في متصفحك.');
+                return;
+            }
+
+            const detectLink = document.getElementById('autoDetectLink');
+            if (detectLink) detectLink.innerText = '📍 جاري تحديد الموقع...';
+
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+
+                let closestStation = STATIONS[0];
+                let minDistance = Infinity;
+
+                STATIONS.forEach(station => {
+                    const dLat = userLat - station.lat;
+                    const dLon = userLon - station.lon;
+                    const dist = Math.sqrt(dLat * dLat + dLon * dLon);
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        closestStation = station;
+                    }
+                });
+
+                const selectElement = document.getElementById('stationSelect');
+                if (selectElement) {
+                    selectElement.value = closestStation.id;
+                    calcRemaining();
+                    alert('📍 تم تحديد موقعك التلقائي: الأقرب هو ' + closestStation.name);
+                }
+
+                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+            }, function(error) {
+                alert('فشل تحديد الموقع. يرجى التأكد من تفعيل صلاحية الوصول للموقع في جهازك.');
+                if (detectLink) detectLink.innerText = '📍 تحديد تلقائي للموقع';
+            });
         }
 
         // 5. حاسبة المسافة المتبقية
