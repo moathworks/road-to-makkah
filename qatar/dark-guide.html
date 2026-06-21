@@ -718,6 +718,100 @@
                 font-size: 1.5rem;
             }
         }
+
+        /* خيارات الثيم النهاري (Light Mode) لـ dark-guide */
+        body.light-mode {
+            --primary-qatar: #8A1538;
+            --primary-dark: #5A0E25;
+            --bg-dark: #F9F7F1;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-light: #2A2A2A;
+            --text-muted: #777777;
+        }
+
+        body.light-mode .header-logo {
+            color: var(--primary-qatar);
+        }
+
+        body.light-mode header {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode #themeToggleBtn {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .hero-section {
+            background: linear-gradient(135deg, #5A0E25, #8A1538);
+            border-color: rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .hero-title {
+            color: #fff;
+        }
+
+        body.light-mode .hero-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        body.light-mode .section-header {
+            color: var(--primary-qatar);
+            border-right-color: var(--gold);
+        }
+
+        body.light-mode .route-card h4,
+        body.light-mode .station-card h4,
+        body.light-mode .tip-card h3 {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .route-card,
+        body.light-mode .station-card,
+        body.light-mode .tip-card,
+        body.light-mode .checklist-wrapper,
+        body.light-mode .emergency-box,
+        body.light-mode .map-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .emergency-box h4 {
+            color: var(--text-muted);
+        }
+
+        body.light-mode .emergency-number {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .emergency-box.qatar .emergency-number {
+            color: #e74c3c;
+        }
+
+        body.light-mode .emergency-box.saudi .emergency-number {
+            color: #2ecc71;
+        }
+
+        body.light-mode .switch-item {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.03);
+        }
+
+        body.light-mode .slider {
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+
+        body.light-mode footer {
+            background: rgba(0, 0, 0, 0.02);
+            border-top-color: rgba(0, 0, 0, 0.08);
+            color: var(--text-muted);
+        }
+
+        body.light-mode footer p {
+            color: var(--primary-dark);
+        }
     </style>
 </head>
 <body>
@@ -729,7 +823,12 @@
             <div class="header-logo">
                 🕋 دليل <span>قطر ← مكة</span> 2026
             </div>
-            <button class="quick-access-btn" onclick="sharePage()">📤 مشاركة الدليل</button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" id="themeToggleBtn" onclick="toggleTheme()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15); width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;" title="تغيير المظهر">
+                    ☀️
+                </button>
+                <button class="quick-access-btn" onclick="sharePage()">📤 مشاركة الدليل</button>
+            </div>
         </header>
 
         <!-- البانر الرئيسي الفاخر -->
@@ -1260,9 +1359,38 @@
             }
             updateProgress();
         }
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
+            updateThemeBtn(isLight);
+        }
+        
+        function updateThemeBtn(isLight) {
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                if (isLight) {
+                    btn.innerHTML = '🌙';
+                    btn.title = 'تفعيل المظهر الداكن';
+                } else {
+                    btn.innerHTML = '☀️';
+                    btn.title = 'تفعيل المظهر النهاري';
+                }
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
             initGeolocation();
+            
+            // استعادة المظهر المفضل
+            const savedTheme = localStorage.getItem('darkGuideTheme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                updateThemeBtn(true);
+            } else {
+                updateThemeBtn(false);
+            }
         });
 
         document.getElementById('selectAllBtn').addEventListener('click', () => {
