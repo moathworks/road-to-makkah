@@ -1018,11 +1018,208 @@
             color: rgba(255, 255, 255, 0.7) !important;
             opacity: 0.95 !important;
         }
+
+        /* تنسيق خاص بالطباعة لمسار الرحلة */
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            /* إخفاء العناصر التفاعلية وغير الضرورية عند الطباعة */
+            header,
+            .hero-section,
+            .map-wrapper,
+            .checklist-wrapper,
+            .tips-grid,
+            .emergency-grid,
+            footer,
+            .btn-station-map,
+            .btn-maps-mini,
+            .checklist-btn-group,
+            #themeToggleBtn,
+            .quick-access-btn {
+                display: none !important;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* هيدر الطباعة */
+            .print-only {
+                display: block !important;
+            }
+            
+            .print-header {
+                text-align: center;
+                margin-bottom: 25px;
+                border-bottom: 2px solid #8A1538;
+                padding-bottom: 10px;
+            }
+            
+            .print-header h2 {
+                color: #8A1538 !important;
+                font-size: 1.6rem;
+                margin-bottom: 5px;
+            }
+            
+            .print-header p {
+                color: #555 !important;
+                font-size: 0.95rem;
+            }
+            
+            /* تنسيق قسم العناوين */
+            .section-header {
+                color: #8A1538 !important;
+                border-right: 4px solid #8A1538 !important;
+                font-size: 1.3rem !important;
+                margin-top: 30px !important;
+                margin-bottom: 20px !important;
+                padding-right: 12px !important;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+            
+            /* تحويل الكاروسيل إلى عرض متتالي للطباعة */
+            .carousel-container {
+                display: block !important;
+                overflow: visible !important;
+                padding: 0 !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .route-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .route-card h4 {
+                color: #8A1538 !important;
+                margin-top: 0 !important;
+                font-size: 1.1rem !important;
+            }
+            
+            .route-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
+            }
+            
+            .route-badge {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border-color: #ccc !important;
+                margin-top: 8px !important;
+            }
+            
+            /* تنسيق شبكة المحطات للتتالي الطباعي */
+            .stations-grid {
+                display: block !important;
+            }
+            
+            .station-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .station-card h4 {
+                color: #8A1538 !important;
+                font-size: 1.1rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .station-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
+            }
+            
+            .distance-badge-dark {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* تنسيق مجموعات محطات الرياض */
+            .riyadh-group-dark {
+                background: #f9f9f9 !important;
+                border: 1px solid #ccc !important;
+                color: #333 !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                margin-bottom: 15px !important;
+                page-break-inside: auto;
+            }
+            
+            .riyadh-group-dark h3 {
+                color: #8A1538 !important;
+                font-size: 1.2rem !important;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
+                page-break-after: avoid;
+            }
+            
+            .riyadh-group-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .riyadh-inner-grid {
+                display: block !important;
+                margin-top: 15px !important;
+            }
+            
+            .mini-card-dark {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                border-right: 4px solid #8A1538 !important;
+                color: #333 !important;
+                padding: 10px !important;
+                margin-bottom: 10px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .mini-card-dark h5 {
+                color: #000 !important;
+                font-size: 0.95rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .mini-card-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
+
+        <!-- هيدر خاص للطباعة فقط -->
+        <div class="print-only print-header">
+            <h2>مسار الرحلة البرية من قطر إلى مكة المكرمة 🕋</h2>
+            <p>دليل رقمي لتخطيط مسارات السفر البري ومحطات الوقود والراحة 2026</p>
+        </div>
 
         <!-- الهيدر -->
         <header>
@@ -1032,6 +1229,13 @@
             <div style="display: flex; gap: 10px; align-items: center;">
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
                     ☀️
+                </button>
+                <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -1799,6 +2003,11 @@
 
             const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
             document.getElementById('remArrival').innerText = now.toLocaleDateString('ar-QA', options);
+        }
+
+        // طباعة مسار الرحلة
+        function printRoute() {
+            window.print();
         }
 
         // مشاركة الصفحة
