@@ -3,31 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل السفر البري | قطر إلى مكة</title>
-    <!-- استدعاء خط التجوّل من جوجل للحصول على تصميم عصري -->
+    <title>دليل السفر البري من قطر إلى مكة 2026 | النسخة الفاخرة</title>
+    <!-- خط تجوال للحصول على مظهر ممتاز -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    
     <style>
-        /* الألوان والمتغيرات الأساسية */
         :root {
-            --primary-qatar: #8A1538; /* عنابي قطر */
-            --primary-dark: #5A0E25;
+            --primary-qatar: #ffffff; /* تم استبدال اللون العنابي بالأبيض للوضوح في المظهر الداكن كـ planner */
+            --primary-dark: #1e1e1e;
             --gold: #D4AF37;
-            --bg-light: #F9F7F1;
-            --card-bg: #FFFFFF;
-            --text-dark: #2A2A2A;
-            --text-muted: #777777;
-            --border-radius: 12px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
-            --toggle-bg: rgba(138, 21, 56, 0.08);
-            --toggle-color: #8A1538;
-        }
-
-        /* الإعدادات القياسية للنزول السلس */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 85px; /* مقاس قياسي لتعويض ارتفاع شريط التبويبات فقط */
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --bg-dark: #121212; /* نفس خلفية planner الداكنة */
+            --card-bg: #1e1e1e; /* نفس كروت planner الداكنة */
+            --card-border: rgba(255, 255, 255, 0.05);
+            --text-light: #e0e0e0; /* نفس نصوص planner الواضحة */
+            --text-muted: #aaaaaa;
+            --border-radius: 16px;
         }
 
         * {
@@ -35,178 +25,110 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.3s, color 0.3s;
+            padding-bottom: 50px;
         }
 
-        /* Dark Mode variables */
-        body.dark-mode {
-            --bg-light: #121212;
-            --card-bg: #1e1e1e;
-            --text-dark: #e0e0e0;
-            --text-muted: #aaaaaa;
-            --primary-qatar: #ffffff; /* Titles become white */
-            --primary-dark: #ffffff;
-            --toggle-bg: rgba(255, 255, 255, 0.1);
-            --toggle-color: #ffffff;
-        }
-        
-        body.dark-mode header {
-            background: linear-gradient(135deg, #1e1e1e, #121212);
-            border-bottom: 5px solid var(--gold);
-        }
-        
-        body.dark-mode .nav-pills {
-            background: #1e1e1e;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        body.dark-mode .nav-pills a {
-            background: rgba(255, 255, 255, 0.05);
-            color: #e0e0e0;
-        }
-        body.dark-mode .nav-pills a:hover {
-            background: var(--gold);
-            color: #121212;
-        }
-        body.dark-mode .nav-brand {
-            color: var(--gold);
-        }
-        body.dark-mode .menu-toggle-btn {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
-        body.dark-mode .nav-items {
-            border-bottom-color: var(--gold);
-        }
-        body.dark-mode .checklist-container, 
-        body.dark-mode .mini-card, 
-        body.dark-mode .riyadh-group {
-            background: #1e1e1e;
-            color: #e0e0e0;
-        }
-        body.dark-mode .mini-card p {
-            color: var(--text-muted);
-        }
-        body.dark-mode .distance-badge {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold);
-            border-color: rgba(212, 175, 55, 0.25);
-        }
-        body.dark-mode .alert {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
-            border-right-color: var(--gold);
-        }
-        body.dark-mode .progress-bar-container {
-            background-color: #333;
-        }
-        body.dark-mode .btn-maps {
-            background: rgba(26, 115, 232, 0.15);
-            color: #5da2ff;
-            border-color: #5da2ff;
-        }
-        body.dark-mode .btn-maps:hover {
-            background: #1a73e8;
-            color: white;
-        }
-        body.dark-mode .btn-najm {
-            border-color: #2ecc71;
-            color: #2ecc71;
-        }
-        body.dark-mode .btn-najm:hover {
-            background: #2ecc71;
-            color: #121212;
-        }
-        body.dark-mode footer {
-            background: #1e1e1e;
-            color: #e0e0e0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        /* Print Mode */
-        @media print {
-            header, nav, .alert, .btn, .map-container, footer, .distance-calc, .btn-share-nav { display: none !important; }
-            body { background: white; color: black; }
-            .card, .checklist-container { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
-        }
-        
-        .map-container {
-            width: 100%;
-            height: 350px;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 2px solid rgba(0,0,0,0.1);
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 16px;
         }
 
-        .distance-calc {
-            background: rgba(212, 175, 55, 0.08);
-            padding: 20px;
-            border-radius: var(--border-radius, 12px);
-            border: 1px solid var(--gold);
-            margin-bottom: 30px;
-        }
-
-        .calc-select {
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            color: var(--text-dark);
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            width: 100%;
-            margin-top: 5px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-        }
-        
-        .calc-select option {
-            background-color: #ffffff;
-            color: var(--text-dark);
-        }
-
-        body.dark-mode .calc-select {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-        }
-
-        body.dark-mode .calc-select option {
-            background-color: #1e1e1e;
-            color: white;
-        }
-
-        .calc-results {
+        /* الهيدر وشريط التنقل العلوي */
+        header {
             display: flex;
-            gap: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--primary-qatar);
-            margin-top: 15px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        body.dark-mode .calc-results {
-            color: var(--gold);
-        }
-
-        .section-header {
+        .header-logo {
             font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--primary-qatar);
-            margin-top: 30px;
-            margin-bottom: 20px;
+            font-weight: 900;
+            color: #fff;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-right: 4px solid var(--gold);
-            padding-right: 12px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+        }
+
+        .header-logo span {
+            color: var(--gold);
+        }
+
+        #themeToggleBtn, .quick-access-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            padding: 0;
+            line-height: 1;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #themeToggleBtn:hover, .quick-access-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* البانر الرئيسي الفاخر */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark), #121212);
+            border-radius: var(--border-radius);
+            padding: 30px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* تأثير الطريق في البانر */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0; right: 0;
+            height: 120px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* حاسبة الرحلة والتخطيط */
@@ -218,9 +140,7 @@
             padding: 20px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 30px;
             margin-bottom: 15px;
-            text-align: center;
         }
 
         .planner-group {
@@ -233,7 +153,7 @@
 
         .planner-group span {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
             margin-bottom: 6px;
         }
 
@@ -252,993 +172,1711 @@
             text-align: center;
             width: 100%;
             cursor: pointer;
-            font-family: inherit;
         }
 
         .planner-input::-webkit-calendar-picker-indicator {
             filter: invert(1);
         }
 
-        /* الهيدر والبانر الرئيسي */
-        header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-qatar));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--gold);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* الكعبة في الخلفية */
-        header::before {
-            content: "🕋";
-            position: absolute;
-            font-size: 450px; 
-            opacity: 0.25; 
-            top: 50%;
-            right: 5%;
-            transform: translateY(-50%);
-            z-index: 1;
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        .header-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2; 
-        }
-
-        h1 {
-            font-size: 2.2rem;
+        .btn-launch {
+            background: var(--gold);
+            color: #121212;
             font-weight: 900;
-            margin-bottom: 15px;
-        }
-
-        .header-stats {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            min-width: 150px;
-            flex: 1 1 150px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-box span {
-            display: block;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .stat-box strong {
-            font-size: 1.2rem;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .time-input {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            padding: 8px 12px;
+            border: none;
+            padding: 10px 24px;
             border-radius: 8px;
-            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
             font-size: 1rem;
-            outline: none;
-            cursor: pointer;
+        }
+
+        .btn-launch:hover {
+            background: #b39025;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* الخريطة */
+        .map-wrapper {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .map-container {
             width: 100%;
-            margin-top: 5px;
+            height: 320px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
         }
 
-        .time-input::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-        }
-
-        /* شريط التنقل (التبويبات) وزر المشاركة */
-        .nav-pills {
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 15px 20px;
-        }
-
-        .nav-items {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-
-        .nav-brand {
-            display: none;
-        }
-
-        .menu-toggle-btn {
-            display: none;
-        }
-
-        .nav-pills a {
+        .btn-map-link {
+            display: block;
+            text-align: center;
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
             text-decoration: none;
-            color: var(--primary-qatar);
-            background: rgba(138, 21, 56, 0.08);
             padding: 10px;
-            border-radius: 25px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 0.95rem;
+            border: 1px solid rgba(212, 175, 55, 0.25);
             transition: all 0.3s;
-            text-align: center;
-            flex: 1 1 120px; 
-            max-width: 160px;
         }
 
-        .nav-pills a:hover {
-            background: var(--primary-qatar);
-            color: white;
+        .btn-map-link:hover {
+            background: var(--gold);
+            color: #121212;
         }
 
-        /* زر المشاركة المدمج مع التبويبات */
-        .btn-share-nav {
-            background-color: var(--gold);
-            color: var(--text-dark);
-            border: none;
-            padding: 10px;
-            border-radius: 25px;
+        /* العناوين والأقسام */
+        .section-header {
+            font-size: 1.3rem;
             font-weight: 800;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            flex: 1 1 120px;
-            max-width: 160px;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .btn-share-nav:hover {
-            background-color: #c4a133;
-            transform: translateY(-2px);
-        }
-
-        .btn-icon-nav {
-            background-color: #eee;
-            color: #333;
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .btn-icon-nav:hover {
-            transform: scale(1.1);
-        }
-
-        /* الحاوية الرئيسية */
-        .container {
-            max-width: 1100px;
-            margin: 20px auto 40px auto;
-            padding: 0 15px;
-        }
-
-        .section-title {
-            font-size: 1.6rem;
-            color: var(--primary-qatar);
+            color: #fff;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid rgba(138, 21, 56, 0.1);
-            padding-bottom: 10px;
+            gap: 8px;
+            border-right: 4px solid var(--gold);
+            padding-right: 12px;
         }
 
-        /* شبكة الكروت (Cards Grid) */
-        .grid {
+        /* كروت المسارات التفاعلية */
+        .carousel-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 5px 5px 15px 5px;
+            margin-bottom: 35px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-qatar) rgba(255,255,255,0.05);
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .carousel-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+        }
+
+        .carousel-container::-webkit-scrollbar-thumb {
+            background: var(--primary-qatar);
+            border-radius: 10px;
+        }
+
+        .route-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            min-width: 280px;
+            flex: 1 0 280px;
+            scroll-snap-align: start;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .route-card h4 {
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .route-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .route-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
+            display: inline-block;
+        }
+
+        /* حاسبة المسافة المتبقية */
+        .distance-calc {
+            background: rgba(212, 175, 55, 0.08);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .time-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .time-input option {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        /* شبكة المحطات المفصلة */
+        .stations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
         }
 
-        .card {
+        .station-card {
             background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: var(--border-radius);
             padding: 20px;
-            box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary-qatar);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
         }
 
-        .card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .station-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
         }
 
-        .card p {
+        .station-card h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .station-card p {
+            font-size: 0.85rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            flex-grow: 1;
+            margin-bottom: 16px;
         }
 
-        .distance-badge {
-            background: #fdf3d8;
-            color: #856404;
-            padding: 5px 12px;
+        .distance-badge-dark {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            padding: 4px 12px;
             border-radius: 15px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
             display: inline-block;
             margin-bottom: 12px;
             align-self: flex-start;
-            border: 1px solid #ffeeba;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* الأزرار */
-        .btn {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--text-dark);
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+        .btn-station-map {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: none;
             cursor: pointer;
             text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
             margin-top: auto;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: #b5952f;
+        .btn-station-map:hover {
+            background: var(--gold);
+            color: #121212;
+            border-color: var(--gold);
         }
 
-        .btn-maps {
-            background: #e8f0fe;
-            color: #1a73e8;
-            border: 1px solid #1a73e8;
-            font-size: 0.85rem;
-            padding: 6px 12px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        .btn-maps:hover {
-            background: #1a73e8;
-            color: white;
-        }
-
-        .btn-najm {
-            background: transparent;
-            border: 1px solid #006C35;
-            color: #006C35;
-        }
-
-        .btn-najm:hover {
-            background: #006C35;
-            color: white;
-        }
-
-        /* إطار محطات الرياض (Group Box) */
-        .riyadh-group {
-            grid-column: 1 / -1; 
-            border-top-color: #1a73e8; 
-            background: #f4f9ff;
+        /* مجموعات محطات الرياض */
+        .riyadh-group-dark {
+            grid-column: 1 / -1;
+            border: 1px solid rgba(26, 115, 232, 0.25);
+            background: rgba(26, 115, 232, 0.05);
             border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.02), var(--shadow);
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        
+
+        .riyadh-group-dark h3 {
+            color: #5da2ff;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
         .riyadh-inner-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
 
-        .mini-card {
-            background: white;
+        .mini-card-dark {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             border-right: 4px solid #1a73e8;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        .mini-card h4 {
-            font-size: 1rem;
-            margin-bottom: 5px;
-            color: var(--primary-dark);
+        .mini-card-dark h5 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 6px;
+            font-weight: 700;
         }
 
-        .mini-card p {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 15px;
-            flex-grow: 1;
+        .mini-card-dark p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
-        /* قائمة المهام (Checklist) */
-        .checklist-container {
-            background: white;
+        .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.12);
+            color: #5da2ff;
+            border: 1px solid rgba(26, 115, 232, 0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* قائمة الفحص الذكية بسحّابات (Switches) */
+        .checklist-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            margin-bottom: 50px;
+            padding: 24px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.06);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--gold), #ffe596);
+            width: 0%;
+            height: 100%;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .checklist-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
         }
 
-        .check-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .check-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--primary-qatar);
-            cursor: pointer;
-        }
-
-        .check-item.completed {
-            text-decoration: line-through;
-            color: #aaa;
-        }
-
-        .alert {
-            background: #FFF3CD;
-            color: #856404;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            border-right: 5px solid #FFEBA8;
-            font-size: 0.9rem;
+        .checklist-section-title {
+            grid-column: 1 / -1;
+            font-size: 1.05rem;
+            color: var(--gold);
             font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 6px;
         }
 
-        .progress-bar-container {
-            width: 100%;
-            background-color: #eee;
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
             border-radius: 10px;
-            height: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.3s;
         }
-        
-        .progress-bar {
-            height: 100%;
+
+        .switch-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .switch-item.completed .switch-label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .switch-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        /* سويتش الـ iOS الأنيق */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            right: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
             background-color: var(--gold);
-            width: 0%;
-            transition: width 0.4s ease;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
         }
-        
-        .progress-text {
-            font-size: 1.2rem;
-            color: var(--primary-dark);
+
+        input:checked + .slider:before {
+            transform: translateX(-22px);
+        }
+
+        /* أزرار تحديد الكل بقائمة المهام */
+        .checklist-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checklist-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .checklist-btn:hover {
+            background: var(--gold);
+            color: #121212;
+        }
+
+        /* النصائح وأدعية السفر */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-card h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .tip-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        /* أرقام الطوارئ */
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .emergency-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .emergency-box.saudi {
+            border-color: rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.03);
+        }
+
+        .emergency-box.qatar {
+            border-color: rgba(138, 21, 56, 0.25);
+            background: rgba(138, 21, 56, 0.04);
+        }
+
+        .emergency-box h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .emergency-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .saudi .emergency-number {
+            color: #2ecc71;
+        }
+
+        .qatar .emergency-number {
+            color: var(--gold);
         }
 
         /* الفوتر */
         footer {
             text-align: center;
-            padding: 40px 20px;
-            background: var(--primary-dark);
-            color: white;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
-        /* استعلامات الوسائط (Mobile-First / Responsive) */
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* تم توحيد نمط زر التبديل والمشاركة في الأعلى */
+
+        /* التجاوب للتصميم */
         @media (max-width: 768px) {
-            header {
-                padding: 30px 15px;
+            .hero-title {
+                font-size: 1.5rem;
             }
-            h1 {
-                font-size: 1.8rem;
-            }
-            /* توسيط الكعبة في الجوال */
-            header::before {
-                right: 50%;
-                transform: translate(50%, -50%);
-                font-size: 380px;
-            }
-            /* شريط التبويبات في الجوال */
-            .nav-pills {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px 20px;
+        }
+
+        /* خيارات الثيم النهاري (Light Mode) لـ dark-guide */
+        body.light-mode {
+            --primary-qatar: #8A1538;
+            --primary-dark: #5A0E25;
+            --bg-dark: #F9F7F1;
+            --card-bg: #FFFFFF;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-light: #1A1A1A;
+            --text-muted: #505050;
+        }
+
+        body.light-mode .header-logo {
+            color: var(--primary-qatar);
+        }
+
+        body.light-mode .header-logo span {
+            color: var(--primary-qatar) !important;
+        }
+
+        body.light-mode header {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode #themeToggleBtn {
+            background: var(--primary-qatar) !important;
+            color: #ffffff !important;
+            border: 1.5px solid var(--primary-qatar) !important;
+            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode #themeToggleBtn:hover {
+            background: var(--primary-dark) !important;
+        }
+
+        body.light-mode .quick-access-btn {
+            background: #ffffff !important;
+            color: var(--primary-qatar) !important;
+            border: 1.5px solid var(--primary-qatar) !important;
+            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.1);
+        }
+
+        body.light-mode .quick-access-btn:hover {
+            background: rgba(138, 21, 56, 0.05) !important;
+        }
+
+        body.light-mode .hero-section {
+            background: linear-gradient(135deg, #5A0E25, #8A1538);
+            border-color: rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .hero-title {
+            color: #fff;
+        }
+
+        body.light-mode .hero-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        body.light-mode .hero-section .planner-group span {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        body.light-mode .hero-section .planner-group strong {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #currentLocationName {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remDist {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remTime {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        body.light-mode .section-header {
+            color: var(--primary-qatar);
+            border-right-color: var(--gold);
+        }
+
+        body.light-mode .route-card h4,
+        body.light-mode .station-card h4,
+        body.light-mode .tip-card h3 {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .route-card,
+        body.light-mode .station-card,
+        body.light-mode .tip-card,
+        body.light-mode .checklist-wrapper,
+        body.light-mode .emergency-box,
+        body.light-mode .map-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .route-card p strong,
+        body.light-mode .station-card p strong,
+        body.light-mode .mini-card-dark p strong {
+            color: var(--text-light) !important;
+        }
+
+        body.light-mode .route-badge {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark[style*="color:#2ecc71"],
+        body.light-mode .station-card [style*="color:#2ecc71"] {
+            color: #1b5e20 !important;
+            background: rgba(27, 94, 32, 0.06) !important;
+            border-color: rgba(27, 94, 32, 0.2) !important;
+        }
+
+        body.light-mode .btn-station-map {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border: 1px solid rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .btn-station-map:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .btn-map-link {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .btn-map-link:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .riyadh-group-dark {
+            background: rgba(26, 115, 232, 0.04);
+            border-color: rgba(26, 115, 232, 0.2);
+        }
+
+        body.light-mode .riyadh-group-dark h3 {
+            color: #0b57d0;
+        }
+
+        body.light-mode .riyadh-group-dark p {
+            color: #444746;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] {
+            background: rgba(138, 21, 56, 0.03) !important;
+            border-color: rgba(138, 21, 56, 0.2) !important;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] h3 {
+            color: var(--primary-qatar) !important;
+        }
+
+        body.light-mode .mini-card-dark {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .mini-card-dark h5 {
+            color: #1a1c1e;
+        }
+
+        body.light-mode .mini-card-dark p {
+            color: #5f6368;
+        }
+
+        body.light-mode .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.06);
+            color: #1a73e8;
+            border-color: rgba(26, 115, 232, 0.15);
+        }
+
+        body.light-mode .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: #ffffff;
+        }
+
+        body.light-mode .checklist-btn {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-qatar);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .checklist-btn:hover {
+            background: var(--primary-qatar);
+            color: #ffffff;
+        }
+
+        body.light-mode .progress-bar-bg {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .progress-bar-fill {
+            background: linear-gradient(90deg, var(--primary-qatar), #c02d53);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode input:checked + .slider {
+            background-color: var(--primary-qatar);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode .checklist-section-title {
+            color: var(--primary-qatar);
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .emergency-box.qatar {
+            background: var(--primary-qatar);
+            border-color: var(--primary-qatar);
+        }
+
+        body.light-mode .emergency-box.qatar h4 {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        body.light-mode .emergency-box.saudi {
+            background: rgba(27, 94, 32, 0.04);
+            border-color: rgba(27, 94, 32, 0.15);
+        }
+
+        body.light-mode .emergency-box[style*="background"] {
+            background: rgba(27, 94, 32, 0.04) !important;
+            border-color: rgba(27, 94, 32, 0.15) !important;
+        }
+
+        body.light-mode .emergency-box[style*="background"] .emergency-number {
+            color: #1b5e20 !important;
+        }
+
+        body.light-mode .emergency-box h4 {
+            color: var(--text-muted);
+        }
+
+        body.light-mode .emergency-number {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .emergency-box.qatar .emergency-number {
+            color: var(--gold) !important;
+        }
+
+        body.light-mode .emergency-box.saudi .emergency-number {
+            color: #1b5e20;
+        }
+
+        body.light-mode .switch-item {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.03);
+        }
+
+        body.light-mode .slider {
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+
+        body.light-mode footer {
+            background: linear-gradient(135deg, #5A0E25, #8A1538) !important;
+            border-color: rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15) !important;
+        }
+
+        body.light-mode footer p {
+            color: #ffffff !important;
+        }
+
+        body.light-mode footer p:nth-child(2) {
+            color: var(--gold) !important;
+        }
+
+        body.light-mode footer p:last-child {
+            color: rgba(255, 255, 255, 0.7) !important;
+            opacity: 0.95 !important;
+        }
+
+        /* تنسيق خاص بالطباعة لمسار الرحلة */
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
             }
             
-            .nav-brand {
-                display: flex;
-                align-items: center;
-                font-weight: 700;
-                font-size: 1.1rem;
-                color: var(--primary-qatar);
+            /* إخفاء العناصر التفاعلية وغير الضرورية عند الطباعة */
+            header,
+            .hero-section,
+            .map-wrapper,
+            .checklist-wrapper,
+            .tips-grid,
+            .emergency-grid,
+            footer,
+            .btn-station-map,
+            .btn-maps-mini,
+            .checklist-btn-group,
+            #themeToggleBtn,
+            .quick-access-btn {
+                display: none !important;
             }
             
-            .menu-toggle-btn {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                background: var(--toggle-bg);
-                color: var(--toggle-color);
-                border: none;
-                padding: 8px 16px;
-                border-radius: 20px;
-                font-weight: 700;
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* هيدر الطباعة */
+            .print-only {
+                display: block !important;
+            }
+            
+            .print-header {
+                text-align: center;
+                margin-bottom: 25px;
+                border-bottom: 2px solid #8A1538;
+                padding-bottom: 10px;
+            }
+            
+            .print-header h2 {
+                color: #8A1538 !important;
+                font-size: 1.6rem;
+                margin-bottom: 5px;
+            }
+            
+            .print-header p {
+                color: #555 !important;
                 font-size: 0.95rem;
-                cursor: pointer;
-                transition: all 0.3s;
             }
             
-            .menu-toggle-btn:hover, .menu-toggle-btn.active {
-                background: #8A1538;
-                color: white;
+            /* تنسيق قسم العناوين */
+            .section-header {
+                color: #8A1538 !important;
+                border-right: 4px solid #8A1538 !important;
+                font-size: 1.3rem !important;
+                margin-top: 30px !important;
+                margin-bottom: 20px !important;
+                padding-right: 12px !important;
+                page-break-after: avoid;
+                page-break-inside: avoid;
             }
             
-            body.dark-mode .menu-toggle-btn:hover, body.dark-mode .menu-toggle-btn.active {
-                background: var(--gold);
-                color: #121212;
+            /* تحويل الكاروسيل إلى عرض متتالي للطباعة */
+            .carousel-container {
+                display: block !important;
+                overflow: visible !important;
+                padding: 0 !important;
+                margin-bottom: 20px !important;
             }
             
-            /* إخفاء القائمة افتراضياً في الجوال */
-            .nav-items {
-                display: none;
-                width: 100%;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background: white;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                padding: 15px;
-                border-bottom: 3px solid var(--primary-qatar);
-                z-index: 99;
+            .route-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
             }
             
-            body.dark-mode .nav-items {
-                background: #1e1e1e;
-                border-bottom-color: var(--gold);
+            .route-card h4 {
+                color: #8A1538 !important;
+                margin-top: 0 !important;
+                font-size: 1.1rem !important;
             }
             
-            /* تفعيل القائمة عند النقر */
-            .nav-items.open {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                animation: fadeInMenu 0.3s ease-out forwards;
-            }
-
-            @keyframes fadeInMenu {
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            .route-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
             }
             
-            .nav-items a {
-                max-width: 100%;
-                font-size: 0.9rem;
-                padding: 8px;
+            .route-badge {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border-color: #ccc !important;
+                margin-top: 8px !important;
             }
             
-            /* جعل زر المشاركة يأخذ العرض كاملاً في الأسفل داخل الشريط */
-            .btn-share-nav {
-                grid-column: 1 / -1;
-                max-width: 100%;
-                padding: 12px;
-                font-size: 1rem;
+            /* تنسيق شبكة المحطات للتتالي الطباعي */
+            .stations-grid {
+                display: block !important;
             }
-
-            /* تنسيق أزرار المظهر والطباعة بالجوال */
-            .nav-items .btn-icon-nav {
-                justify-self: center;
-                margin: 5px 0;
+            
+            .station-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .station-card h4 {
+                color: #8A1538 !important;
+                font-size: 1.1rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .station-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
+            }
+            
+            .distance-badge-dark {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* تنسيق مجموعات محطات الرياض */
+            .riyadh-group-dark {
+                background: #f9f9f9 !important;
+                border: 1px solid #ccc !important;
+                color: #333 !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                margin-bottom: 15px !important;
+                page-break-inside: auto;
+            }
+            
+            .riyadh-group-dark h3 {
+                color: #8A1538 !important;
+                font-size: 1.2rem !important;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
+                page-break-after: avoid;
+            }
+            
+            .riyadh-group-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .riyadh-inner-grid {
+                display: block !important;
+                margin-top: 15px !important;
+            }
+            
+            .mini-card-dark {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                border-right: 4px solid #8A1538 !important;
+                color: #333 !important;
+                padding: 10px !important;
+                margin-bottom: 10px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .mini-card-dark h5 {
+                color: #000 !important;
+                font-size: 0.95rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .mini-card-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر والبانر -->
-    <header>
-        <div class="header-content">
-            <h1>دليل السفر البري من قطر إلى مكة 2026</h1>
-            <p>منصة تفاعلية تجمع مسارات الرحلة، محطات التوقف، أدعية السفر، وقائمة الفحص الذكية قبل الانطلاق لضمان رحلة ميسرة لعمرة مقبولة.</p>
+    <div class="container">
+
+        <!-- هيدر خاص للطباعة فقط -->
+        <div class="print-only print-header">
+            <h2>مسار الرحلة البرية من قطر إلى مكة المكرمة 🕋</h2>
+            <p>دليل رقمي لتخطيط مسارات السفر البري ومحطات الوقود والراحة 2026</p>
+        </div>
+
+        <!-- الهيدر -->
+        <header>
+            <div class="header-logo">
+                🕋 دليل <span>قطر ← مكة</span> 2026
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
+                    ☀️
+                </button>
+                <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- البانر الرئيسي الفاخر -->
+        <div class="hero-section">
+            <h1 class="hero-title">دليل السفر البري من قطر إلى مكة 2026</h1>
+            <p class="hero-subtitle">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.</p>
             
             <div class="trip-planner">
                 <div class="planner-group">
-                    <span>الوجهة النهائية</span>
-                    <strong>مكة المكرمة 🕋</strong>
+                    <span>توقيت الانطلاق</span>
+                    <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
                 </div>
                 <div class="planner-group">
-                    <span>المسافة التقريبية</span>
+                    <span>المسافة المقدرة</span>
                     <strong>1,480 كم</strong>
                 </div>
                 <div class="planner-group">
-                    <span>حدد توقيت الانطلاق</span>
-                    <input type="datetime-local" id="departure-time" class="planner-input">
+                    <span>وقت الوصول المتوقع</span>
+                    <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
+                </div>
+            </div>
+
+            <!-- حاسبة المسافة المتبقية المباشرة بنموذج وتقسيم الحاسبة الأولى -->
+            <div class="trip-planner" style="margin-top: 15px; margin-bottom: 25px;">
+                <div class="planner-group">
+                    <span>الموقع الحالي (تلقائي)</span>
+                    <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
                 </div>
                 <div class="planner-group">
-                    <span>الوقت المتوقع للوصول (تقريباً)*</span>
-                    <strong id="estimated-arrival" style="color: var(--gold);">--:--</strong>
-                    <span style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px; color: rgba(255, 255, 255, 0.7);">*بناءً على 16 ساعة قيادة واستراحة</span>
+                    <span>المسافة المتبقية</span>
+                    <strong id="remDist">1,480 كم</strong>
+                </div>
+                <div class="planner-group">
+                    <span>وقت الوصول المتوقع*</span>
+                    <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
                 </div>
             </div>
-        </div>
-    </header>
-
-    <!-- شريط التنقل السريع (التبويبات متساوية الحجم) وزر المشاركة -->
-    <nav class="nav-pills" id="nav-bar">
-        <!-- عنوان وزر تفعيل القائمة للجوال -->
-        <div class="nav-brand">🗺️ التنقل السريع</div>
-        <button type="button" class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleMenu()" title="القائمة">
-            <span class="menu-toggle-text">القائمة</span>
-            <span class="menu-toggle-icon">☰</span>
-        </button>
-
-        <div class="nav-items" id="navItems">
-            <a href="#routes" onclick="closeMenu()">🗺️ المسارات</a>
-            <a href="#stations" onclick="closeMenu()">⛽ المحطات</a>
-            <a href="#checklist" onclick="closeMenu()">✅ قائمة الفحص</a>
-            <a href="#duaa" onclick="closeMenu()">🤲 الأدعية</a>
-            <a href="#tips" onclick="closeMenu()">💡 نصائح مهمة</a>
-            <a href="#emergency" onclick="closeMenu()">📞 أرقام الطوارئ</a>
             
-            <!-- أزرار الإجراءات -->
-            <button type="button" class="btn-share-nav" onclick="sharePage(); closeMenu();" title="مشاركة الدليل">
-                📤 شارك الصفحة
-            </button>
-            <button type="button" class="btn-icon-nav" id="themeToggleBtn" onclick="toggleDarkMode()" style="background: #333; color: #fff;" title="تغيير المظهر">
-                🌙
-            </button>
-            <button type="button" class="btn-icon-nav" onclick="window.print()" title="طباعة">
-                🖨️
-            </button>
-        </div>
-    </nav>
-
-    <div class="container">
-
-        <!-- قسم المسارات -->
-        <h2 class="section-title" id="routes">🗺️ المسارات</h2>
-        <div class="alert">
-            💡 نصيحة: تجنب أوقات الذروة في مدينة الرياض، واستخدم الدائري الجديد (الالتفاف الخارجي) لتوفير الوقت.
+            <button type="button" class="btn-launch" onclick="startJourney()">ابدأ الرحلة الآن</button>
         </div>
 
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d14631393.18957422!2d40.94132034999999!3d23.633535999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!3m2!1d25.2854473!2d51.5310398!4m5!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2sMakkah%20Saudi%20Arabia!3m2!1d21.3890824!2d39.8579118!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- الخريطة التفاعلية -->
+        <div class="map-wrapper">
+            <div class="section-header">🗺️ خريطة مسار السفر الموصى به</div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d14631393.18957422!2d40.94132034999999!3d23.633535999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!3m2!1d25.2854473!2d51.5310398!4m5!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2sMakkah%20Saudi%20Arabia!3m2!1d21.3890824!2d39.8579118!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="btn-map-link">🔗 فتح المسار في خرائط Google للتمكين من الملاحة المباشرة</a>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>🛣️ طريق 80 السريع (المسار الرئيسي)</h3>
+        <!-- خيارات مسارات السفر البري -->
+        <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
+        <div class="carousel-container">
+            <div class="route-card">
+                <h4>طريق 80 السريع (المسار الرئيسي)</h4>
                 <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
-                <p>أكثر الطرق أماناً، مضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية (ساسكو النخلة).</p>
-                <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="btn">📍 تتبع المسار في خرائط Google</a>
+                <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
+                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,480 كم</div>
             </div>
-            <div class="card">
-                <h3>🔄 مسار التفافي حول الرياض</h3>
+            <div class="route-card">
+                <h4>مسار التفافي حول الرياض</h4>
                 <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
-                <p>يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
-                <a href="https://maps.app.goo.gl/sAEA6GnRGFU48n5U9" target="_blank" class="btn btn-outline">📍 تتبع المسار في خرائط Google</a>
+                <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
+                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,510 كم</div>
             </div>
         </div>
 
-        <!-- قسم المحطات -->
-        <h2 class="section-title" id="stations">⛽ محطات الوقود والراحة - طريق 80 السريع (المسار الرئيسي)</h2>
-        
-        <!-- حاسبة المسافة المتبقية المباشرة -->
-        <div class="section-header">⏳ حاسبة المسافة المتبقية المباشرة</div>
-        <div class="trip-planner" style="margin-bottom: 30px; background: rgba(0, 0, 0, 0.35);">
-            <div class="planner-group">
-                <span>الموقع الحالي (تلقائي)</span>
-                <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
-            </div>
-            <div class="planner-group">
-                <span>المسافة المتبقية</span>
-                <strong id="remDist">1,480 كم</strong>
-            </div>
-            <div class="planner-group">
-                <span>وقت الوصول المتوقع*</span>
-                <strong id="remArrival" style="color: var(--gold);">--:--</strong>
-                <span style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px; color: rgba(255, 255, 255, 0.7);">*بناءً على جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
-            </div>
-        </div>
-
-        <div class="grid">
+        <!-- محطات الوقود والراحة بالتفصيل -->
+        <div class="section-header">⛽ محطات الوقود والراحة بالتفصيل</div>
+        <div class="stations-grid">
             
-            <div class="card" style="border-top-color: #555;">
-                <div class="distance-badge">يبعد ~90 كم عن نقطة الانطلاق</div>
-                <h3>1. محطة وقود أبو سمرة</h3>
-                <p><small>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</small></p>
-                <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">يبعد ~90 كم عن نقطة الانطلاق</div>
+                    <h4>1. محطة وقود أبو سمرة</h4>
+                    <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
 
-            <div class="card">
-                <div class="distance-badge">تبعد ~180 كم عن أبو سمرة</div>
-                <h3>2. محطة ساسكو / الدريس</h3>
-                <p><small>على طريق خريص (بعد الهفوف باتجاه الرياض).</small></p>
-                <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
+                    <h4>2. محطة ساسكو / الدريس</h4>
+                    <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
+                </div>
+                <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
 
             <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
-            <div class="riyadh-group">
-                <h3 style="color: #1a73e8; margin-bottom: 5px; font-size: 1.4rem;">🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</h3>
-                <p style="color: #555; font-size: 0.95rem;">تبعد بداية الرياض حوالي <strong>~140 كم</strong> عن محطة خريص السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
+            <div class="riyadh-group-dark">
+                <h3>🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">تبعد بداية الرياض حوالي ~140 كم عن محطة خريص السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
                 
                 <div class="riyadh-inner-grid">
-                    <div class="mini-card">
-                        <h4>3. الدريس (بداية الرياض)</h4>
-                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل الدخول في زحام العاصمة.</p>
-                        <div style="margin-top: auto;">
-                            <a href="https://maps.app.goo.gl/hoHU5xtpKkq53HC56" target="_blank" class="btn btn-maps" style="padding: 4px 8px;">🗺️ خريطة 1</a>
-                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" class="btn btn-maps" style="padding: 4px 8px;">🗺️ خريطة 2</a>
+                    <div class="mini-card-dark">
+                        <h5>3. الدريس (بداية الرياض)</h5>
+                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.</p>
+                        <div style="display:flex; gap:6px; margin-top:auto;">
+                            <a href="https://maps.app.goo.gl/hoHU5xtpKkq53HC56" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
+                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" class="btn-maps-mini">🗺️ خريطة 2</a>
                         </div>
                     </div>
                     
-                    <div class="mini-card">
-                        <h4>4. محطة ساسكو (الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>4. محطة ساسكو (الرياض)</h5>
                         <p>تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.</p>
-                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>5. محطة شل (الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>5. محطة شل (الرياض)</h5>
                         <p>تتميز بخدمة سريعة للتزود بالوقود وشراء القهوة والمشروبات الباردة.</p>
-                        <a href="https://maps.app.goo.gl/wRiekfx54WCTQGyd8" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/wRiekfx54WCTQGyd8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>6. الدريس (الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>6. الدريس (الرياض)</h5>
                         <p>يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).</p>
-                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>7. محطة درب (الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>7. محطة درب (الرياض)</h5>
                         <p>خيارات جيدة للوجبات السريعة وتموينات الطريق للمسافرين.</p>
-                        <a href="https://maps.app.goo.gl/3p9aSkBCEFQgjuXg6" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/3p9aSkBCEFQgjuXg6" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>8. محطة جي أويل (الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>8. محطة جي أويل (الرياض)</h5>
                         <p>محطة حديثة توفر دورات مياه نظيفة وخدمات مريحة للمسافرين.</p>
-                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>9. الدريس - طويق (آخر الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>9. الدريس - طويق (آخر الرياض)</h5>
                         <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
-                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card">
-                        <h4>10. محطة فيولكس (آخر الرياض)</h4>
+                    <div class="mini-card-dark">
+                        <h5>10. محطة فيولكس (آخر الرياض)</h5>
                         <p>آخر فرصة للتزود بالخدمات داخل النطاق العمراني للعاصمة.</p>
-                        <a href="https://maps.app.goo.gl/fyzwVFQRsiGUL23q8" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/fyzwVFQRsiGUL23q8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- إطار محطات الرياض (المسار التفافي) -->
-            <div class="riyadh-group" style="border-top-color: var(--gold); background: #fdfcf8;">
-                <h3 style="color: #b5952f; margin-bottom: 5px; font-size: 1.4rem;">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان الدائري)</h3>
-                <p style="color: #555; font-size: 0.95rem;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+            <div class="riyadh-group-dark" style="border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
+                <h3 style="color: var(--gold);">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
                 
                 <div class="riyadh-inner-grid">
-                    <div class="mini-card" style="border-right-color: var(--gold);">
-                        <h4>1. محطة الدريس (الرياض)</h4>
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>1. محطة الدريس (الرياض)</h5>
                         <p>محطة ممتازة للتزود بالوقود في بداية المسار الالتفافي.</p>
-                        <div style="margin-top: auto;">
-                            <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn btn-maps" style="padding: 4px 8px;">🗺️ خريطة 1</a>
-                            <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank" class="btn btn-maps" style="padding: 4px 8px;">🗺️ خريطة 2</a>
+                        <div style="display:flex; gap:6px; margin-top:auto;">
+                            <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
+                            <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank" class="btn-maps-mini">🗺️ خريطة 2</a>
                         </div>
                     </div>
                     
-                    <div class="mini-card" style="border-right-color: var(--gold);">
-                        <h4>2. محطة الدريس (الرياض)</h4>
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>2. محطة الدريس (الرياض)</h5>
                         <p>محطة بديلة وخدمات أساسية على امتداد الطريق الدائري.</p>
-                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card" style="border-right-color: var(--gold);">
-                        <h4>3. ساسكو المطار (الرياض)</h4>
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>3. ساسكو المطار (الرياض)</h5>
                         <p>محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
-                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card" style="border-right-color: var(--gold);">
-                        <h4>4. محطة بترولي (الرياض)</h4>
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>4. محطة بترولي (الرياض)</h5>
                         <p>يتوفر بها مطعم "برغرايزر" للوجبات السريعة وخدمات طريق متكاملة.</p>
-                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
 
-                    <div class="mini-card" style="border-right-color: var(--gold);">
-                        <h4>5. محطة جي أويل (الرياض)</h4>
+                    <div class="mini-card-dark" style="border-right-color: var(--gold);">
+                        <h5>5. محطة جي أويل (الرياض)</h5>
                         <p>نقطة التقاء ممتازة للراحة وتعبئة الوقود قبل استكمال طريق الحجاز.</p>
-                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn btn-maps" style="margin-top: auto;">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini" style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="distance-badge">تبعد ~40 كم عن آخر الرياض</div>
-                <h3>11. محطة بترومين (مطعم البيك)</h3>
-                <p><small>أول محطة كبرى بعد الخروج من زحام الرياض، تضم مطعم البيك الشهير.</small></p>
-                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card">
-                <div class="distance-badge">تبعد ~25 كم عن بترومين</div>
-                <h3>12. محطة أورنج - اجزالا</h3>
-                <p><small>استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</small></p>
-                <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card">
-                <div class="distance-badge">تبعد ~15 كم عن أورنج اجزالا</div>
-                <h3>13. محطة أورنج - الراية</h3>
-                <p><small>خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</small></p>
-                <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card">
-                <div class="distance-badge">تبعد ~20 كم عن أورنج الراية</div>
-                <h3>14. محطة ساسكو - تبرك</h3>
-                <p><small>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</small></p>
-                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card">
-                <div class="distance-badge">تبعد ~60 كم عن ساسكو تبرك</div>
-                <h3>15. محطة ساسكو - القويعية</h3>
-                <p><small>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</small></p>
-                <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card">
-                <div class="distance-badge">تبعد ~350 كم عن القويعية</div>
-                <h3>16. محطة نخلة ساسكو</h3>
-                <p><small>محطة كبرى على طريق الرياض - مكة السريع تتوفر بها جميع الخدمات والمطاعم.</small></p>
-                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-            <div class="card" style="border-top-color: var(--gold);">
-                <div class="distance-badge" style="background:#eafaf1; color:#1e8449; border-color:#b7e4c7;">تبعد ~300 كم عن ساسكو نخلة</div>
-                <h3>17. محطة ساسكو (السيل الكبير)</h3>
-                <p><small>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</small></p>
-                <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn btn-maps">🗺️ الخريطة</a>
-            </div>
-
-        </div>
-
-        <!-- قسم قائمة الفحص -->
-        <h2 class="section-title" id="checklist">✅ قائمة الفحص الذكية</h2>
-        <div class="checklist-container">
-            <p style="margin-bottom: 10px; font-weight: bold; color: var(--primary-qatar);">
-                نسبة الجاهزية: <strong class="progress-text" id="progress-text">0%</strong>
-            </p>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="checklist-progress"></div>
-            </div>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button id="selectAllBtn" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">✅ تحديد الكل</button>
-                <button id="deselectAllBtn" class="btn btn-outline" style="padding: 5px 15px; font-size: 0.9rem;">❌ إلغاء تحديد الكل</button>
-            </div>
-            <div class="checklist-grid">
+            <div class="station-card">
                 <div>
-                    <h3 style="margin-bottom: 15px; color: var(--primary-dark);">📄 الوثائق والاتصالات</h3>
-                    <label class="check-item"><input type="checkbox"> جوازات السفر صالحة (6 أشهر على الأقل)</label>
-                    <label class="check-item"><input type="checkbox"> البطاقة الشخصية القطرية QID</label>
-                    <label class="check-item"><input type="checkbox"> تأشيرة السعودية</label>
-                    <label class="check-item"><input type="checkbox"> تصريح العمرة (نسك Nusuk)</label>
-                    <label class="check-item"><input type="checkbox"> استمارة السيارة ورخصة القيادة</label>
-                    <label class="check-item"><input type="checkbox"> تأمين السيارة (للسعودية)</label>
-                    <label class="check-item"><input type="checkbox"> تفعيل باقة تجوال أو شريحة سعودية</label>
-                    <label class="check-item"><input type="checkbox"> تحميل خرائط Google Maps</label>
-                    <label class="check-item"><input type="checkbox"> دليل العمرة</label>
+                    <div class="distance-badge-dark">تبعد ~40 كم عن آخر الرياض</div>
+                    <h4>11. محطة بترومين (مطعم البيك)</h4>
+                    <p>أول محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
                 </div>
+                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
                 <div>
-                    <h3 style="margin-bottom: 15px; color: var(--primary-dark);">🚗 السيارة والتجهيزات</h3>
-                    <label class="check-item"><input type="checkbox"> فحص ضغط الإطارات والسبير</label>
-                    <label class="check-item"><input type="checkbox"> فحص زيوت المحرك والفرامل</label>
-                    <label class="check-item"><input type="checkbox"> فحص مياه الراديتر</label>
-                    <label class="check-item"><input type="checkbox"> فحص تكييف السيارة</label>
-                    <label class="check-item"><input type="checkbox"> صندوق الإسعافات الأولية</label>
-                    <label class="check-item"><input type="checkbox"> طفاية حريق ومثلث السلامة</label>
-                    <label class="check-item"><input type="checkbox"> تجهيز حقيبة الإحرام بشكل مستقل</label>
-                    <label class="check-item"><input type="checkbox"> مبلغ نقدي (كاش) سعودي</label>
-                    <label class="check-item"><input type="checkbox"> شاحن السيارة للجوال</label>
-                    <label class="check-item"><input type="checkbox"> بطارية شحن إضافية</label>
+                    <div class="distance-badge-dark">تبعد ~25 كم عن بترومين</div>
+                    <h4>12. محطة أورنج - اجزالا</h4>
+                    <p>استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</p>
                 </div>
+                <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
             </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~15 كم عن أورنج اجزالا</div>
+                    <h4>13. محطة أورنج - الراية</h4>
+                    <p>خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~20 كم عن أورنج الراية</div>
+                    <h4>14. محطة ساسكو - تبرك</h4>
+                    <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~60 كم عن ساسكو تبرك</div>
+                    <h4>15. محطة ساسكو - القويعية</h4>
+                    <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~350 كم عن القويعية</div>
+                    <h4>16. محطة نخلة ساسكو</h4>
+                    <p>محطة كبرى على طريق الرياض - مكة توفر جميع الخدمات والمطاعم المتميزة.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark" style="background:rgba(46, 204, 113, 0.1); color:#2ecc71; border-color:rgba(46,204,113,0.2);">تبعد ~300 كم عن ساسكو نخلة</div>
+                    <h4>17. محطة ساسكو (السيل الكبير)</h4>
+                    <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
         </div>
 
-        <!-- قسم الأدعية -->
-        <h2 class="section-title" id="duaa">🤲 أدعية وأذكار السفر</h2>
-        <div class="grid">
-            <div class="card" style="border-top-color: var(--gold); grid-column: 1 / -1;">
-                <h3>دعاء السفر</h3>
-                <p style="font-size: 1.2rem; line-height: 2; text-align: center; color: var(--primary-dark);">
-                    "الله أكبر، الله أكبر، الله أكبر، سُبْحانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ، وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ. 
-                    اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى، اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ..."
-                </p>
+        <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
+        <div class="section-header">✅ قائمة الفحص الذكية قبل السفر</div>
+        <div class="checklist-wrapper">
+            
+            <div class="checklist-btn-group">
+                <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
+                <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
             </div>
-            <div class="card">
-                <h3>عند نزول محطة أو استراحة</h3>
-                <p><strong>"أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ"</strong></p>
-            </div>
-            <div class="card">
-                <h3>أثناء القيادة بالطريق</h3>
-                <p><strong>التكبير والتسبيح</strong></p>
-                <p><small>التكبير (الله أكبر) عند صعود المرتفعات، والتسبيح (سبحان الله) عند النزول.</small></p>
-            </div>
-        </div>
 
-        <!-- قسم النصائح -->
-        <h2 class="section-title" id="tips">💡 نصائح مهمة</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>😴 الإرهاق والنعاس</h3>
-                <p>لا تكابر. إذا شعرت بأدنى نعاس، توقف في أقرب محطة وخذ غفوة لمدة 20 دقيقة.</p>
-            </div>
-            <div class="card">
-                <h3>📸 كاميرات الرصد (ساهر)</h3>
-                <p>السرعة محددة بـ 140 كم/ساعة في معظم الطريق. استخدم حزام الأمان ولا تمسك الهاتف.</p>
-            </div>
-            <div class="card">
-                <h3>🐪 الجمال السائبة</h3>
-                <p>احذر من الجمال السائبة في الليل والصباح الباكر خاصة بعد القويعية وحتى الطائف.</p>
-            </div>
-        </div>
-
-        <!-- قسم أرقام الطوارئ -->
-        <h2 class="section-title" id="emergency">📞 أرقام مهمة</h2>
-        <div class="grid">
-            <div class="card" style="text-align: center; border-top-color: var(--primary-qatar); display: flex; flex-direction: column; justify-content: center;">
-                <h3>🇶🇦 في قطر</h3>
-                <p style="font-size: 2rem; font-weight: bold; color: var(--primary-qatar); margin: 15px 0;">999</p>
-                <p>الطوارئ الموحد</p>
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>مدى جاهزيتك للرحلة</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
             </div>
             
-            <div class="card" style="text-align: center; border-top-color: #006C35; display: flex; flex-direction: column; justify-content: center;">
-                <h3>🇸🇦 في السعودية</h3>
+            <div class="checklist-grid">
                 
-                <p style="font-size: 2rem; font-weight: bold; color: #006C35; margin: 10px 0 0 0;">911</p>
-                <p style="margin-bottom: 10px;">العمليات الأمنية / أمن الطرق</p>
-                
-                <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
-                
-                <p style="margin-bottom: 5px;"><strong>997</strong> - الإسعاف (الهلال الأحمر)</p>
-                <p style="margin-bottom: 5px;"><strong>920000560</strong> - <a href="https://najm.sa" target="_blank" style="color: #006C35; font-weight: bold; text-decoration: underline;">نجم</a> (للحوادث)</p>
-                <p style="font-size: 0.8rem; color: #777; line-height: 1.3;">المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة</p>
+                <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
+
+                <div class="switch-item">
+                    <span class="switch-label">جوازات السفر صالحة (6 أشهر على الأقل)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">البطاقة الشخصية القطرية QID</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تأشيرة السعودية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تصريح العمرة (نسك Nusuk)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">استمارة السيارة ورخصة القيادة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تأمين السيارة (للسعودية)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">نسخ مطبوعة من حجوزات السكن والرحلة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تحميل خرائط Google Maps</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">دليل العمرة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
+
+                <!-- الإطارات وكل ما يتعلق بها -->
+                <div class="switch-item">
+                    <span class="switch-label">فحص ضغط الإطارات والإطار الاحتياطي</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">عدة تبديل الإطارات (الرافعة والذراع الخاص)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">منفاخ إطارات كهربائي متنقل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- السوائل والميكانيكا -->
+                <div class="switch-item">
+                    <span class="switch-label">فحص زيوت المحرك والفرامل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">فحص مياه الراديتر</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">فحص تكييف السيارة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">عدة تصليح (مفاتيح مقاسات متعددة)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- بطاريات وكهرباء وطوارئ -->
+                <div class="switch-item">
+                    <span class="switch-label">بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مفتاح احتياطي للسيارة (مع مرافق)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">طفاية حريق ومثلث السلامة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">حقيبة الإسعافات الأولية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- الإلكترونيات والمالية والحقائب -->
+                <div class="switch-item">
+                    <span class="switch-label">شاحن السيارة للجوال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">بطارية شحن إضافية للجوال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="checklist-section-title">💊 الصحة والراحة الشخصية</div>
+
+                <div class="switch-item">
+                    <span class="switch-label">أدوية شخصية (مسكنات..)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">أدوية الأطفال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">قطرة ترطيب العين</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">نظارات شمسية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مظلة شمسية بيضاء للطواف والمشي بالنهار</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مياه صالحة للشرب ووجبات خفيفة كافية للطريق</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
             </div>
         </div>
+
+        <!-- نصائح السفر وأذكار الطريق -->
+        <div class="tips-grid">
+            <div class="tip-card">
+                <h3>🤲 أدعية وأذكار السفر</h3>
+                <p><strong>دعاء السفر بالكامل:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى..."</p>
+                <p><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق."</p>
+                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.</p>
+            </div>
+            <div class="tip-card">
+                <h3>💡 نصائح وإرشادات السلامة</h3>
+                <p>😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
+                <p>📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام الأمان وتفادى استخدام الجوال.</p>
+                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
+            </div>
+        </div>
+
+        <!-- أرقام الطوارئ الهامة -->
+        <div class="section-header">📞 أرقام الطوارئ والاتصال</div>
+        <div class="emergency-grid">
+            <div class="emergency-box qatar">
+                <h4>في قطر (طوارئ عامة)</h4>
+                <div class="emergency-number">999</div>
+            </div>
+            <div class="emergency-box saudi">
+                <h4>في السعودية (أمن الطرق)</h4>
+                <div class="emergency-number">911</div>
+            </div>
+            <div class="emergency-box saudi">
+                <h4>الهلال الأحمر (إسعاف)</h4>
+                <div class="emergency-number">997</div>
+            </div>
+            <div class="emergency-box saudi" style="border-color: rgba(0, 108, 53, 0.2); background: rgba(0, 108, 53, 0.03);">
+                <h4>نجم للحوادث (السعودية)</h4>
+                <div class="emergency-number" style="font-size: 1.45rem; color: #2ecc71; margin-top: 5px;">920000560</div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">إدارة حوادث السير للمركبات المؤمنة</p>
+            </div>
+        </div>
+
+        <!-- الفوتر -->
+        <footer>
+            <p style="font-size: 1.15rem; font-weight: bold; color: #fff; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
+            <p style="font-size: 1rem; color: var(--gold); font-weight: bold; margin-bottom: 15px;">تذكرونا بدعوة صالحة 🤲</p>
+            <p style="opacity: 0.7; font-size: 0.85rem;">تم تصميم الصفحة بواسطة معاذ بلال</p>
+        </footer>
 
     </div>
 
-    <!-- الفوتر -->
-    <footer>
-        <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
-        <p style="font-size: 1.1rem; margin-bottom: 20px; color: var(--gold);">تذكرونا بدعوة صالحة 🤲</p>
-        <p style="opacity: 0.7; font-size: 0.85rem;">تم تصميم الصفحة بواسطة معاذ بلال</p>
-    </footer>
-
-    <!-- سكربت التحكم والتفاعلية -->
     <script>
-        // 1. حساب وقت الوصول المتوقع
-        const departureInput = document.getElementById('departure-time');
-        const arrivalDisplay = document.getElementById('estimated-arrival');
+        // بدء الرحلة وفتح ملاحة خرائط جوجل
+        function startJourney() {
+            alert('تم تفعيل مخطط الرحلة وجاهز للانطلاق!\nسيتم فتح مسار الملاحة المباشر في خرائط Google لمتابعة الطريق.');
+            window.open('https://maps.app.goo.gl/wvE332Ddh8zyPxky6', '_blank');
+        }
 
-        function calculateArrivalTime() {
-            if (departureInput.value) {
-                const depDate = new Date(departureInput.value);
+        // حساب وقت الوصول المتوقع
+        function calcArrival() {
+            const depInput = document.getElementById('dep-time').value;
+            const arrDisplay = document.getElementById('arr-time');
+            if (depInput) {
+                const depDate = new Date(depInput);
                 depDate.setHours(depDate.getHours() + 16);
                 
                 const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                arrivalDisplay.textContent = depDate.toLocaleDateString('ar-QA', options);
-                localStorage.setItem('meccaTripDeparture', departureInput.value);
+                arrDisplay.textContent = depDate.toLocaleDateString('ar-QA', options);
             } else {
-                arrivalDisplay.textContent = '--:--';
+                arrDisplay.textContent = 'حدد وقت الانطلاق';
             }
         }
 
-        departureInput.addEventListener('change', calculateArrivalTime);
-        const savedDeparture = localStorage.getItem('meccaTripDeparture');
-        if (savedDeparture) {
-            departureInput.value = savedDeparture;
-            calculateArrivalTime();
-        }
-
-        // 2. نظام قائمة المهام (Checklist)
-        const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-        const progressBar = document.getElementById('checklist-progress');
-        const progressText = document.getElementById('progress-text');
+        // نظام قائمة المهام بسحّابات (Checklist)
+        const toggles = document.querySelectorAll('.checklist-toggle');
+        const progressBarFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
 
         function updateProgress() {
             let checkedCount = 0;
-            checkboxes.forEach(box => {
-                const label = box.parentElement;
-                if (box.checked) {
+            toggles.forEach(toggle => {
+                const parent = toggle.closest('.switch-item');
+                if (toggle.checked) {
                     checkedCount++;
-                    label.classList.add('completed');
+                    if (parent) parent.classList.add('completed');
                 } else {
-                    label.classList.remove('completed');
+                    if (parent) parent.classList.remove('completed');
                 }
             });
-            
-            const percentage = Math.round((checkedCount / checkboxes.length) * 100);
-            progressBar.style.width = percentage + '%';
-            progressText.textContent = percentage + '%';
-            
-            if (percentage === 100) {
-                progressBar.style.backgroundColor = '#28a745';
-                progressText.style.color = '#28a745';
-            } else {
-                progressBar.style.backgroundColor = 'var(--gold)';
-                progressText.style.color = 'var(--primary-dark)';
-            }
+            const percent = Math.round((checkedCount / toggles.length) * 100);
+            progressBarFill.style.width = percent + '%';
+            progressPercent.textContent = percent + '%';
             saveChecklistState();
         }
 
-        checkboxes.forEach((box, index) => {
-            box.id = 'check-' + index; 
-            box.addEventListener('change', updateProgress);
+        toggles.forEach((toggle, index) => {
+            toggle.id = 'check-' + index;
+            toggle.addEventListener('change', updateProgress);
         });
 
         function saveChecklistState() {
             const state = {};
-            checkboxes.forEach(box => { state[box.id] = box.checked; });
+            toggles.forEach(toggle => { state[toggle.id] = toggle.checked; });
             localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
         }
 
@@ -1246,82 +1884,55 @@
             const savedState = localStorage.getItem('meccaTripChecklist');
             if (savedState) {
                 const state = JSON.parse(savedState);
-                checkboxes.forEach(box => {
-                    if (state[box.id] !== undefined) box.checked = state[box.id];
+                toggles.forEach(toggle => {
+                    if (state[toggle.id] !== undefined) toggle.checked = state[toggle.id];
                 });
             }
-            updateProgress(); 
+            updateProgress();
         }
-        window.addEventListener('DOMContentLoaded', () => {
-            loadChecklistState();
-            initGeolocation();
-        });
-
-        document.getElementById('selectAllBtn').addEventListener('click', () => {
-            checkboxes.forEach(box => box.checked = true);
-            updateProgress();
-        });
-
-        document.getElementById('deselectAllBtn').addEventListener('click', () => {
-            checkboxes.forEach(box => box.checked = false);
-            updateProgress();
-        });
-
-        // 3. دالة المشاركة الخالية من الانهيارات (Crash-free)
-        function sharePage() {
-            const url = window.location.href;
-            const title = document.title;
-            
-            if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
-                navigator.share({
-                    title: title,
-                    text: 'دليل السفر البري من قطر إلى مكة المكرمة 🕋',
-                    url: url
-                }).catch(function(error) {
-                    console.log('حدث خطأ أثناء محاولة المشاركة:', error);
-                });
-            } else {
-                try {
-                    const tempInput = document.createElement('input');
-                    tempInput.value = url;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    alert('✅ تم نسخ رابط الصفحة بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
-                } catch (err) {
-                    alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
+            updateThemeBtn(isLight);
+        }
+        
+        function updateThemeBtn(isLight) {
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                if (isLight) {
+                    btn.innerHTML = '🌙';
+                    btn.title = 'تفعيل المظهر الداكن';
+                } else {
+                    btn.innerHTML = '☀️';
+                    btn.title = 'تفعيل المظهر النهاري';
                 }
             }
         }
 
-        // 4. الوضع الليلي
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('makkahDarkMode', isDark);
-            updateThemeBtn(isDark);
-        }
-        
-        function updateThemeBtn(isDark) {
-            const btn = document.getElementById('themeToggleBtn');
-            if (isDark) {
-                btn.innerHTML = '☀️';
-                btn.style.background = '#f1c40f';
-                btn.style.color = '#333';
+        window.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            initGeolocation();
+            
+            // استعادة المظهر المفضل
+            const savedTheme = localStorage.getItem('darkGuideTheme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                updateThemeBtn(true);
             } else {
-                btn.innerHTML = '🌙';
-                btn.style.background = '#333';
-                btn.style.color = '#fff';
+                updateThemeBtn(false);
             }
-        }
+        });
 
-        if (localStorage.getItem('makkahDarkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            updateThemeBtn(true);
-        } else {
-            updateThemeBtn(false);
-        }
+        document.getElementById('selectAllBtn').addEventListener('click', () => {
+            toggles.forEach(toggle => toggle.checked = true);
+            updateProgress();
+        });
+
+        document.getElementById('deselectAllBtn').addEventListener('click', () => {
+            toggles.forEach(toggle => toggle.checked = false);
+            updateProgress();
+        });
 
         // محطات الرحلة للتحديد الجغرافي التلقائي
         const STATIONS = [
@@ -1367,11 +1978,11 @@
             });
         }
 
-        // 5. حاسبة المسافة المتبقية
+        // حاسبة المسافة المتبقية
         function calcRemaining(kmVal) {
             const km = kmVal || 1480;
             document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
-            const hours = Math.round((km / 100) * 10) / 10; // Approx 100km/h
+            const hours = Math.round((km / 100) * 10) / 10;
             
             const h = Math.floor(hours);
             const m = Math.round((hours - h) * 60);
@@ -1394,43 +2005,38 @@
             document.getElementById('remArrival').innerText = now.toLocaleDateString('ar-QA', options);
         }
 
-        // 6. التحكم في القائمة المنسدلة في الجوال
-        function toggleMenu() {
-            const navItems = document.getElementById('navItems');
-            const menuToggleBtn = document.getElementById('menuToggleBtn');
-            const isOpen = navItems.classList.toggle('open');
-            menuToggleBtn.classList.toggle('active', isOpen);
+        // طباعة مسار الرحلة
+        function printRoute() {
+            window.print();
+        }
+
+        // مشاركة الصفحة
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
             
-            const toggleIcon = menuToggleBtn.querySelector('.menu-toggle-icon');
-            const toggleText = menuToggleBtn.querySelector('.menu-toggle-text');
-            if (isOpen) {
-                toggleIcon.textContent = '✕';
-                toggleText.textContent = 'إغلاق';
+            if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
+                navigator.share({
+                    title: title,
+                    text: 'دليل السفر البري من قطر إلى مكة المكرمة 🕋',
+                    url: url
+                }).catch(function(error) {
+                    console.log('حدث خطأ أثناء محاولة المشاركة:', error);
+                });
             } else {
-                toggleIcon.textContent = '☰';
-                toggleText.textContent = 'القائمة';
+                try {
+                    const tempInput = document.createElement('input');
+                    tempInput.value = url;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert('✅ تم نسخ رابط الصفحة بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+                } catch (err) {
+                    alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+                }
             }
         }
-
-        function closeMenu() {
-            const navItems = document.getElementById('navItems');
-            const menuToggleBtn = document.getElementById('menuToggleBtn');
-            if (navItems.classList.contains('open')) {
-                navItems.classList.remove('open');
-                menuToggleBtn.classList.remove('active');
-                menuToggleBtn.querySelector('.menu-toggle-icon').textContent = '☰';
-                menuToggleBtn.querySelector('.menu-toggle-text').textContent = 'القائمة';
-            }
-        }
-
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', function(event) {
-            const navBar = document.getElementById('nav-bar');
-            const navItems = document.getElementById('navItems');
-            if (navItems && navItems.classList.contains('open') && !navBar.contains(event.target)) {
-                closeMenu();
-            }
-        });
     </script>
 </body>
 </html>
