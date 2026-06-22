@@ -1,0 +1,1181 @@
+﻿
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* الهيدر وشريط التنقل العلوي */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+        }
+
+        .header-logo span {
+            color: var(--gold);
+        }
+
+        #themeToggleBtn, .quick-access-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            padding: 0;
+            line-height: 1;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #themeToggleBtn:hover, .quick-access-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* البانر الرئيسي الفاخر */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark), #121212);
+            border-radius: var(--border-radius);
+            padding: 30px 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* تأثير الطريق في البانر */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0; right: 0;
+            height: 120px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* حاسبة الرحلة والتخطيط */
+        .trip-planner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .planner-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .planner-group span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .planner-group strong {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .planner-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .planner-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        .btn-launch {
+            background: var(--gold);
+            color: #121212;
+            font-weight: 900;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-launch:hover {
+            background: #b39025;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* الخريطة */
+        .map-wrapper {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 320px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .btn-map-link {
+            display: block;
+            text-align: center;
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            transition: all 0.3s;
+        }
+
+        .btn-map-link:hover {
+            background: var(--gold);
+            color: #121212;
+        }
+
+        /* العناوين والأقسام */
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 4px solid var(--gold);
+            padding-right: 12px;
+        }
+
+        /* كروت المسارات التفاعلية */
+        .carousel-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 5px 5px 15px 5px;
+            margin-bottom: 35px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-brand) rgba(255,255,255,0.05);
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .carousel-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+        }
+
+        .carousel-container::-webkit-scrollbar-thumb {
+            background: var(--primary-brand);
+            border-radius: 10px;
+        }
+
+        .route-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            min-width: 280px;
+            flex: 1 0 280px;
+            scroll-snap-align: start;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .route-card h4 {
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .route-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .route-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
+            display: inline-block;
+        }
+
+        /* حاسبة المسافة المتبقية */
+        .distance-calc {
+            background: rgba(212, 175, 55, 0.08);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .time-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .time-input option {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        /* شبكة المحطات المفصلة */
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .station-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .station-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+
+        .station-card h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .station-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .distance-badge-dark {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+            align-self: flex-start;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-station-map {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .btn-station-map:hover {
+            background: var(--gold);
+            color: #121212;
+            border-color: var(--gold);
+        }
+
+        /* مجموعات محطات الرياض */
+        .riyadh-group-dark {
+            grid-column: 1 / -1;
+            border: 1px solid rgba(26, 115, 232, 0.25);
+            background: rgba(26, 115, 232, 0.05);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .riyadh-group-dark h3 {
+            color: #5da2ff;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .riyadh-inner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .mini-card-dark {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 4px solid #1a73e8;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mini-card-dark h5 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .mini-card-dark p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.12);
+            color: #5da2ff;
+            border: 1px solid rgba(26, 115, 232, 0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* قائمة الفحص الذكية بسحّابات (Switches) */
+        .checklist-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.06);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--gold), #ffe596);
+            width: 0%;
+            height: 100%;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .checklist-section-title {
+            grid-column: 1 / -1;
+            font-size: 1.05rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 6px;
+        }
+
+        .switch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.3s;
+        }
+
+        .switch-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .switch-item.completed .switch-label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .switch-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        /* سويتش الـ iOS الأنيق */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            right: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(-22px);
+        }
+
+        /* أزرار تحديد الكل بقائمة المهام */
+        .checklist-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checklist-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .checklist-btn:hover {
+            background: var(--gold);
+            color: #121212;
+        }
+
+        /* النصائح وأدعية السفر */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-card h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .tip-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        /* أرقام الطوارئ */
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .emergency-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .emergency-box.saudi {
+            border-color: rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.03);
+        }
+
+        .emergency-box.qatar {
+            border-color: rgba(138, 21, 56, 0.25);
+            background: rgba(138, 21, 56, 0.04);
+        }
+
+        .emergency-box h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .emergency-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .saudi .emergency-number {
+            color: #2ecc71;
+        }
+
+        .qatar .emergency-number {
+            color: var(--gold);
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* تم توحيد نمط زر التبديل والمشاركة في الأعلى */
+
+        /* التجاوب للتصميم */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* خيارات الثيم النهاري (Light Mode) لـ dark-guide */
+
+        body.light-mode .header-logo {
+            color: var(--primary-brand);
+        }
+
+        body.light-mode .header-logo span {
+            color: var(--primary-brand) !important;
+        }
+
+        body.light-mode header {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode #themeToggleBtn {
+            background: var(--primary-brand) !important;
+            color: #ffffff !important;
+            border: 1.5px solid var(--primary-brand) !important;
+            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode #themeToggleBtn:hover {
+            background: var(--primary-dark) !important;
+        }
+
+        body.light-mode .quick-access-btn {
+            background: #ffffff !important;
+            color: var(--primary-brand) !important;
+            border: 1.5px solid var(--primary-brand) !important;
+            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.1);
+        }
+
+        body.light-mode .quick-access-btn:hover {
+            background: rgba(138, 21, 56, 0.05) !important;
+        }
+
+        body.light-mode .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand));
+            border-color: rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .hero-title {
+            color: #fff;
+        }
+
+        body.light-mode .hero-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        body.light-mode .hero-section .planner-group span {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        body.light-mode .hero-section .planner-group strong {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #currentLocationName {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remDist {
+            color: #ffffff !important;
+        }
+
+        body.light-mode .hero-section #remTime {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        body.light-mode .section-header {
+            color: var(--primary-brand);
+            border-right-color: var(--gold);
+        }
+
+        body.light-mode .route-card h4,
+        body.light-mode .station-card h4,
+        body.light-mode .tip-card h3 {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .route-card,
+        body.light-mode .station-card,
+        body.light-mode .tip-card,
+        body.light-mode .checklist-wrapper,
+        body.light-mode .emergency-box,
+        body.light-mode .map-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .route-card p strong,
+        body.light-mode .station-card p strong,
+        body.light-mode .mini-card-dark p strong {
+            color: var(--text-light) !important;
+        }
+
+        body.light-mode .route-badge {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-brand);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark {
+            background: rgba(138, 21, 56, 0.06);
+            color: var(--primary-brand);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .distance-badge-dark[style*="color:#2ecc71"],
+        body.light-mode .station-card [style*="color:#2ecc71"] {
+            color: #1b5e20 !important;
+            background: rgba(27, 94, 32, 0.06) !important;
+            border-color: rgba(27, 94, 32, 0.2) !important;
+        }
+
+        body.light-mode .btn-station-map {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-brand);
+            border: 1px solid rgba(138, 21, 56, 0.15);
+        }
+
+        body.light-mode .btn-station-map:hover {
+            background: var(--primary-brand);
+            color: #ffffff;
+            border-color: var(--primary-brand);
+        }
+
+        body.light-mode .btn-map-link {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-brand);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .btn-map-link:hover {
+            background: var(--primary-brand);
+            color: #ffffff;
+            border-color: var(--primary-brand);
+        }
+
+        body.light-mode .riyadh-group-dark {
+            background: rgba(26, 115, 232, 0.04);
+            border-color: rgba(26, 115, 232, 0.2);
+        }
+
+        body.light-mode .riyadh-group-dark h3 {
+            color: #0b57d0;
+        }
+
+        body.light-mode .riyadh-group-dark p {
+            color: #444746;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] {
+            background: rgba(138, 21, 56, 0.03) !important;
+            border-color: rgba(138, 21, 56, 0.2) !important;
+        }
+
+        body.light-mode .riyadh-group-dark[style*="background"] h3 {
+            color: var(--primary-brand) !important;
+        }
+
+        body.light-mode .mini-card-dark {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .mini-card-dark h5 {
+            color: #1a1c1e;
+        }
+
+        body.light-mode .mini-card-dark p {
+            color: #5f6368;
+        }
+
+        body.light-mode .btn-maps-mini {
+            background: rgba(26, 115, 232, 0.06);
+            color: #1a73e8;
+            border-color: rgba(26, 115, 232, 0.15);
+        }
+
+        body.light-mode .btn-maps-mini:hover {
+            background: #1a73e8;
+            color: #ffffff;
+        }
+
+        body.light-mode .checklist-btn {
+            background: rgba(138, 21, 56, 0.05);
+            color: var(--primary-brand);
+            border-color: rgba(138, 21, 56, 0.2);
+        }
+
+        body.light-mode .checklist-btn:hover {
+            background: var(--primary-brand);
+            color: #ffffff;
+        }
+
+        body.light-mode .progress-bar-bg {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .progress-bar-fill {
+            background: linear-gradient(90deg, var(--primary-brand), #c02d53);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode input:checked + .slider {
+            background-color: var(--primary-brand);
+            box-shadow: 0 0 8px rgba(138, 21, 56, 0.3);
+        }
+
+        body.light-mode .checklist-section-title {
+            color: var(--primary-brand);
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .emergency-box.qatar {
+            background: var(--primary-brand);
+            border-color: var(--primary-brand);
+        }
+
+        body.light-mode .emergency-box.qatar h4 {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        body.light-mode .emergency-box.saudi {
+            background: rgba(27, 94, 32, 0.04);
+            border-color: rgba(27, 94, 32, 0.15);
+        }
+
+        body.light-mode .emergency-box[style*="background"] {
+            background: rgba(27, 94, 32, 0.04) !important;
+            border-color: rgba(27, 94, 32, 0.15) !important;
+        }
+
+        body.light-mode .emergency-box[style*="background"] .emergency-number {
+            color: #1b5e20 !important;
+        }
+
+        body.light-mode .emergency-box h4 {
+            color: var(--text-muted);
+        }
+
+        body.light-mode .emergency-number {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .emergency-box.qatar .emergency-number {
+            color: var(--gold) !important;
+        }
+
+        body.light-mode .emergency-box.saudi .emergency-number {
+            color: #1b5e20;
+        }
+
+        body.light-mode .switch-item {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.03);
+        }
+
+        body.light-mode .slider {
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+
+        body.light-mode footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand)) !important;
+            border-color: rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 10px 30px rgba(138, 21, 56, 0.15) !important;
+        }
+
+        body.light-mode footer p {
+            color: #ffffff !important;
+        }
+
+        body.light-mode footer p:nth-child(2) {
+            color: var(--gold) !important;
+        }
+
+        body.light-mode footer p:last-child {
+            color: rgba(255, 255, 255, 0.7) !important;
+            opacity: 0.95 !important;
+        }
+
+        /* تنسيق خاص بالطباعة لمسار الرحلة */
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            /* إخفاء العناصر التفاعلية وغير الضرورية عند الطباعة */
+            header,
+            .hero-section,
+            .map-wrapper,
+            .checklist-wrapper,
+            .tips-grid,
+            .emergency-grid,
+            footer,
+            .btn-station-map,
+            .btn-maps-mini,
+            .checklist-btn-group,
+            #themeToggleBtn,
+            .quick-access-btn {
+                display: none !important;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            /* هيدر الطباعة */
+            .print-only {
+                display: block !important;
+            }
+            
+            .print-header {
+                text-align: center;
+                margin-bottom: 25px;
+                border-bottom: 2px solid var(--primary-brand);
+                padding-bottom: 10px;
+            }
+            
+            .print-header h2 {
+                color: var(--primary-brand) !important;
+                font-size: 1.6rem;
+                margin-bottom: 5px;
+            }
+            
+            .print-header p {
+                color: #555 !important;
+                font-size: 0.95rem;
+            }
+            
+            /* تنسيق قسم العناوين */
+            .section-header {
+                color: var(--primary-brand) !important;
+                border-right: 4px solid var(--primary-brand) !important;
+                font-size: 1.3rem !important;
+                margin-top: 30px !important;
+                margin-bottom: 20px !important;
+                padding-right: 12px !important;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+            
+            /* تحويل الكاروسيل إلى عرض متتالي للطباعة */
+            .carousel-container {
+                display: block !important;
+                overflow: visible !important;
+                padding: 0 !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .route-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .route-card h4 {
+                color: var(--primary-brand) !important;
+                margin-top: 0 !important;
+                font-size: 1.1rem !important;
+            }
+            
+            .route-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
+            }
+            
+            .route-badge {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border-color: #ccc !important;
+                margin-top: 8px !important;
+            }
+            
+            /* تنسيق شبكة المحطات للتتالي الطباعي */
+            .stations-grid {
+                display: block !important;
+            }
+            
+            .station-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .station-card h4 {
+                color: var(--primary-brand) !important;
+                font-size: 1.1rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .station-card p {
+                color: #333 !important;
+                font-size: 0.9rem !important;
+            }
+            
+            .distance-badge-dark {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 8px !important;
+            }
+            
+            /* تنسيق مجموعات محطات الرياض */
+            .riyadh-group-dark {
+                background: #f9f9f9 !important;
+                border: 1px solid #ccc !important;
+                color: #333 !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                margin-bottom: 15px !important;
+                page-break-inside: auto;
+            }
+            
+            .riyadh-group-dark h3 {
+                color: var(--primary-brand) !important;
+                font-size: 1.2rem !important;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
+                page-break-after: avoid;
+            }
+            
+            .riyadh-group-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
+            }
+            
+            .riyadh-inner-grid {
+                display: block !important;
+                margin-top: 15px !important;
+            }
+            
+            .mini-card-dark {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                border-right: 4px solid var(--primary-brand) !important;
+                color: #333 !important;
+                padding: 10px !important;
+                margin-bottom: 10px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .mini-card-dark h5 {
+                color: #000 !important;
+                font-size: 0.95rem !important;
+                margin-top: 0 !important;
+            }
+            
+            .mini-card-dark p {
+                color: #555 !important;
+                font-size: 0.85rem !important;
+            }
+        }
