@@ -1362,7 +1362,21 @@
                     </label>
                 </div>
                 <div class="switch-item">
+                    <span class="switch-label">نسخ مطبوعة من حجوزات السكن والرحلة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
                     <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
@@ -1382,30 +1396,33 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div class="switch-item">
-                    <span class="switch-label">نسخ مطبوعة من حجوزات السكن والرحلة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
 
                 <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
 
+                <!-- الإطارات وكل ما يتعلق بها -->
                 <div class="switch-item">
-                    <span class="switch-label">فحص ضغط الإطارات والسبير</span>
+                    <span class="switch-label">فحص ضغط الإطارات والإطار الاحتياطي</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
+                <div class="switch-item">
+                    <span class="switch-label">عدة تبديل الإطارات (الرافعة والذراع الخاص)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">منفاخ إطارات كهربائي متنقل</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- السوائل والميكانيكا -->
                 <div class="switch-item">
                     <span class="switch-label">فحص زيوت المحرك والفرامل</span>
                     <label class="switch">
@@ -1428,42 +1445,16 @@
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">صندوق الإسعافات الأولية</span>
+                    <span class="switch-label">عدة تصليح (مفاتيح مقاسات متعددة)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
+
+                <!-- بطاريات وكهرباء وطوارئ -->
                 <div class="switch-item">
-                    <span class="switch-label">طفاية حريق ومثلث السلامة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مبلغ نقدي (كاش) سعودي</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">شاحن السيارة للجوال</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">بطارية شحن إضافية</span>
+                    <span class="switch-label">بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
@@ -1477,14 +1468,51 @@
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">منفاخ إطارات كهربائي متنقل</span>
+                    <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
+                    <span class="switch-label">طفاية حريق ومثلث السلامة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">حقيبة الإسعافات الأولية</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- الإلكترونيات والمالية والحقائب -->
+                <div class="switch-item">
+                    <span class="switch-label">شاحن السيارة للجوال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">بطارية شحن إضافية للجوال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
@@ -1494,14 +1522,35 @@
                 <div class="checklist-section-title">💊 الصحة والراحة الشخصية</div>
 
                 <div class="switch-item">
-                    <span class="switch-label">حقيبة إسعافات طبية وأدوية شخصية (مسكنات، بندول)</span>
+                    <span class="switch-label">أدوية شخصية (مسكنات..)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
                     </label>
                 </div>
                 <div class="switch-item">
-                    <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم جداً أثناء الإحرام)</span>
+                    <span class="switch-label">أدوية الأطفال</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">قطرة ترطيب العين</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">نظارات شمسية</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
@@ -1516,20 +1565,6 @@
                 </div>
                 <div class="switch-item">
                     <span class="switch-label">مياه صالحة للشرب ووجبات خفيفة كافية للطريق</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">قطرة ترطيب العين (لتجنب جفاف هواء السيارة والصحراء)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">نظارات شمسية لحماية العين من وهج شمس الحجاز</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
                         <span class="slider"></span>
