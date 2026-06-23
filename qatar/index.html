@@ -54,8 +54,11 @@
 
         <!-- الهيدر -->
         <header>
-            <div class="header-logo">
-                🕋 دليل <span>قطر ← مكة</span> 2026
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div class="header-logo" style="text-shadow: 0 0 10px rgba(212, 175, 55, 0.25); font-size: 1.3rem; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    🇶🇦 قطر ← 🕋 مكة
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 23 يونيو 2026</div>
             </div>
             <div style="display: flex; gap: 10px; align-items: center;">
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
@@ -131,8 +134,8 @@
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="btn-map-link">🔗 فتح المسار في
-                خرائط Google للتمكين من الملاحة المباشرة</a>
+            <a href="https://www.google.com/maps/dir/?api=1&origin=Doha,+Qatar&destination=Makkah,+Saudi+Arabia" target="_blank" class="btn-map-link">🔗 فتح المسار في
+                خرائط Google للتمكين من الملاحة المباشرة والبدء في الإبحار (Navigate)</a>
         </div>
 
         <!-- خيارات مسارات السفر البري -->
@@ -762,7 +765,7 @@
 
                 <div class="btn-submit-container">
                     <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
-                        <span>إرسال الاقتراح ✉️</span>
+                        <span>إرسال ✉️</span>
                     </button>
                 </div>
 
@@ -785,7 +788,7 @@
         // بدء الرحلة وفتح ملاحة خرائط جوجل
         function startJourney() {
             alert('تم تفعيل مخطط الرحلة وجاهز للانطلاق!\nسيتم فتح مسار الملاحة المباشر في خرائط Google لمتابعة الطريق.');
-            window.open('https://maps.app.goo.gl/wvE332Ddh8zyPxky6', '_blank');
+            window.open('https://www.google.com/maps/dir/?api=1&origin=Doha,+Qatar&destination=Makkah,+Saudi+Arabia', '_blank');
         }
 
         // حساب وقت الوصول المتوقع

@@ -1001,19 +1001,13 @@
             }
             
             /* إخفاء العناصر التفاعلية وغير الضرورية عند الطباعة */
-            header,
-            .hero-section,
             .map-wrapper,
-            .checklist-wrapper,
-            .tips-grid,
-            .emergency-grid,
             .suggestions-wrapper,
-            footer,
-            .btn-station-map,
-            .btn-maps-mini,
             .checklist-btn-group,
             #themeToggleBtn,
-            .quick-access-btn {
+            .quick-access-btn,
+            .btn-station-map,
+            .btn-maps-mini {
                 display: none !important;
             }
             
@@ -1023,27 +1017,9 @@
                 margin: 0 !important;
             }
             
-            /* هيدر الطباعة */
+            /* إخفاء هيدر الطباعة المكرر لأن الهيدر الحقيقي يُطبع الآن */
             .print-only {
-                display: block !important;
-            }
-            
-            .print-header {
-                text-align: center;
-                margin-bottom: 25px;
-                border-bottom: 2px solid var(--primary-brand);
-                padding-bottom: 10px;
-            }
-            
-            .print-header h2 {
-                color: var(--primary-brand) !important;
-                font-size: 1.6rem;
-                margin-bottom: 5px;
-            }
-            
-            .print-header p {
-                color: #555 !important;
-                font-size: 0.95rem;
+                display: none !important;
             }
             
             /* تنسيق قسم العناوين */
@@ -1178,6 +1154,154 @@
             .mini-card-dark p {
                 color: #555 !important;
                 font-size: 0.85rem !important;
+            }
+
+            /* تنسيق قائمة الفحص للطباعة */
+            .checklist-wrapper {
+                background: #fff !important;
+                border: 1px solid #ccc !important;
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+            }
+            .checklist-grid {
+                display: block !important;
+            }
+            .switch-item {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                border: none !important;
+                border-bottom: 1.5px dashed #ccc !important;
+                padding: 8px 0 !important;
+                background: none !important;
+                color: #000 !important;
+                page-break-inside: avoid !important;
+            }
+            .switch-label {
+                color: #000 !important;
+                font-size: 0.9rem !important;
+            }
+            .switch {
+                display: inline-block !important;
+                width: 16px !important;
+                height: 16px !important;
+                border: 1.5px solid #333 !important;
+                border-radius: 3px !important;
+                position: relative !important;
+            }
+            .switch input {
+                opacity: 1 !important;
+                width: 100% !important;
+                height: 100% !important;
+                position: absolute !important;
+                top: 0; left: 0;
+                cursor: default !important;
+            }
+            .slider {
+                display: none !important;
+            }
+
+            /* تنسيق النصائح وإرشادات السلامة للطباعة */
+            .tips-grid {
+                display: block !important;
+            }
+            .tip-card {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+            }
+            .tip-card h3 {
+                color: var(--primary-brand) !important;
+                margin-top: 0 !important;
+                font-size: 1.15rem !important;
+            }
+
+            /* تنسيق أرقام الطوارئ للطباعة */
+            .emergency-grid {
+                display: block !important;
+            }
+            .emergency-box {
+                background: #fff !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 15px !important;
+                padding: 15px !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+                text-align: right !important;
+            }
+            .emergency-box.qatar, .emergency-box.saudi {
+                background: #fff !important;
+                border: 1px solid #ccc !important;
+            }
+            .emergency-box h4 {
+                color: var(--primary-brand) !important;
+                margin-top: 0 !important;
+                font-size: 1.1rem !important;
+            }
+            .emergency-number {
+                color: #000 !important;
+                font-size: 1.5rem !important;
+                margin-top: 5px !important;
+            }
+
+            /* تنسيق الهيدر وقسم حاسبة الوقت للطباعة */
+            header {
+                border-bottom: 2px solid #ccc !important;
+                padding-bottom: 10px !important;
+                color: #000 !important;
+            }
+            header .header-logo {
+                color: #000 !important;
+                text-shadow: none !important;
+            }
+            header .header-logo span {
+                color: #000 !important;
+            }
+            .hero-section {
+                background: #fff !important;
+                color: #000 !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                margin-bottom: 20px !important;
+                padding: 15px !important;
+                page-break-inside: avoid !important;
+            }
+            .hero-title {
+                color: var(--primary-brand) !important;
+            }
+            .hero-subtitle {
+                color: #555 !important;
+            }
+            .trip-planner {
+                background: #f9f9f9 !important;
+                border: 1px solid #ccc !important;
+                color: #000 !important;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+                padding: 10px !important;
+            }
+            .planner-group strong {
+                color: #000 !important;
+            }
+            .planner-input {
+                background: #fff !important;
+                border: 1.5px solid #ccc !important;
+                color: #000 !important;
+                padding: 5px !important;
+            }
+            .btn-launch {
+                display: none !important;
+            }
+            footer {
+                border-top: 2px solid #ccc !important;
+                color: #333 !important;
+                margin-top: 30px !important;
             }
         }
 
