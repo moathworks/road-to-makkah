@@ -651,6 +651,57 @@
             </div>
         </div>
 
+        <!-- نموذج الاقتراحات والاستفسارات -->
+        <div class="suggestions-wrapper">
+            <div class="suggestions-header">
+                <h3>💡 اقتراحاتك واستفساراتك</h3>
+                <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل</p>
+            </div>
+            
+            <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
+                <!-- مفتاح الوصول الخاص بـ Web3Forms لحماية البريد الإلكتروني -->
+                <!-- سيحتاج المستخدم لاستبداله بمفتاح حقيقي مجاني من موقع web3forms.com مرسل لإيميله -->
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                
+                <!-- حماية ضد الروبوتات (Honeypot) مجانية 100% وبدون إعداد وبدون ظهور للمستخدم -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                
+                <!-- إرسال عنوان الصفحة في الرسالة لتسهيل معرفة المصدر -->
+                <input type="hidden" name="from_page" value="دليل قطر البري - مكة">
+                
+                <div class="form-group">
+                    <label for="suggest_name" class="form-label">الاسم الكريم (اختياري)</label>
+                    <input type="text" id="suggest_name" name="name" class="form-input" placeholder="مثال: محمد">
+                </div>
+                
+                <div class="form-group">
+                    <label for="suggest_email" class="form-label">البريد الإلكتروني (اختياري)</label>
+                    <input type="email" id="suggest_email" name="email" class="form-input" placeholder="name@example.com">
+                </div>
+                
+                <div class="form-group-full">
+                    <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span style="color: #e74c3c;">*</span></label>
+                    <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
+                </div>
+
+                <!-- Google reCAPTCHA (اختياري ومجاني) -->
+                <!-- لتفعيله: أزل تعليق الكود أدناه واستبدل YOUR_RECAPTCHA_SITEKEY بمفتاح الموقع الخاص بك من جوجل -->
+                <!--
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITEKEY"></div>
+                </div>
+                -->
+                
+                <div class="btn-submit-container">
+                    <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
+                        <span>إرسال الاقتراح ✉️</span>
+                    </button>
+                </div>
+                
+                <div id="suggestionStatus" class="suggestion-status"></div>
+            </form>
+        </div>
+
         <!-- الفوتر -->
         <footer>
             <p style="font-size: 1.15rem; font-weight: bold; color: #fff; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
@@ -871,6 +922,80 @@
                     alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
                 }
             }
+        }
+
+        // معالجة نموذج الاقتراحات وإرساله بالـ AJAX
+        const suggestForm = document.getElementById('suggestionForm');
+        const suggestStatus = document.getElementById('suggestionStatus');
+        const suggestBtn = document.getElementById('btnSubmitSuggest');
+
+        if (suggestForm) {
+            suggestForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const accessKeyVal = suggestForm.querySelector('input[name="access_key"]').value.trim();
+                if (accessKeyVal === 'YOUR_ACCESS_KEY_HERE') {
+                    suggestStatus.className = 'suggestion-status error';
+                    suggestStatus.innerHTML = '⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً (راجع التعليمات الموضحة في الرد).';
+                    suggestStatus.style.display = 'block';
+                    return;
+                }
+
+                const msgVal = document.getElementById('suggest_message').value.trim();
+                if (!msgVal) {
+                    suggestStatus.className = 'suggestion-status error';
+                    suggestStatus.innerHTML = '⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.';
+                    suggestStatus.style.display = 'block';
+                    return;
+                }
+
+                // تعطيل الزر وعرض حالة الإرسال
+                suggestBtn.disabled = true;
+                const originalText = suggestBtn.innerHTML;
+                suggestBtn.innerHTML = '<span>جاري الإرسال...</span>';
+                suggestStatus.style.display = 'none';
+
+                const formData = new FormData(suggestForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let res = await response.json();
+                    if (response.status === 200) {
+                        suggestStatus.className = 'suggestion-status success';
+                        suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
+                        suggestForm.reset();
+                    } else {
+                        suggestStatus.className = 'suggestion-status error';
+                        suggestStatus.innerHTML = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    suggestStatus.className = 'suggestion-status error';
+                    suggestStatus.innerHTML = '❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة.';
+                })
+                .then(() => {
+                    suggestBtn.disabled = false;
+                    suggestBtn.innerHTML = originalText;
+                    suggestStatus.style.display = 'block';
+                    
+                    // إخفاء التنبيه تلقائياً بعد 8 ثوانٍ في حال النجاح
+                    if (suggestStatus.classList.contains('success')) {
+                        setTimeout(() => {
+                            suggestStatus.style.display = 'none';
+                        }, 8000);
+                    }
+                });
+            });
         }
     </script>
 </body>

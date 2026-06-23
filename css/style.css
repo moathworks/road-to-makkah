@@ -1,4 +1,4 @@
-﻿
+
         * {
             margin: 0;
             padding: 0;
@@ -1007,6 +1007,7 @@
             .checklist-wrapper,
             .tips-grid,
             .emergency-grid,
+            .suggestions-wrapper,
             footer,
             .btn-station-map,
             .btn-maps-mini,
@@ -1178,4 +1179,195 @@
                 color: #555 !important;
                 font-size: 0.85rem !important;
             }
+        }
+
+        /* تنسيقات نموذج الاقتراحات (Suggestions Form) */
+        .suggestions-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s;
+        }
+
+        .suggestions-wrapper:hover {
+            border-color: var(--gold);
+        }
+
+        .suggestions-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .suggestions-header h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .suggestions-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .suggestion-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .recaptcha-container {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .btn-submit-container {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-submit-suggestion {
+            background: var(--gold);
+            color: #121212;
+            font-weight: 900;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit-suggestion:hover {
+            background: #b39025;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-submit-suggestion:disabled {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.4);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .suggestion-status {
+            grid-column: 1 / -1;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .suggestion-status.success {
+            display: block;
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.25);
+        }
+
+        .suggestion-status.error {
+            display: block;
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.25);
+        }
+
+        @media (max-width: 600px) {
+            .suggestion-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* تعديلات المظهر النهاري لنموذج الاقتراحات */
+        body.light-mode .suggestions-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .suggestions-wrapper:hover {
+            border-color: var(--primary-brand);
+        }
+
+        body.light-mode .suggestions-header h3 {
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .form-input, body.light-mode .form-textarea {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: var(--primary-dark);
+        }
+
+        body.light-mode .form-input:focus, body.light-mode .form-textarea:focus {
+            border-color: var(--primary-brand);
+            background: #fff;
+            box-shadow: 0 0 10px rgba(138, 21, 56, 0.1);
+        }
+
+        body.light-mode .btn-submit-suggestion {
+            background: var(--primary-brand);
+            color: #fff;
+        }
+
+        body.light-mode .btn-submit-suggestion:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 0 15px rgba(138, 21, 56, 0.25);
+        }
+
+        body.light-mode .suggestion-status.success {
+            background: rgba(27, 94, 32, 0.06);
+            color: #1b5e20;
+            border-color: rgba(27, 94, 32, 0.15);
+        }
+
+        body.light-mode .suggestion-status.error {
+            background: rgba(176, 0, 32, 0.06);
+            color: #b00020;
+            border-color: rgba(176, 0, 32, 0.15);
         }
