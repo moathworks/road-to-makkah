@@ -141,16 +141,56 @@
         /* شريط الإجراءات السريعة */
         .quick-actions-bar {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 24px;
             justify-content: center;
+            align-items: center;
             width: 100%;
         }
 
-        .quick-actions-bar .action-btn {
-            flex: 1;
-            padding: 10px;
-            font-size: 0.8rem;
+        .quick-actions-bar #themeToggleBtn, .quick-actions-bar .quick-access-btn {
+            background: #ffffff;
+            color: var(--primary-qatar);
+            border: 1.5px solid var(--primary-qatar);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            padding: 0;
+            line-height: 1;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-actions-bar #themeToggleBtn {
+            background: var(--primary-qatar);
+            color: #ffffff;
+        }
+
+        .quick-actions-bar #themeToggleBtn:hover, .quick-actions-bar .quick-access-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-actions-bar .quick-access-btn:hover {
+            background: rgba(138, 21, 56, 0.05);
+        }
+
+        body.dark-mode .quick-actions-bar #themeToggleBtn, 
+        body.dark-mode .quick-actions-bar .quick-access-btn {
+            background: rgba(255, 255, 255, 0.08) !important;
+            color: #fff !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .quick-actions-bar #themeToggleBtn:hover, 
+        body.dark-mode .quick-actions-bar .quick-access-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
         }
 
         /* أقسام وتصنيفات الرحلة */
@@ -1097,22 +1137,22 @@
 
         <!-- أزرار الإجراءات السريعة (مشاركة، مظهر، طباعة) -->
         <div class="quick-actions-bar">
-            <button type="button" class="action-btn" onclick="sharePage()" style="background: var(--primary-light); color: var(--primary-qatar); font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="flex-shrink: 0;">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                    <polyline points="16 6 12 2 8 6"></polyline>
-                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-                مشاركة
+            <button type="button" id="themeToggleBtn" onclick="toggleDarkMode()" title="تغيير المظهر">
+                🌙
             </button>
-            <button type="button" class="action-btn" id="themeToggleBtn" onclick="toggleDarkMode()" style="background: #333; color: #fff; font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">🌙 المظهر</button>
-            <button type="button" class="action-btn" onclick="window.print()" style="background: var(--primary-light); color: var(--primary-qatar); font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="flex-shrink: 0;">
+            <button type="button" class="quick-access-btn" onclick="window.print()" title="طباعة مسار الرحلة">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                     <polyline points="6 9 6 2 18 2 18 9"></polyline>
                     <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                     <rect x="6" y="14" width="12" height="8"></rect>
                 </svg>
-                طباعة
+            </button>
+            <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
             </button>
         </div>
 
@@ -1719,14 +1759,14 @@
         
         function updateThemeBtn(isDark) {
             const btn = document.getElementById('themeToggleBtn');
-            if (isDark) {
-                btn.innerHTML = '☀️ المظهر';
-                btn.style.background = '#f1c40f';
-                btn.style.color = '#333';
-            } else {
-                btn.innerHTML = '🌙 المظهر';
-                btn.style.background = '#333';
-                btn.style.color = '#fff';
+            if (btn) {
+                if (isDark) {
+                    btn.innerHTML = '☀️';
+                    btn.title = 'تفعيل المظهر النهاري';
+                } else {
+                    btn.innerHTML = '🌙';
+                    btn.title = 'تفعيل المظهر الداكن';
+                }
             }
         }
 
