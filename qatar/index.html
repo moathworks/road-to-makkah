@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل السفر البري من قطر إلى مكة 2026 | النسخة الفاخرة</title>
+    <title>دليل السفر البري من قطر إلى مكة 2026</title>
     <!-- خط تجوال للحصول على مظهر ممتاز -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
         rel="stylesheet">
@@ -38,6 +38,8 @@
         }
     </style>
     <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -744,13 +746,10 @@
                         placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
                 </div>
 
-                <!-- Google reCAPTCHA (اختياري ومجاني) -->
-                <!-- لتفعيله: أزل تعليق الكود أدناه واستبدل YOUR_RECAPTCHA_SITEKEY بمفتاح الموقع الخاص بك من جوجل -->
-                <!--
+                <!-- Cloudflare Turnstile (حماية من الروبوتات والسبام) -->
                 <div class="recaptcha-container">
-                    <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITEKEY"></div>
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAADpoTQrZ_rBlzv0e"></div>
                 </div>
-                -->
 
                 <div class="btn-submit-container">
                     <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
