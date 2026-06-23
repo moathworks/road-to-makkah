@@ -1279,7 +1279,7 @@
                 </div>
 
                 <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
-                <div class="recaptcha-container">
+                <div class="recaptcha-container" id="h-captcha-wrapper">
                     <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
                     <script>
                         (function () {
@@ -1763,6 +1763,33 @@
             const isDark = document.body.classList.contains('dark-mode');
             localStorage.setItem('makkahDarkMode', isDark);
             updateThemeBtn(isDark);
+            changehCaptchaTheme(isDark ? 'dark' : 'light');
+        }
+
+        function changehCaptchaTheme(newTheme) {
+            if (typeof hcaptcha !== 'undefined') {
+                const wrapper = document.getElementById('h-captcha-wrapper');
+                if (wrapper) {
+                    wrapper.innerHTML = '';
+                    const newWidget = document.createElement('div');
+                    newWidget.className = 'h-captcha';
+                    newWidget.id = 'h-captcha-widget';
+                    newWidget.setAttribute('data-captcha', 'true');
+                    newWidget.setAttribute('data-lang', 'ar');
+                    newWidget.setAttribute('data-theme', newTheme);
+                    newWidget.setAttribute('data-sitekey', '50b2fe65-b00b-4b9e-ad62-3ba471098be2');
+                    wrapper.appendChild(newWidget);
+                    try {
+                        hcaptcha.render(newWidget, {
+                            sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+                            theme: newTheme,
+                            hl: 'ar'
+                        });
+                    } catch (e) {
+                        console.error('Error rendering hCaptcha:', e);
+                    }
+                }
+            }
         }
         
         function updateThemeBtn(isDark) {
