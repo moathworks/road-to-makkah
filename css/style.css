@@ -11,13 +11,16 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
-            padding-bottom: 50px;
+            padding-bottom: 0;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* الهيدر وشريط التنقل العلوي */
@@ -691,6 +694,7 @@
             border-top: 1px solid rgba(255,255,255,0.05);
             font-size: 0.85rem;
             color: var(--text-muted);
+            margin-top: auto;
         }
 
         footer p {
