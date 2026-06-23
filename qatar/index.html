@@ -38,6 +38,8 @@
         }
     </style>
     <link rel="stylesheet" href="../css/style.css?v=1.0">
+    <!-- Web3Forms Client Script (دمج hCaptcha مجاناً) -->
+    <script src="https://web3forms.com/client/script.js" async defer></script>
 </head>
 
 <body>
@@ -753,6 +755,10 @@
                         placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
                 </div>
 
+                <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
+                <div class="recaptcha-container">
+                    <div class="h-captcha" data-captcha="true" data-lang="ar"></div>
+                </div>
 
                 <div class="btn-submit-container">
                     <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
@@ -1013,6 +1019,15 @@
                     return;
                 }
 
+                // التحقق من حل كابتشا hCaptcha
+                const hCaptchaVal = suggestForm.querySelector('textarea[name=h-captcha-response]')?.value;
+                if (!hCaptchaVal) {
+                    suggestStatus.className = 'suggestion-status error';
+                    suggestStatus.innerHTML = '⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.';
+                    suggestStatus.style.display = 'block';
+                    return;
+                }
+
                 // تعطيل الزر وعرض حالة الإرسال
                 suggestBtn.disabled = true;
                 const originalText = suggestBtn.innerHTML;
@@ -1037,6 +1052,9 @@
                             suggestStatus.className = 'suggestion-status success';
                             suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
                             suggestForm.reset();
+                            if (typeof hcaptcha !== 'undefined') {
+                                hcaptcha.reset();
+                            }
                         } else {
                             suggestStatus.className = 'suggestion-status error';
                             suggestStatus.innerHTML = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
