@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رحلتي من قطر إلى مكة | مخطط الرحلة</title>
+    <title>مخطط الرحلة | دليل السفر البري من قطر إلى مكة 2026</title>
     <!-- خط تجوال للحصول على مظهر ممتاز -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Web3Forms Client Script (دمج hCaptcha مجاناً) -->
@@ -1124,28 +1124,28 @@
                     <div class="card-icon-wrapper">
                         <span class="card-icon">✔️</span>
                     </div>
-                    <h3>قائمة الفحص</h3>
+                    <h3>قائمة الفحص الذكية</h3>
                     <button class="action-btn" onclick="openModal('checklistModal', 'nav-list')">فتح القائمة</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">⛽</span>
                     </div>
-                    <h3>حاسبة الوقود</h3>
+                    <h3>حاسبة تكلفة الوقود</h3>
                     <button class="action-btn" onclick="openModal('fuelModal', null)">احسب الآن</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">⏱️</span>
                     </div>
-                    <h3>حاسبة الوصول والوقت</h3>
+                    <h3>حاسبة وقت الوصول</h3>
                     <button class="action-btn" onclick="openModal('arrivalModal', null)">تخطيط الوقت</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">⏳</span>
                     </div>
-                    <h3>حاسبة المسافة</h3>
+                    <h3>حاسبة المسافة المتبقية</h3>
                     <button class="action-btn" onclick="openModal('remainingModal', null)">احسب المسافة</button>
                 </div>
             </div>
@@ -1159,21 +1159,21 @@
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🗺️</span>
                     </div>
-                    <h3>خرائط المسارات</h3>
+                    <h3>خيارات مسارات السفر</h3>
                     <button class="action-btn" onclick="openModal('routesModal', 'nav-route')">عرض المسار</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🏪</span>
                     </div>
-                    <h3>محطات الوقود</h3>
+                    <h3>محطات الوقود والراحة</h3>
                     <button class="action-btn" onclick="openModal('stationsModal', null)">عرض القائمة</button>
                 </div>
                 <div class="sub-card" style="grid-column: 1 / -1; min-height: 120px;">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">💡</span>
                     </div>
-                    <h3>إرشادات السلامة</h3>
+                    <h3>نصائح وإرشادات السلامة</h3>
                     <button class="action-btn" onclick="openModal('tipsModal', null)">قراءة النصائح</button>
                 </div>
             </div>
@@ -1187,14 +1187,14 @@
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🤲</span>
                     </div>
-                    <h3>أدعية السفر</h3>
+                    <h3>أدعية وأذكار السفر</h3>
                     <button class="action-btn" onclick="openModal('prayersModal', 'nav-prayers')">اقرأ الأدعية</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">📞</span>
                     </div>
-                    <h3>أرقام الطوارئ</h3>
+                    <h3>أرقام الطوارئ والاتصال</h3>
                     <button class="action-btn" onclick="openModal('emergencyModal', null)">عرض الأرقام</button>
                 </div>
             </div>
@@ -1204,7 +1204,7 @@
         <div class="suggestions-wrapper">
             <div class="suggestions-header">
                 <h3>💡 اقتراحاتك واستفساراتك</h3>
-                <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا المخطط</p>
+                <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل</p>
             </div>
             
             <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
@@ -1332,18 +1332,18 @@
     <div class="modal-overlay" id="checklistModal">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('checklistModal')">✕</button>
-            <h3 class="modal-title">📋 قائمة الفحص السريعة</h3>
+            <h3 class="modal-title">📋 قائمة الفحص الذكية قبل السفر</h3>
             
             <div class="checklist-btn-group">
                 <button id="modalSelectAllBtn">✅ تحديد الكل</button>
-                <button id="modalDeselectAllBtn">❌ إلغاء الكل</button>
+                <button id="modalDeselectAllBtn">❌ إلغاء تحديد الكل</button>
             </div>
 
             <div class="progress-bar-container" style="width: 100%; background: #eee; height: 8px; border-radius: 4px; margin-bottom: 12px; overflow: hidden;">
                 <div id="modal-checklist-progress" style="width: 0%; height: 100%; background: var(--primary-qatar); transition: width 0.3s;"></div>
             </div>
             <p style="font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; text-align: center; color: var(--primary-qatar);">
-                نسبة الجاهزية: <span id="modal-progress-text">0%</span>
+                مدى جاهزيتك للرحلة: <span id="modal-progress-text">0%</span>
             </p>
 
             <div class="checklist-modal-list">
@@ -1403,7 +1403,7 @@
     <div class="modal-overlay" id="routesModal">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('routesModal')">✕</button>
-            <h3 class="modal-title">🗺️ خرائط مسارات السفر</h3>
+            <h3 class="modal-title">🗺️ خيارات مسارات السفر البري</h3>
             
             <div style="background: rgba(212, 175, 55, 0.1); padding: 10px; border-radius: 8px; border-right: 4px solid var(--gold); margin-bottom: 15px; font-size: 0.85rem; font-weight: bold; color: var(--primary-qatar);">
                 💡 نصيحة: تجنب أوقات الذروة في مدينة الرياض، واستخدم الدائري الجديد (الالتفاف الخارجي) لتوفير الوقت.
@@ -1414,14 +1414,14 @@
             </div>
 
             <div class="route-info-box">
-                <h4>🛣️ طريق 80 السريع (المسار الرئيسي)</h4>
+                <h4>طريق 80 السريع (المسار الرئيسي)</h4>
                 <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
-                <p style="font-size: 0.85rem; color: #555; line-height: 1.5;">أكثر الطرق أماناً، مضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية (ساسكو النخلة).</p>
+                <p style="font-size: 0.85rem; color: #555; line-height: 1.5;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية (ساسكو النخلة).</p>
                 <a href="https://maps.app.goo.gl/wvE332Ddh8zyPxky6" target="_blank" class="route-btn">📍 تتبع في خرائط Google</a>
             </div>
 
             <div class="route-info-box" style="margin-bottom: 0;">
-                <h4>🔄 مسار تفافي حول الرياض</h4>
+                <h4>مسار التفافي حول الرياض</h4>
                 <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
                 <p style="font-size: 0.85rem; color: #555; line-height: 1.5;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
                 <a href="https://maps.app.goo.gl/sAEA6GnRGFU48n5U9" target="_blank" class="route-btn" style="background:transparent; border:1px solid var(--gold); color:#b5952f;">📍 تتبع في خرائط Google</a>
@@ -1433,7 +1433,7 @@
     <div class="modal-overlay" id="stationsModal">
         <div class="modal-card" style="max-height: 85vh; overflow-y: auto;">
             <button class="modal-close" onclick="closeModal('stationsModal')">✕</button>
-            <h3 class="modal-title">🏪 محطات الوقود والراحة الموصى بها</h3>
+            <h3 class="modal-title">🏪 محطات الوقود والراحة بالتفصيل</h3>
 
             <!-- قائمة المحطات السبعة عشر بالتفصيل -->
             <div style="display: flex; flex-direction: column; gap: 14px;">
@@ -1441,14 +1441,14 @@
                     <div class="distance-badge-mini">تبعد ~90 كم عن نقطة الانطلاق</div>
                     <strong>1. محطة وقود أبو سمرة</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
-                    <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~180 كم عن أبو سمرة</div>
                     <strong>2. محطة ساسكو / الدريس</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
-                    <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <!-- محطات داخل الرياض (المسار الرئيسي) -->
@@ -1500,33 +1500,33 @@
 
                 <!-- محطات داخل الرياض (المسار الالتفافي) -->
                 <div class="riyadh-box" style="border-right-color: var(--gold); background: #fdfdf9;">
-                    <div class="riyadh-box-title" style="color: #b5952f;">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان الدائري)</div>
+                    <div class="riyadh-box-title" style="color: #b5952f;">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</div>
                     <p style="font-size: 0.8rem; color: #555; margin-bottom: 10px;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
                     <div class="riyadh-station-item">
                         <strong>1. محطة الدريس (الرياض)</strong>
                         <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">محطة ممتازة للتزود بالوقود في بداية المسار الالتفافي.</p>
-                        <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn-maps-mini">🗺️ خريطة 1</a>
-                        <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank" class="btn-maps-mini">🗺️ خريطة 2</a>
+                        <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة 1</a>
+                        <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة 2</a>
                     </div>
                     <div class="riyadh-station-item">
                         <strong>2. محطة الدريس (الرياض)</strong>
                         <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">محطة بديلة وخدمات أساسية على امتداد الطريق الدائري.</p>
-                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                     </div>
                     <div class="riyadh-station-item">
                         <strong>3. ساسكو المطار (الرياض)</strong>
                         <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
-                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                     </div>
                     <div class="riyadh-station-item">
                         <strong>4. محطة بترولي (الرياض)</strong>
                         <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">يتوفر بها مطعم "برغرايزر" للوجبات السريعة وخدمات طريق متكاملة.</p>
-                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                     </div>
                     <div class="riyadh-station-item">
                         <strong>5. محطة جي أويل (الرياض)</strong>
                         <p style="font-size: 0.8rem; color: #666; margin-top: 3px;">نقطة التقاء ممتازة للراحة وتعبئة الوقود قبل استكمال طريق الحجاز.</p>
-                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                     </div>
                 </div>
 
@@ -1534,49 +1534,49 @@
                     <div class="distance-badge-mini">تبعد ~40 كم عن آخر الرياض</div>
                     <strong>11. محطة بترومين (مطعم البيك)</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">أول محطة كبرى بعد الخروج من زحام الرياض، تضم مطعم البيك الشهير.</p>
-                    <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~25 كم عن بترومين</div>
                     <strong>12. محطة أورنج - اجزالا</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</p>
-                    <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~15 كم عن أورنج اجزالا</div>
                     <strong>13. محطة أورنج - الراية</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</p>
-                    <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~20 كم عن أورنج الراية</div>
                     <strong>14. محطة ساسكو - تبرك</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
-                    <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~60 كم عن ساسكو تبرك</div>
                     <strong>15. محطة ساسكو - القويعية</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
-                    <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px; border-bottom: 1px solid #eee;">
                     <div class="distance-badge-mini">تبعد ~350 كم عن القويعية</div>
                     <strong>16. محطة نخلة ساسكو</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">محطة كبرى على طريق الرياض - مكة السريع تتوفر بها جميع الخدمات والمطاعم.</p>
-                    <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
 
                 <div style="padding-bottom: 10px;">
                     <div class="distance-badge-mini" style="background:#eafaf1; color:#1e8449;">تبعد ~300 كم عن ساسكو نخلة</div>
                     <strong>17. محطة ساسكو (السيل الكبير)</strong>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
-                    <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-maps-mini">🗺️ الخريطة</a>
+                    <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-maps-mini">🗺️ موقع المحطة</a>
                 </div>
             </div>
         </div>
@@ -1605,7 +1605,7 @@
     <div class="modal-overlay" id="tipsModal">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('tipsModal')">✕</button>
-            <h3 class="modal-title">💡 نصائح السفر وإرشادات السلامة</h3>
+            <h3 class="modal-title">💡 نصائح وإرشادات السلامة</h3>
             
             <div class="tip-item">
                 <h4>😴 الإرهاق والنعاس</h4>
@@ -1628,7 +1628,7 @@
     <div class="modal-overlay" id="prayersModal">
         <div class="modal-card" style="max-height: 80vh; overflow-y: auto;">
             <button class="modal-close" onclick="closeModal('prayersModal')">✕</button>
-            <h3 class="modal-title">🤲 أدعية السفر والنزول</h3>
+            <h3 class="modal-title">🤲 أدعية وأذكار السفر</h3>
             <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-dark); text-align: justify; display: flex; flex-direction: column; gap: 15px;">
                 <div style="background: #fdfaf3; padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold);">
                     <strong>دعاء السفر بالكامل:</strong>
@@ -1653,7 +1653,7 @@
     <div class="modal-overlay" id="emergencyModal">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal('emergencyModal')">✕</button>
-            <h3 class="modal-title">📞 أرقام الطوارئ الهامة</h3>
+            <h3 class="modal-title">📞 أرقام الطوارئ والاتصال</h3>
             
             <div class="emergency-item qatar">
                 <span>🇶🇦 في قطر - الطوارئ الموحد</span>
@@ -2043,7 +2043,7 @@
                     let res = await response.json();
                     if (response.status === 200) {
                         suggestStatus.className = 'suggestion-status success';
-                        suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير المخطط.';
+                        suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
                         suggestForm.reset();
                         if (typeof hcaptcha !== 'undefined') {
                             hcaptcha.reset();
