@@ -1280,7 +1280,15 @@
 
                 <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
                 <div class="recaptcha-container">
-                    <div class="h-captcha" data-captcha="true" data-lang="ar"></div>
+                    <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
+                    <script>
+                        (function () {
+                            const isDark = localStorage.getItem('makkahDarkMode');
+                            if (isDark === 'true') {
+                                document.getElementById('h-captcha-widget').setAttribute('data-theme', 'dark');
+                            }
+                        })();
+                    </script>
                 </div>
                 
                 <div class="btn-submit-container">

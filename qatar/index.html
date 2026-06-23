@@ -42,7 +42,7 @@
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </head>
 
-<body>
+<body class="light-mode">
 
     <div class="container">
 
@@ -761,7 +761,15 @@
 
                 <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
                 <div class="recaptcha-container">
-                    <div class="h-captcha" data-captcha="true" data-lang="ar"></div>
+                    <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
+                    <script>
+                        (function () {
+                            const savedTheme = localStorage.getItem('darkGuideTheme');
+                            if (savedTheme === 'dark') {
+                                document.getElementById('h-captcha-widget').setAttribute('data-theme', 'dark');
+                            }
+                        })();
+                    </script>
                 </div>
 
                 <div class="btn-submit-container">
@@ -876,11 +884,12 @@
 
             // استعادة المظهر المفضل
             const savedTheme = localStorage.getItem('darkGuideTheme');
-            if (savedTheme === 'light') {
+            if (savedTheme === 'dark') {
+                document.body.classList.remove('light-mode');
+                updateThemeBtn(false);
+            } else {
                 document.body.classList.add('light-mode');
                 updateThemeBtn(true);
-            } else {
-                updateThemeBtn(false);
             }
         });
 
