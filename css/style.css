@@ -927,12 +927,12 @@
         }
 
         body.light-mode .emergency-box.qatar {
-            background: var(--primary-brand);
-            border-color: var(--primary-brand);
+            background: #f7e8ec;
+            border-color: rgba(138, 21, 56, 0.2);
         }
 
         body.light-mode .emergency-box.qatar h4 {
-            color: rgba(255, 255, 255, 0.85) !important;
+            color: var(--primary-brand) !important;
         }
 
         body.light-mode .emergency-box.saudi {
@@ -958,7 +958,7 @@
         }
 
         body.light-mode .emergency-box.qatar .emergency-number {
-            color: var(--gold) !important;
+            color: var(--primary-brand) !important;
         }
 
         body.light-mode .emergency-box.saudi .emergency-number {
