@@ -732,6 +732,21 @@
             border-left: 3px solid #ccc;
         }
 
+        .emergency-item span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flag-img {
+            width: 24px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 3px;
+            flex-shrink: 0;
+            box-shadow: 0 0 2px rgba(0,0,0,0.25);
+        }
+
         body.dark-mode .emergency-item {
             background: #242424;
             border-left-color: #444;
@@ -1280,22 +1295,22 @@
             <h2 class="group-title">🚨 أرقام الطوارئ والاتصال</h2>
             <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
                 <div class="emergency-item qatar">
-                    <span>🇶🇦 في قطر - الطوارئ الموحد</span>
+                    <span><img src="https://flagcdn.com/w40/qa.png" alt="قطر" class="flag-img"> في قطر - الطوارئ الموحد</span>
                     <strong>999</strong>
                 </div>
 
                 <div class="emergency-item saudi">
-                    <span>🇸🇦 في السعودية - أمن الطرق والعمليات</span>
+                    <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - أمن الطرق والعمليات</span>
                     <strong>911</strong>
                 </div>
 
                 <div class="emergency-item saudi">
-                    <span>🇸🇦 في السعودية - الإسعاف (الهلال الأحمر)</span>
+                    <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - الإسعاف (الهلال الرئيسي)</span>
                     <strong>997</strong>
                 </div>
 
                 <div class="emergency-item saudi" style="border-left-color: #f39c12;">
-                    <span>🇸🇦 في السعودية - نجم (للحوادث)</span>
+                    <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - نجم (للحوادث)</span>
                     <a href="https://najm.sa" target="_blank" style="text-decoration:none;"><strong style="color: #d35400;">920000560</strong></a>
                 </div>
                 <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 10px; line-height: 1.4;">
@@ -1710,22 +1725,22 @@
             <h3 class="modal-title">📞 أرقام الطوارئ والاتصال</h3>
             
             <div class="emergency-item qatar">
-                <span>🇶🇦 في قطر - الطوارئ الموحد</span>
+                <span><img src="https://flagcdn.com/w40/qa.png" alt="قطر" class="flag-img"> في قطر - الطوارئ الموحد</span>
                 <strong>999</strong>
             </div>
 
             <div class="emergency-item saudi">
-                <span>🇸🇦 في السعودية - أمن الطرق والعمليات</span>
+                <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - أمن الطرق والعمليات</span>
                 <strong>911</strong>
             </div>
 
             <div class="emergency-item saudi">
-                <span>🇸🇦 في السعودية - الإسعاف (الهلال الأحمر)</span>
+                <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - الإسعاف (الهلال الأحمر)</span>
                 <strong>997</strong>
             </div>
 
             <div class="emergency-item saudi" style="border-left-color: #f39c12;">
-                <span>🇸🇦 في السعودية - نجم (للحوادث)</span>
+                <span><img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img"> في السعودية - نجم (للحوادث)</span>
                 <a href="https://najm.sa" target="_blank" style="text-decoration:none;"><strong style="color: #d35400;">920000560</strong></a>
             </div>
             <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 10px; line-height: 1.4;">
