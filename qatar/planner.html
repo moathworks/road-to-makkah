@@ -1199,7 +1199,7 @@
         </div>
 
         <!-- قسم الإعداد -->
-        <div class="section-group">
+        <div class="section-group" id="section-setup">
             <h2 class="group-title">🎯 الإعداد</h2>
             <div class="cards-grid">
                 <div class="sub-card">
@@ -1234,7 +1234,7 @@
         </div>
 
         <!-- قسم الطريق -->
-        <div class="section-group">
+        <div class="section-group" id="section-road">
             <h2 class="group-title">🛣️ الطريق</h2>
             <div class="cards-grid">
                 <div class="sub-card">
@@ -1269,7 +1269,7 @@
         </div>
 
         <!-- قسم أرقام الطوارئ والاتصال -->
-        <div class="section-group">
+        <div class="section-group" id="section-emergency">
             <h2 class="group-title">🚨 أرقام الطوارئ والاتصال</h2>
             <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
                 <div class="emergency-item qatar">
@@ -1313,15 +1313,15 @@
 
         <!-- شريط التنقل السفلي المطور (تفاعلي بالكامل كـ SPA) -->
         <nav class="bottom-nav">
-            <button class="nav-link active" id="nav-home" onclick="closeAllModals()">
+            <button class="nav-link active" id="nav-home" onclick="scrollToSection('section-setup', 'nav-home')">
                 <span class="nav-link-icon">⚙️</span>
                 <span>الإعداد</span>
             </button>
-            <button class="nav-link" id="nav-route" onclick="openModal('routesModal', 'nav-route')">
+            <button class="nav-link" id="nav-route" onclick="scrollToSection('section-road', 'nav-route')">
                 <span class="nav-link-icon">🛣️</span>
                 <span>الطريق</span>
             </button>
-            <button class="nav-link" id="nav-list" onclick="openModal('emergencyModal', 'nav-list')">
+            <button class="nav-link" id="nav-list" onclick="scrollToSection('section-emergency', 'nav-list')">
                 <span class="nav-link-icon">🚨</span>
                 <span>الطوارئ</span>
             </button>
@@ -1779,7 +1779,7 @@
                 
                 <div class="btn-submit-container">
                     <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
-                        <span>إرسال الاقتراح ✉️</span>
+                        <span>إرسال ✉️</span>
                     </button>
                 </div>
                 
@@ -1878,10 +1878,25 @@
             const tabs = document.querySelectorAll('.nav-link');
             tabs.forEach(tab => tab.classList.remove('active'));
             if (tabId) {
-                document.getElementById(tabId).classList.add('active');
+                const el = document.getElementById(tabId);
+                if (el) el.classList.add('active');
             } else {
-                document.getElementById('nav-home').classList.add('active');
+                const home = document.getElementById('nav-home');
+                if (home) home.classList.add('active');
             }
+        }
+
+        // التمرير السلس إلى الأقسام العامة في الصفحة الرئيسية
+        function scrollToSection(id, tabId) {
+            // إغلاق أي نافذة منبثقة مفتوحة
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => modal.classList.remove('open'));
+            
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            setActiveTab(tabId);
         }
 
         // فتح وإغلاق النوافذ المنبثقة بدعم زر الرجوع في الجوال
@@ -2006,6 +2021,33 @@
             if (history.state && history.state.modalId) {
                 openModal(history.state.modalId, history.state.tabId, true);
             }
+
+            // مراقبة التمرير لتحديث التبويب النشط في القائمة السفلية تلقائياً
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'section-setup') {
+                            setActiveTab('nav-home');
+                        } else if (entry.target.id === 'section-road') {
+                            setActiveTab('nav-route');
+                        } else if (entry.target.id === 'section-emergency') {
+                            setActiveTab('nav-list');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            const sections = ['section-setup', 'section-road', 'section-emergency'];
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
         });
 
         document.getElementById('modalSelectAllBtn').addEventListener('click', () => {
