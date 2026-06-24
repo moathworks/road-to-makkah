@@ -1105,6 +1105,47 @@
             color: #e74c3c;
             border: 1px solid rgba(231, 76, 60, 0.25);
         }
+
+        /* تحسينات المظهر الداكن للنوافذ المنبثقة (Popups/Modals) */
+        body.dark-mode .modal-card p {
+            color: #e0e0e0 !important;
+        }
+        body.dark-mode .modal-card strong {
+            color: #ffffff !important;
+        }
+        body.dark-mode .modal-card .riyadh-box {
+            background-color: #1a2a3a !important;
+            border-color: #333 !important;
+        }
+        body.dark-mode .modal-card .riyadh-station-item {
+            background-color: #242424 !important;
+            border-color: #333 !important;
+        }
+        body.dark-mode .btn-maps-mini {
+            background: #1a2a3a;
+            color: #5da2ff;
+        }
+        body.dark-mode .route-btn {
+            color: #121212 !important;
+        }
+        body.dark-mode .route-info-box a.route-btn[style*="transparent"] {
+            color: var(--gold) !important;
+        }
+        body.dark-mode .emergency-item a strong {
+            color: var(--gold) !important;
+        }
+        .prayer-box {
+            background: #fdfaf3;
+            padding: 12px;
+            border-radius: 8px;
+            border-right: 4px solid var(--gold);
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        body.dark-mode .prayer-box {
+            background: #1a140a !important;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body>
@@ -1208,98 +1249,59 @@
                         <span class="card-icon">🏪</span>
                     </div>
                     <h3>محطات الوقود والراحة</h3>
-                    <button class="action-btn" onclick="openModal('stationsModal', null)">عرض القائمة</button>
+                    <button class="action-btn" onclick="openModal('stationsModal', 'nav-route')">عرض القائمة</button>
                 </div>
-                <div class="sub-card" style="grid-column: 1 / -1; min-height: 120px;">
-                    <div class="card-icon-wrapper">
-                        <span class="card-icon">💡</span>
-                    </div>
-                    <h3>نصائح وإرشادات السلامة</h3>
-                    <button class="action-btn" onclick="openModal('tipsModal', null)">قراءة النصائح</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم الوصول -->
-        <div class="section-group">
-            <h2 class="group-title">🕋 الوصول</h2>
-            <div class="cards-grid">
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
                         <span class="card-icon">🤲</span>
                     </div>
                     <h3>أدعية وأذكار السفر</h3>
-                    <button class="action-btn" onclick="openModal('prayersModal', 'nav-prayers')">اقرأ الأدعية</button>
+                    <button class="action-btn" onclick="openModal('prayersModal', 'nav-route')">اقرأ الأدعية</button>
                 </div>
                 <div class="sub-card">
                     <div class="card-icon-wrapper">
-                        <span class="card-icon">📞</span>
+                        <span class="card-icon">💡</span>
                     </div>
-                    <h3>أرقام الطوارئ والاتصال</h3>
-                    <button class="action-btn" onclick="openModal('emergencyModal', null)">عرض الأرقام</button>
+                    <h3>نصائح وإرشادات السلامة</h3>
+                    <button class="action-btn" onclick="openModal('tipsModal', 'nav-route')">قراءة النصائح</button>
                 </div>
             </div>
         </div>
-        
-        <!-- نموذج الاقتراحات والاستفسارات -->
-        <div class="suggestions-wrapper">
-            <div class="suggestions-header">
-                <h3>💡 اقتراحاتك واستفساراتك</h3>
-                <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل</p>
+
+        <!-- قسم أرقام الطوارئ والاتصال -->
+        <div class="section-group">
+            <h2 class="group-title">🚨 أرقام الطوارئ والاتصال</h2>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+                <div class="emergency-item qatar">
+                    <span>🇶🇦 في قطر - الطوارئ الموحد</span>
+                    <strong>999</strong>
+                </div>
+
+                <div class="emergency-item saudi">
+                    <span>🇸🇦 في السعودية - أمن الطرق والعمليات</span>
+                    <strong>911</strong>
+                </div>
+
+                <div class="emergency-item saudi">
+                    <span>🇸🇦 في السعودية - الإسعاف (الهلال الأحمر)</span>
+                    <strong>997</strong>
+                </div>
+
+                <div class="emergency-item saudi" style="border-left-color: #f39c12;">
+                    <span>🇸🇦 في السعودية - نجم (للحوادث)</span>
+                    <a href="https://najm.sa" target="_blank" style="text-decoration:none;"><strong style="color: #d35400;">920000560</strong></a>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 10px; line-height: 1.4;">
+                    *نجم هي المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة.
+                </p>
             </div>
-            
-            <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
-                <!-- مفتاح الوصول الخاص بـ Web3Forms لحماية البريد الإلكتروني -->
-                <input type="hidden" name="access_key" value="6481c10e-7bff-4bdc-bc38-20944e398cd6">
-                
-                <!-- حماية ضد الروبوتات (Honeypot) مجانية 100% وبدون إعداد وبدون ظهور للمستخدم -->
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                
-                <!-- إرسال عنوان الصفحة في الرسالة لتسهيل معرفة المصدر -->
-                <input type="hidden" name="from_page" value="مخطط رحلة قطر - مكة">
-
-                <!-- اسم المرسل المخصص في البريد الوارد -->
-                <input type="hidden" name="from_name" value="مخطط قطر - مكة 🕋">
-                
-                <!-- عنوان البريد الإلكتروني الوارد -->
-                <input type="hidden" name="subject" value="اقتراح/استفسار من مخطط قطر - مكة 🕋">
-                
-                <div class="form-group">
-                    <label for="suggest_name" class="form-label">الاسم الكريم <span style="color: #e74c3c;">*</span></label>
-                    <input type="text" id="suggest_name" name="name" class="form-input" required placeholder="مثال: محمد">
-                </div>
-                
-                <div class="form-group">
-                    <label for="suggest_email" class="form-label">البريد الإلكتروني <span style="color: #e74c3c;">*</span></label>
-                    <input type="email" id="suggest_email" name="email" class="form-input" required placeholder="name@example.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span style="color: #e74c3c;">*</span></label>
-                    <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
-                </div>
-
-                <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
-                <div class="recaptcha-container" id="h-captcha-wrapper">
-                    <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
-                    <script>
-                        (function () {
-                            const isDark = localStorage.getItem('makkahDarkMode');
-                            if (isDark === 'true') {
-                                document.getElementById('h-captcha-widget').setAttribute('data-theme', 'dark');
-                            }
-                        })();
-                    </script>
-                </div>
-                
-                <div class="btn-submit-container">
-                    <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
-                        <span>إرسال الاقتراح ✉️</span>
-                    </button>
-                </div>
-                
-                <div id="suggestionStatus" class="suggestion-status"></div>
-            </form>
+        </div>
+        
+        <!-- زر فتح اقتراحات واستفسارات -->
+        <div style="text-align: center; margin: 25px 0 10px 0;">
+            <button class="action-btn" onclick="openModal('suggestionsModal', null)" style="background: var(--primary-qatar); color: var(--bg-page); padding: 12px 30px; font-size: 0.95rem; border-radius: 20px; width: auto; max-width: 280px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow);">
+                <span>💡 إرسال اقتراح أو استفسار</span>
+            </button>
         </div>
 
         <!-- الفوتر -->
@@ -1312,20 +1314,16 @@
         <!-- شريط التنقل السفلي المطور (تفاعلي بالكامل كـ SPA) -->
         <nav class="bottom-nav">
             <button class="nav-link active" id="nav-home" onclick="closeAllModals()">
-                <span class="nav-link-icon">🏠</span>
-                <span>الرئيسية</span>
+                <span class="nav-link-icon">⚙️</span>
+                <span>الإعداد</span>
             </button>
             <button class="nav-link" id="nav-route" onclick="openModal('routesModal', 'nav-route')">
-                <span class="nav-link-icon">📍</span>
-                <span>المسار</span>
+                <span class="nav-link-icon">🛣️</span>
+                <span>الطريق</span>
             </button>
-            <button class="nav-link" id="nav-list" onclick="openModal('checklistModal', 'nav-list')">
-                <span class="nav-link-icon">📋</span>
-                <span>القائمة</span>
-            </button>
-            <button class="nav-link" id="nav-prayers" onclick="openModal('prayersModal', 'nav-prayers')">
-                <span class="nav-link-icon">🌙</span>
-                <span>أدعية</span>
+            <button class="nav-link" id="nav-list" onclick="openModal('emergencyModal', 'nav-list')">
+                <span class="nav-link-icon">🚨</span>
+                <span>الطوارئ</span>
             </button>
         </nav>
 
@@ -1679,18 +1677,18 @@
             <button class="modal-close" onclick="closeModal('prayersModal')">✕</button>
             <h3 class="modal-title">🤲 أدعية وأذكار السفر</h3>
             <div style="font-size: 0.95rem; line-height: 1.8; color: var(--text-dark); text-align: justify; display: flex; flex-direction: column; gap: 15px;">
-                <div style="background: #fdfaf3; padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold);">
+                <div class="prayer-box">
                     <strong>دعاء السفر بالكامل:</strong>
                     <p style="margin-top: 5px; font-size: 1.1rem; line-height: 1.8; text-align: center;">
                         "الله أكبر، الله أكبر، الله أكبر، سُبْحانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ، وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ. 
                         اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى، اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا وَاطْوِ عَنَّا بُعْدَهُ..."
                     </p>
                 </div>
-                <div style="background: #fdfaf3; padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold);">
+                <div class="prayer-box">
                     <strong>عند نزول محطة أو استراحة:</strong>
                     <p style="margin-top: 5px;">"أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ"</p>
                 </div>
-                <div style="background: #fdfaf3; padding: 12px; border-radius: 8px; border-right: 4px solid var(--gold);">
+                <div class="prayer-box">
                     <strong>أثناء القيادة بالطريق (التكبير والتسبيح):</strong>
                     <p style="margin-top: 5px;">التكبير (الله أكبر) عند صعود المرتفعات، والتسبيح (سبحان الله) عند الهبوط والنزول.</p>
                 </div>
@@ -1726,6 +1724,67 @@
             <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 10px; line-height: 1.4;">
                 *نجم هي المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة.
             </p>
+        </div>
+    </div>
+
+    <!-- مودال الاقتراحات والاستفسارات -->
+    <div class="modal-overlay" id="suggestionsModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('suggestionsModal')">✕</button>
+            <h3 class="modal-title">💡 إرسال اقتراح أو استفسار</h3>
+            
+            <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
+                <!-- مفتاح الوصول الخاص بـ Web3Forms لحماية البريد الإلكتروني -->
+                <input type="hidden" name="access_key" value="6481c10e-7bff-4bdc-bc38-20944e398cd6">
+                
+                <!-- حماية ضد الروبوتات (Honeypot) مجانية 100% وبدون إعداد وبدون ظهور للمستخدم -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                
+                <!-- إرسال عنوان الصفحة في الرسالة لتسهيل معرفة المصدر -->
+                <input type="hidden" name="from_page" value="مخطط رحلة قطر - مكة">
+
+                <!-- اسم المرسل المخصص في البريد الوارد -->
+                <input type="hidden" name="from_name" value="مخطط قطر - مكة 🕋">
+                
+                <!-- عنوان البريد الإلكتروني الوارد -->
+                <input type="hidden" name="subject" value="اقتراح/استفسار من مخطط قطر - مكة 🕋">
+                
+                <div class="form-group">
+                    <label for="suggest_name" class="form-label">الاسم الكريم <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" id="suggest_name" name="name" class="form-input" required placeholder="مثال: محمد">
+                </div>
+                
+                <div class="form-group">
+                    <label for="suggest_email" class="form-label">البريد الإلكتروني <span style="color: #e74c3c;">*</span></label>
+                    <input type="email" id="suggest_email" name="email" class="form-input" required placeholder="name@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span style="color: #e74c3c;">*</span></label>
+                    <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
+                </div>
+
+                <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
+                <div class="recaptcha-container" id="h-captcha-wrapper">
+                    <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
+                    <script>
+                        (function () {
+                            const isDark = localStorage.getItem('makkahDarkMode');
+                            if (isDark === 'true') {
+                                document.getElementById('h-captcha-widget').setAttribute('data-theme', 'dark');
+                            }
+                        })();
+                    </script>
+                </div>
+                
+                <div class="btn-submit-container">
+                    <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
+                        <span>إرسال الاقتراح ✉️</span>
+                    </button>
+                </div>
+                
+                <div id="suggestionStatus" class="suggestion-status"></div>
+            </form>
         </div>
     </div>
 
