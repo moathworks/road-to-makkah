@@ -6,6 +6,11 @@
     <title>دليل السفر البري إلى مكة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: 'Cairo', sans-serif;
             margin: 0;
@@ -52,7 +57,7 @@
         }
 
         h1 {
-            font-size: clamp(1.2rem, 6.8vw, 3rem);
+            font-size: clamp(1rem, 5.8vw, 2.8rem);
             font-weight: 900;
             margin-bottom: 15px;
             margin-top: 0;
@@ -185,7 +190,6 @@
 
         /* Responsive */
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
             .subtitle { font-size: 1.2rem; }
             .prayer { font-size: 1rem; }
             .container { padding: 40px 20px; }
