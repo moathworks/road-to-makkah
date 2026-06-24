@@ -284,9 +284,9 @@
 
         /* أزرار داخل الكروت */
         .action-btn {
-            background-color: var(--gold);
-            color: #121212;
-            border: none;
+            background-color: var(--primary-light);
+            color: var(--primary-qatar);
+            border: 1px solid rgba(138, 21, 56, 0.15);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -297,17 +297,26 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+        }
+
+        .sub-card:hover .action-btn,
+        .action-btn:hover {
+            background-color: var(--primary-qatar);
+            color: #fff;
+            border-color: var(--primary-qatar);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(138, 21, 56, 0.2);
         }
 
         body.dark-mode .action-btn {
             background-color: var(--gold);
             color: #121212;
+            border: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .sub-card:hover .action-btn,
-        .action-btn:hover {
+        body.dark-mode .sub-card:hover .action-btn,
+        body.dark-mode .action-btn:hover {
             background-color: #b39025;
             color: #121212;
             transform: scale(1.03);
@@ -688,8 +697,9 @@
 
         .route-btn {
             display: inline-block;
-            background: var(--gold);
-            color: #121212;
+            background-color: var(--primary-light);
+            color: var(--primary-qatar);
+            border: 1px solid rgba(138, 21, 56, 0.15);
             text-decoration: none;
             padding: 6px 12px;
             border-radius: 15px;
@@ -698,11 +708,21 @@
             transition: all 0.3s ease;
         }
 
-        body.dark-mode .route-btn {
-            color: #121212;
+        .route-btn:hover {
+            background-color: var(--primary-qatar);
+            color: #fff !important;
+            border-color: var(--primary-qatar);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(138, 21, 56, 0.2);
         }
 
-        .route-btn:hover {
+        body.dark-mode .route-btn {
+            background-color: var(--gold);
+            color: #121212;
+            border: none;
+        }
+
+        body.dark-mode .route-btn:hover {
             background-color: #b39025;
             color: #121212 !important;
             transform: translateY(-2px);
@@ -1091,10 +1111,10 @@
         }
 
         .btn-submit-suggestion {
-            background: var(--gold);
-            color: #121212;
+            background-color: var(--primary-light);
+            color: var(--primary-qatar);
+            border: 1px solid rgba(138, 21, 56, 0.15);
             font-weight: bold;
-            border: none;
             padding: 10px 24px;
             border-radius: 10px;
             cursor: pointer;
@@ -1105,16 +1125,24 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
-        }
-
-        body.dark-mode .btn-submit-suggestion {
-            background: var(--gold);
-            color: #121212;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .btn-submit-suggestion:hover {
+            background-color: var(--primary-qatar);
+            color: #fff;
+            border-color: var(--primary-qatar);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(138, 21, 56, 0.3);
+        }
+
+        body.dark-mode .btn-submit-suggestion {
+            background-color: var(--gold);
+            color: #121212;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .btn-submit-suggestion:hover {
             background-color: #b39025;
             color: #121212;
             transform: translateY(-2px);

@@ -141,20 +141,27 @@
         <!-- خيارات مسارات السفر البري -->
         <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
         <div class="carousel-container">
-            <div class="route-card">
-                <h4>طريق 80 السريع (المسار الرئيسي)</h4>
-                <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
-                <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.
-                </p>
-                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,480 كم</div>
+            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h4>طريق 80 السريع (المسار الرئيسي)</h4>
+                    <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة.</p>
+                    <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,480 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
             </div>
-            <div class="route-card">
-                <h4>مسار التفافي حول الرياض</h4>
-                <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع
-                    طريق الحجاز.</p>
-                <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).
-                </p>
-                <div class="route-badge" style="margin-top: 10px;">المسافة: 1,510 كم</div>
+            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h4>مسار التفافي حول الرياض</h4>
+                    <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
+                    <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,510 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
             </div>
         </div>
 
@@ -378,12 +385,7 @@
         <div class="section-header">✅ قائمة الفحص الذكية قبل السفر</div>
         <div class="checklist-wrapper">
 
-            <div class="checklist-btn-group">
-                <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
-                <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
-            </div>
-
-            <div class="progress-container">
+            <div class="progress-container" style="margin-bottom: 15px;">
                 <div class="progress-header">
                     <span>مدى جاهزيتك للرحلة</span>
                     <span id="progress-percent">0%</span>
@@ -393,7 +395,19 @@
                 </div>
             </div>
 
-            <div class="checklist-grid">
+            <!-- زر طوي وتوسيع قائمة الفحص -->
+            <button type="button" class="checklist-btn" id="toggle-checklist-btn" onclick="toggleChecklist()" style="width: 100%; margin-bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span>👁️ عرض بنود قائمة الفحص (اضغط للتوسيع)</span>
+            </button>
+
+            <!-- الحاوية القابلة للطي -->
+            <div id="checklist-collapse-content" style="display: none; margin-top: 20px;">
+                <div class="checklist-btn-group">
+                    <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
+                    <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
+                </div>
+
+                <div class="checklist-grid">
 
                 <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
 
@@ -664,6 +678,7 @@
                 </div>
 
             </div>
+            </div> <!-- نهاية الحاوية القابلة للطي -->
         </div>
 
         <!-- نصائح السفر وأذكار الطريق -->
@@ -692,24 +707,35 @@
         <div class="section-header">📞 أرقام الطوارئ والاتصال</div>
         <div class="emergency-grid">
             <div class="emergency-box qatar">
-                <h4>في قطر (طوارئ عامة)</h4>
+                <h4 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <img src="https://flagcdn.com/w40/qa.png" alt="قطر" class="flag-img">
+                    في قطر (طوارئ عامة)
+                </h4>
                 <div class="emergency-number">999</div>
             </div>
             <div class="emergency-box saudi">
-                <h4>في السعودية (أمن الطرق)</h4>
+                <h4 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img">
+                    في السعودية (أمن الطرق)
+                </h4>
                 <div class="emergency-number">911</div>
             </div>
             <div class="emergency-box saudi">
-                <h4>الهلال الأحمر (إسعاف)</h4>
+                <h4 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img">
+                    الهلال الأحمر (إسعاف)
+                </h4>
                 <div class="emergency-number">997</div>
             </div>
             <div class="emergency-box saudi"
                 style="border-color: rgba(0, 108, 53, 0.2); background: rgba(0, 108, 53, 0.03);">
-                <h4>نجم للحوادث (السعودية)</h4>
+                <h4 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <img src="https://flagcdn.com/w40/sa.png" alt="السعودية" class="flag-img">
+                    نجم للحوادث (السعودية)
+                </h4>
                 <div class="emergency-number" style="font-size: 1.45rem; color: #2ecc71; margin-top: 5px;">920000560
                 </div>
-                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">إدارة حوادث السير للمركبات
-                    المؤمنة</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;">إدارة حوادث السير للمركبات المؤمنة</p>
             </div>
         </div>
 
@@ -904,6 +930,18 @@
             }
         }
 
+        function toggleChecklist() {
+            const content = document.getElementById('checklist-collapse-content');
+            const btn = document.getElementById('toggle-checklist-btn');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.innerHTML = '<span>🙈 إخفاء بنود قائمة الفحص</span>';
+            } else {
+                content.style.display = 'none';
+                btn.innerHTML = '<span>👁️ عرض بنود قائمة الفحص (اضغط للتوسيع)</span>';
+            }
+        }
+ 
         window.addEventListener('DOMContentLoaded', () => {
             loadChecklistState();
             initGeolocation();
