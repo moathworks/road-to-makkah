@@ -27,7 +27,7 @@
         header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 15px 0;
             margin-bottom: 30px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
