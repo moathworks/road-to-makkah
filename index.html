@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دليل السفر البري إلى مكة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             width: 100%;
         }
@@ -30,8 +32,11 @@
         body::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 100%);
             z-index: 1;
         }
 
@@ -52,8 +57,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
@@ -61,7 +73,7 @@
             font-weight: 900;
             margin-bottom: 15px;
             margin-top: 0;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
             letter-spacing: -1px;
             white-space: nowrap;
             color: #f1c40f;
@@ -76,7 +88,8 @@
 
         .prayer {
             font-size: 1.2rem;
-            color: #f1c40f; /* Golden touch to match the Kaaba theme */
+            color: #f1c40f;
+            /* Golden touch to match the Kaaba theme */
             margin-bottom: 40px;
             font-weight: 700;
         }
@@ -103,13 +116,13 @@
             font-weight: 700;
             white-space: nowrap;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .country-link:hover {
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.4);
         }
 
@@ -191,30 +204,48 @@
 
         /* Responsive */
         @media (max-width: 600px) {
-            .subtitle { font-size: 1.2rem; }
-            .prayer { font-size: 1rem; }
-            .container { padding: 40px 14px; }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .prayer {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 40px 14px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>دليل السفر البري إلى مكة</h1>
-        
+
         <div class="weather-widget" id="weatherWidget" style="margin-top: 10px; margin-bottom: 30px;">
             <span id="weatherTemp">جاري جلب الطقس... ⏳</span>
         </div>
-        
+
         <div class="countries">
-            <a href="./qatar/" class="country-link">قطر <img src="https://flagcdn.com/w40/qa.png" alt="قطر" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./uae/" class="country-link">الإمارات <img src="https://flagcdn.com/w40/ae.png" alt="الإمارات" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./bahrain/" class="country-link">البحرين <img src="https://flagcdn.com/w40/bh.png" alt="البحرين" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./kuwait/" class="country-link">الكويت <img src="https://flagcdn.com/w40/kw.png" alt="الكويت" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./oman/" class="country-link">عُمان <img src="https://flagcdn.com/w40/om.png" alt="عُمان" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./syria/" class="country-link">سوريا <img src="https://flagcdn.com/w40/sy.png" alt="سوريا" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./jordan/" class="country-link">الأردن <img src="https://flagcdn.com/w40/jo.png" alt="الأردن" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./iraq/" class="country-link">العراق <img src="https://flagcdn.com/w40/iq.png" alt="العراق" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
-            <a href="./yemen/" class="country-link">اليمن <img src="https://flagcdn.com/w40/ye.png" alt="اليمن" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./qatar/" class="country-link">قطر <img src="https://flagcdn.com/w40/qa.png" alt="قطر"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./uae/" class="country-link">الإمارات <img src="https://flagcdn.com/w40/ae.png" alt="الإمارات"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./bahrain/" class="country-link">البحرين <img src="https://flagcdn.com/w40/bh.png" alt="البحرين"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./kuwait/" class="country-link">الكويت <img src="https://flagcdn.com/w40/kw.png" alt="الكويت"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./oman/" class="country-link">عُمان <img src="https://flagcdn.com/w40/om.png" alt="عُمان"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./syria/" class="country-link">سوريا <img src="https://flagcdn.com/w40/sy.png" alt="سوريا"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./jordan/" class="country-link">الأردن <img src="https://flagcdn.com/w40/jo.png" alt="الأردن"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./iraq/" class="country-link">العراق <img src="https://flagcdn.com/w40/iq.png" alt="العراق"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
+            <a href="./yemen/" class="country-link">اليمن <img src="https://flagcdn.com/w40/ye.png" alt="اليمن"
+                    style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px;"></a>
         </div>
 
         <button id="shareButton" class="share-btn">مشاركة الصفحة 🔗</button>
@@ -223,14 +254,17 @@
             <h3 style="color: #fff; margin-top: 0; margin-bottom: 15px; text-align: center;">💡 أسئلة شائعة</h3>
             <div class="faq-item">
                 <div class="faq-q">هل الطرق مضاءة بالكامل؟</div>
-                <div class="faq-a">الطريق الرئيسي (طريق 80) مضاء معظمه وفيه محطات كثيرة، لكن يفضل القيادة بحذر ليلاً.</div>
+                <div class="faq-a">الطريق الرئيسي (طريق 80) مضاء معظمه وفيه محطات كثيرة، لكن يفضل القيادة بحذر ليلاً.
+                </div>
             </div>
         </div>
 
         <div class="footer">
             <p style="margin-bottom: 8px;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
             <p style="color: #f1c40f; font-weight: 700; margin-bottom: 15px;">تذكرونا بدعوة صالحة 🤲</p>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 12px; margin-bottom: 0;">تم تصميم الدليل بواسطة معاذ بلال</p>
+            <p
+                style="font-size: 0.9rem; opacity: 0.7; margin-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 12px; margin-bottom: 0;">
+                تم تصميم الدليل بواسطة معاذ بلال</p>
         </div>
     </div>
 
@@ -238,7 +272,7 @@
         document.getElementById('shareButton').addEventListener('click', async () => {
             const shareData = {
                 title: 'دليل السفر البري إلى مكة',
-                text: 'دليل شامل للسفر البري إلى مكة المكرمة من دول الخليج. تذكرونا بدعوة صالحة 🤲',
+                text: 'دليل شامل للسفر البري إلى مكة المكرمة. تذكرونا بدعوة صالحة 🤲',
                 url: window.location.href
             };
 
@@ -271,4 +305,5 @@
         fetchWeather();
     </script>
 </body>
+
 </html>
