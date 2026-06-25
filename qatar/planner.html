@@ -1278,6 +1278,40 @@
                 قطر ← 🕋 مكة المكرمة
             </a>
             <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: normal;">آخر تحديث: 24 يونيو 2026</div>
+            
+            <!-- أزرار الإجراءات السريعة (مشاركة، مظهر، طباعة) -->
+            <div class="quick-actions-bar" style="margin-top: 10px; margin-bottom: 0;">
+                <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)"
+                    style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <button type="button" id="themeToggleBtn" onclick="toggleDarkMode()" title="تغيير المظهر">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="window.print()" title="طباعة مسار الرحلة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- البار العلوي للمعلومات -->
@@ -1305,40 +1339,6 @@
             <h1 class="app-title">دليل السفر البري من قطر إلى مكة المكرمة</h1>
             <p class="app-description">منصة تفاعلية تجمع مسارات الرحلة، محطات التوقف، أدعية السفر، وقائمة الفحص الذكية
                 قبل الانطلاق لضمان رحلة ميسرة لعمرة مقبولة.</p>
-        </div>
-
-        <!-- أزرار الإجراءات السريعة (مشاركة، مظهر، طباعة) -->
-        <div class="quick-actions-bar">
-            <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)"
-                style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-            </a>
-            <button type="button" id="themeToggleBtn" onclick="toggleDarkMode()" title="تغيير المظهر">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
-            <button type="button" class="quick-access-btn" onclick="window.print()" title="طباعة مسار الرحلة">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect x="6" y="14" width="12" height="8"></rect>
-                </svg>
-            </button>
-            <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                    <polyline points="16 6 12 2 8 6"></polyline>
-                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-            </button>
         </div>
 
         <!-- قسم الإعداد -->
