@@ -1067,7 +1067,7 @@
         function sharePage() {
             const url = window.location.href;
             const title = document.title;
-            const text = 'دليل السفر البري من قطر إلى مكة المكرمة 🕋';
+            const text = 'دليل السفر البري من قطر إلى مكة المكرمة 🕋\nتذكرونا بدعوة صالحة 🤲';
 
             if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
                 navigator.share({
@@ -1078,7 +1078,7 @@
                     console.log('حدث خطأ أثناء محاولة المشاركة:', error);
                 });
             } else {
-                const shareTextWithUrl = `${title}\n${url}`;
+                const shareTextWithUrl = `${title}\nتذكرونا بدعوة صالحة 🤲\n${url}`;
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(shareTextWithUrl).then(function() {
                         alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
