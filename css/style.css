@@ -724,17 +724,7 @@
             border-bottom-color: rgba(0, 0, 0, 0.08);
         }
 
-        body.light-mode #themeToggleBtn {
-            background: var(--primary-brand) !important;
-            color: #ffffff !important;
-            border: 1.5px solid var(--primary-brand) !important;
-            box-shadow: 0 2px 10px rgba(138, 21, 56, 0.15);
-        }
-
-        body.light-mode #themeToggleBtn:hover {
-            background: var(--primary-dark) !important;
-        }
-
+        body.light-mode #themeToggleBtn,
         body.light-mode .quick-access-btn {
             background: #ffffff !important;
             color: var(--primary-brand) !important;
@@ -742,6 +732,7 @@
             box-shadow: 0 2px 10px rgba(138, 21, 56, 0.1);
         }
 
+        body.light-mode #themeToggleBtn:hover,
         body.light-mode .quick-access-btn:hover {
             background: rgba(138, 21, 56, 0.05) !important;
         }
