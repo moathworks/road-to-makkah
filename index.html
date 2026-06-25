@@ -149,6 +149,60 @@
             box-shadow: 0 6px 15px rgba(241, 196, 15, 0.6);
         }
 
+        .apps-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: right;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .app-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .app-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .app-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .app-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .app-store-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            flex: 1;
+            font-weight: 700;
+        }
+
+        .app-store-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
         .faq-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -250,6 +304,34 @@
         </div>
 
         <button id="shareButton" class="share-btn">مشاركة الصفحة 🔗</button>
+
+        <div class="apps-section">
+            <h3 style="color: #fff; margin-top: 0; margin-bottom: 15px; text-align: center;">📱 تطبيقات مهمة</h3>
+            
+            <div class="app-item">
+                <div class="app-title">تطبيق نجم للحوادث</div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn">أندرويد</a>
+                    <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn">آيفون</a>
+                </div>
+            </div>
+
+            <div class="app-item">
+                <div class="app-title">تطبيق منافذ للتأمين</div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn">أندرويد</a>
+                    <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn">آيفون</a>
+                </div>
+            </div>
+
+            <div class="app-item">
+                <div class="app-title">تطبيق نسك</div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn">أندرويد</a>
+                    <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn">آيفون</a>
+                </div>
+            </div>
+        </div>
 
         <div class="faq-section">
             <h3 style="color: #fff; margin-top: 0; margin-bottom: 15px; text-align: center;">💡 أسئلة شائعة</h3>
