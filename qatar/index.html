@@ -1050,27 +1050,41 @@
         function sharePage() {
             const url = window.location.href;
             const title = document.title;
+            const text = 'دليل السفر البري من قطر إلى مكة المكرمة 🕋';
 
             if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
                 navigator.share({
                     title: title,
-                    text: 'دليل السفر البري من قطر إلى مكة المكرمة 🕋',
+                    text: text + '\n',
                     url: url
                 }).catch(function (error) {
                     console.log('حدث خطأ أثناء محاولة المشاركة:', error);
                 });
             } else {
-                try {
-                    const tempInput = document.createElement('input');
-                    tempInput.value = url;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    alert('✅ تم نسخ رابط الصفحة بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
-                } catch (err) {
-                    alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+                const shareTextWithUrl = `${title}\n${url}`;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(shareTextWithUrl).then(function() {
+                        alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+                    }).catch(function(err) {
+                        fallbackCopy(shareTextWithUrl);
+                    });
+                } else {
+                    fallbackCopy(shareTextWithUrl);
                 }
+            }
+        }
+
+        function fallbackCopy(text) {
+            try {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+            } catch (err) {
+                alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
             }
         }
 

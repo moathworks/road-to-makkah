@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل السفر البري إلى مكة</title>
+    <title>دليل السفر البري إلى مكة المكرمة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html,
@@ -271,26 +271,48 @@
 
     <script>
         document.getElementById('shareButton').addEventListener('click', async () => {
-            const shareData = {
-                title: 'دليل السفر البري إلى مكة',
-                text: 'دليل شامل للسفر البري إلى مكة المكرمة. تذكرونا بدعوة صالحة 🤲',
-                url: window.location.href
-            };
+            const shareTitle = 'دليل السفر البري إلى مكة المكرمة';
+            const shareText = 'دليل شامل للسفر البري إلى مكة المكرمة. تذكرونا بدعوة صالحة 🤲';
+            const shareUrl = window.location.href;
 
             if (navigator.share) {
                 try {
-                    await navigator.share(shareData);
+                    await navigator.share({
+                        title: shareTitle,
+                        text: shareText + '\n',
+                        url: shareUrl
+                    });
                 } catch (err) {
                     console.log('Error sharing:', err);
                 }
             } else {
-                navigator.clipboard.writeText(shareData.url).then(() => {
-                    alert('تم نسخ الرابط بنجاح! يمكنك مشاركته الآن.');
-                }).catch(err => {
-                    console.log('Error copying link:', err);
-                });
+                const shareTextWithUrl = `${shareTitle}\n${shareUrl}`;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(shareTextWithUrl).then(() => {
+                        alert('تم نسخ العنوان والرابط بنجاح! يمكنك مشاركته الآن.');
+                    }).catch(err => {
+                        console.log('Error copying text:', err);
+                        fallbackCopy(shareTextWithUrl);
+                    });
+                } else {
+                    fallbackCopy(shareTextWithUrl);
+                }
             }
         });
+
+        function fallbackCopy(text) {
+            try {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+            } catch (err) {
+                alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+            }
+        }
 
         // جلب الطقس المباشر في مكة
         async function fetchWeather() {
