@@ -1258,6 +1258,94 @@
             background: #1a140a !important;
             color: #ffffff !important;
         }
+    
+        .apps-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .apps-section h3 {
+            color: var(--text-light);
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .apps-section .app-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .apps-section .app-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .apps-section .app-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .apps-section .app-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .apps-section .app-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .apps-section .app-desc {
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            line-height: 1.3;
+        }
+
+        .apps-section .app-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .apps-section .app-store-btn {
+            background: var(--text-light);
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .apps-section .app-store-btn:hover {
+            opacity: 0.8;
+        }
+        
+        .apps-section .app-store-btn svg path {
+            fill: var(--card-bg);
+        }
+
     </style>
 </head>
 
@@ -1454,7 +1542,54 @@
             </button>
         </div>
 
-        <!-- الفوتر -->
+        
+        <div class="apps-section">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة</h3>
+            
+            <div class="app-item">
+                <div class="app-info">
+                    <img src="https://play-lh.googleusercontent.com/7ibE2uApkUO7JqlsKVEsgEc36CcMraIp4iFnaNQpvoVfkUr63pXj2BDGV2YSLISFl-C1-t4Sar6BL-PINPgcvYI=w240-h240-rw" alt="Manafeth" class="app-icon">
+                    <div>
+                        <div class="app-title">تطبيق منافذ للتأمين</div>
+                        <div class="app-desc">لإصدار وثائق التأمين الإلزامي للمركبات الأجنبية</div>
+                    </div>
+                </div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                    <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="app-item">
+                <div class="app-info">
+                    <img src="https://play-lh.googleusercontent.com/IIrkreP_rMLbdXgdAHaYeFTgfYhh4mkb8B0wmh3paMnOZInwKGCDGtzZoRjIs5dOIU0Yxfo8QpxgnKkaB9kIww=w240-h240-rw" alt="Najm" class="app-icon">
+                    <div>
+                        <div class="app-title">تطبيق نجم للحوادث</div>
+                        <div class="app-desc">للتبليغ عن الحوادث المرورية ومتابعة المطالبات</div>
+                    </div>
+                </div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                    <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="app-item">
+                <div class="app-info">
+                    <img src="https://play-lh.googleusercontent.com/PUd_2L6ks7d3RtLWYyMRi_sjV-x9md2hndy1Rp5L3rKZOvvAOrxrROcj2Ju4WgQexxTniedaKAWqxoq98siZ=w240-h240-rw" alt="Nusuk" class="app-icon">
+                    <div>
+                        <div class="app-title">تطبيق نسك</div>
+                        <div class="app-desc">لإصدار تصاريح العمرة والزيارة والروضة الشريفة</div>
+                    </div>
+                </div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                    <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                </div>
+            </div>
+        </div>
+
+<!-- الفوتر -->
         <footer class="app-footer">
             <p style="font-size: 1rem; font-weight: bold; margin-bottom: 5px; color: var(--text-dark);">عمرة مقبولة
                 ورحلة آمنة بإذن الله 🕋</p>
