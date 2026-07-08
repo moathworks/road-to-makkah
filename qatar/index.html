@@ -180,6 +180,43 @@
             fill: var(--card-bg);
         }
 
+        details.custom-accordion {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        details.custom-accordion summary {
+            padding: 16px 20px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--gold);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details.custom-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+        details.custom-accordion summary::after {
+            content: '▼';
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        details.custom-accordion[open] summary::after {
+            transform: rotate(180deg);
+        }
+        details.custom-accordion .accordion-content {
+            padding: 0 20px 20px 20px;
+            color: var(--text-light);
+        }
+
     </style>
     <link rel="stylesheet" href="../css/style.css?v=1.3">
     <!-- Web3Forms Client Script (دمج hCaptcha مجاناً) -->
@@ -274,7 +311,7 @@
             </div>
         </div>
 <div class="apps-section">
-            <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة</h3>
+            <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة</h3>
             
             <div class="app-item">
                 <div class="app-info">
@@ -309,12 +346,39 @@
                     <img src="https://play-lh.googleusercontent.com/PUd_2L6ks7d3RtLWYyMRi_sjV-x9md2hndy1Rp5L3rKZOvvAOrxrROcj2Ju4WgQexxTniedaKAWqxoq98siZ=w240-h240-rw" alt="Nusuk" class="app-icon">
                     <div>
                         <div class="app-title">نسك</div>
-                        <div class="app-desc">لإصدار تصاريح العمرة والزيارة والروضة الشريفة</div>
+                        <div class="app-desc">لإصدار تصاريح زيارة الروضة الشريفة</div>
                     </div>
                 </div>
                 <div class="app-links">
                     <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
                     <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="app-item">
+                <div class="app-info">
+                    <img src="https://play-lh.googleusercontent.com/I6zX-fC_c15L-x92N73F_3hE0Yv9U7O7yF_c3l8l_R3Iq9R4V7V0J7Z4_q0b8e7s5p0=w240-h240-rw" alt="Jahez" class="app-icon">
+                    <div>
+                        <div class="app-title">تطبيقات طلب الطعام</div>
+                        <div class="app-desc">جاهز، هنقرستيشن، تويو لتوصيل الطعام للمكان</div>
+                    </div>
+                </div>
+                <div class="app-links">
+                    <a href="https://play.google.com/store/apps/details?id=com.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" style="font-size: 0.8rem; text-decoration: none;">جاهز</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" style="font-size: 0.8rem; text-decoration: none;">هنقرستيشن</a>
+                </div>
+            </div>
+
+            <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <div class="app-info">
+                    <div style="width: 48px; height: 48px; display:flex; align-items:center; justify-content:center; background:#1e1e1e; border-radius:12px; font-size:1.5rem; flex-shrink:0;">🇸🇦</div>
+                    <div>
+                        <div class="app-title">أبشر - للمخالفات المرورية</div>
+                        <div class="app-desc">رابط الاستعلام عن المخالفات المرورية الغير مدفوعة للزائرين</div>
+                    </div>
+                </div>
+                <div class="app-links">
+                    <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" style="font-size: 0.85rem; font-weight: bold; text-decoration: none;">🔗 فتح الرابط</a>
                 </div>
             </div>
         </div>
@@ -834,6 +898,13 @@
                     </label>
                 </div>
                 <div class="switch-item">
+                    <span class="switch-label">جوال إضافي</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
                     <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
                     <label class="switch">
                         <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
@@ -913,6 +984,20 @@
                         <span class="slider"></span>
                     </label>
                 </div>
+                <div class="switch-item">
+                    <span class="switch-label">محارم معطرة</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="switch-item">
+                    <span class="switch-label">محارم جيب</span>
+                    <label class="switch">
+                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
 
             </div>
             </div> <!-- نهاية الحاوية القابلة للطي -->
@@ -939,6 +1024,102 @@
                     الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
             </div>
         </div>
+
+        <!-- محطات إضافية وخطة الاستراحة (جديد) -->
+        <details class="custom-accordion">
+            <summary>🗺️ محطات إضافية على طريق الذهاب (قطر - مكة)</summary>
+            <div class="accordion-content">
+                <p>مجموعة من المحطات الإضافية الموصى بها على طريق مكة المكرمة:</p>
+                <div class="stations-grid" style="margin-top: 15px;">
+                    <div class="station-card">
+                        <div><h4>محطة طريق 1</h4></div>
+                        <a href="https://maps.app.goo.gl/LpqxSMkYABEtsSLm7?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>محطة طريق 2</h4></div>
+                        <a href="https://maps.app.goo.gl/fopTdHaUZcqkvonz6?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>محطة طريق 3</h4></div>
+                        <a href="https://maps.app.goo.gl/nz8oyWBg8espXwqEA?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>محطة طريق 4</h4></div>
+                        <a href="https://maps.app.goo.gl/aTGyyFdjD3CZFbyF9?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>محطة طريق 5</h4></div>
+                        <a href="https://maps.app.goo.gl/EHTLTcZZFpAiE66s5?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>محطة طريق 6</h4></div>
+                        <a href="https://maps.app.goo.gl/jY2ZyJtdcXbrs7oG8?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h4>مطعم البيك (قبل السيل)</h4><p>قبل ميقات السيل الكبير مباشرة</p></div>
+                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion">
+            <summary>🛣️ محطات طريق العودة (المدينة المنورة - الرياض)</summary>
+            <div class="accordion-content">
+                <p>أهم المحطات الموصى بها أثناء العودة من المدينة المنورة إلى الرياض:</p>
+                <div class="stations-grid" style="margin-top: 15px;">
+                    <div class="station-card"><div><h4>محطة عودة 1</h4></div><a href="https://maps.app.goo.gl/SxWiMb8wV5Ny63i78?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 2</h4></div><a href="https://maps.app.goo.gl/mHsjx7pJQ1pFA5QQA?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 3</h4></div><a href="https://maps.app.goo.gl/DWRL6roKT9d7zysp9?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 4</h4></div><a href="https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 5</h4></div><a href="https://maps.app.goo.gl/ZHYtfZm6ipJuMtwG6?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 6</h4></div><a href="https://maps.app.goo.gl/zMifFPAznntvPDKa8?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 7</h4></div><a href="https://maps.app.goo.gl/KbwRrwffxYcPxbnX9?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 8</h4></div><a href="https://maps.app.goo.gl/1moGS9HPECWWq88d8?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 9</h4></div><a href="https://maps.app.goo.gl/zzCxVacA7Yq8ky74A?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                    <div class="station-card"><div><h4>محطة عودة 10</h4></div><a href="https://maps.app.goo.gl/y93Z1s131ZFYGeZy7?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion">
+            <summary>⏱️ خطة استراحة مقترحة (ذهاب وعودة)</summary>
+            <div class="accordion-content">
+                <p><strong>في طريق الذهاب (الدوحة - مكة):</strong></p>
+                <ul>
+                    <li style="margin-bottom: 8px;">توقف أول (سريع): محطة ساسكو خريص لتجديد النشاط (بعد 3 ساعات).</li>
+                    <li style="margin-bottom: 8px;">توقف رئيسي: قبل الرياض للغداء/العشاء والراحة (بعد 5 ساعات).</li>
+                    <li style="margin-bottom: 8px;">توقف ثاني: ساسكو القويعية (بعد تجاوز الرياض).</li>
+                    <li style="margin-bottom: 8px;">توقف أخير للاستعداد: ميقات السيل الكبير (للاغتسال والإحرام).</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>في طريق العودة (المدينة - الرياض):</strong></p>
+                <ul>
+                    <li style="margin-bottom: 8px;">يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط.</li>
+                    <li style="margin-bottom: 8px;">تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن لتفادي الإرهاق.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="custom-accordion">
+            <summary>ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)</summary>
+            <div class="accordion-content">
+                <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/الهوية.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🏨 الفنادق:</strong> تأكد من حجز الفنادق مسبقاً عبر تطبيقات مثل (Booking, Agoda). في مكة يُفضل السكن بالقرب من الحرم أو في الفنادق التي توفر حافلات نقل ترددية مجانية للحرم على مدار الساعة.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🚕 المواصلات:</strong> اعتمد على تطبيقات مثل Uber، Careem، وتطبيق (Kaiian أو Jeeny) للتنقل داخل مكة والمدينة بأسعار مناسبة ومعتمدة.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>💧 شراء ماء زمزم:</strong> يمكن شراء ماء زمزم المعبأ رسمياً من "مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم" في مكة المكرمة (حي كدي). يُسمح للمسافر براً بنقل العبوات للاستخدام الشخصي.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🕌 الأماكن السياحية الدينية:</strong></p>
+                <ul style="margin-bottom: 8px;">
+                    <li style="margin-bottom: 5px;"><strong>مكة المكرمة:</strong> غار حراء (جبل النور)، غار ثور، مسجد عائشة (التنعيم)، حي حراء الثقافي.</li>
+                    <li style="margin-bottom: 5px;"><strong>المدينة المنورة:</strong> مسجد قباء، مقبرة شهداء أحد، مسجد القبلتين، جبل الرماة.</li>
+                </ul>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🚄 قطار الحرمين السريع:</strong> وسيلة ممتازة وسريعة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر موقع أو تطبيق "قطار الحرمين السريع".</p>
+            </div>
+        </details>
 
         <!-- أرقام الطوارئ الهامة -->
         <div class="section-header">📞 أرقام الطوارئ والاتصال</div>
