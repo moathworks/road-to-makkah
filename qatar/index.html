@@ -311,91 +311,112 @@
             </div>
         </div>
 <div class="apps-section">
-            <h3><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة</h3>
+            <h3 onclick="toggleApps()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-top: 0; margin-bottom: 15px;">
+                <span style="display: flex; align-items: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
+                </span>
+                <svg id="apps-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </h3>
             
-            <div class="app-item">
-                <div class="app-info">
-                    <img src="https://play-lh.googleusercontent.com/7ibE2uApkUO7JqlsKVEsgEc36CcMraIp4iFnaNQpvoVfkUr63pXj2BDGV2YSLISFl-C1-t4Sar6BL-PINPgcvYI=w240-h240-rw" alt="Manafeth" class="app-icon">
-                    <div>
-                        <div class="app-title">منافذ للتأمين</div>
-                        <div class="app-desc">لإصدار وثائق التأمين الإلزامي للمركبات الأجنبية</div>
+            <div id="apps-content" style="display: block;">
+                <div class="app-item">
+                    <div class="app-info">
+                        <img src="https://play-lh.googleusercontent.com/7ibE2uApkUO7JqlsKVEsgEc36CcMraIp4iFnaNQpvoVfkUr63pXj2BDGV2YSLISFl-C1-t4Sar6BL-PINPgcvYI=w240-h240-rw" alt="Manafeth" class="app-icon">
+                        <div>
+                            <div class="app-title">منافذ للتأمين</div>
+                            <div class="app-desc">لإصدار وثائق التأمين الإلزامي للمركبات الأجنبية</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
-                <div class="app-links">
-                    <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
 
-            <div class="app-item">
-                <div class="app-info">
-                    <img src="https://play-lh.googleusercontent.com/IIrkreP_rMLbdXgdAHaYeFTgfYhh4mkb8B0wmh3paMnOZInwKGCDGtzZoRjIs5dOIU0Yxfo8QpxgnKkaB9kIww=w240-h240-rw" alt="Najm" class="app-icon">
-                    <div>
-                        <div class="app-title">نجم للحوادث</div>
-                        <div class="app-desc">للتبليغ عن الحوادث المرورية ومتابعة المطالبات</div>
+                <div class="app-item">
+                    <div class="app-info">
+                        <img src="https://play-lh.googleusercontent.com/IIrkreP_rMLbdXgdAHaYeFTgfYhh4mkb8B0wmh3paMnOZInwKGCDGtzZoRjIs5dOIU0Yxfo8QpxgnKkaB9kIww=w240-h240-rw" alt="Najm" class="app-icon">
+                        <div>
+                            <div class="app-title">نجم للحوادث</div>
+                            <div class="app-desc">للتبليغ عن الحوادث المرورية ومتابعة المطالبات</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
-                <div class="app-links">
-                    <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
 
-            <div class="app-item">
-                <div class="app-info">
-                    <img src="https://play-lh.googleusercontent.com/PUd_2L6ks7d3RtLWYyMRi_sjV-x9md2hndy1Rp5L3rKZOvvAOrxrROcj2Ju4WgQexxTniedaKAWqxoq98siZ=w240-h240-rw" alt="Nusuk" class="app-icon">
-                    <div>
-                        <div class="app-title">نسك</div>
-                        <div class="app-desc">لإصدار تصاريح زيارة الروضة الشريفة</div>
+                <div class="app-item">
+                    <div class="app-info">
+                        <img src="https://play-lh.googleusercontent.com/PUd_2L6ks7d3RtLWYyMRi_sjV-x9md2hndy1Rp5L3rKZOvvAOrxrROcj2Ju4WgQexxTniedaKAWqxoq98siZ=w240-h240-rw" alt="Nusuk" class="app-icon">
+                        <div>
+                            <div class="app-title">نسك</div>
+                            <div class="app-desc">لإصدار تصاريح زيارة الروضة الشريفة</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
-                <div class="app-links">
-                    <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
 
-            <div class="app-item">
-                <div class="app-info">
-                    <img src="https://play-lh.googleusercontent.com/anHfH2YDhoiWjD5O7BN5_D4M9fUQBeUDaVqcCd25fm0LOZX_u-P_e0z19OBgGaWCt62IfShW_neV7miWfT4MZQ=w240-h240-rw" alt="Jahez" class="app-icon">
-                    <div>
-                        <div class="app-title">جاهز</div>
-                        <div class="app-desc">تطبيق جاهز لطلب وتوصيل الطعام</div>
+                <div class="app-item">
+                    <div class="app-info">
+                        <img src="https://play-lh.googleusercontent.com/anHfH2YDhoiWjD5O7BN5_D4M9fUQBeUDaVqcCd25fm0LOZX_u-P_e0z19OBgGaWCt62IfShW_neV7miWfT4MZQ=w240-h240-rw" alt="Jahez" class="app-icon">
+                        <div>
+                            <div class="app-title">جاهز</div>
+                            <div class="app-desc">تطبيق جاهز لطلب وتوصيل الطعام</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/sa/app/jahez-جاهز/id1137352712" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
-                <div class="app-links">
-                    <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a href="https://apps.apple.com/sa/app/jahez-جاهز/id1137352712" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
 
-            <div class="app-item">
-                <div class="app-info">
-                    <img src="https://play-lh.googleusercontent.com/Jw4F1UfeZgjr2HPMmeEodlYm-oEU0caS0Ju5JenW26eu3XnEp4SpWVHfogd5_hdu13OHuBfFgvLW7epgao_A=w240-h240-rw" alt="HungerStation" class="app-icon">
-                    <div>
-                        <div class="app-title">هنقرستيشن</div>
-                        <div class="app-desc">تطبيق هنقرستيشن لطلب وتوصيل الطعام</div>
+                <div class="app-item">
+                    <div class="app-info">
+                        <img src="https://play-lh.googleusercontent.com/Jw4F1UfeZgjr2HPMmeEodlYm-oEU0caS0Ju5JenW26eu3XnEp4SpWVHfogd5_hdu13OHuBfFgvLW7epgao_A=w240-h240-rw" alt="HungerStation" class="app-icon">
+                        <div>
+                            <div class="app-title">هنقرستيشن</div>
+                            <div class="app-desc">تطبيق هنقرستيشن لطلب وتوصيل الطعام</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/sa/app/hungerstation/id596011949" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
-                <div class="app-links">
-                    <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a href="https://apps.apple.com/sa/app/hungerstation/id596011949" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
 
-            <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
-                <div class="app-info">
-                    <img src="https://www.absher.sa/portal/individuals/assets/images/absher_logo.svg" alt="Absher" class="app-icon" style="background-color: white; padding: 6px; box-sizing: border-box; object-fit: contain;">
-                    <div>
-                        <div class="app-title">أبشر - للمخالفات المرورية</div>
-                        <div class="app-desc">رابط الاستعلام عن المخالفات المرورية للزائرين</div>
+                <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                    <div class="app-info">
+                        <img src="https://www.absher.sa/portal/individuals/assets/images/absher_logo.svg" alt="Absher" class="app-icon" style="background-color: white; padding: 6px; box-sizing: border-box; object-fit: contain;">
+                        <div>
+                            <div class="app-title">أبشر - للمخالفات المرورية</div>
+                            <div class="app-desc">رابط الاستعلام عن المخالفات المرورية للزائرين</div>
+                        </div>
                     </div>
-                </div>
-                <div class="app-links">
-                    <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                    <div class="app-links">
+                        <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            function toggleApps() {
+                const content = document.getElementById('apps-content');
+                const chevron = document.getElementById('apps-chevron');
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    chevron.style.transform = 'rotate(0deg)';
+                } else {
+                    content.style.display = 'none';
+                    chevron.style.transform = 'rotate(-180deg)';
+                }
+            }
+        </script>
 
         
 
