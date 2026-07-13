@@ -498,13 +498,14 @@
         </div>
 
         <!-- محطات الوقود والراحة بالتفصيل -->
-        <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--border-radius); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden;">
-            <div style="padding: 16px 20px; font-size: 1.15rem; font-weight: 700; color: var(--gold); border-bottom: 1px solid var(--card-border);">
+        <details class="custom-accordion" open>
+            <summary>
                 <span>⛽ محطات الوقود والراحة بالتفصيل</span>
-            </div>
-            <div style="padding: 20px;">
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding-top: 15px;">
             
-            <details class="custom-accordion" open style="margin-bottom: 15px; box-shadow: none;">
+            <details class="custom-accordion" open style="margin-bottom: 15px; box-shadow: none; background: rgba(212, 175, 55, 0.03); border: 1px solid rgba(212, 175, 55, 0.15);">
                 <summary>
                     <h3 style="margin: 0; font-size: 1.15rem; color: inherit;">محطات قبل الرياض</h3>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -665,7 +666,7 @@
                 </div>
             </details>
 
-            <details class="custom-accordion" open style="margin-top: 15px; margin-bottom: 0; box-shadow: none;">
+            <details class="custom-accordion" open style="margin-top: 15px; margin-bottom: 0; box-shadow: none; background: rgba(212, 175, 55, 0.03); border: 1px solid rgba(212, 175, 55, 0.15);">
                 <summary>
                     <h3 style="margin: 0; font-size: 1.15rem; color: inherit;">محطات بعد الرياض باتجاه مكة المكرمة</h3>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -749,7 +750,7 @@
                 </div>
             </details>
             </div>
-        </div>
+        </details>
 
         <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
         <details class="custom-accordion" open>
