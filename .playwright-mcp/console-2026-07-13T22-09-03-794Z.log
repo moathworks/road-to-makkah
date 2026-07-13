@@ -1,0 +1,3 @@
+[      32ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8080/css/style.css?v=1.3:0
+[    1887ms] [LOG] recaptchacompat disabled @ https://js.hcaptcha.com/1/api.js?recaptchacompat=off&hl=ar:3
+[    2022ms] [ERROR] Warning: localhost detected. Please use a valid host. @ https://newassets.hcaptcha.com/captcha/v1/3b41d1e018b8baa766b54a5eecc0b1570ce45cec/static/hcaptcha.html:13

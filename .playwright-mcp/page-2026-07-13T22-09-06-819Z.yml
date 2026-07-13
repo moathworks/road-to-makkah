@@ -1,0 +1,535 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - heading "مسار الرحلة البرية من قطر إلى مكة المكرمة 🕋" [level=2] [ref=e4]
+    - paragraph [ref=e5]: دليل رقمي لتخطيط مسارات السفر البري ومحطات الوقود والراحة 2026
+  - banner [ref=e6]:
+    - generic [ref=e7]:
+      - link [ref=e8] [cursor=pointer]:
+        - /url: ../
+        - img "قطر" [ref=e9]
+        - text: قطر ← 🕋 مكة المكرمة
+      - generic [ref=e10]: "آخر تحديث: 24 يونيو 2026"
+    - generic [ref=e11]:
+      - link "الرئيسية (كل الدول)" [ref=e12] [cursor=pointer]:
+        - /url: ../
+      - button "تفعيل المظهر الداكن" [ref=e16]
+      - button "طباعة مسار الرحلة" [ref=e19]
+      - button "مشاركة الدليل" [ref=e24]
+  - generic [ref=e28]:
+    - generic [ref=e29]:
+      - generic [ref=e30]: 🔔
+      - generic [ref=e31]:
+        - generic [ref=e32]: الفجر 4:35 ص | الشروق 6:00 ص
+        - generic [ref=e33]: المغرب 6:30 م
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e36]: ☀️
+        - generic [ref=e37]: 31°C
+      - generic [ref=e38]: مكة المكرمة
+  - group [ref=e39]:
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - img "Manafeth" [ref=e49]
+          - generic [ref=e50]:
+            - generic [ref=e51]: منافذ للتأمين
+            - generic [ref=e52]: لإصدار وثائق التأمين الإلزامي للمركبات الأجنبية
+        - generic [ref=e53]:
+          - link "Google Play" [ref=e54] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.najm.manafeth
+          - link "App Store" [ref=e57] [cursor=pointer]:
+            - /url: https://apps.apple.com/qa/app/manafith-منافذ/id1630305902
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - img "Najm" [ref=e62]
+          - generic [ref=e63]:
+            - generic [ref=e64]: نجم للحوادث
+            - generic [ref=e65]: للتبليغ عن الحوادث المرورية ومتابعة المطالبات
+        - generic [ref=e66]:
+          - link "Google Play" [ref=e67] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.najm.najm
+          - link "App Store" [ref=e70] [cursor=pointer]:
+            - /url: https://apps.apple.com/qa/app/najm-نجم/id953140409
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - img "Nusuk" [ref=e75]
+          - generic [ref=e76]:
+            - generic [ref=e77]: نسك
+            - generic [ref=e78]: لإصدار تصاريح زيارة الروضة الشريفة
+        - generic [ref=e79]:
+          - link "Google Play" [ref=e80] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.moh.nusukapp
+          - link "App Store" [ref=e83] [cursor=pointer]:
+            - /url: https://apps.apple.com/qa/app/nusuk-نسك/id6469515422
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - img "Jahez" [ref=e88]
+          - generic [ref=e89]:
+            - generic [ref=e90]: جاهز
+            - generic [ref=e91]: تطبيق جاهز لطلب وتوصيل الطعام
+        - generic [ref=e92]:
+          - link "Google Play" [ref=e93] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=net.jahez
+          - link "App Store" [ref=e96] [cursor=pointer]:
+            - /url: https://apps.apple.com/sa/app/jahez-جاهز/id1137352712
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - img "HungerStation" [ref=e101]
+          - generic [ref=e102]:
+            - generic [ref=e103]: هنقرستيشن
+            - generic [ref=e104]: تطبيق هنقرستيشن لطلب وتوصيل الطعام
+        - generic [ref=e105]:
+          - link "Google Play" [ref=e106] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.hungerstation.android.web
+          - link "App Store" [ref=e109] [cursor=pointer]:
+            - /url: https://apps.apple.com/sa/app/hungerstation/id596011949
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - img "Absher" [ref=e114]
+          - generic [ref=e115]:
+            - generic [ref=e116]: أبشر - للمخالفات المرورية
+            - generic [ref=e117]: رابط الاستعلام عن المخالفات المرورية للزائرين
+        - link "الموقع الإلكتروني" [ref=e119] [cursor=pointer]:
+          - /url: https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/
+  - group [ref=e122]:
+    - heading "دليل السفر البري من قطر إلى مكة المكرمة" [level=1] [ref=e124] [cursor=pointer]
+    - generic [ref=e127]:
+      - paragraph [ref=e128]: دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - text: توقيت الانطلاق
+          - textbox [ref=e131]
+        - generic [ref=e132]:
+          - text: المسافة المقدرة
+          - strong [ref=e133]: 1,480 كم
+        - generic [ref=e134]:
+          - text: وقت الوصول المتوقع
+          - strong [ref=e135]: حدد وقت الانطلاق
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - text: الموقع الحالي (تلقائي)
+          - strong [ref=e138]: جاري تحديد الموقع...
+        - generic [ref=e139]:
+          - text: المسافة المتبقية
+          - strong [ref=e140]: 1,480 كم
+        - generic [ref=e141]:
+          - text: وقت الوصول المتوقع*
+          - strong [ref=e142]: "--:--"
+          - generic [ref=e143]: "*بناءً على جهازك (14 ساعة و 48 دقيقة قيادة)"
+      - button "ابدأ الرحلة الآن" [ref=e144]
+  - group [ref=e145]:
+    - generic "🗺️ خريطة مسار السفر الموصى به" [ref=e146] [cursor=pointer]
+    - generic [ref=e150]:
+      - iframe [ref=e152]:
+        
+      - link "🔗 فتح المسار في خرائط Google للتمكين من الملاحة المباشرة" [ref=e153] [cursor=pointer]:
+        - /url: https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate
+  - generic [ref=e154]: 🛣️ خيارات مسارات السفر البري
+  - generic [ref=e155]:
+    - generic [ref=e156]:
+      - generic [ref=e157]:
+        - heading "طريق 80 السريع (المسار الرئيسي)" [level=4] [ref=e158]
+        - paragraph [ref=e159]:
+          - strong [ref=e160]: "خط السير:"
+          - text: الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.
+        - paragraph [ref=e161]: أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.
+      - generic [ref=e162]:
+        - generic [ref=e163]: "المسافة: 1,480 كم"
+        - link "📍 بدء الرحلة" [ref=e164] [cursor=pointer]:
+          - /url: https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate
+    - generic [ref=e165]:
+      - generic [ref=e166]:
+        - heading "مسار التفافي حول الرياض" [level=4] [ref=e167]
+        - paragraph [ref=e168]:
+          - strong [ref=e169]: "خط السير:"
+          - text: الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.
+        - paragraph [ref=e170]: يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).
+      - generic [ref=e171]:
+        - generic [ref=e172]: "المسافة: 1,510 كم"
+        - link "📍 بدء الرحلة" [ref=e173] [cursor=pointer]:
+          - /url: https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate
+  - group [ref=e174]:
+    - generic "⛽ محطات الوقود والراحة بالتفصيل" [ref=e175] [cursor=pointer]
+    - generic [ref=e180]:
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - generic [ref=e183]: يبعد ~90 كم عن نقطة الانطلاق
+          - heading "1. محطة وقود أبو سمرة" [level=4] [ref=e184]
+          - paragraph [ref=e185]: آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.
+        - link "🗺️ موقع المحطة" [ref=e186] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/DKDA5yq93X3hYiUH7
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]: تبعد ~180 كم عن أبو سمرة
+          - heading "2. محطة ساسكو / الدريس" [level=4] [ref=e190]
+          - paragraph [ref=e191]: على طريق خريص (بعد الهفوف باتجاه الرياض).
+        - link "🗺️ موقع المحطة" [ref=e192] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/innPYmtbPCw4yBsG6
+      - group [ref=e193]:
+        - heading "🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)" [level=3] [ref=e195] [cursor=pointer]
+        - generic [ref=e198]:
+          - paragraph [ref=e199]: تبعد بداية الرياض حوالي ~140 كم عن محطة خريص السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.
+          - generic [ref=e200]:
+            - generic [ref=e201]:
+              - heading "3. الدريس (بداية الرياض)" [level=5] [ref=e202]
+              - paragraph [ref=e203]: محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.
+              - generic [ref=e204]:
+                - link "🗺️ خريطة 1" [ref=e205] [cursor=pointer]:
+                  - /url: https://maps.app.goo.gl/hoHU5xtpKkq53HC56
+                - link "🗺️ خريطة 2" [ref=e206] [cursor=pointer]:
+                  - /url: https://maps.app.goo.gl/AbU7P9gM571Gks2z7
+            - generic [ref=e207]:
+              - heading "4. محطة ساسكو (الرياض)" [level=5] [ref=e208]
+              - paragraph [ref=e209]: تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.
+              - link "🗺️ الخريطة" [ref=e210] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9
+            - generic [ref=e211]:
+              - heading "5. محطة شل (الرياض)" [level=5] [ref=e212]
+              - paragraph [ref=e213]: تتميز بخدمة سريعة للتزود بالوقود وشراء القهوة والمشروبات الباردة.
+              - link "🗺️ الخريطة" [ref=e214] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/wRiekfx54WCTQGyd8
+            - generic [ref=e215]:
+              - heading "6. الدريس (الرياض)" [level=5] [ref=e216]
+              - paragraph [ref=e217]: يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).
+              - link "🗺️ الخريطة" [ref=e218] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/rresvUcxnb8n59TB7
+            - generic [ref=e219]:
+              - heading "7. محطة درب (الرياض)" [level=5] [ref=e220]
+              - paragraph [ref=e221]: خيارات جيدة للوجبات السريعة وتموينات الطريق للمسافرين.
+              - link "🗺️ الخريطة" [ref=e222] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/3p9aSkBCEFQgjuXg6
+            - generic [ref=e223]:
+              - heading "8. محطة جي أويل (الرياض)" [level=5] [ref=e224]
+              - paragraph [ref=e225]: محطة حديثة توفر دورات مياه نظيفة وخدمات مريحة للمسافرين.
+              - link "🗺️ الخريطة" [ref=e226] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/Uc5a3v1WQdr82AA89
+            - generic [ref=e227]:
+              - heading "9. الدريس - طويق (آخر الرياض)" [level=5] [ref=e228]
+              - paragraph [ref=e229]: موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.
+              - link "🗺️ الخريطة" [ref=e230] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9
+            - generic [ref=e231]:
+              - heading "10. محطة فيولكس (آخر الرياض)" [level=5] [ref=e232]
+              - paragraph [ref=e233]: آخر فرصة للتزود بالخدمات داخل النطاق العمراني للعاصمة.
+              - link "🗺️ الخريطة" [ref=e234] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/fyzwVFQRsiGUL23q8
+      - group [ref=e235]:
+        - heading "🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)" [level=3] [ref=e237] [cursor=pointer]
+        - generic [ref=e240]:
+          - paragraph [ref=e241]: يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.
+          - generic [ref=e242]:
+            - generic [ref=e243]:
+              - heading "1. محطة الدريس (الرياض)" [level=5] [ref=e244]
+              - paragraph [ref=e245]: محطة ممتازة للتزود بالوقود في بداية المسار الالتفافي.
+              - generic [ref=e246]:
+                - link "🗺️ خريطة 1" [ref=e247] [cursor=pointer]:
+                  - /url: https://maps.app.goo.gl/fHz3LPMNStBaEuca8
+                - link "🗺️ خريطة 2" [ref=e248] [cursor=pointer]:
+                  - /url: https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA
+            - generic [ref=e249]:
+              - heading "2. محطة الدريس (الرياض)" [level=5] [ref=e250]
+              - paragraph [ref=e251]: محطة بديلة وخدمات أساسية على امتداد الطريق الدائري.
+              - link "🗺️ الخريطة" [ref=e252] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7
+            - generic [ref=e253]:
+              - heading "3. ساسكو المطار (الرياض)" [level=5] [ref=e254]
+              - paragraph [ref=e255]: محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.
+              - link "🗺️ الخريطة" [ref=e256] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA
+            - generic [ref=e257]:
+              - heading "4. محطة بترولي (الرياض)" [level=5] [ref=e258]
+              - paragraph [ref=e259]: يتوفر بها مطعم "برغرايزر" للوجبات السريعة وخدمات طريق متكاملة.
+              - link "🗺️ الخريطة" [ref=e260] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/MjZb7kWimNBxLpEK8
+            - generic [ref=e261]:
+              - heading "5. محطة جي أويل (الرياض)" [level=5] [ref=e262]
+              - paragraph [ref=e263]: نقطة التقاء ممتازة للراحة وتعبئة الوقود قبل استكمال طريق الحجاز.
+              - link "🗺️ الخريطة" [ref=e264] [cursor=pointer]:
+                - /url: https://maps.app.goo.gl/Uc5a3v1WQdr82AA89
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - generic [ref=e267]: تبعد ~40 كم عن آخر الرياض
+          - heading "11. محطة بترومين (مطعم البيك)" [level=4] [ref=e268]
+          - paragraph [ref=e269]: أول محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.
+        - link "🗺️ موقع المحطة" [ref=e270] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5
+      - generic [ref=e271]:
+        - generic [ref=e272]:
+          - generic [ref=e273]: تبعد ~25 كم عن بترومين
+          - heading "12. محطة أورنج - اجزالا" [level=4] [ref=e274]
+          - paragraph [ref=e275]: استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.
+        - link "🗺️ موقع المحطة" [ref=e276] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA
+      - generic [ref=e277]:
+        - generic [ref=e278]:
+          - generic [ref=e279]: تبعد ~15 كم عن أورنج اجزالا
+          - heading "13. محطة أورنج - الراية" [level=4] [ref=e280]
+          - paragraph [ref=e281]: خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.
+        - link "🗺️ موقع المحطة" [ref=e282] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8
+      - generic [ref=e283]:
+        - generic [ref=e284]:
+          - generic [ref=e285]: تبعد ~20 كم عن أورنج الراية
+          - heading "14. محطة ساسكو - تبرك" [level=4] [ref=e286]
+          - paragraph [ref=e287]: من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.
+        - link "🗺️ موقع المحطة" [ref=e288] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6
+      - generic [ref=e289]:
+        - generic [ref=e290]:
+          - generic [ref=e291]: تبعد ~60 كم عن ساسكو تبرك
+          - heading "15. محطة ساسكو - القويعية" [level=4] [ref=e292]
+          - paragraph [ref=e293]: نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.
+        - link "🗺️ موقع المحطة" [ref=e294] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/oq6EuAoKghBGKjRYA
+      - generic [ref=e295]:
+        - generic [ref=e296]:
+          - generic [ref=e297]: تبعد ~350 كم عن القويعية
+          - heading "16. محطة نخلة ساسكو" [level=4] [ref=e298]
+          - paragraph [ref=e299]: محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.
+        - link "🗺️ موقع المحطة" [ref=e300] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6
+      - generic [ref=e301]:
+        - generic [ref=e302]:
+          - generic [ref=e303]: تبعد ~300 كم عن ساسكو نخلة
+          - heading "17. محطة ساسكو (السيل الكبير)" [level=4] [ref=e304]
+          - paragraph [ref=e305]: بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.
+        - link "🗺️ موقع المحطة" [ref=e306] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/Vds8UPCtvsFRXoG26
+  - group [ref=e307]:
+    - generic "✅ قائمة الفحص الذكية قبل السفر" [ref=e308] [cursor=pointer]
+    - generic [ref=e313]:
+      - generic [ref=e314]: مدى جاهزيتك للرحلة 0%
+      - generic [ref=e316]:
+        - generic [ref=e317]:
+          - button "✅ تحديد الكل" [ref=e318]
+          - button "❌ إلغاء تحديد الكل" [ref=e319]
+        - generic [ref=e320]:
+          - generic [ref=e321]: 📄 الوثائق والاتصالات
+          - generic [ref=e322]:
+            - text: جوازات السفر صالحة (6 أشهر على الأقل)
+            - checkbox [ref=e324]
+          - generic [ref=e325]:
+            - text: البطاقة الشخصية القطرية QID
+            - checkbox [ref=e327]
+          - generic [ref=e328]:
+            - text: تأشيرة السعودية
+            - checkbox [ref=e330]
+          - generic [ref=e331]:
+            - text: تصريح العمرة (نسك Nusuk)
+            - checkbox [ref=e333]
+          - generic [ref=e334]:
+            - text: استمارة السيارة ورخصة القيادة
+            - checkbox [ref=e336]
+          - generic [ref=e337]:
+            - text: تأمين السيارة (للسعودية)
+            - checkbox [ref=e339]
+          - generic [ref=e340]:
+            - text: نسخ مطبوعة من حجوزات السكن والرحلة
+            - checkbox [ref=e342]
+          - generic [ref=e343]:
+            - text: تفعيل باقة تجوال أو شريحة سعودية
+            - checkbox [ref=e345]
+          - generic [ref=e346]:
+            - text: تثبيت وتحديث تطبيقي (نسك) و(توكلنا)
+            - checkbox [ref=e348]
+          - generic [ref=e349]:
+            - text: تحميل خرائط Google Maps
+            - checkbox [ref=e351]
+          - generic [ref=e352]:
+            - text: دليل العمرة
+            - checkbox [ref=e354]
+          - generic [ref=e355]: 🚗 السيارة والتجهيزات
+          - generic [ref=e356]:
+            - text: فحص ضغط الإطارات والإطار الاحتياطي
+            - checkbox [ref=e358]
+          - generic [ref=e359]:
+            - text: عدة تبديل الإطارات (الرافعة والذراع الخاص)
+            - checkbox [ref=e361]
+          - generic [ref=e362]:
+            - text: منفاخ إطارات كهربائي متنقل
+            - checkbox [ref=e364]
+          - generic [ref=e365]:
+            - text: فحص زيوت المحرك والفرامل
+            - checkbox [ref=e367]
+          - generic [ref=e368]:
+            - text: فحص مياه الراديتر
+            - checkbox [ref=e370]
+          - generic [ref=e371]:
+            - text: فحص تكييف السيارة
+            - checkbox [ref=e373]
+          - generic [ref=e374]:
+            - text: عدة تصليح (مفاتيح مقاسات متعددة)
+            - checkbox [ref=e376]
+          - generic [ref=e377]:
+            - text: بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل
+            - checkbox [ref=e379]
+          - generic [ref=e380]:
+            - text: مفتاح احتياطي للسيارة (مع مرافق)
+            - checkbox [ref=e382]
+          - generic [ref=e383]:
+            - text: مصباح يدوي (كشاف طوارئ)
+            - checkbox [ref=e385]
+          - generic [ref=e386]:
+            - text: طفاية حريق ومثلث السلامة
+            - checkbox [ref=e388]
+          - generic [ref=e389]:
+            - text: حقيبة الإسعافات الأولية
+            - checkbox [ref=e391]
+          - generic [ref=e392]:
+            - text: شاحن السيارة للجوال
+            - checkbox [ref=e394]
+          - generic [ref=e395]:
+            - text: بطارية شحن إضافية للجوال
+            - checkbox [ref=e397]
+          - generic [ref=e398]:
+            - text: جوال إضافي
+            - checkbox [ref=e400]
+          - generic [ref=e401]:
+            - text: مبلغ نقدي سعودي (كاش)
+            - checkbox [ref=e403]
+          - generic [ref=e404]:
+            - text: تجهيز حقيبة الإحرام بشكل مستقل
+            - checkbox [ref=e406]
+          - generic [ref=e407]: 💊 الصحة والراحة الشخصية
+          - generic [ref=e408]:
+            - text: أدوية شخصية (مسكنات..)
+            - checkbox [ref=e410]
+          - generic [ref=e411]:
+            - text: أدوية الأطفال
+            - checkbox [ref=e413]
+          - generic [ref=e414]:
+            - text: مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)
+            - checkbox [ref=e416]
+          - generic [ref=e417]:
+            - text: قطرة ترطيب العين
+            - checkbox [ref=e419]
+          - generic [ref=e420]:
+            - text: نظارات شمسية
+            - checkbox [ref=e422]
+          - generic [ref=e423]:
+            - text: مظلة شمسية بيضاء للطواف والمشي بالنهار
+            - checkbox [ref=e425]
+          - generic [ref=e426]:
+            - text: مياه صالحة للشرب ووجبات خفيفة كافية للطريق
+            - checkbox [ref=e428]
+          - generic [ref=e429]:
+            - text: أدوات حلاقة (ماكينة، مقص، شفرة)
+            - checkbox [ref=e431]
+          - generic [ref=e432]:
+            - text: مقص أظافر
+            - checkbox [ref=e434]
+          - generic [ref=e435]:
+            - text: محارم معطرة
+            - checkbox [ref=e437]
+          - generic [ref=e438]:
+            - text: محارم جيب
+            - checkbox [ref=e440]
+  - generic [ref=e441]:
+    - generic [ref=e442]:
+      - heading "🤲 أدعية وأذكار السفر" [level=3] [ref=e443]
+      - paragraph [ref=e444]:
+        - strong [ref=e445]: "دعاء السفر بالكامل:"
+        - text: "\"الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى...\""
+      - paragraph [ref=e446]:
+        - strong [ref=e447]: "عند نزول منزل أو استراحة:"
+        - text: "\"أعوذ بكلمات الله التامات من شر ما خلق.\""
+      - paragraph [ref=e448]:
+        - strong [ref=e449]: "أثناء القيادة بالطريق:"
+        - text: التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.
+    - generic [ref=e450]:
+      - heading "💡 نصائح وإرشادات السلامة" [level=3] [ref=e451]
+      - paragraph [ref=e452]:
+        - text: 😴
+        - strong [ref=e453]: "الإرهاق والنعاس:"
+        - text: لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.
+      - paragraph [ref=e454]:
+        - text: 📸
+        - strong [ref=e455]: "كاميرات ساهر:"
+        - text: السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام الأمان وتفادى استخدام الجوال.
+      - paragraph [ref=e456]:
+        - text: 🐪
+        - strong [ref=e457]: "الجمال السائبة:"
+        - text: يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.
+      - paragraph [ref=e458]:
+        - text: 🔧
+        - strong [ref=e459]: "فحص الإطارات:"
+        - text: تأكد من ضغط الإطارات وحالتها قبل السفر الطويل.
+      - paragraph [ref=e460]:
+        - text: 📞
+        - strong [ref=e461]: "رقم الطوارئ (أمن الطرق):"
+        - text: 911 داخل المملكة للحالات الطارئة.
+  - group [ref=e462]:
+    - generic "🗺️ محطات إضافية على طريق الذهاب (قطر - مكة)" [ref=e463] [cursor=pointer]
+  - group [ref=e467]:
+    - generic "🛣️ محطات طريق العودة (المدينة المنورة - الرياض)" [ref=e468] [cursor=pointer]
+  - group [ref=e472]:
+    - generic "⏱️ خطة استراحة مقترحة (ذهاب وعودة)" [ref=e473] [cursor=pointer]
+  - group [ref=e477]:
+    - generic "ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)" [ref=e478] [cursor=pointer]
+  - group [ref=e482]:
+    - generic "📞 أرقام الطوارئ والاتصال" [ref=e483] [cursor=pointer]
+    - generic [ref=e488]:
+      - generic [ref=e489]:
+        - heading [level=4] [ref=e490]:
+          - img "قطر" [ref=e491]
+          - text: في قطر (طوارئ عامة)
+        - generic [ref=e492]: "999"
+      - generic [ref=e493]:
+        - heading [level=4] [ref=e494]:
+          - img "السعودية" [ref=e495]
+          - text: في السعودية (أمن الطرق)
+        - generic [ref=e496]: "911"
+      - generic [ref=e497]:
+        - heading [level=4] [ref=e498]:
+          - img "السعودية" [ref=e499]
+          - text: الهلال الأحمر (إسعاف)
+        - generic [ref=e500]: "997"
+      - generic [ref=e501]:
+        - heading [level=4] [ref=e502]:
+          - img "السعودية" [ref=e503]
+          - text: نجم للحوادث (السعودية)
+        - generic [ref=e504]: "920000560"
+        - paragraph [ref=e505]: نجم هي المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة
+        - generic [ref=e506]:
+          - link "Google Play" [ref=e507] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=com.najm.najm
+          - link "App Store" [ref=e510] [cursor=pointer]:
+            - /url: https://apps.apple.com/qa/app/najm-نجم/id953140409
+  - group [ref=e513]:
+    - generic "💡 اقتراحاتك واستفساراتك" [ref=e514] [cursor=pointer]
+    - generic [ref=e518]:
+      - paragraph [ref=e520]: يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل
+      - generic [ref=e521]:
+        - generic [ref=e522]:
+          - generic [ref=e523]: الاسم الكريم *
+          - textbox "الاسم الكريم *" [ref=e524]:
+            - /placeholder: "مثال: محمد"
+        - generic [ref=e525]:
+          - generic [ref=e526]: البريد الإلكتروني *
+          - textbox "البريد الإلكتروني *" [ref=e527]:
+            - /placeholder: name@example.com
+        - generic [ref=e528]:
+          - generic [ref=e529]: اقتراحك أو رسالتك *
+          - textbox "اقتراحك أو رسالتك *" [ref=e530]:
+            - /placeholder: اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا...
+        - iframe [ref=e533]:
+          - generic [ref=f3e2] [cursor=pointer]:
+            - 'checkbox "Warning: localhost detected. Please use a valid host." [ref=f3e7]'
+            - generic [ref=f3e8]: أنا الإنسان
+            - generic [ref=f3e12]:
+              - generic "hCaptcha" [ref=f3e13]:
+                - button "شعار hCaptcha، يفتح نافذة جديدة تحتوي على مزيد من المعلومات" [ref=f3e14]
+              - generic [ref=f3e78]:
+                - link "سياسة خصوصية hCaptcha، تُفتح في علامة تبويب جديدة" [ref=f3e79]:
+                  - /url: https://hcaptcha.com/privacy?ref=localhost&utm_campaign=50b2fe65-b00b-4b9e-ad62-3ba471098be2&utm_medium=checkbox&hl=ar
+                  - text: خصوصية
+                - text: "-"
+                - link "شروط خدمة hCaptcha، تُفتح في علامة تبويب جديدة" [ref=f3e80]:
+                  - /url: https://hcaptcha.com/terms?ref=localhost&utm_campaign=50b2fe65-b00b-4b9e-ad62-3ba471098be2&utm_medium=checkbox&hl=ar
+                  - text: شروط
+            - 'generic "Warning: localhost detected. Please use a valid host." [ref=f3e81]'
+        - button "إرسال ✉️" [ref=e535]
+  - contentinfo [ref=e536]:
+    - paragraph [ref=e537]: عمرة مقبولة ورحلة آمنة بإذن الله 🕋
+    - paragraph [ref=e538]: تذكرونا بدعوة صالحة 🤲
+    - paragraph [ref=e539]: تم تصميم الدليل بواسطة معاذ بلال
