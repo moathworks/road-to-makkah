@@ -310,15 +310,15 @@
                 <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.9;">مكة المكرمة</span>
             </div>
         </div>
-<div class="apps-section">
-            <h3 onclick="toggleApps()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-top: 0; margin-bottom: 15px;">
+<details class="custom-accordion apps-section" open style="padding: 0; display: block;">
+            <summary style="border-bottom: 1px solid var(--card-border);">
                 <span style="display: flex; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
                 </span>
-                <svg id="apps-chevron" class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </h3>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
             
-            <div id="apps-content" style="display: block;">
+            <div class="accordion-content" style="padding: 20px;">
                 <div class="app-item">
                     <div class="app-info">
                         <img src="https://play-lh.googleusercontent.com/7ibE2uApkUO7JqlsKVEsgEc36CcMraIp4iFnaNQpvoVfkUr63pXj2BDGV2YSLISFl-C1-t4Sar6BL-PINPgcvYI=w240-h240-rw" alt="Manafeth" class="app-icon">
@@ -402,29 +402,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </details>
 
-        <script>
-            function toggleApps() {
-                const content = document.getElementById('apps-content');
-                const chevron = document.getElementById('apps-chevron');
-                if (content.style.display === 'none') {
-                    content.style.display = 'block';
-                    chevron.style.transform = 'rotate(0deg)';
-                } else {
-                    content.style.display = 'none';
-                    chevron.style.transform = 'rotate(-180deg)';
-                }
-            }
-        </script>
 
-        
 
         <!-- البانر الرئيسي الفاخر -->
-        <div class="hero-section">
-            <h1 class="hero-title">دليل السفر البري من قطر إلى مكة المكرمة</h1>
-            <p class="hero-subtitle">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.
-            </p>
+        <details class="custom-accordion hero-section" open style="padding: 0; display: block;">
+            <summary style="justify-content: center; border-bottom: none;">
+                <h1 class="hero-title" style="margin: 0; font-size: 1.15rem; color: inherit;">دليل السفر البري من قطر إلى مكة المكرمة</h1>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding: 20px; padding-top: 0; text-align: center;">
+                <p class="hero-subtitle">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.
+                </p>
 
             <div class="trip-planner">
                 <div class="planner-group">
@@ -460,11 +450,16 @@
             </div>
 
             <button type="button" class="btn-launch" onclick="startJourney()">ابدأ الرحلة الآن</button>
-        </div>
+            </div>
+        </details>
 
         <!-- الخريطة التفاعلية -->
-        <div class="map-wrapper">
-            <div class="section-header">🗺️ خريطة مسار السفر الموصى به</div>
+        <details class="custom-accordion map-wrapper" open>
+            <summary>
+                <span>🗺️ خريطة مسار السفر الموصى به</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
             <div class="map-container">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d14631393.18957422!2d40.94132034999999!3d23.633535999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!3m2!1d25.2854473!2d51.5310398!4m5!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2sMakkah%20Saudi%20Arabia!3m2!1d21.3890824!2d39.8579118!5e0!3m2!1sen!2sus!4v1718000000000!5m2!1sen!2sus"
@@ -472,7 +467,8 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" class="btn-map-link">🔗 فتح المسار في خرائط Google للتمكين من الملاحة المباشرة</a>
-        </div>
+            </div>
+        </details>
 
         <!-- خيارات مسارات السفر البري -->
         <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
@@ -502,8 +498,13 @@
         </div>
 
         <!-- محطات الوقود والراحة بالتفصيل -->
-        <div class="section-header">⛽ محطات الوقود والراحة بالتفصيل</div>
-        <div class="stations-grid">
+        <details class="custom-accordion" open>
+            <summary>
+                <span>⛽ محطات الوقود والراحة بالتفصيل</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+            <div class="stations-grid" style="margin-top: 15px;">
 
             <div class="station-card">
                 <div>
@@ -526,10 +527,14 @@
             </div>
 
             <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
-            <div class="riyadh-group-dark">
-                <h3>🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">تبعد بداية الرياض حوالي ~140 كم عن محطة خريص
-                    السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
+            <details class="custom-accordion riyadh-group-dark" open style="padding: 0;">
+                <summary style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="margin: 0; font-size: 1.15rem; color: inherit;">🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</h3>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="accordion-content" style="padding: 15px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">تبعد بداية الرياض حوالي ~140 كم عن محطة خريص
+                        السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
 
                 <div class="riyadh-inner-grid">
                     <div class="mini-card-dark">
@@ -592,14 +597,19 @@
                             style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
                 </div>
-            </div>
+                </div>
+            </details>
 
             <!-- إطار محطات الرياض (المسار التفافي) -->
-            <div class="riyadh-group-dark"
-                style="border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
-                <h3 style="color: var(--gold);">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة
-                    خلال أوقات الذروة.</p>
+            <details class="custom-accordion riyadh-group-dark" open
+                style="padding: 0; border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
+                <summary style="padding: 15px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);">
+                    <h3 style="margin: 0; font-size: 1.15rem; color: var(--gold);">🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h3>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="accordion-content" style="padding: 15px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة
+                        خلال أوقات الذروة.</p>
 
                 <div class="riyadh-inner-grid">
                     <div class="mini-card-dark" style="border-right-color: var(--gold);">
@@ -641,7 +651,8 @@
                             style="margin-top:auto;">🗺️ الخريطة</a>
                     </div>
                 </div>
-            </div>
+                </div>
+            </details>
 
             <div class="station-card">
                 <div>
@@ -714,12 +725,17 @@
                 <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع
                     المحطة</a>
             </div>
-
-        </div>
+            </div>
+        </details>
 
         <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
-        <div class="section-header">✅ قائمة الفحص الذكية قبل السفر</div>
-        <div class="checklist-wrapper">
+        <details class="custom-accordion" open>
+            <summary>
+                <span>✅ قائمة الفحص الذكية قبل السفر</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+            <div class="checklist-wrapper" style="margin-top: 15px; background: transparent; padding: 0; box-shadow: none; border: none;">
 
             <div class="progress-container" style="margin-bottom: 15px;">
                 <div class="progress-header">
@@ -731,13 +747,8 @@
                 </div>
             </div>
 
-            <!-- زر طوي وتوسيع قائمة الفحص -->
-            <button type="button" class="checklist-btn" id="toggle-checklist-btn" onclick="toggleChecklist()" style="width: 100%; margin-bottom: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <span>👁️ عرض بنود قائمة الفحص (اضغط للتوسيع)</span>
-            </button>
-
             <!-- الحاوية القابلة للطي -->
-            <div id="checklist-collapse-content" style="display: none; margin-top: 20px;">
+            <div id="checklist-collapse-content" style="display: block; margin-top: 20px;">
                 <div class="checklist-btn-group">
                     <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
                     <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
@@ -1037,6 +1048,8 @@
             </div>
             </div> <!-- نهاية الحاوية القابلة للطي -->
         </div>
+        </div>
+        </details>
 
         <!-- نصائح السفر وأذكار الطريق -->
         <div class="tips-grid">
@@ -1055,8 +1068,9 @@
                     محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
                 <p>📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام
                     الأمان وتفادى استخدام الجوال.</p>
-                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في
-                    الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
+                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
+                <p>🔧 <strong>فحص الإطارات:</strong> تأكد من ضغط الإطارات وحالتها قبل السفر الطويل.</p>
+                <p>📞 <strong>رقم الطوارئ (أمن الطرق):</strong> 911 داخل المملكة للحالات الطارئة.</p>
             </div>
         </div>
 
@@ -1064,7 +1078,7 @@
         <details class="custom-accordion">
             <summary>
                 <span>🗺️ محطات إضافية على طريق الذهاب (قطر - مكة)</span>
-                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p>مجموعة من المحطات الإضافية الموصى بها على طريق مكة المكرمة:</p>
@@ -1104,7 +1118,7 @@
         <details class="custom-accordion">
             <summary>
                 <span>🛣️ محطات طريق العودة (المدينة المنورة - الرياض)</span>
-                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p>أهم المحطات الموصى بها أثناء العودة من المدينة المنورة إلى الرياض:</p>
@@ -1126,7 +1140,7 @@
         <details class="custom-accordion">
             <summary>
                 <span>⏱️ خطة استراحة مقترحة (ذهاب وعودة)</span>
-                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p><strong>في طريق الذهاب (الدوحة - مكة):</strong></p>
@@ -1147,7 +1161,7 @@
         <details class="custom-accordion">
             <summary>
                 <span>ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)</span>
-                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/الهوية.</p>
@@ -1169,8 +1183,13 @@
         </details>
 
         <!-- أرقام الطوارئ الهامة -->
-        <div class="section-header">📞 أرقام الطوارئ والاتصال</div>
-        <div class="emergency-grid">
+        <details class="custom-accordion" open>
+            <summary>
+                <span>📞 أرقام الطوارئ والاتصال</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+            <div class="emergency-grid" style="margin-top: 15px;">
             <div class="emergency-box qatar">
                 <h4 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <img src="https://flagcdn.com/w40/qa.png" alt="قطر" class="flag-img">
@@ -1206,11 +1225,17 @@
                 </div>
             </div>
         </div>
+        </div>
+        </details>
 
         <!-- نموذج الاقتراحات والاستفسارات -->
-        <div class="suggestions-wrapper">
-            <div class="suggestions-header">
-                <h3>💡 اقتراحاتك واستفساراتك</h3>
+        <details class="custom-accordion suggestions-wrapper" open style="padding: 0; display: block;">
+            <summary style="border-bottom: 1px solid var(--card-border);">
+                <span>💡 اقتراحاتك واستفساراتك</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding: 20px;">
+            <div class="suggestions-header" style="margin-bottom: 20px;">
                 <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل</p>
             </div>
 
@@ -1271,7 +1296,8 @@
 
                 <div id="suggestionStatus" class="suggestion-status"></div>
             </form>
-        </div>
+            </div>
+        </details>
 <!-- الفوتر -->
         <footer>
             <p style="font-size: 1.15rem; font-weight: bold; color: #fff; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة
