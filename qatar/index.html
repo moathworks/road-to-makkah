@@ -203,14 +203,14 @@
         details.custom-accordion summary::-webkit-details-marker {
             display: none;
         }
-        details.custom-accordion summary::after {
-            content: '▼';
-            font-size: 0.9rem;
+        .chevron-icon {
+            width: 20px;
+            height: 20px;
             color: var(--text-muted);
             transition: transform 0.3s ease;
         }
-        details.custom-accordion[open] summary::after {
-            transform: rotate(180deg);
+        details.custom-accordion[open] .chevron-icon {
+            transform: rotate(-180deg);
         }
         details.custom-accordion .accordion-content {
             padding: 0 20px 20px 20px;
@@ -315,7 +315,7 @@
                 <span style="display: flex; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
                 </span>
-                <svg id="apps-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg id="apps-chevron" class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </h3>
             
             <div id="apps-content" style="display: block;">
@@ -1062,7 +1062,10 @@
 
         <!-- محطات إضافية وخطة الاستراحة (جديد) -->
         <details class="custom-accordion">
-            <summary>🗺️ محطات إضافية على طريق الذهاب (قطر - مكة)</summary>
+            <summary>
+                <span>🗺️ محطات إضافية على طريق الذهاب (قطر - مكة)</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
             <div class="accordion-content">
                 <p>مجموعة من المحطات الإضافية الموصى بها على طريق مكة المكرمة:</p>
                 <div class="stations-grid" style="margin-top: 15px;">
@@ -1099,7 +1102,10 @@
         </details>
 
         <details class="custom-accordion">
-            <summary>🛣️ محطات طريق العودة (المدينة المنورة - الرياض)</summary>
+            <summary>
+                <span>🛣️ محطات طريق العودة (المدينة المنورة - الرياض)</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
             <div class="accordion-content">
                 <p>أهم المحطات الموصى بها أثناء العودة من المدينة المنورة إلى الرياض:</p>
                 <div class="stations-grid" style="margin-top: 15px;">
@@ -1118,7 +1124,10 @@
         </details>
 
         <details class="custom-accordion">
-            <summary>⏱️ خطة استراحة مقترحة (ذهاب وعودة)</summary>
+            <summary>
+                <span>⏱️ خطة استراحة مقترحة (ذهاب وعودة)</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
             <div class="accordion-content">
                 <p><strong>في طريق الذهاب (الدوحة - مكة):</strong></p>
                 <ul>
@@ -1136,7 +1145,10 @@
         </details>
 
         <details class="custom-accordion">
-            <summary>ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)</summary>
+            <summary>
+                <span>ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
             <div class="accordion-content">
                 <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/الهوية.</p>
                 <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
