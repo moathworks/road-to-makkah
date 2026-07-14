@@ -187,7 +187,7 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         details.custom-accordion summary {
             padding: 16px 20px;
@@ -498,14 +498,20 @@
         </div>
 
         <!-- محطات الوقود والراحة بالتفصيل -->
-<h2 class="section-title" style="text-align: center; margin: 30px 0 20px 0; color: var(--gold); font-size: 1.25rem;">⛽ محطات الوقود والراحة بالتفصيل</h2>
-            <details class="custom-accordion" open>
+        <!-- محطات الوقود والراحة بالتفصيل -->
+        <details class="custom-accordion" open>
             <summary>
+                <span>⛽ محطات الوقود والراحة بالتفصيل</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding: 0;">
+            <details class="custom-accordion" open style="padding: 0; margin-top: 15px; border-color: rgba(255,255,255,0.05); background: transparent;">
+            <summary style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <span>⛽ محطات قبل الرياض</span>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </summary>
             <div class="accordion-content">
-                    <div class="stations-grid" style="margin-top: 0;">
+                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));" style="margin-top: 0;">
 
             <div class="station-card">
                 <div>
@@ -531,9 +537,9 @@
             </details>
 
             <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
-            <details class="custom-accordion" open>
-            <summary>
-                <span>🛣️ 🏙️ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</span>
+            <details class="custom-accordion" open style="padding: 0; margin-top: 15px; border-color: rgba(255,255,255,0.05); background: transparent;">
+            <summary style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span>⛽ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</span>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </summary>
             <div class="accordion-content">
@@ -606,9 +612,9 @@
 
             <!-- إطار محطات الرياض (المسار التفافي) -->
             <details class="custom-accordion" open
-                style="border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
-            <summary>
-                <span>🔄 محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
+                style="margin-top: 15px; border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02);">
+            <summary style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </summary>
             <div class="accordion-content">
@@ -658,13 +664,13 @@
                 </div>
             </details>
 
-            <details class="custom-accordion" open>
-            <summary>
-                <span>🕋 محطات بعد الرياض باتجاه مكة المكرمة</span>
+            <details class="custom-accordion" open style="padding: 0; margin-top: 15px; border-color: rgba(255,255,255,0.05); background: transparent;">
+            <summary style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <span>⛽ محطات بعد الرياض باتجاه مكة المكرمة</span>
                     <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </summary>
             <div class="accordion-content">
-                    <div class="stations-grid" style="margin-top: 0;">
+                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));" style="margin-top: 0;">
 
             <div class="station-card">
                 <div>
@@ -1095,7 +1101,7 @@
             </summary>
             <div class="accordion-content">
                 <p>مجموعة من المحطات الإضافية الموصى بها على طريق مكة المكرمة:</p>
-                <div class="stations-grid" style="margin-top: 15px;">
+                <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));" style="margin-top: 15px;">
                     <div class="station-card">
                         <div><h4>محطة طريق 1</h4></div>
                         <a href="https://maps.app.goo.gl/LpqxSMkYABEtsSLm7?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
@@ -1135,7 +1141,7 @@
             </summary>
             <div class="accordion-content">
                 <p>أهم المحطات الموصى بها أثناء العودة من المدينة المنورة إلى الرياض:</p>
-                <div class="stations-grid" style="margin-top: 15px;">
+                <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));" style="margin-top: 15px;">
                     <div class="station-card"><div><h4>محطة عودة 1</h4></div><a href="https://maps.app.goo.gl/SxWiMb8wV5Ny63i78?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
                     <div class="station-card"><div><h4>محطة عودة 2</h4></div><a href="https://maps.app.goo.gl/mHsjx7pJQ1pFA5QQA?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
                     <div class="station-card"><div><h4>محطة عودة 3</h4></div><a href="https://maps.app.goo.gl/DWRL6roKT9d7zysp9?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a></div>
