@@ -1371,29 +1371,52 @@
         <script>
         // دالة لطي/فتح جميع المربعات
         let isAllExpanded = true;
-        function toggleAllAccordions() {
-            isAllExpanded = !isAllExpanded;
+        
+        function updateToggleIcon() {
             const accordions = document.querySelectorAll('details');
+            const openAccordions = document.querySelectorAll('details[open]');
+            const icon = document.getElementById('toggleAllIcon');
+            
+            if (!icon) return;
+
+            if (openAccordions.length === 0) {
+                // المربعات مطوية: إظهار أيقونة الفتح (أسهم لأسفل)
+                icon.innerHTML = '<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline>';
+                isAllExpanded = false;
+            } else if (openAccordions.length === accordions.length) {
+                // المربعات مفتوحة: إظهار أيقونة الطي (أسهم لأعلى)
+                icon.innerHTML = '<polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline>';
+                isAllExpanded = true;
+            } else {
+                // حالة مختلطة: إظهار أسهم متعاكسة
+                icon.innerHTML = '<polyline points="7 15 12 20 17 15"></polyline><polyline points="7 9 12 4 17 9"></polyline>';
+                // عند الضغط في الحالة المختلطة يتم الفتح
+                isAllExpanded = false;
+            }
+        }
+
+        function toggleAllAccordions() {
+            const accordions = document.querySelectorAll('details');
+            const willExpand = !isAllExpanded; 
+            
             accordions.forEach(acc => {
-                if (isAllExpanded) {
+                if (willExpand) {
                     acc.setAttribute('open', '');
                 } else {
                     acc.removeAttribute('open');
                 }
             });
             
-            // تحديث الأيقونة
-            const icon = document.getElementById('toggleAllIcon');
-            if (icon) {
-                if (isAllExpanded) {
-                    // المربعات مفتوحة: إظهار أيقونة الطي (أسهم لأعلى)
-                    icon.innerHTML = '<polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline>';
-                } else {
-                    // المربعات مطوية: إظهار أيقونة الفتح (أسهم لأسفل)
-                    icon.innerHTML = '<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline>';
-                }
-            }
+            updateToggleIcon();
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordions = document.querySelectorAll('details');
+            accordions.forEach(acc => {
+                acc.addEventListener('toggle', updateToggleIcon);
+            });
+            updateToggleIcon();
+        });
 
         // بدء الرحلة وفتح ملاحة خرائط جوجل
         function startJourney() {
