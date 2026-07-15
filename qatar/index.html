@@ -294,6 +294,13 @@
                         <line x1="12" y1="2" x2="12" y2="15"></line>
                     </svg>
                 </button>
+                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طوي / فتح الكل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="7 13 12 18 17 13"></polyline>
+                        <polyline points="7 6 12 11 17 6"></polyline>
+                    </svg>
+                </button>
             </div>
         </header>
 
@@ -1361,7 +1368,21 @@
 
     </div>
 
-    <script>
+        <script>
+        // دالة لطي/فتح جميع المربعات
+        let isAllExpanded = true;
+        function toggleAllAccordions() {
+            isAllExpanded = !isAllExpanded;
+            const accordions = document.querySelectorAll('details');
+            accordions.forEach(acc => {
+                if (isAllExpanded) {
+                    acc.setAttribute('open', '');
+                } else {
+                    acc.removeAttribute('open');
+                }
+            });
+        }
+
         // بدء الرحلة وفتح ملاحة خرائط جوجل
         function startJourney() {
             alert('تم تفعيل مخطط الرحلة وجاهز للانطلاق!\nسيتم فتح مسار الملاحة المباشر في خرائط Google لمتابعة الطريق.');
