@@ -295,10 +295,10 @@
                     </svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طوي / فتح الكل">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="7 13 12 18 17 13"></polyline>
-                        <polyline points="7 6 12 11 17 6"></polyline>
+                        <polyline points="7 11 12 6 17 11"></polyline>
+                        <polyline points="7 18 12 13 17 18"></polyline>
                     </svg>
                 </button>
             </div>
@@ -1381,6 +1381,18 @@
                     acc.removeAttribute('open');
                 }
             });
+            
+            // تحديث الأيقونة
+            const icon = document.getElementById('toggleAllIcon');
+            if (icon) {
+                if (isAllExpanded) {
+                    // المربعات مفتوحة: إظهار أيقونة الطي (أسهم لأعلى)
+                    icon.innerHTML = '<polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline>';
+                } else {
+                    // المربعات مطوية: إظهار أيقونة الفتح (أسهم لأسفل)
+                    icon.innerHTML = '<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline>';
+                }
+            }
         }
 
         // بدء الرحلة وفتح ملاحة خرائط جوجل
