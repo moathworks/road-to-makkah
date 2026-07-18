@@ -162,12 +162,12 @@
             line-height: 1.3;
         }
 
-        .apps-section .app-links {
+        .app-links {
             display: flex;
             gap: 10px;
         }
         
-        .apps-section .app-store-btn {
+        .app-store-btn {
             background: var(--text-light);
             padding: 10px 14px;
             border-radius: 8px;
@@ -178,11 +178,11 @@
             justify-content: center;
         }
         
-        .apps-section .app-store-btn:hover {
+        .app-store-btn:hover {
             opacity: 0.8;
         }
         
-        .apps-section .app-store-btn svg path {
+        .app-store-btn svg path {
             fill: var(--card-bg);
         }
 
@@ -251,7 +251,7 @@
 
         <!-- هيدر خاص للطباعة فقط -->
         <div class="print-only print-header">
-            <h2>مسار الرحلة البرية من قطر إلى مكة المكرمة 🕋</h2>
+            <h1>مسار الرحلة البرية من قطر إلى مكة المكرمة 🕋</h1>
             <p>دليل رقمي لتخطيط مسارات السفر البري ومحطات الوقود والراحة 2026</p>
         </div>
 
@@ -262,7 +262,7 @@
                     <img loading="lazy" src="../assets/images/qa-flag.png" alt="قطر" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 0 2px rgba(0,0,0,0.2);">
                     قطر ← 🕋 مكة المكرمة
                 </a>
-                <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 24 يونيو 2026</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 18 يوليو 2026</div>
             </div>
             <div style="display: flex; gap: 10px; align-items: center; justify-content: center; width: 100%;">
                 <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
@@ -302,6 +302,7 @@
                     </svg>
                 </button>
             </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0 0 0; line-height: 1.4; max-width: 90%;">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.</p>
         </header>
 
         <!-- البار العلوي للمعلومات -->
@@ -323,385 +324,24 @@
                 <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.9;">مكة المكرمة</span>
             </div>
         </div>
-<!-- البانر الرئيسي الفاخر -->
-        <details class="custom-accordion hero-section" open style="padding: 0; display: block;">
-            <summary style="border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
-                <h1 class="hero-title" style="margin: 0; font-size: 1.15rem; color: var(--gold); text-align: right;">دليل السفر البري من قطر إلى مكة المكرمة</h1>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content" style="padding: 20px; padding-top: 0; text-align: center;">
-                <p class="hero-subtitle">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.
-                </p>
 
-            <div class="trip-planner">
-                <div class="planner-group">
-                    <span>توقيت الانطلاق</span>
-                    <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
-                </div>
-                <div class="planner-group">
-                    <span>المسافة المقدرة</span>
-                    <strong>1,480 كم</strong>
-                </div>
-                <div class="planner-group">
-                    <span>وقت الوصول المتوقع</span>
-                    <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
-                </div>
-            </div>
-
-            <!-- حاسبة المسافة المتبقية المباشرة بنموذج وتقسيم الحاسبة الأولى -->
-            <div class="trip-planner" style="margin-top: 15px; margin-bottom: 25px;">
-                <div class="planner-group">
-                    <span>الموقع الحالي (تلقائي)</span>
-                    <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
-                </div>
-                <div class="planner-group">
-                    <span>المسافة المتبقية</span>
-                    <strong id="remDist">1,480 كم</strong>
-                </div>
-                <div class="planner-group">
-                    <span>وقت الوصول المتوقع*</span>
-                    <strong id="remArrival" style="color: var(--gold);">--:--</strong>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على
-                        جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
-                </div>
-            </div>
-
-            <button type="button" class="btn-launch" onclick="startJourney()">ابدأ الرحلة الآن</button>
-            </div>
-        </details>
-
-        <!-- خيارات مسارات السفر البري -->
-        <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
-        <div class="carousel-container">
-            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <h2>طريق 80 السريع (المسار الرئيسي)</h2>
-                    <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.</p>
-                    <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء بالكامل تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
-                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,480 كم</div>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
-                </div>
-            </div>
-            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <h2>مسار التفافي حول الرياض</h2>
-                    <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
-                    <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
-                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,510 كم</div>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- محطات الوقود والراحة بالتفصيل -->
-        <details class="custom-accordion" open>
+        <!-- نصائح السفر وأذكار الطريق -->
+        <details class="custom-accordion" style="margin-bottom: 20px;">
             <summary>
-                <span>⛽ محطات الوقود والراحة بالتفصيل</span>
+                <span>🤲 أدعية وأذكار السفر</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
-            <div class="accordion-content" style="padding: 0;">
-            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات قبل الرياض</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
             <div class="accordion-content">
-                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">يبعد ~90 كم عن نقطة الانطلاق</div>
-                    <h2>1. محطة وقود أبو سمرة</h2>
-                    <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
-                    <h2>2. محطة ساسكو / الدريس</h2>
-                    <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
-                </div>
-                <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-                    </div>
-                </div>
-            </details>
-
-            <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
-            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">تبعد بداية الرياض حوالي ~140 كم عن محطة خريص
-                        السابقة. المسافات بين هذه المحطات داخل العاصمة متقاربة.</p>
-
-                <div class="riyadh-inner-grid">
-                    <div class="station-card">
-                        <div>
-                        <h2>3. الدريس (بداية الرياض)</h2>
-                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.</p>
-                        </div>
-                        <div style="display:flex; gap:6px; margin-top:auto;">
-                            <a href="https://maps.app.goo.gl/hoHU5xtpKkq53HC56" target="_blank"
-                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة 1</a>
-                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank"
-                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة 2</a>
-                        </div>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>4. محطة ساسكو (الرياض)</h2>
-                        <p>تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>5. محطة شل (الرياض)</h2>
-                        <p>تتميز بخدمة سريعة للتزود بالوقود وشراء القهوة والمشروبات الباردة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/wRiekfx54WCTQGyd8" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>6. الدريس (الرياض)</h2>
-                        <p>يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>7. محطة درب (الرياض)</h2>
-                        <p>خيارات جيدة للوجبات السريعة وتموينات الطريق للمسافرين.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/3p9aSkBCEFQgjuXg6" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>8. محطة جي أويل (الرياض)</h2>
-                        <p>محطة حديثة توفر دورات مياه نظيفة وخدمات مريحة للمسافرين.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>9. الدريس - طويق (آخر الرياض)</h2>
-                        <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>10. محطة فيولكس (آخر الرياض)</h2>
-                        <p>آخر فرصة للتزود بالخدمات داخل النطاق العمراني للعاصمة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/fyzwVFQRsiGUL23q8" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-                </div>
-                </div>
-            </details>
-
-            <!-- إطار محطات الرياض (المسار التفافي) -->
-            <details class="custom-accordion" open
-                style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: rgba(212, 175, 55, 0.02); border-radius: 8px;">
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة
-                        خلال أوقات الذروة.</p>
-
-                <div class="riyadh-inner-grid">
-                    <div class="station-card">
-                        <div>
-                        <h2>1. محطة الدريس (الرياض)</h2>
-                        <p>محطة ممتازة للتزود بالوقود في بداية المسار الالتفافي.</p>
-                        </div>
-                        <div style="display:flex; gap:6px; margin-top:auto;">
-                            <a href="https://maps.app.goo.gl/fHz3LPMNStBaEuca8" target="_blank"
-                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة 1</a>
-                            <a href="https://maps.app.goo.gl/RKN5ft9i1ySRVKhAA" target="_blank"
-                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة 2</a>
-                        </div>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>2. محطة الدريس (الرياض)</h2>
-                        <p>محطة بديلة وخدمات أساسية على امتداد الطريق الدائري.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/ZrPNcBtfEEBwKiij7" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>3. ساسكو المطار (الرياض)</h2>
-                        <p>محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>4. محطة بترولي (الرياض)</h2>
-                        <p>يتوفر بها مطعم "برغرايزر" للوجبات السريعة وخدمات طريق متكاملة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/MjZb7kWimNBxLpEK8" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>5. محطة جي أويل (الرياض)</h2>
-                        <p>نقطة التقاء ممتازة للراحة وتعبئة الوقود قبل استكمال طريق الحجاز.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Uc5a3v1WQdr82AA89" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-                </div>
-                </div>
-            </details>
-
-            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات بعد الرياض باتجاه مكة المكرمة</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~40 كم عن آخر الرياض</div>
-                    <h2>11. محطة بترومين (مطعم البيك)</h2>
-                    <p>أول محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~25 كم عن بترومين</div>
-                    <h2>12. محطة أورنج - اجزالا</h2>
-                    <p>استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~15 كم عن أورنج اجزالا</div>
-                    <h2>13. محطة أورنج - الراية</h2>
-                    <p>خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~20 كم عن أورنج الراية</div>
-                    <h2>14. محطة ساسكو - تبرك</h2>
-                    <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~60 كم عن ساسكو تبرك</div>
-                    <h2>15. محطة ساسكو - القويعية</h2>
-                    <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~350 كم عن القويعية</div>
-                    <h2>16. محطة نخلة ساسكو</h2>
-                    <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark"
-                        style="background:rgba(46, 204, 113, 0.1); color:#2ecc71; border-color:rgba(46,204,113,0.2);">
-                        تبعد ~300 كم عن ساسكو نخلة</div>
-                    <h2>17. محطة ساسكو (السيل الكبير)</h2>
-                    <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-                    <div class="station-card">
-                        <div><h2>18. محطة طريق 1</h2></div>
-                        <a href="https://maps.app.goo.gl/LpqxSMkYABEtsSLm7?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>19. محطة طريق 2</h2></div>
-                        <a href="https://maps.app.goo.gl/fopTdHaUZcqkvonz6?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>20. محطة طريق 3</h2></div>
-                        <a href="https://maps.app.goo.gl/nz8oyWBg8espXwqEA?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>21. محطة طريق 4</h2></div>
-                        <a href="https://maps.app.goo.gl/aTGyyFdjD3CZFbyF9?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>22. محطة طريق 5</h2></div>
-                        <a href="https://maps.app.goo.gl/EHTLTcZZFpAiE66s5?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>23. محطة طريق 6</h2></div>
-                        <a href="https://maps.app.goo.gl/jY2ZyJtdcXbrs7oG8?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    <div class="station-card">
-                        <div><h2>24. مطعم البيك (قبل السيل)</h2><p>قبل ميقات السيل الكبير مباشرة</p></div>
-                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                    </div> <!-- closes stations-grid -->
-                </div> <!-- closes accordion-content child -->
-            </details> <!-- closes riyadh-group-dark child -->
+                <p><strong>دعاء السفر:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
+                    له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى، اللهم هوّن علينا سفرنا هذا، واطوِ عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل، اللهم إني أعوذ بك من وعثاء السفر، وكآبة المنظر، وسوء المنقلب في المال والأهل" وإذا رجع قالهنّ وزاد فيهنّ: آيبون، تائبون، عابدون، لربنا حامدون.
+                </p>
+                <p><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق"</p>
+                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله)
+                    عند النزول.</p>
             </div>
         </details>
 
+        
         <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
         <details class="custom-accordion" open>
             <summary>
@@ -1025,33 +665,333 @@
         </div>
         </details>
 
-        <!-- نصائح السفر وأذكار الطريق -->
-        <div class="tips-grid">
-            <div class="tip-card">
-                <h3>🤲 أدعية وأذكار السفر</h3>
-                <p><strong>دعاء السفر بالكامل:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
-                    له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى..."
-                </p>
-                <p><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق."</p>
-                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله)
-                    عند النزول.</p>
+<!-- البانر الرئيسي الفاخر -->
+        <details class="custom-accordion hero-section" open style="padding: 0; display: block;">
+            <summary style="border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="hero-title" style="margin: 0; font-size: 1.15rem; color: var(--gold); text-align: right;">⏱️ حاسبة وقت ومسار الرحلة</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding: 20px; padding-top: 0; text-align: center;">
+
+            <div class="trip-planner">
+                <div class="planner-group">
+                    <span>توقيت الانطلاق</span>
+                    <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
+                </div>
+                <div class="planner-group">
+                    <span>المسافة المقدرة</span>
+                    <strong>1,480 كم</strong>
+                </div>
+                <div class="planner-group">
+                    <span>وقت الوصول المتوقع</span>
+                    <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
+                </div>
             </div>
-            <div class="tip-card">
-                <h3>💡 نصائح وإرشادات السلامة</h3>
-                <p>😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب
-                    محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
-                <p>📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام
-                    الأمان وتفادى استخدام الجوال.</p>
-                <p>🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.</p>
-                <p>🔧 <strong>فحص الإطارات:</strong> تأكد من ضغط الإطارات وحالتها قبل السفر الطويل.</p>
-                <p>📞 <strong>رقم الطوارئ (أمن الطرق):</strong> 911 داخل المملكة للحالات الطارئة.</p>
+
+            <!-- حاسبة المسافة المتبقية المباشرة بنموذج وتقسيم الحاسبة الأولى -->
+            <div class="trip-planner" style="margin-top: 15px; margin-bottom: 25px;">
+                <div class="planner-group">
+                    <span>الموقع الحالي (تلقائي)</span>
+                    <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
+                </div>
+                <div class="planner-group">
+                    <span>المسافة المتبقية</span>
+                    <strong id="remDist">1,480 كم</strong>
+                </div>
+                <div class="planner-group">
+                    <span>وقت الوصول المتوقع*</span>
+                    <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على
+                        جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
+                </div>
+            </div>
+
+            <button type="button" class="btn-launch" onclick="startJourney()">ابدأ الرحلة الآن</button>
+            </div>
+        </details>
+
+        <!-- خيارات مسارات السفر البري -->
+        <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
+        <div class="carousel-container">
+            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2>طريق 80 السريع (المسار الرئيسي)</h2>
+                    <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.</p>
+                    <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,480 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
+            </div>
+            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2>مسار التفافي حول الرياض</h2>
+                    <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
+                    <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,510 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
             </div>
         </div>
+
+        <!-- محطات طريق الذهاب (الدوحة - الرياض - مكة) -->
+        <details class="custom-accordion" open>
+            <summary>
+                <span>⛽ محطات طريق الذهاب (الدوحة - الرياض - مكة المكرمة)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="padding: 0;">
+            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
+            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
+                <span>⛽ محطات قبل الرياض</span>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+            <div class="accordion-content">
+                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~90 كم عن نقطة الانطلاق</div>
+                    <h2>1. محطة وقود أبو سمرة</h2>
+                    <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
+                    <h2>2. محطة ساسكو / طريق خريص</h2>
+                    <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
+                </div>
+                <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~170 كم عن ساسكو طريق خريص</div>
+                    <h2>3. محطة جو ستيشن</h2>
+                    <p>بداية طريق الدمام - الرياض (طريق 80 السريع)</p>
+                </div>
+                <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+            </div>
+
+            <div class="station-card">
+                        <div>
+                        <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
+                        <h2>4. الدريس (بداية الرياض)</h2>
+                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.</p>
+                        </div>
+                        <div style="display:flex; gap:6px; margin-top:auto;">
+                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank"
+                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
+            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
+            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
+                <span>⛽ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</span>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+            <div class="accordion-content">
+
+                <div class="riyadh-inner-grid">
+
+                    <div class="station-card">
+                        <div>
+                        <h2>4. محطة ساسكو (الرياض)</h2>
+                        <p>تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn-station-map"
+                            style="margin-top:auto;">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                        <h2>5. الدريس (الرياض)</h2>
+                        <p>يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn-station-map"
+                            style="margin-top:auto;">🗺️ موقع المحطة</a>
+                    </div>
+
+                </div>
+                </div>
+            </details>
+
+            <!-- إطار محطات الرياض (المسار التفافي) -->
+            <details class="custom-accordion" open
+                style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: rgba(212, 175, 55, 0.02); border-radius: 8px;">
+            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
+                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+            <div class="accordion-content">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة
+                        خلال أوقات الذروة.</p>
+
+                <div class="riyadh-inner-grid">
+
+                    <div class="station-card">
+                        <div>
+                        <h2>4. ساسكو (قبل المطار)</h2>
+                        <p>محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-station-map"
+                            style="margin-top:auto;">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                        <h2>5. ساسكو (بعد المطار)</h2>
+                        <p>محطة خدمات متكاملة.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6" target="_blank" class="btn-station-map"
+                            style="margin-top:auto;">🗺️ موقع المحطة</a>
+                    </div>
+
+                </div>
+                </div>
+            </details>
+
+            <details class="custom-accordion" open style="padding: 0; margin: 15px auto 15px auto; width: 95%; border-color: var(--inner-border); background: var(--inner-bg); border-radius: 8px;">
+            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
+                <span>⛽ محطات بعد الرياض باتجاه مكة المكرمة</span>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+            <div class="accordion-content">
+                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
+
+            <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~40 كم عن آخر الرياض</div>
+                        <h2>6. الدريس - طويق (آخر الرياض)</h2>
+                        <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn-station-map"
+                            style="margin-top:auto;">🗺️ موقع المحطة</a>
+                    </div>
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~40 كم عن آخر الرياض</div>
+                    <h2>7. محطة بترومين (مطعم البيك)</h2>
+                    <p>أول محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~25 كم عن بترومين</div>
+                    <h2>8. محطة أورنج - اجزالا</h2>
+                    <p>استراحة ممتازة ومطاعم متنوعة على طريق الحجاز.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/UFyZqRJCvoYKXcCMA" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~15 كم عن أورنج اجزالا</div>
+                    <h2>9. محطة أورنج - الراية</h2>
+                    <p>خدمات متكاملة ونظيفة، مناسبة للراحة القصيرة.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/NXuxPFh9pFjv1qVC8" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~20 كم عن أورنج الراية</div>
+                    <h2>10. محطة ساسكو - تبرك</h2>
+                    <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~60 كم عن ساسكو تبرك</div>
+                    <h2>11. محطة ساسكو - القويعية</h2>
+                    <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark">تبعد ~350 كم عن القويعية</div>
+                    <h2>12. محطة نخلة ساسكو</h2>
+                    <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+
+            <div class="station-card">
+                <div>
+                    <div class="distance-badge-dark"
+                        style="background:rgba(46, 204, 113, 0.1); color:#2ecc71; border-color:rgba(46,204,113,0.2);">
+                        تبعد ~300 كم عن ساسكو نخلة</div>
+                    <h2>13. محطة ساسكو (السيل الكبير)</h2>
+                    <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
+                </div>
+                <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع
+                    المحطة</a>
+            </div>
+                    <div class="station-card">
+                        <div><h2>14. محطة طريق 1</h2></div>
+                        <a href="https://maps.app.goo.gl/LpqxSMkYABEtsSLm7?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>15. محطة طريق 2</h2></div>
+                        <a href="https://maps.app.goo.gl/fopTdHaUZcqkvonz6?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>16. محطة طريق 3</h2></div>
+                        <a href="https://maps.app.goo.gl/nz8oyWBg8espXwqEA?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>17. محطة طريق 4</h2></div>
+                        <a href="https://maps.app.goo.gl/aTGyyFdjD3CZFbyF9?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>18. محطة طريق 5</h2></div>
+                        <a href="https://maps.app.goo.gl/EHTLTcZZFpAiE66s5?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>19. محطة طريق 6</h2></div>
+                        <a href="https://maps.app.goo.gl/jY2ZyJtdcXbrs7oG8?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    <div class="station-card">
+                        <div><h2>20. مطعم البيك (قبل السيل)</h2><p>قبل ميقات السيل الكبير مباشرة</p></div>
+                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A?g_st=aw" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                    </div> <!-- closes stations-grid -->
+                </div> <!-- closes accordion-content child -->
+            </details> <!-- closes riyadh-group-dark child -->
+            </div>
+        </details>
+
+
+
 
 
         <details class="custom-accordion" open>
             <summary>
-                <span>🛣️ محطات طريق العودة (المدينة المنورة - الرياض)</span>
+                <span>🛣️ محطات طريق العودة (المدينة المنورة - الرياض - الدوحة)</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
@@ -1073,46 +1013,74 @@
 
         <details class="custom-accordion" open>
             <summary>
-                <span>⏱️ خطة استراحة مقترحة (ذهاب وعودة)</span>
+                <span>ℹ️ معلومات تهم المعتمر والزائر</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <p><strong>في طريق الذهاب (الدوحة - مكة):</strong></p>
-                <ul>
-                    <li style="margin-bottom: 8px;">توقف أول (سريع): محطة ساسكو خريص لتجديد النشاط (بعد 3 ساعات).</li>
-                    <li style="margin-bottom: 8px;">توقف رئيسي: قبل الرياض للغداء/العشاء والراحة (بعد 5 ساعات).</li>
-                    <li style="margin-bottom: 8px;">توقف ثاني: ساسكو القويعية (بعد تجاوز الرياض).</li>
-                    <li style="margin-bottom: 8px;">توقف أخير للاستعداد: ميقات السيل الكبير (للاغتسال والإحرام).</li>
-                </ul>
-                <p style="margin-top: 15px;"><strong>في طريق العودة (المدينة - الرياض):</strong></p>
-                <ul>
-                    <li style="margin-bottom: 8px;">يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط.</li>
-                    <li style="margin-bottom: 8px;">تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن لتفادي الإرهاق.</li>
-                </ul>
+                <p style="margin-bottom: 8px;">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن لتفادي الإرهاق.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام الأمان وتفادى استخدام الجوال.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;">🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد سلوى وحتى خريص، وبعد القويعية وحتى الطائف.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/ الهوية.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🏨 الفنادق:</strong> تأكد من حجز الفنادق مسبقاً عبر تطبيقات مثل (Booking, Agoda). في مكة يُفضل السكن بالقرب من الحرم أو في الفنادق التي توفر حافلات نقل ترددية مجانية للحرم على مدار الساعة (مع ذلك انتبه بعض المواقف بعيدة عن الحرم والأفضل أن تستأجر تكسي ليوصلك لمكان قريب من الحرم).</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🚕 المواصلات:</strong> اعتمد على تطبيقات مثل Uber, Careem للتنقل داخل مكة والمدينة بأسعار مناسبة ومعتمدة.</p>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>🚄 قطار الحرمين السريع:</strong> وسيلة ممتازة وسريعة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر موقع أو تطبيق "قطار الحرمين السريع".</p>
+                <div class="app-links" style="flex-wrap: wrap; margin-top: 10px; justify-content: center;">
+                    <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                    <a href="https://apps.apple.com/es/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                </div>
+                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
+                <p style="margin-bottom: 8px;"><strong>💧 ماء زمزم:</strong> يمكن شراء ماء زمزم المعبأ رسمياً من 📍 "<a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" style="text-decoration: underline; color: inherit; font-weight: bold;">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a>" في مكة المكرمة (حي كدي). يُسمح للمسافر براً بنقل العبوات للاستخدام الشخصي.</p>
             </div>
         </details>
 
         <details class="custom-accordion" open>
             <summary>
-                <span>ℹ️ معلومات تهم المعتمر والزائر (اتصالات، فنادق، زمزم)</span>
+                <span>🕌 الأماكن السياحية الدينية</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/الهوية.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🏨 الفنادق:</strong> تأكد من حجز الفنادق مسبقاً عبر تطبيقات مثل (Booking, Agoda). في مكة يُفضل السكن بالقرب من الحرم أو في الفنادق التي توفر حافلات نقل ترددية مجانية للحرم على مدار الساعة.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🚕 المواصلات:</strong> اعتمد على تطبيقات مثل Uber، Careem، وتطبيق (Kaiian أو Jeeny) للتنقل داخل مكة والمدينة بأسعار مناسبة ومعتمدة.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>💧 شراء ماء زمزم:</strong> يمكن شراء ماء زمزم المعبأ رسمياً من "مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم" في مكة المكرمة (حي كدي). يُسمح للمسافر براً بنقل العبوات للاستخدام الشخصي.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🕌 الأماكن السياحية الدينية:</strong></p>
-                <ul style="margin-bottom: 8px;">
-                    <li style="margin-bottom: 5px;"><strong>مكة المكرمة:</strong> غار حراء (جبل النور)، غار ثور، مسجد عائشة (التنعيم)، حي حراء الثقافي.</li>
-                    <li style="margin-bottom: 5px;"><strong>المدينة المنورة:</strong> مسجد قباء، مقبرة شهداء أحد، مسجد القبلتين، جبل الرماة.</li>
-                </ul>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🚄 قطار الحرمين السريع:</strong> وسيلة ممتازة وسريعة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر موقع أو تطبيق "قطار الحرمين السريع".</p>
+                <div style="padding-right: 10px; margin-top: 15px; margin-bottom: 8px;">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <span>🕋</span> <strong>مكة المكرمة:</strong>
+                        </h3>
+                        <ul style="padding-right: 25px; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/q8VcxANhQNgSPaJ36" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> غار ثور</li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/TNMGNBzyxWRseN5y6" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> غار حراء (جبل النور)</li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/suRzhpC1ZehUrzJP7" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> حي حراء الثقافي</li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/HNgT1xdR7fmmoK5U8" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد السيدة عائشة (التنعيم)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="margin: 0 0 10px 0; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <span>🕌</span> <strong>المدينة المنورة:</strong>
+                        </h3>
+                        <ul style="padding-right: 25px; margin: 0;">
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/f5cViWhDRbNprjN76" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> متحف السيرة النبوية</li>
+                            <li style="margin-bottom: 12px;">
+                                <a href="https://maps.app.goo.gl/hyXifHzKYRpVnqY78" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد قباء
+                                <div style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px; margin-right: 10px;">💡 بجانبه مجموعة متنوعة من الأكشاك</div>
+                                <div style="margin-top: 6px; margin-right: 10px; font-size: 0.95em;">
+                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" style="text-decoration: underline; color: inherit; font-weight: bold;">محل تمور "بستان العجوة"</a> <span style="font-size: 0.9em; color: var(--text-muted);">(مميز وقريب من مسجد قباء)</span>
+                                </div>
+                            </li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/ci7CuEkf32CNRvQW8" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مقبرة شهداء أحد وجبل الرماة</li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/eMzkh1SU2zmkgfVo7" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مطل أحد</li>
+                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/qSRrnmKypC3yPRE88" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد القبلتين</li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </details>
 
@@ -1195,7 +1163,7 @@
                     </div>
                 </div>
 
-                <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <div class="app-item">
                     <div class="app-info">
                         <img loading="lazy" src="../assets/images/absher.svg" alt="Absher" class="app-icon" style="background-color: white; padding: 6px; box-sizing: border-box; object-fit: contain;">
                         <div>
@@ -1205,6 +1173,21 @@
                     </div>
                     <div class="app-links">
                         <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                    <div class="app-info">
+                        <div class="app-icon" style="background-color: white; display: flex; align-items: center; justify-content: center; font-size: 26px;">🚄</div>
+                        <div>
+                            <div class="app-title">قطار الحرمين السريع</div>
+                            <div class="app-desc">لحجز تذاكر القطار السريع بين مكة والمدينة</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/es/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
                     </div>
                 </div>
             </div>
