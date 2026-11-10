@@ -3,249 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#8A1538">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="دليل السفر البري من قطر إلى مكة المكرمة عبر منفذ سلوى الحدودي: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.">
     <title>دليل السفر البري من قطر إلى مكة المكرمة</title>
-    <!-- خط تجوال للحصول على مظهر ممتاز -->
+    <link rel="manifest" href="../manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css?v=2.0">
     <style>
-        :root {
-            --primary-brand: #ffffff;
-            /* Dark mode brand white */
-            --primary-dark: #1e1e1e;
-            --gold: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.15);
-            --bg-dark: #121212;
-            /* Dark background */
-            --card-bg: #1e1e1e;
-            /* Dark card background */
-            --card-border: rgba(255, 255, 255, 0.05);
-            --inner-bg: rgba(255, 255, 255, 0.03);
-            --inner-border: rgba(255, 255, 255, 0.03);
-            --text-light: #e0e0e0;
-            /* Light text color */
-            --text-muted: #aaaaaa;
-            --border-radius: 16px;
-        }
-
+        /* تخصيص ألوان الهوية البصرية لدولة قطر (العنابي) */
         body.light-mode {
             --primary-brand: #8A1538;
-            /* Maroon color for Qatar in light mode */
+            --primary-brand-rgb: 138, 21, 56;
             --primary-dark: #5A0E25;
-            --bg-dark: #F9F7F1;
-            --card-bg: #FFFFFF;
-            --card-border: rgba(0, 0, 0, 0.08);
-            --inner-bg: #fafafa;
-            --inner-border: rgba(0, 0, 0, 0.03);
-            --text-light: #1A1A1A;
-            --text-muted: #505050;
         }
-
-        /* البار العلوي (معلومات الطقس والصلاة) */
-        .top-info-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 12px 16px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin-top: 0px;
-            margin-bottom: 15px;
-            border: 1px solid var(--card-border);
-            width: 100%;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 380px) {
-            .top-info-bar {
-                padding: 10px 8px;
-            }
-
-            .info-item {
-                font-size: 0.75rem;
-                gap: 4px;
-            }
-        }
-
-        .info-item.prayer {
-            color: var(--primary-brand);
-        }
-
-        body:not(.light-mode) .info-item.prayer {
-            color: var(--gold);
-        }
-
-        .info-item.weather {
-            color: #d35400;
-        }
-
-        body:not(.light-mode) .info-item.weather {
-            color: var(--gold);
-        }
-
-        .info-icon {
-            font-size: 1.2rem;
-        }
-    
-        .apps-section {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-        
-        .apps-section h3 {
-            color: var(--text-light);
-            margin-top: 0; 
-            margin-bottom: 20px; 
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .apps-section .app-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-
-        .apps-section .app-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .apps-section .app-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .apps-section .app-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .apps-section .app-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-
-        .apps-section .app-desc {
-            font-size: 0.85rem; 
-            color: var(--text-muted); 
-            line-height: 1.3;
-        }
-
-        .app-links {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .app-store-btn {
-            background: var(--text-light);
-            padding: 10px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .app-store-btn:hover {
-            opacity: 0.8;
-        }
-        
-        .app-store-btn svg path {
-            fill: var(--card-bg);
-        }
-
-        details.custom-accordion {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        details.custom-accordion summary {
-            padding: 16px 20px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--gold);
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        details.custom-accordion summary::-webkit-details-marker {
-            display: none;
-        }
-        .chevron-icon {
-            width: 20px;
-            height: 20px;
-            color: var(--text-muted);
-            transition: transform 0.3s ease;
-        }
-        details.custom-accordion[open] > summary .chevron-icon {
-            transform: rotate(-180deg);
-        }
-        details.custom-accordion .accordion-content {
-            padding: 0 20px 20px 20px;
-            color: var(--text-light);
-        }
-
     </style>
-    <link rel="stylesheet" href="../css/style.css?v=1.3">
-    <!-- Web3Forms Client Script (دمج hCaptcha مجاناً) -->
-    <script src="https://web3forms.com/client/script.js" async defer></script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
-
-    <style>
-        header {
-            margin-bottom: 20px !important;
-        }
-        .top-info-bar, .apps-section, .hero-section, .map-wrapper, .carousel-container, 
-        .stations-grid, .checklist-wrapper, .tips-grid, .emergency-grid, .suggestions-wrapper, .distance-calc {
-            margin-top: 0px !important;
-            margin-bottom: 20px !important;
-        }
-        .section-header {
-            margin-top: 20px !important;
-            margin-bottom: 15px !important;
-        }
-    </style>
 </head>
 
-<body class="light-mode">
+<body class="light-mode" data-country="qa">
 
     <div class="container">
 
@@ -256,64 +37,62 @@
         </div>
 
         <!-- الهيدر -->
-        <header style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 15px; width: 100%; border-bottom: none; margin-bottom: 15px;">
+        <header>
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
-                <a href="../" class="header-logo" style="text-decoration: none; justify-content: center;">
-                    <img loading="lazy" src="../assets/images/qa-flag.png" alt="قطر" style="width: 26px; height: 18px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 0 2px rgba(0,0,0,0.2);">
+                <a href="../" class="header-logo">
+                    <img loading="lazy" src="../assets/images/qa-flag.png" alt="قطر" class="flag-img">
                     قطر ← 🕋 مكة المكرمة
                 </a>
-                <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 25 يوليو 2026</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 25 يوليو 2026</div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center; justify-content: center; width: 100%;">
-                <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+            <div class="quick-actions-row">
+                <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" aria-label="الرئيسية (كل الدول)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </a>
-                <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر" aria-label="تغيير المظهر">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                 </button>
-                <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة" aria-label="طباعة مسار الرحلة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <polyline points="6 9 6 2 18 2 18 9"></polyline>
                         <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                         <rect x="6" y="14" width="12" height="8"></rect>
                     </svg>
                 </button>
-                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل" aria-label="مشاركة الدليل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                         <polyline points="16 6 12 2 8 6"></polyline>
                         <line x1="12" y1="2" x2="12" y2="15"></line>
                     </svg>
                 </button>
-                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طوي / فتح الكل">
-                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طي / فتح الكل" aria-label="طي أو فتح الكل">
+                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <polyline points="7 11 12 6 17 11"></polyline>
                         <polyline points="7 18 12 13 17 18"></polyline>
                     </svg>
                 </button>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0 0 0; line-height: 1.4; max-width: 90%;">دليل رقمي فاخر للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 2px 0 0 0; line-height: 1.4; max-width: 92%;">دليل رقمي متكامل للرحلات البرية عبر منفذ سلوى الحدودي وصولاً إلى الحرم المكي الشريف.</p>
         </header>
 
-        <!-- البار العلوي للمعلومات -->
+        <!-- البار العلوي للمعلومات (مواقيت الصلاة الحية في مكة + الطقس المباشر) -->
         <div class="top-info-bar">
             <div class="info-item prayer" style="gap: 6px;">
                 <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">🔔</span>
                 <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
-                    <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.9; line-height: 1.2;">الفجر 4:35 ص |
-                        الشروق 6:00 ص</span>
-                    <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.9; line-height: 1.2;">المغرب 6:30
-                        م</span>
+                    <span id="prayer-line-1" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">الفجر 4:35 ص | الشروق 6:00 ص</span>
+                    <span id="prayer-line-2" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">المغرب 6:30 م | العشاء 8:00 م</span>
                 </div>
             </div>
             <div class="info-item weather" style="flex-direction: column; align-items: center; gap: 2px;">
@@ -321,1515 +100,276 @@
                     <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">☀️</span>
                     <span id="makkah-temp">35°C</span>
                 </div>
-                <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.9;">مكة المكرمة</span>
+                <span style="font-size: 0.75rem; font-weight: 600; opacity: 0.9;">مكة المكرمة</span>
             </div>
         </div>
 
-        <!-- نصائح السفر وأذكار الطريق -->
-        <details class="custom-accordion" style="margin-bottom: 20px;">
+        <!-- نصائح السفر وأذكار الطريق (مشترك بين كل الدول) -->
+        <div data-shared-section="prayers"></div>
+
+        <!-- قائمة الفحص الذكية قبل السفر (مشتركة بين كل الدول مع تخصيص هوية الدولة تلقائياً) -->
+        <div data-shared-section="checklist"></div>
+
+        <!-- حاسبة وقت ومسار وتكلفة الرحلة -->
+        <details class="custom-accordion hero-section" id="section-calculator">
             <summary>
-                <span>🤲 أدعية وأذكار السفر</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p><strong>دعاء السفر:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
-                    له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى، اللهم هوّن علينا سفرنا هذا، واطوِ عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل، اللهم إني أعوذ بك من وعثاء السفر، وكآبة المنظر، وسوء المنقلب في المال والأهل" وإذا رجع قالهنّ وزاد فيهنّ: آيبون، تائبون، عابدون، لربنا حامدون.
-                </p>
-                <p><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق"</p>
-                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله)
-                    عند النزول.</p>
-            </div>
-        </details>
-
-        
-        <!-- قائمة الفحص الذكية بسحّابات (Switches) -->
-        <details class="custom-accordion" open>
-            <summary>
-                <span>✅ قائمة الفحص الذكية قبل السفر</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-            <div class="checklist-wrapper" style="margin-top: 15px; background: transparent; padding: 0; box-shadow: none; border: none;">
-
-            <div class="progress-container" style="margin-bottom: 15px;">
-                <div class="progress-header">
-                    <span>مدى جاهزيتك للرحلة</span>
-                    <span id="progress-percent">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="progress-fill"></div>
-                </div>
-            </div>
-
-            <!-- الحاوية القابلة للطي -->
-            <div id="checklist-collapse-content" style="display: block; margin-top: 20px;">
-                <div class="checklist-btn-group">
-                    <button class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
-                    <button class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
-                </div>
-
-                <div class="checklist-grid">
-
-                <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
-
-                <div class="switch-item">
-                    <span class="switch-label">جوازات السفر صالحة (6 أشهر على الأقل)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">البطاقة الشخصية القطرية QID</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تأشيرة السعودية</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تصريح العمرة (نسك Nusuk)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">استمارة السيارة ورخصة القيادة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تأمين السيارة (للسعودية)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">نسخ مطبوعة من حجوزات السكن والرحلة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تحميل خرائط Google Maps</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">دليل العمرة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
-
-                <!-- الإطارات وكل ما يتعلق بها -->
-                <div class="switch-item">
-                    <span class="switch-label">فحص ضغط الإطارات والإطار الاحتياطي</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">عدة تبديل الإطارات (الرافعة والذراع الخاص)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">منفاخ إطارات كهربائي متنقل</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <!-- السوائل والميكانيكا -->
-                <div class="switch-item">
-                    <span class="switch-label">فحص زيوت المحرك والفرامل</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">فحص مياه الراديتر</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">فحص تكييف السيارة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">عدة تصليح (مفاتيح مقاسات متعددة)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <!-- بطاريات وكهرباء وطوارئ -->
-                <div class="switch-item">
-                    <span class="switch-label">بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مفتاح احتياطي للسيارة (مع مرافق)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">طفاية حريق ومثلث السلامة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">حقيبة الإسعافات الأولية</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <!-- الإلكترونيات والمالية والحقائب -->
-                <div class="switch-item">
-                    <span class="switch-label">شاحن السيارة للجوال</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">بطارية شحن إضافية للجوال</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">جوال إضافي</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <div class="checklist-section-title">💊 الصحة والراحة الشخصية</div>
-
-                <div class="switch-item">
-                    <span class="switch-label">أدوية شخصية (مسكنات..)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">أدوية الأطفال</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">قطرة ترطيب العين</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">نظارات شمسية</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مظلة شمسية بيضاء للطواف والمشي بالنهار</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مياه صالحة للشرب ووجبات خفيفة كافية للطريق</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">أدوات حلاقة (ماكينة، مقص، شفرة)</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">مقص أظافر</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">محارم معطرة</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="switch-item">
-                    <span class="switch-label">محارم جيب</span>
-                    <label class="switch">
-                        <input type="checkbox" class="checklist-toggle" onchange="updateProgress()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-            </div>
-            </div> <!-- نهاية الحاوية القابلة للطي -->
-        </div>
-        </div>
-        </details>
-
-<!-- البانر الرئيسي الفاخر -->
-        <details class="custom-accordion hero-section" open style="padding: 0; display: block;">
-            <summary style="border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
-                <h2 class="hero-title" style="margin: 0; font-size: 1.15rem; color: var(--gold); text-align: right;">⏱️ حاسبة وقت ومسار الرحلة</h2>
+                <h2 class="hero-title">⏱️ حاسبة وقت ومسار وتكلفة الرحلة</h2>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
-            <div class="accordion-content" style="padding: 20px; padding-top: 0; text-align: center;">
+            <div class="accordion-content" style="text-align: center;">
 
-            <div class="trip-planner">
-                <div class="planner-group">
-                    <span>توقيت الانطلاق</span>
-                    <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
+                <!-- 1. حاسبة وقت الانطلاق والوصول -->
+                <div class="trip-planner">
+                    <div class="planner-group">
+                        <span>توقيت الانطلاق</span>
+                        <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
+                    </div>
+                    <div class="planner-group">
+                        <span>المسافة المقدرة</span>
+                        <strong>1,480 كم</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>وقت الوصول المتوقع</span>
+                        <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
+                    </div>
                 </div>
-                <div class="planner-group">
-                    <span>المسافة المقدرة</span>
-                    <strong>1,480 كم</strong>
-                </div>
-                <div class="planner-group">
-                    <span>وقت الوصول المتوقع</span>
-                    <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
-                </div>
-            </div>
 
-            <!-- حاسبة المسافة المتبقية المباشرة بنموذج وتقسيم الحاسبة الأولى -->
-            <div class="trip-planner" style="margin-top: 15px; margin-bottom: 25px;">
-                <div class="planner-group">
-                    <span>الموقع الحالي (تلقائي)</span>
-                    <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
+                <!-- 2. حاسبة المسافة المتبقية المباشرة (GPS) -->
+                <div class="trip-planner">
+                    <div class="planner-group">
+                        <span>الموقع الحالي (تلقائي GPS)</span>
+                        <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>المسافة المتبقية لمكة</span>
+                        <strong id="remDist">1,480 كم</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>وقت الوصول من موقعك*</span>
+                        <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                        <span style="font-size: 0.72rem; opacity: 0.85; margin-top: 4px; color: var(--text-muted);">*الزمن المتبقي: <span id="remTime">14 ساعة و 48 دقيقة</span> قيادة</span>
+                    </div>
                 </div>
-                <div class="planner-group">
-                    <span>المسافة المتبقية</span>
-                    <strong id="remDist">1,480 كم</strong>
-                </div>
-                <div class="planner-group">
-                    <span>وقت الوصول المتوقع*</span>
-                    <strong id="remArrival" style="color: var(--gold);">--:--</strong>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-top: 5px; color: var(--text-muted);">*بناءً على
-                        جهازك (<span id="remTime">14 ساعة و 48 دقيقة</span> قيادة)</span>
-                </div>
-            </div>
 
-            <button type="button" class="btn-launch" onclick="startJourney()">ابدأ الرحلة الآن</button>
+                <!-- 3. حاسبة تكلفة الوقود التقديرية -->
+                <div class="trip-planner" style="margin-bottom: 18px;">
+                    <div class="planner-group">
+                        <span>المسافة لحساب الوقود (كم)</span>
+                        <input type="number" id="calc-distance" class="planner-input" value="1480" min="0" step="10" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>استهلاك السيارة (لتر/100كم)</span>
+                        <input type="number" id="calc-rate" class="planner-input" value="10" min="1" max="35" step="0.5" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>سعر اللتر (ريال)</span>
+                        <input type="number" id="calc-price" class="planner-input" value="2.18" min="0.5" max="10" step="0.05" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>الوقود والتكلفة التقديرية</span>
+                        <strong id="res-total" style="color: var(--gold); font-size: 1.15rem;">323 ريال</strong>
+                        <span id="res-liters" style="font-size: 0.75rem; margin-top: 3px; color: rgba(255,255,255,0.8);">148.0 لتر</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-launch" onclick="startJourney()">📍 ابدأ الملاحة المباشرة إلى مكة المكرمة</button>
             </div>
         </details>
 
-        <!-- خيارات مسارات السفر البري -->
-        <div class="section-header">🛣️ خيارات مسارات السفر البري</div>
+        <!-- خيارات مسارات السفر البري (خاص بدولة قطر) -->
+        <div class="section-header" id="section-routes">🛣️ خيارات مسارات السفر البري</div>
         <div class="carousel-container">
-            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="route-card">
                 <div>
                     <h2>طريق 80 السريع (المسار الرئيسي)</h2>
                     <p><strong>خط السير:</strong> الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.</p>
-                    <p style="margin-top: 8px;">أكثر الطرق أماناً ومضاء تقريباً، ويحتوي على أحدث المحطات النموذجية.</p>
+                    <p style="margin-top: 6px;">أكثر الطرق أماناً ومضاء في معظمه، ويحتوي على أحدث المحطات النموذجية (ساسكو والدريس).</p>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
-                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,480 كم</div>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge">المسافة: 1,480 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" rel="noopener noreferrer" class="route-card-link">📍 بدء الرحلة</a>
                 </div>
             </div>
-            <div class="route-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="route-card">
                 <div>
                     <h2>مسار التفافي حول الرياض</h2>
-                    <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الجديد) للربط مع طريق الحجاز.</p>
-                    <p style="margin-top: 8px;">يُنصح به لتجاوز زحام العاصمة الرياض في ساعات النهار (7 صباحاً - 5 عصراً).</p>
+                    <p><strong>خط السير:</strong> الدوحة ← سلوى ← طريق خريص ← طريق الملك سلمان (الدائري الشمالي الجديد) للربط مع طريق الحجاز.</p>
+                    <p style="margin-top: 6px;">يُنصح به لتجاوز زحام وسط العاصمة الرياض في ساعات الذروة (7 صباحاً - 5 عصراً).</p>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; flex-wrap: wrap; width: 100%;">
-                    <div class="route-badge" style="margin-top: 0;">المسافة: 1,510 كم</div>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" class="route-card-link">📍 بدء الرحلة</a>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge">المسافة: 1,510 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" rel="noopener noreferrer" class="route-card-link">📍 بدء الرحلة</a>
                 </div>
             </div>
         </div>
 
-        <!-- محطات طريق الذهاب (الدوحة - الرياض - مكة) -->
-
-            <details class="custom-accordion" open>
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات طريق الذهاب (الدوحة - الرياض)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~90 كم عن نقطة الانطلاق</div>
-                    <h2>1. محطة وقود أبو سمرة</h2>
-                    <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
-                    <h2>2. محطة ساسكو / طريق خريص</h2>
-                    <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
-                </div>
-                <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~170 كم عن ساسكو طريق خريص</div>
-                    <h2>3. محطة جو ستيشن</h2>
-                    <p>بداية طريق الدمام - الرياض (طريق 80 السريع)</p>
-                </div>
-                <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" class="btn-station-map">🗺️ موقع المحطة</a>
-            </div>
-
-            <div class="station-card">
-                        <div>
-                        <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
-                        <h2>4. الدريس (بداية الرياض)</h2>
-                        <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل زحام الرياض.</p>
-                        </div>
-                        <div style="display:flex; gap:6px; margin-top:auto;">
-                            <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank"
-                                class="btn-station-map" style="flex: 1; padding: 10px 5px;">🗺️ موقع المحطة</a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </details>
-
-            <!-- إطار محطات داخل الرياض (المسار الرئيسي) -->
-            <details class="custom-accordion" open>
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات مدينة الرياض - طريق 80 السريع (المسار الرئيسي)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-
-                <div class="riyadh-inner-grid">
-
-                    <div class="station-card">
-                        <div>
-                        <h2>4. محطة ساسكو (الرياض)</h2>
-                        <p>تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>5. الدريس (الرياض)</h2>
-                        <p>يتوفر بها بقالة شاملة وخدمات سيارات أساسية (بنجر/هواء للإطارات).</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                </div>
-                </div>
-            </details>
-
-            <!-- إطار محطات الرياض (المسار التفافي) -->
-            <details class="custom-accordion" open
-                style="border-color: var(--inner-border); background: rgba(212, 175, 55, 0.2); border-radius: 8px;">
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة
-                        خلال أوقات الذروة.</p>
-
-                <div class="riyadh-inner-grid">
-
-                    <div class="station-card">
-                        <div>
-                        <h2>4. ساسكو (قبل المطار)</h2>
-                        <p>محطة كبرى ونموذجية قريبة من المطار تحتوي على كافة الخدمات.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                        <h2>5. ساسكو (بعد المطار)</h2>
-                        <p>محطة خدمات متكاملة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-
-                </div>
-                </div>
-            </details>
-
-            <details class="custom-accordion" open>
-            <summary style="padding: 15px; border-bottom: 1px solid var(--inner-border);">
-                <span>⛽ محطات طريق الذهاب (الرياض - الطائف)</span>
-                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </summary>
-            <div class="accordion-content">
-                    <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 0;">
-
-            <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~x كم عن آخر الرياض</div>
-                        <h2>6. محطة الدريس - طويق</h2>
-                        <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" class="btn-station-map"
-                            style="margin-top:auto;">🗺️ موقع المحطة</a>
-                    </div>
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~7 كم عن المحطة السابقة</div>
-                    <h2>7. محطة بترومين - القدية</h2>
-                    <p>محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~66 كم عن المحطة السابقة</div>
-                    <h2>8. محطة ساسكو - تبرك</h2>
-                    <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~60 كم عن المحطة السابقة</div>
-                    <h2>9. محطة ساسكو - القويعية</h2>
-                    <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~170 كم عن المحطة السابقة</div>
-                    <h2>10. محطة ساسكو - الخاصرة</h2>
-                    <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~144 كم عن المحطة السابقة</div>
-                    <h2>11. محطة ساسكو - الحوميات</h2>
-                    <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark">تبعد ~72 كم عن المحطة السابقة</div>
-                    <h2>12. محطة ساسكو - ظلم</h2>
-                    <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم المتميزة.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-            <div class="station-card" style="border: 2px solid #e74c3c; background: rgba(231, 76, 60, 0.05);">
-                        <div><h2 style="color: #e74c3c;">🍔 مطعم البيك (قبل السيل)</h2><p>قبل ميقات السيل الكبير مباشرة</p></div>
-                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A" target="_blank" class="btn-station-map" style="background: #e74c3c; border-color: #e74c3c; color: white;">🍗 موقع المطعم</a>
-                    </div>
-
-            <div class="station-card">
-                <div>
-                    <div class="distance-badge-dark"
-                        style="background:rgba(46, 204, 113, 0.1); color:#2ecc71; border-color:rgba(46,204,113,0.2);">
-                        تبعد ~245 كم عن المحطة السابقة</div>
-                    <h2>13. محطة ساسكو (السيل الكبير)</h2>
-                    <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام.</p>
-                </div>
-                <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" class="btn-station-map">🗺️ موقع
-                    المحطة</a>
-            </div>
-
-                    </div> <!-- closes stations-grid -->
-                </div> <!-- closes accordion-content child -->
-            </details> <!-- closes riyadh-group-dark child -->
-
-
-
-
-
-
-
-        <details class="custom-accordion" open>
+        <!-- محطات طريق الذهاب (الدوحة - الرياض) [خاص بقطر] -->
+        <details class="custom-accordion" id="section-stations-start">
             <summary>
-                <span>⛽ محطات طريق العودة (المدينة المنورة - الرياض)</span>
+                <span>⛽ محطات طريق الذهاب (الدوحة ← الرياض)</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <p>بعض المحطات الموصى بها أثناء العودة من المدينة المنورة إلى الرياض</p>
-                <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 15px;">
+                <div class="stations-grid">
                     <div class="station-card">
                         <div>
-                        <div class="distance-badge-dark">تبعد ~235 كم عن المدينة المنورة</div>
-                        <h2>1. محطة الخدمة الذهبية</h2>
-                        <p>من المحطات الكبرى والرئيسية</p>
+                            <div class="distance-badge-dark">تبعد ~90 كم عن الدوحة</div>
+                            <h2>1. محطة وقود أبو سمرة</h2>
+                            <p>آخر نقطة للتزود بالوقود القطري قبل المنفذ الحدودي.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
-                    <a href="https://maps.app.goo.gl/SxWiMb8wV5Ny63i78?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
-                </div>
 
-               <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~230 كم عن المحطة السابقة</div>
-                            <h2>2. محطة الدريس - البكيرية</h2>
-                            <p>من المحطات الكبرى والرئيسية</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
-                </div>
                     <div class="station-card">
                         <div>
-                            <div class="distance-badge-dark">تبعد ~225 كم عن المحطة السابقة</div>
-                            <h2>3. محطة لودر - سدير</h2>
-                            <p>فيها مطعم البيك</p>
+                            <div class="distance-badge-dark">تبعد ~180 كم عن أبو سمرة</div>
+                            <h2>2. محطة ساسكو / طريق خريص</h2>
+                            <p>على طريق خريص (بعد الهفوف باتجاه الرياض).</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/zzCxVacA7Yq8ky74A?g_st=aw" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                        <a href="https://maps.app.goo.gl/innPYmtbPCw4yBsG6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
+
                     <div class="station-card">
                         <div>
-                            <div class="distance-badge-dark">تبعد ~200 كم عن المحطة السابقة</div>
-                            <h2>4. محطة ساسكو الجزيرة</h2>
-                            <p>فيها مطعم البيك</p>
+                            <div class="distance-badge-dark">تبعد ~170 كم عن ساسكو خريص</div>
+                            <h2>3. محطة جو ستيشن</h2>
+                            <p>بداية طريق الدمام - الرياض (طريق 80 السريع).</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/Bmmvk5oWBikPijqQ8" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                        <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
+                            <h2>4. الدريس (مدخل الرياض)</h2>
+                            <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل دخول الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
                 </div>
             </div>
         </details>
 
-
-                <details class="custom-accordion" open>
+        <!-- محطات داخل الرياض - طريق 80 (مشترك) -->
+        <details class="custom-accordion">
             <summary>
-                <span>⛽ محطات طريق العودة (الرياض - الدوحة)</span>
+                <span>⛽ محطات مدينة الرياض - طريق 80 (المسار الرئيسي)</span>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <p>بعض المحطات الموصى بها أثناء العودة من الرياض إلى الدوحة</p>
-                <div class="stations-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 15px;">
+                <div data-shared-stations="riyadhMain80" data-start-number="5" data-grid-class="riyadh-inner-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات الرياض - المسار الالتفافي (مشترك) -->
+        <details class="custom-accordion" style="border-color: rgba(212, 175, 55, 0.35);">
+            <summary>
+                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+                <div data-shared-stations="riyadhBypassSalman" data-start-number="5" data-grid-class="riyadh-inner-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق الذهاب (الرياض ← الطائف ← مكة) (مشترك) -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div data-shared-stations="riyadhToMakkah" data-start-number="7" data-grid-class="stations-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق العودة (المدينة المنورة ← الرياض) (مشترك) -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
+                <div data-shared-stations="madinahToRiyadhReturn" data-start-number="1" data-grid-class="stations-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق العودة (الرياض ← الدوحة) [خاص بقطر] -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق العودة (الرياض ← الدوحة)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">المحطات الموصى بها أثناء العودة من الرياض إلى منفذ سلوى والدوحة:</p>
+                <div class="stations-grid">
                     <div class="station-card">
                         <div>
-                        <div class="distance-badge-dark">بداية طريق الرياض - الدمام</div>
-                        <h2>1. محطة أدنوك</h2>
-                        <p>من المحطات الكبرى والرئيسية</p>
+                            <div class="distance-badge-dark">بداية طريق الرياض - الدمام</div>
+                            <h2>1. محطة أدنوك</h2>
+                            <p>من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FojQ3PxaBSpgpBydA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
-                    <a href="https://maps.app.goo.gl/FojQ3PxaBSpgpBydA" target="_blank" class="btn-station-map">🗺️ الموقع</a>
-                </div>
 
-               <div class="station-card">
+                    <div class="station-card">
                         <div>
                             <div class="distance-badge-dark">تبعد ~77 كم عن المحطة السابقة</div>
                             <h2>2. محطة ساسكو</h2>
-                            <p>من المحطات الكبرى والرئيسية</p>
+                            <p>من المحطات الكبرى والرئيسية على طريق 80 السريع.</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6" target="_blank" class="btn-station-map">🗺️ الموقع</a>
-                </div>
+                        <a href="https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
                     <div class="station-card">
                         <div>
                             <div class="distance-badge-dark">تبعد ~105 كم عن المحطة السابقة</div>
                             <h2>3. محطة الدريس</h2>
-                            <p>محطة الدريس</p>
+                            <p>خدمات وقود واستراحة وتموينات على الطريق السريع.</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/9NnjRSQ9hupFi64r7" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                        <a href="https://maps.app.goo.gl/9NnjRSQ9hupFi64r7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
+
                     <div class="station-card">
                         <div>
                             <div class="distance-badge-dark">تبعد ~148 كم عن المحطة السابقة</div>
                             <h2>4. امتياز الوقود</h2>
-                            <p>محطة</p>
+                            <p>محطة خدمات متكاملة على طريق الهفوف - سلوى قبل الحدود.</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/SAk9jxJpcPTuBrQd8" target="_blank" class="btn-station-map">🗺️ الموقع</a>
+                        <a href="https://maps.app.goo.gl/SAk9jxJpcPTuBrQd8" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
 
                     <div class="station-card">
                         <div>
-                            <div class="distance-badge-dark">تبعد ~132 كم عن المحطة السابقة</div>
-                            <h2>5. محطة وقود - قطر</h2>
-                            <p>أول محطة في قطر</p>
+                            <div class="distance-badge-dark">بعد عبور منفذ أبو سمرة</div>
+                            <h2>5. محطة وقود (أبو سمرة - قطر)</h2>
+                            <p>أول محطة وقود وخدمات بعد الدخول إلى أراضي دولة قطر.</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/SAk9jxJpcPTuBrQd8" target="_blank" class="btn-station-map">🗺️ الموقع</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-        <details class="custom-accordion" open>
-            <summary>
-                <span>ℹ️ معلومات تهم المعتمر والزائر</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p style="margin-bottom: 8px;">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن لتفادي الإرهاق.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطريق السريع. التزم بوضع حزام الأمان وتفادى استخدام الجوال.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من مرور الجمال السائبة خاصة في الليل والصباح الباكر بعد سلوى وحتى خريص، وبعد القويعية وحتى الطائف.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>📱 شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح باقتناء شريحة إنترنت لتسهيل استخدام الخرائط وتطبيقات التوصيل. يمكن شراؤها من المنافذ الحدودية أو من داخل المدن عبر إبراز جواز السفر/ الهوية.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🏨 الفنادق:</strong> تأكد من حجز الفنادق مسبقاً عبر تطبيقات مثل (Booking, Agoda). في مكة يُفضل السكن بالقرب من الحرم أو في الفنادق التي توفر حافلات نقل ترددية مجانية للحرم على مدار الساعة (مع ذلك انتبه بعض المواقف بعيدة عن الحرم والأفضل أن تستأجر تكسي ليوصلك لمكان قريب من الحرم).</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🚕 المواصلات:</strong> اعتمد على تطبيقات مثل Uber, Careem للتنقل داخل مكة والمدينة بأسعار مناسبة ومعتمدة.</p>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>🚄 قطار الحرمين السريع:</strong> وسيلة ممتازة وسريعة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر موقع أو تطبيق "قطار الحرمين السريع".</p>
-                <div class="app-links" style="flex-wrap: wrap; margin-top: 10px; justify-content: center;">
-                    <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
-                    <a href="https://apps.apple.com/es/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                </div>
-                <hr style="border-color: var(--card-border); margin: 15px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;"><strong>💧 ماء زمزم:</strong> يمكن شراء ماء زمزم المعبأ رسمياً من 📍 "<a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" style="text-decoration: underline; color: inherit; font-weight: bold;">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a>" في مكة المكرمة (حي كدي). يُسمح للمسافر براً بنقل العبوات للاستخدام الشخصي.</p>
-            </div>
-        </details>
-
-        <details class="custom-accordion" open>
-            <summary>
-                <span>🕌 الأماكن السياحية الدينية</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <div style="padding-right: 10px; margin-top: 15px; margin-bottom: 8px;">
-                    <div style="margin-bottom: 20px;">
-                        <h3 style="margin: 0 0 10px 0; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-                            <span>🕋</span> <strong>مكة المكرمة:</strong>
-                        </h3>
-                        <ul style="padding-right: 25px; margin: 0;">
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/q8VcxANhQNgSPaJ36" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> غار ثور</li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/TNMGNBzyxWRseN5y6" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> غار حراء (جبل النور)</li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/suRzhpC1ZehUrzJP7" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> حي حراء الثقافي</li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/HNgT1xdR7fmmoK5U8" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد السيدة عائشة (التنعيم)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 style="margin: 0 0 10px 0; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
-                            <span>🕌</span> <strong>المدينة المنورة:</strong>
-                        </h3>
-                        <ul style="padding-right: 25px; margin: 0;">
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/f5cViWhDRbNprjN76" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> متحف السيرة النبوية</li>
-                            <li style="margin-bottom: 12px;">
-                                <a href="https://maps.app.goo.gl/hyXifHzKYRpVnqY78" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد قباء
-                                <div style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px; margin-right: 10px;">💡 بجانبه مجموعة متنوعة من الأكشاك</div>
-                                <div style="margin-top: 6px; margin-right: 10px; font-size: 0.95em;">
-                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" style="text-decoration: underline; color: inherit; font-weight: bold;">محل تمور "بستان العجوة"</a> <span style="font-size: 0.9em; color: var(--text-muted);">(مميز وقريب من مسجد قباء)</span>
-                                </div>
-                            </li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/ci7CuEkf32CNRvQW8" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مقبرة شهداء أحد وجبل الرماة</li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/eMzkh1SU2zmkgfVo7" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مطل أحد</li>
-                            <li style="margin-bottom: 12px;"><a href="https://maps.app.goo.gl/qSRrnmKypC3yPRE88" target="_blank" style="text-decoration: none; margin-left: 8px; font-size: 0.85em; background-color: var(--inner-bg); border: 1px solid var(--card-border); padding: 2px 8px; border-radius: 6px; color: var(--text-light);">📍 الخريطة</a> مسجد القبلتين</li>
-
-                        </ul>
+                        <a href="https://maps.app.goo.gl/DKDA5yq93X3hYiUH7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
                     </div>
                 </div>
             </div>
         </details>
 
-        <details class="custom-accordion apps-section" open style="padding: 0; display: block;">
-            <summary style="border-bottom: 1px solid var(--card-border);">
-                <span style="display: flex; align-items: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
-                </span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            
-            <div class="accordion-content" style="padding: 20px;">
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/manafeth.png" alt="Manafeth" class="app-icon">
-                        <div>
-                            <div class="app-title">منافذ للتأمين</div>
-                            <div class="app-desc">لإصدار وثائق التأمين الإلزامي للمركبات الأجنبية</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    </div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/nusuk.png" alt="Nusuk" class="app-icon">
-                        <div>
-                            <div class="app-title">نسك</div>
-                            <div class="app-desc">لإصدار تصاريح زيارة الروضة الشريفة</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    </div>
-                </div>
-                
-                
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/najm.png" alt="Najm" class="app-icon">
-                        <div>
-                            <div class="app-title">نجم للحوادث</div>
-                            <div class="app-desc">للتبليغ عن الحوادث المرورية ومتابعة المطالبات</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    </div>
-                </div>
-
-                
-
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/jahez.png" alt="Jahez" class="app-icon">
-                        <div>
-                            <div class="app-title">جاهز</div>
-                            <div class="app-desc">تطبيق جاهز لطلب وتوصيل الطعام</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/sa/app/jahez-جاهز/id1137352712" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    </div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/hungerstation.png" alt="HungerStation" class="app-icon">
-                        <div>
-                            <div class="app-title">هنقرستيشن</div>
-                            <div class="app-desc">تطبيق هنقرستيشن لطلب وتوصيل الطعام</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/sa/app/hungerstation/id596011949" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                    </div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-info">
-                        <img loading="lazy" src="../assets/images/absher.svg" alt="Absher" class="app-icon" style="background-color: white; padding: 6px; box-sizing: border-box; object-fit: contain;">
-                        <div>
-                            <div class="app-title">أبشر - للمخالفات المرورية</div>
-                            <div class="app-desc">رابط الاستعلام عن المخالفات المرورية للزائرين</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
-                    </div>
-                </div>
-
-                <div class="app-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
-                    <div class="app-info">
-                        <div class="app-icon" style="background-color: white; display: flex; align-items: center; justify-content: center; font-size: 26px;">🚄</div>
-                        <div>
-                            <div class="app-title">قطار الحرمين السريع</div>
-                            <div class="app-desc">لحجز تذاكر القطار السريع بين مكة والمدينة</div>
-                        </div>
-                    </div>
-                    <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/es/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                        <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-
-
-        <!-- أرقام الطوارئ الهامة -->
-        <details class="custom-accordion" open>
-            <summary>
-                <span>📞 أرقام الطوارئ والاتصال</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-            <div class="emergency-grid" style="margin-top: 15px;">
-            <div class="emergency-box qatar">
-                <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <img loading="lazy" src="../assets/images/qa-flag.png" alt="قطر" class="flag-img">
-                    في قطر (طوارئ عامة)
-                </h2>
-                <div class="emergency-number">999</div>
-            </div>
-            <div class="emergency-box saudi">
-                <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
-                    في السعودية (أمن الطرق)
-                </h2>
-                <div class="emergency-number">911</div>
-            </div>
-            <div class="emergency-box saudi">
-                <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
-                    الهلال الأحمر (إسعاف)
-                </h2>
-                <div class="emergency-number">997</div>
-            </div>
-            <div class="emergency-box saudi" style="border-color: rgba(0, 108, 53, 0.2); background: rgba(0, 108, 53, 0.03);">
-                <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
-                    نجم للحوادث (السعودية)
-                </h2>
-                <div class="emergency-number" style="font-size: 1.45rem; color: #2ecc71; margin-top: 5px;">920000560
-                </div>
-                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; line-height: 1.4;">نجم هي المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة</p>
-                <div class="app-links" style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
-                    <a onclick="event.stopPropagation()" href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play"><svg viewBox="0 0 512 512" width="24" height="24"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                    <a onclick="event.stopPropagation()" href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store"><svg viewBox="0 0 384 512" width="24" height="24"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                </div>
-            </div>
-        </div>
-        </div>
-        </details>
-
-        <!-- نموذج الاقتراحات والاستفسارات -->
-        <details class="custom-accordion suggestions-wrapper" open style="padding: 0; display: block;">
-            <summary style="border-bottom: 1px solid var(--card-border);">
-                <span>💡 اقتراحاتك واستفساراتك</span>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content" style="padding: 20px;">
-            <div class="suggestions-header" style="margin-bottom: 20px;">
-                <p>يسعدنا سماع رأيك أو أي تعديل تقترحه لتطوير هذا الدليل</p>
-            </div>
-
-            <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
-                <!-- مفتاح الوصول الخاص بـ Web3Forms لحماية البريد الإلكتروني -->
-                <!-- سيحتاج المستخدم لاستبداله بمفتاح حقيقي مجاني من موقع web3forms.com مرسل لإيميله -->
-                <input type="hidden" name="access_key" value="6481c10e-7bff-4bdc-bc38-20944e398cd6">
-
-                <!-- حماية ضد الروبوتات (Honeypot) مجانية 100% وبدون إعداد وبدون ظهور للمستخدم -->
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                <!-- إرسال عنوان الصفحة في الرسالة لتسهيل معرفة المصدر -->
-                <input type="hidden" name="from_page" value="دليل قطر - مكة المكرمة">
-                <!-- اسم المرسل المخصص في البريد الوارد -->
-                <input type="hidden" name="from_name" value="دليل قطر - مكة المكرمة 🕋">
-                <!-- عنوان البريد الإلكتروني الوارد -->
-                <input type="hidden" name="subject" value="اقتراح/استفسار من دليل قطر - مكة المكرمة 🕋">
-
-                <div class="form-group">
-                    <label for="suggest_name" class="form-label">الاسم الكريم <span
-                            style="color: #e74c3c;">*</span></label>
-                    <input type="text" id="suggest_name" name="name" class="form-input" required
-                        placeholder="مثال: محمد">
-                </div>
-
-                <div class="form-group">
-                    <label for="suggest_email" class="form-label">البريد الإلكتروني <span
-                            style="color: #e74c3c;">*</span></label>
-                    <input type="email" id="suggest_email" name="email" class="form-input" required
-                        placeholder="name@example.com">
-                </div>
-
-                <div class="form-group-full">
-                    <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span
-                            style="color: #e74c3c;">*</span></label>
-                    <textarea id="suggest_message" name="message" class="form-textarea" required
-                        placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
-                </div>
-
-                <!-- hCaptcha (حماية مجانية من السبام والروبوتات) -->
-                <div class="recaptcha-container" id="h-captcha-wrapper">
-                    <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
-                    <script>
-                        (function () {
-                            const savedTheme = localStorage.getItem('darkGuideTheme');
-                            if (savedTheme === 'dark') {
-                                document.getElementById('h-captcha-widget').setAttribute('data-theme', 'dark');
-                            }
-                        })();
-                    </script>
-                </div>
-
-                <div class="btn-submit-container">
-                    <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
-                        <span>إرسال ✉️</span>
-                    </button>
-                </div>
-
-                <div id="suggestionStatus" class="suggestion-status"></div>
-            </form>
-            </div>
-        </details>
-<!-- الفوتر -->
-        <footer>
-            <p style="font-size: 1.15rem; font-weight: bold; color: #fff; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة
-                بإذن الله 🕋</p>
-            <p style="font-size: 1rem; color: var(--gold); font-weight: bold; margin-bottom: 15px;">تذكرونا بدعوة صالحة
-                🤲</p>
-            <p style="opacity: 0.7; font-size: 0.85rem;">تم تصميم الدليل بواسطة معاذ بلال</p>
-        </footer>
+        <!-- الأقسام المشتركة لجميع الدول (تُحقن تلقائياً من routes-data.js) -->
+        <div data-shared-section="pilgrim-info"></div>
+        <div data-shared-section="places"></div>
+        <div data-shared-section="apps"></div>
+        <div data-shared-section="emergency"></div>
+        <div data-shared-section="suggestions"></div>
+        <div data-shared-section="footer"></div>
 
     </div>
 
-        <script>
-        // دالة لطي/فتح جميع المربعات
-        let isAllExpanded = true;
-        
-        function updateToggleIcon() {
-            const accordions = document.querySelectorAll('details');
-            const openAccordions = document.querySelectorAll('details[open]');
-            const icon = document.getElementById('toggleAllIcon');
-            
-            if (!icon) return;
+    <!-- شريط التنقل السفلي الذكي للجوال -->
+    <div data-shared-section="mobile-nav"></div>
 
-            if (openAccordions.length === 0) {
-                // المربعات مطوية: إظهار أيقونة الفتح (أسهم لأسفل)
-                icon.innerHTML = '<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline>';
-                isAllExpanded = false;
-            } else if (openAccordions.length === accordions.length) {
-                // المربعات مفتوحة: إظهار أيقونة الطي (أسهم لأعلى)
-                icon.innerHTML = '<polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline>';
-                isAllExpanded = true;
-            } else {
-                // حالة مختلطة: إظهار أسهم متعاكسة
-                icon.innerHTML = '<polyline points="7 15 12 20 17 15"></polyline><polyline points="7 9 12 4 17 9"></polyline>';
-                // عند الضغط في الحالة المختلطة يتم الفتح
-                isAllExpanded = false;
-            }
-        }
-
-        function toggleAllAccordions() {
-            const accordions = document.querySelectorAll('details');
-            const willExpand = !isAllExpanded; 
-            
-            accordions.forEach(acc => {
-                if (willExpand) {
-                    acc.setAttribute('open', '');
-                } else {
-                    acc.removeAttribute('open');
-                }
-            });
-            
-            updateToggleIcon();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const accordions = document.querySelectorAll('details');
-            accordions.forEach(acc => {
-                acc.addEventListener('toggle', updateToggleIcon);
-            });
-            updateToggleIcon();
-        });
-
-        // بدء الرحلة وفتح ملاحة خرائط جوجل
-        function startJourney() {
-            alert('تم تفعيل مخطط الرحلة وجاهز للانطلاق!\nسيتم فتح مسار الملاحة المباشر في خرائط Google لمتابعة الطريق.');
-            window.open('https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate', '_blank');
-        }
-
-        // حساب وقت الوصول المتوقع
-        function calcArrival() {
-            const depInput = document.getElementById('dep-time').value;
-            const arrDisplay = document.getElementById('arr-time');
-            if (depInput) {
-                const depDate = new Date(depInput);
-                depDate.setHours(depDate.getHours() + 16);
-
-                const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                arrDisplay.textContent = depDate.toLocaleDateString('ar-QA', options);
-            } else {
-                arrDisplay.textContent = 'حدد وقت الانطلاق';
-            }
-        }
-
-        // نظام قائمة المهام بسحّابات (Checklist)
-        const toggles = document.querySelectorAll('.checklist-toggle');
-        const progressBarFill = document.getElementById('progress-fill');
-        const progressPercent = document.getElementById('progress-percent');
-
-        function updateProgress() {
-            let checkedCount = 0;
-            toggles.forEach(toggle => {
-                const parent = toggle.closest('.switch-item');
-                if (toggle.checked) {
-                    checkedCount++;
-                    if (parent) parent.classList.add('completed');
-                } else {
-                    if (parent) parent.classList.remove('completed');
-                }
-            });
-            const percent = Math.round((checkedCount / toggles.length) * 100);
-            progressBarFill.style.width = percent + '%';
-            progressPercent.textContent = percent + '%';
-            saveChecklistState();
-        }
-
-        toggles.forEach((toggle, index) => {
-            toggle.id = 'check-' + index;
-            toggle.addEventListener('change', updateProgress);
-        });
-
-        function saveChecklistState() {
-            const state = {};
-            toggles.forEach(toggle => { state[toggle.id] = toggle.checked; });
-            localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
-        }
-
-        function loadChecklistState() {
-            const savedState = localStorage.getItem('meccaTripChecklist');
-            if (savedState) {
-                const state = JSON.parse(savedState);
-                toggles.forEach(toggle => {
-                    if (state[toggle.id] !== undefined) toggle.checked = state[toggle.id];
-                });
-            }
-            updateProgress();
-        }
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
-            updateThemeBtn(isLight);
-            changehCaptchaTheme(isLight ? 'light' : 'dark');
-        }
-
-        function changehCaptchaTheme(newTheme) {
-            if (typeof hcaptcha !== 'undefined') {
-                const wrapper = document.getElementById('h-captcha-wrapper');
-                if (wrapper) {
-                    wrapper.innerHTML = '';
-                    const newWidget = document.createElement('div');
-                    newWidget.className = 'h-captcha';
-                    newWidget.id = 'h-captcha-widget';
-                    newWidget.setAttribute('data-captcha', 'true');
-                    newWidget.setAttribute('data-lang', 'ar');
-                    newWidget.setAttribute('data-theme', newTheme);
-                    newWidget.setAttribute('data-sitekey', '50b2fe65-b00b-4b9e-ad62-3ba471098be2');
-                    wrapper.appendChild(newWidget);
-                    try {
-                        hcaptcha.render(newWidget, {
-                            sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
-                            theme: newTheme,
-                            hl: 'ar'
-                        });
-                    } catch (e) {
-                        console.error('Error rendering hCaptcha:', e);
-                    }
-                }
-            }
-        }
-
-        function updateThemeBtn(isLight) {
-            const btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                if (isLight) {
-                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>`;
-                    btn.title = 'تفعيل المظهر الداكن';
-                } else {
-                    btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>`;
-                    btn.title = 'تفعيل المظهر النهاري';
-                }
-            }
-        }
-
-        function toggleChecklist() {
-            const content = document.getElementById('checklist-collapse-content');
-            const btn = document.getElementById('toggle-checklist-btn');
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                btn.innerHTML = '<span>🙈 إخفاء بنود قائمة الفحص</span>';
-            } else {
-                content.style.display = 'none';
-                btn.innerHTML = '<span>👁️ عرض بنود قائمة الفحص (اضغط للتوسيع)</span>';
-            }
-        }
- 
-        // جلب درجة الحرارة الفعلية لمكة المكرمة
-        async function getMakkahTemp() {
-            try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
-                const data = await response.json();
-                const temp = Math.round(data.current_weather.temperature);
-                document.getElementById('makkah-temp').textContent = `${temp}°C`;
-            } catch (e) {
-                // في حالة فشل الاتصال، يظل النص كما هو 35°C
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loadChecklistState();
-            initGeolocation();
-            getMakkahTemp();
-
-            // استعادة المظهر المفضل
-            const savedTheme = localStorage.getItem('darkGuideTheme');
-            if (savedTheme === 'dark') {
-                document.body.classList.remove('light-mode');
-                updateThemeBtn(false);
-            } else {
-                document.body.classList.add('light-mode');
-                updateThemeBtn(true);
-            }
-        });
-
-        document.getElementById('selectAllBtn').addEventListener('click', () => {
-            toggles.forEach(toggle => toggle.checked = true);
-            updateProgress();
-        });
-
-        document.getElementById('deselectAllBtn').addEventListener('click', () => {
-            toggles.forEach(toggle => toggle.checked = false);
-            updateProgress();
-        });
-
-        // محطات الرحلة للتحديد الجغرافي التلقائي
-        const STATIONS = [
-            { id: '1480', name: 'الانطلاق (الدوحة)', lat: 25.2854, lon: 51.5310 },
-            { id: '1390', name: 'منفذ أبو سمرة', lat: 24.7441, lon: 50.8354 },
-            { id: '1210', name: 'محطة ساسكو خريص', lat: 25.1278, lon: 48.1633 },
-            { id: '950', name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
-            { id: '910', name: 'نهاية الرياض (فيولكس)', lat: 24.5122, lon: 46.5022 },
-            { id: '550', name: 'ساسكو القويعية', lat: 24.0489, lon: 45.2494 },
-            { id: '200', name: 'ساسكو نخلة (طريق مكة المكرمة)', lat: 21.9056, lon: 41.2222 },
-            { id: '70', name: 'الميقات (السيل الكبير)', lat: 21.6267, lon: 40.4267 }
-        ];
-
-        function initGeolocation() {
-            if (!navigator.geolocation) {
-                document.getElementById('currentLocationName').innerText = 'الدوحة (افتراضي)';
-                calcRemaining(1480);
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(function (position) {
-                const userLat = position.coords.latitude;
-                const userLon = position.coords.longitude;
-
-                let closestStation = STATIONS[0];
-                let minDistance = Infinity;
-
-                STATIONS.forEach(station => {
-                    const dLat = userLat - station.lat;
-                    const dLon = userLon - station.lon;
-                    const dist = Math.sqrt(dLat * dLat + dLon * dLon);
-                    if (dist < minDistance) {
-                        minDistance = dist;
-                        closestStation = station;
-                    }
-                });
-
-                document.getElementById('currentLocationName').innerText = closestStation.name;
-                calcRemaining(parseFloat(closestStation.id));
-            }, function (error) {
-                document.getElementById('currentLocationName').innerText = 'الدوحة (افتراضي)';
-                calcRemaining(1480);
-            });
-        }
-
-        // حاسبة المسافة المتبقية
-        function calcRemaining(kmVal) {
-            const km = kmVal || 1480;
-            document.getElementById('remDist').innerText = km.toLocaleString() + ' كم';
-            const hours = Math.round((km / 100) * 10) / 10;
-
-            const h = Math.floor(hours);
-            const m = Math.round((hours - h) * 60);
-            let timeStr = '';
-            if (h > 0 && m > 0) {
-                timeStr = h + ' ساعة و ' + m + ' دقيقة';
-            } else if (h > 0) {
-                timeStr = h + ' ساعة';
-            } else {
-                timeStr = m + ' دقيقة';
-            }
-            document.getElementById('remTime').innerText = timeStr;
-
-            // حساب وقت الوصول المتوقع من الموقع المختار والوقت الحالي للجهاز
-            const now = new Date();
-            const totalMinutes = Math.round(hours * 60);
-            now.setMinutes(now.getMinutes() + totalMinutes);
-
-            const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('remArrival').innerText = now.toLocaleDateString('ar-QA', options);
-        }
-
-        // طباعة مسار الرحلة
-        function printRoute() {
-            window.print();
-        }
-
-        // مشاركة الصفحة
-        function sharePage() {
-            const url = window.location.href;
-            const title = document.title;
-            const text = 'دليل السفر البري من قطر إلى مكة المكرمة 🕋\nتذكرونا بدعوة صالحة 🤲';
-
-            if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
-                navigator.share({
-                    title: title,
-                    text: text + '\n',
-                    url: url
-                }).catch(function (error) {
-                    console.log('حدث خطأ أثناء محاولة المشاركة:', error);
-                });
-            } else {
-                const shareTextWithUrl = `${title}\nتذكرونا بدعوة صالحة 🤲\n${url}`;
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(shareTextWithUrl).then(function() {
-                        alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
-                    }).catch(function(err) {
-                        fallbackCopy(shareTextWithUrl);
-                    });
-                } else {
-                    fallbackCopy(shareTextWithUrl);
-                }
-            }
-        }
-
-        function fallbackCopy(text) {
-            try {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = text;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
-            } catch (err) {
-                alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
-            }
-        }
-
-        // معالجة نموذج الاقتراحات وإرساله بالـ AJAX
-        const suggestForm = document.getElementById('suggestionForm');
-        const suggestStatus = document.getElementById('suggestionStatus');
-        const suggestBtn = document.getElementById('btnSubmitSuggest');
-
-        if (suggestForm) {
-            suggestForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const accessKeyVal = suggestForm.querySelector('input[name="access_key"]').value.trim();
-                if (!accessKeyVal || accessKeyVal === 'YOUR_ACCESS_KEY_HERE') {
-                    suggestStatus.className = 'suggestion-status error';
-                    suggestStatus.innerHTML = '⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً (راجع التعليمات الموضحة في الرد).';
-                    suggestStatus.style.display = 'block';
-                    return;
-                }
-
-                const msgVal = document.getElementById('suggest_message').value.trim();
-                if (!msgVal) {
-                    suggestStatus.className = 'suggestion-status error';
-                    suggestStatus.innerHTML = '⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.';
-                    suggestStatus.style.display = 'block';
-                    return;
-                }
-
-                // التحقق من حل كابتشا hCaptcha
-                const hCaptchaVal = suggestForm.querySelector('textarea[name=h-captcha-response]')?.value;
-                if (!hCaptchaVal) {
-                    suggestStatus.className = 'suggestion-status error';
-                    suggestStatus.innerHTML = '⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.';
-                    suggestStatus.style.display = 'block';
-                    return;
-                }
-
-                // تعطيل الزر وعرض حالة الإرسال
-                suggestBtn.disabled = true;
-                const originalText = suggestBtn.innerHTML;
-                suggestBtn.innerHTML = '<span>جاري الإرسال...</span>';
-                suggestStatus.style.display = 'none';
-
-                const formData = new FormData(suggestForm);
-                const object = Object.fromEntries(formData);
-                const json = JSON.stringify(object);
-
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                    .then(async (response) => {
-                        let res = await response.json();
-                        if (response.status === 200) {
-                            suggestStatus.className = 'suggestion-status success';
-                            suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
-                            suggestForm.reset();
-                            if (typeof hcaptcha !== 'undefined') {
-                                hcaptcha.reset();
-                            }
-                        } else {
-                            suggestStatus.className = 'suggestion-status error';
-                            suggestStatus.innerHTML = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        suggestStatus.className = 'suggestion-status error';
-                        suggestStatus.innerHTML = '❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة.';
-                    })
-                    .then(() => {
-                        suggestBtn.disabled = false;
-                        suggestBtn.innerHTML = originalText;
-                        suggestStatus.style.display = 'block';
-
-                        // إخفاء التنبيه تلقائياً بعد 8 ثوانٍ في حال النجاح
-                        if (suggestStatus.classList.contains('success')) {
-                            setTimeout(() => {
-                                suggestStatus.style.display = 'none';
-                            }, 8000);
-                        }
-                    });
-            });
-        }
-    </script>
-    <script>
-        // الحفاظ على حالة المربعات
-        document.addEventListener("DOMContentLoaded", function() {
-            const detailsElements = document.querySelectorAll("details.custom-accordion");
-            detailsElements.forEach((details, index) => {
-                // Ensure unique key for each accordion
-                let id = details.id;
-                if (!id) {
-                    const titleElement = details.querySelector("summary");
-                    id = "accordion_" + (titleElement ? titleElement.textContent.trim().replace(/\s+/g, '_') : index);
-                }
-                const state = localStorage.getItem("detailsState_" + id);
-                if (state === "open") {
-                    details.setAttribute("open", "");
-                } else if (state === "closed") {
-                    details.removeAttribute("open");
-                }
-                
-                details.addEventListener("toggle", function() {
-                    if (details.open) {
-                        localStorage.setItem("detailsState_" + id, "open");
-                    } else {
-                        localStorage.setItem("detailsState_" + id, "closed");
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="../js/routes-data.js?v=2.3"></script>
+    <script src="../js/app.js?v=2.3"></script>
+    <!-- Web3Forms Client Script (يُحمّل بعد بناء نموذج الاقتراحات في الـ DOM ليظهر الـ hCaptcha فوراً) -->
+    <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 
 </html>
