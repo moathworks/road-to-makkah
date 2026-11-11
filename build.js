@@ -1,6 +1,6 @@
 /**
  * مُجمِّع المشروع (Zero-Dependency Static Builder)
- * يتحقق من صحة البيانات (Validation)، يحسب بصمات الملفات، ويولّد جميع صفحات HTML وملف Service Worker (sw.js).
+ * يتحقق من صحة البيانات (Validation)، يحسب بصمات الملفات، ويولّد جميع صفحات HTML، sitemap.xml، robots.txt، وsw.js.
  */
 
 const fs = require('fs');
@@ -79,6 +79,34 @@ function validateCountryData(country) {
     }
 }
 
+function renderSitemapXml(siteUrl, activeCountries) {
+    const todayIso = new Date().toISOString().split('T')[0];
+    const urls = [
+        { loc: `${siteUrl}/`, priority: '1.0' },
+        ...activeCountries.map(c => ({ loc: `${siteUrl}/${c.slug}/`, priority: '0.9' }))
+    ];
+    const itemsXml = urls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${todayIso}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${itemsXml}
+</urlset>
+`;
+}
+
+function renderRobotsTxt(siteUrl) {
+    return `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`;
+}
+
 function buildAll() {
     validateSharedData(shared);
     ACTIVE_COUNTRIES.forEach(validateCountryData);
@@ -101,12 +129,17 @@ function buildAll() {
     }
 
     for (const page of upcomingPages) {
-        const html = renderComingSoonPage(page, assetHashes);
+        const html = renderComingSoonPage(page, shared, assetHashes);
         const outPath = path.join(__dirname, page.slug, 'index.html');
         fs.mkdirSync(path.dirname(outPath), { recursive: true });
         fs.writeFileSync(outPath, html, 'utf8');
         console.log(`✅ Built ${page.slug}/index.html`);
     }
+
+    // توليد sitemap.xml و robots.txt
+    fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), renderSitemapXml(shared.siteUrl, ACTIVE_COUNTRIES), 'utf8');
+    fs.writeFileSync(path.join(__dirname, 'robots.txt'), renderRobotsTxt(shared.siteUrl), 'utf8');
+    console.log('✅ Built sitemap.xml & robots.txt');
 
     // توليد قائمة ملفات الكاش وبناء sw.js آلياً
     const imageFiles = fs.readdirSync(path.join(__dirname, 'assets/images'))
@@ -118,7 +151,6 @@ function buildAll() {
         './',
         './index.html',
         './manifest.json',
-        './kaaba.jpg',
         `./css/style.css?v=${assetHashes.styleCss}`,
         `./js/app.js?v=${assetHashes.appJs}`,
         ...ACTIVE_COUNTRIES.flatMap(c => [`./${c.slug}/`, `./${c.slug}/index.html`]),

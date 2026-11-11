@@ -1,5 +1,5 @@
 /**
- * قالب الصفحة الرئيسية (index.html)
+ * قالب الصفحة الرئيسية (index.html) - موحد مع هوية المشروع وخط Tajawal ووسوم Open Graph وشارات "قريباً"
  */
 
 const { escapeHtml } = require('./country');
@@ -8,10 +8,16 @@ const PLAY_STORE_WHITE_SVG = `<svg viewBox="0 0 512 512" width="20" height="20">
 const APP_STORE_WHITE_SVG = `<svg viewBox="0 0 384 512" width="20" height="20"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>`;
 
 function renderHomePage(shared, homeCountriesOrder) {
+    const canonicalUrl = `${shared.siteUrl}/`;
+    const ogImageUrl = `${shared.siteUrl}/assets/images/kaaba.jpg`;
+    const metaDesc = 'دليل السفر البري الشامل إلى مكة المكرمة من دول الخليج والدول العربية المجاورة: مسارات الطرق، محطات الوقود، حاسبة المسافات، وقائمة الفحص.';
+    const pageTitle = 'دليل السفر البري إلى مكة المكرمة';
+
     const countryLinksHtml = homeCountriesOrder.map((c) => {
-        const cls = c.featured ? 'country-link featured' : 'country-link';
+        const cls = c.featured ? 'country-link featured' : 'country-link upcoming';
         const lazyAttr = c.lazy ? ' loading="lazy"' : '';
-        return `            <a href="./${escapeHtml(c.slug)}/" class="${cls}">${escapeHtml(c.name)} <img${lazyAttr} src="assets/images/${escapeHtml(c.flag)}" alt="${escapeHtml(c.name)}" class="country-flag"></a>`;
+        const badgeHtml = c.featured ? '' : ' <span class="soon-badge">قريباً</span>';
+        return `            <a href="./${escapeHtml(c.slug)}/" class="${cls}"><span>${escapeHtml(c.name)}</span> <img${lazyAttr} src="assets/images/${escapeHtml(c.flag)}" alt="${escapeHtml(c.name)}" class="country-flag">${badgeHtml}</a>`;
     }).join('\n');
 
     const homeApps = shared.sharedApps.filter(a => a.showOnHome);
@@ -40,13 +46,26 @@ function renderHomePage(shared, homeCountriesOrder) {
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="دليل السفر البري الشامل إلى مكة المكرمة من دول الخليج والدول العربية المجاورة: مسارات الطرق، محطات الوقود، حاسبة المسافات، وقائمة الفحص.">
-    <title>دليل السفر البري إلى مكة المكرمة</title>
+    <meta name="description" content="${escapeHtml(metaDesc)}">
+    <title>${escapeHtml(pageTitle)}</title>
+    <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:site_name" content="${escapeHtml(pageTitle)}">
+    <meta property="og:title" content="${escapeHtml(pageTitle)}">
+    <meta property="og:description" content="${escapeHtml(metaDesc)}">
+    <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
+    <meta property="og:image" content="${escapeHtml(ogImageUrl)}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
+    <meta name="twitter:description" content="${escapeHtml(metaDesc)}">
+    <meta name="twitter:image" content="${escapeHtml(ogImageUrl)}">
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -62,7 +81,7 @@ function renderHomePage(shared, homeCountriesOrder) {
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Tajawal', sans-serif;
             min-height: 100vh;
             min-height: 100dvh;
             background-color: #0d0d0d;
@@ -75,17 +94,15 @@ function renderHomePage(shared, homeCountriesOrder) {
             padding: 20px 12px;
         }
 
-        /* خلفية ثابتة متوافقة مع iOS Safari وأندرويد بدون تشوه */
         .bg-fixed {
             position: fixed;
             inset: 0;
-            background: url('kaaba.jpg') no-repeat center center;
+            background: url('assets/images/kaaba.jpg') no-repeat center center;
             background-size: cover;
             z-index: 0;
             pointer-events: none;
         }
 
-        /* طبقة التعتيم فوق الخلفية لوضوح القراءة */
         .bg-overlay {
             position: fixed;
             inset: 0;
@@ -122,7 +139,7 @@ function renderHomePage(shared, homeCountriesOrder) {
         }
 
         h1 {
-            font-size: clamp(1.25rem, 5.3vw, 2.3rem);
+            font-size: clamp(1.35rem, 5.3vw, 2.3rem);
             font-weight: 900;
             margin-bottom: 14px;
             margin-top: 0;
@@ -149,7 +166,7 @@ function renderHomePage(shared, homeCountriesOrder) {
 
         .countries {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 135px), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
             gap: 12px;
             margin-bottom: 32px;
         }
@@ -158,15 +175,15 @@ function renderHomePage(shared, homeCountriesOrder) {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             color: #fff;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.22);
             padding: 14px 10px;
-            min-height: 52px;
+            min-height: 54px;
             border-radius: 14px;
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             font-weight: 700;
             white-space: nowrap;
             transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -179,11 +196,26 @@ function renderHomePage(shared, homeCountriesOrder) {
             border-color: rgba(241, 196, 15, 0.55);
         }
 
+        .country-link.upcoming {
+            opacity: 0.82;
+        }
+
+        .soon-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.16);
+            color: #f1c40f;
+            padding: 2px 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(241, 196, 15, 0.35);
+        }
+
         .country-link:hover {
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-4px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.45);
+            opacity: 1;
         }
 
         .country-flag {
@@ -337,7 +369,6 @@ function renderHomePage(shared, homeCountriesOrder) {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* التجاوب لشاشات الجوال */
         @media (max-width: 600px) {
             .container {
                 padding: 28px 16px;
@@ -380,7 +411,7 @@ function renderHomePage(shared, homeCountriesOrder) {
         <h1>دليل السفر البري إلى مكة المكرمة</h1>
 
         <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp">جاري جلب الطقس... ⏳</span>
+            <span id="weatherTemp">مكة المكرمة: جاري جلب الطقس... ⏳</span>
         </div>
 
         <div class="countries">
@@ -388,18 +419,22 @@ ${countryLinksHtml}
         </div>
 
         <div class="apps-section">
-            <h3 style="color: #fff; margin-top: 0; margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center;">
+            <h2 style="font-size: 1.15rem; color: #fff; margin-top: 0; margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة
-            </h3>
+            </h2>
 
 ${appsHtml}
         </div>
 
         <div class="faq-section">
-            <h3 style="color: #fff; margin-top: 0; margin-bottom: 14px; text-align: center;">💡 أسئلة شائعة</h3>
+            <h2 style="font-size: 1.15rem; color: #fff; margin-top: 0; margin-bottom: 14px; text-align: center;">💡 أسئلة شائعة للمسافر براً</h2>
             <div class="faq-item">
-                <div class="faq-q">هل الطرق مضاءة بالكامل؟</div>
-                <div class="faq-a">الطريق الرئيسي (طريق 80) مضاء في معظمه وتتوفر عليه محطات نموذجية كثيرة، لكن يُفضّل دائماً أخذ الحيطة والحذر عند القيادة ليلاً.</div>
+                <div class="faq-q">هل الطرق السريعة المؤدية إلى مكة مخدومة بالكامل؟</div>
+                <div class="faq-a">نعم، الطرق الرئيسية مثل طريق 40 السعودي (طريق 80M الدولي من الخليج عبر الرياض إلى الطائف ومكة) وطريق الهجرة السريع تضم محطات نموذجية متكاملة (ساسكو، الدريس، بترومين) على مدار الساعة، مع ضرورة الحذر عند القيادة ليلاً.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">هل يعمل الدليل على الطريق في حال انقطاع الإنترنت؟</div>
+                <div class="faq-a">نعم، بمجرد فتح صفحة دولتك مرة واحدة، يحفظ المتصفح جميع المحطات وحاسبة الوقود وقائمة الفحص للعمل دون اتصال (Offline).</div>
             </div>
         </div>
 
@@ -454,15 +489,17 @@ ${appsHtml}
             }
         }
 
-        // جلب الطقس المباشر في مكة المكرمة
         async function fetchWeather() {
+            const el = document.getElementById('weatherTemp');
+            if (!el) return;
             try {
                 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
+                if (!response.ok) throw new Error('HTTP error');
                 const data = await response.json();
                 const temp = Math.round(data.current_weather.temperature);
-                document.getElementById('weatherTemp').innerHTML = \`مكة المكرمة الآن: \${temp}°C 🌤️\`;
+                el.textContent = \`مكة المكرمة الآن: \${temp}°C 🌤️\`;
             } catch (e) {
-                document.getElementById('weatherTemp').innerHTML = \`مكة المكرمة 🕋\`;
+                el.textContent = 'مكة المكرمة 🕋';
             }
         }
         fetchWeather();
