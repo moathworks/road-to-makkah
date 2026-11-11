@@ -1,5 +1,6 @@
 /**
  * بيانات دليل السفر البري من مملكة البحرين إلى مكة المكرمة
+ * تم تدقيق المسافات والمحطات جغرافياً على امتداد جسر الملك فهد وطريق الدمام - الرياض السريع (طريق 40 / 80M)
  */
 
 module.exports = {
@@ -19,12 +20,12 @@ module.exports = {
     returnComment: 'محطات طريق العودة (الرياض ← المنامة) [خاص بالبحرين]',
     checklistComment: 'قائمة الفحص الذكية قبل السفر (مشتركة مع تخصيص البطاقة الشخصية البحرينية CPR تلقائياً)',
     locale: 'ar-BH',
-    totalDistanceKm: 1280,
-    bypassDistanceKm: 1310,
-    estimatedDriveHours: 13.5,
-    remainingDriveTimeText: '12 ساعة و 48 دقيقة',
-    fuelCostInitialSar: 279,
-    fuelLitersInitial: '128.0',
+    totalDistanceKm: 1350,
+    bypassDistanceKm: 1380,
+    estimatedDriveHours: 14.5,
+    remainingDriveTimeText: '13 ساعة و 30 دقيقة',
+    fuelCostInitialSar: 294,
+    fuelLitersInitial: '135.0',
     nationalIdLabel: 'البطاقة الشخصية البحرينية (CPR)',
     emergencyNumber: '999',
     metaDescription: 'دليل السفر البري من مملكة البحرين إلى مكة المكرمة عبر جسر الملك فهد: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.',
@@ -48,17 +49,17 @@ module.exports = {
 
     routes: [
         {
-            title: 'طريق 80 السريع (المسار الرئيسي)',
-            itinerary: 'المنامة ← جسر الملك فهد ← الدمام/الظهران ← طريق 80 السريع ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.',
+            title: 'طريق 40 السريع (طريق 80M - المسار الرئيسي)',
+            itinerary: 'المنامة ← جسر الملك فهد ← الدمام/الظهران ← طريق 40 السريع ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.',
             description: 'المسار المباشر والأكثر أماناً، مضاء في معظمه ويحتوي على أحدث المحطات النموذجية (ساسكو والدريس).',
-            distanceKm: 1280,
+            distanceKm: 1350,
             mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate'
         },
         {
             title: 'مسار التفافي حول الرياض',
-            itinerary: 'المنامة ← جسر الملك فهد ← طريق الدمام السريع ← طريق الملك سلمان (الدائري الشمالي الجديد) للربط مع طريق الحجاز.',
+            itinerary: 'المنامة ← جسر الملك فهد ← طريق الدمام السريع (طريق 40) ← طريق الملك سلمان (الدائري الشمالي الجديد) للربط مع طريق الحجاز.',
             description: 'يُنصح به لتجاوز زحام وسط العاصمة الرياض في ساعات الذروة (7 صباحاً - 5 عصراً).',
-            distanceKm: 1310,
+            distanceKm: 1380,
             mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate'
         }
     ],
@@ -69,23 +70,23 @@ module.exports = {
             id: 'bh-bapco-janabiyah',
             badge: 'تبعد ~18 كم عن المنامة',
             title: 'محطة بابكو (الجنبية - البحرين)',
-            desc: 'آخر محطة للتزود بالوقود داخل البحرين قبل الصعود إلى جسر الملك فهد.',
-            mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bapco+Station+Janabiyah+Bahrain',
+            desc: 'آخر محطة للتزود بالوقود داخل البحرين على طريق الشيخ عيسى بن سلمان قبل جسر الملك فهد.',
+            mapUrl: 'https://www.google.com/maps?q=26.1822,50.4658',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 18,
-            remainingToMakkahKm: 1262,
-            lat: 26.1880,
-            lon: 50.4610
+            remainingToMakkahKm: 1332,
+            lat: 26.1822,
+            lon: 50.4658
         },
         {
             id: 'bh-causeway-border',
             badge: 'في منتصف الجسر (الحدود)',
             title: 'استراحة ومنفذ جسر الملك فهد',
             desc: 'إنهاء إجراءات الجوازات والجمارك والتأمين، وتتوفر بها مساجد ومطاعم واستراحات.',
-            mapUrl: 'https://www.google.com/maps/search/?api=1&query=King+Fahd+Causeway+Passport+Control',
+            mapUrl: 'https://www.google.com/maps?q=26.1856,50.3267',
             btnLabel: '🗺️ موقع المنفذ',
-            distanceFromPrevKm: 12,
-            remainingToMakkahKm: 1255,
+            distanceFromPrevKm: 22,
+            remainingToMakkahKm: 1310,
             lat: 26.1856,
             lon: 50.3267
         },
@@ -93,25 +94,25 @@ module.exports = {
             id: 'bh-sasco-dammam-hwy',
             badge: 'تبعد ~55 كم عن جسر الملك فهد',
             title: 'محطة ساسكو (طريق الدمام - الرياض)',
-            desc: 'أولى المحطات النموذجية الكبرى بعد الخبر والدمام على بداية طريق 80 السريع.',
-            mapUrl: 'https://www.google.com/maps/search/?api=1&query=SASCO+Dammam+Riyadh+Highway',
+            desc: 'أولى المحطات النموذجية الكبرى بعد الخبر والدمام على بداية طريق 40 (80M) السريع.',
+            mapUrl: 'https://www.google.com/maps?q=26.2500,49.9500',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 55,
-            remainingToMakkahKm: 1200,
+            remainingToMakkahKm: 1255,
             lat: 26.2500,
             lon: 49.9500
         },
         {
             id: 'bh-jo-station',
-            badge: 'تبعد ~160 كم عن المحطة السابقة',
+            badge: 'تبعد ~275 كم عن ساسكو الدمام',
             title: 'محطة جو ستيشن',
-            desc: 'محطة حديثة ومتكاملة في منتصف طريق الدمام - الرياض (طريق 80 السريع).',
+            desc: 'محطة حديثة ومتكاملة على طريق الدمام - الرياض السريع (طريق 40 / 80M) قبل الرياض بنحو 80 كم.',
             mapUrl: 'https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6',
             btnLabel: '🗺️ موقع المحطة',
-            distanceFromPrevKm: 160,
-            remainingToMakkahKm: 1040,
-            lat: 25.0500,
-            lon: 47.4500
+            distanceFromPrevKm: 275,
+            remainingToMakkahKm: 980,
+            lat: 25.1351,
+            lon: 47.5337
         },
         {
             id: 'bh-aldrees-riyadh-entry',
@@ -121,14 +122,14 @@ module.exports = {
             mapUrl: 'https://maps.app.goo.gl/AbU7P9gM571Gks2z7',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 80,
-            remainingToMakkahKm: 950,
-            lat: 24.8333,
-            lon: 46.8500
+            remainingToMakkahKm: 900,
+            lat: 24.8356,
+            lon: 46.8333
         }
     ],
 
     returnSummaryTitle: '⛽ محطات طريق العودة (الرياض ← المنامة)',
-    returnIntroText: 'المحطات الموصى بها أثناء العودة من الرياض عبر طريق 80 السريع إلى جسر الملك فهد والمنامة:',
+    returnIntroText: 'المحطات الموصى بها أثناء العودة من الرياض عبر طريق 40 (80M) السريع إلى جسر الملك فهد والمنامة:',
     returnStations: [
         {
             id: 'bh-ret-adnoc',
@@ -137,35 +138,35 @@ module.exports = {
             desc: 'من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.',
             mapUrl: 'https://maps.app.goo.gl/FojQ3PxaBSpgpBydA',
             btnLabel: '🗺️ موقع المحطة',
-            lat: 24.8500,
-            lon: 46.8800
+            lat: 24.8965,
+            lon: 46.9076
         },
         {
             id: 'bh-ret-sasco',
             badge: 'تبعد ~77 كم عن المحطة السابقة',
-            title: 'محطة ساسكو',
-            desc: 'من المحطات الكبرى والرئيسية على طريق 80 السريع.',
+            title: 'محطة ساسكو (الوسيع)',
+            desc: 'من المحطات الكبرى والرئيسية على طريق الرياض - الدمام السريع (طريق 40).',
             mapUrl: 'https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6',
             btnLabel: '🗺️ موقع المحطة',
-            lat: 25.0600,
-            lon: 47.4800
+            lat: 25.1232,
+            lon: 47.5095
         },
         {
-            id: 'bh-ret-aldrees',
-            badge: 'تبعد ~105 كم عن المحطة السابقة',
-            title: 'محطة الدريس',
-            desc: 'خدمات وقود واستراحة وتموينات على طريق الرياض - الدمام السريع.',
-            mapUrl: 'https://maps.app.goo.gl/9NnjRSQ9hupFi64r7',
+            id: 'bh-ret-aldrees-umm-irad',
+            badge: 'تبعد ~175 كم عن المحطة السابقة',
+            title: 'محطة الدريس - أم عراد (كود 233)',
+            desc: 'خدمات وقود متكاملة واستراحة وتموينات على طريق الرياض - الدمام السريع (قرب عريعرة/جودة).',
+            mapUrl: 'https://www.google.com/maps?q=25.9280,48.9660',
             btnLabel: '🗺️ موقع المحطة',
-            lat: 25.2100,
-            lon: 48.5100
+            lat: 25.9280,
+            lon: 48.9660
         },
         {
             id: 'bh-ret-causeway',
             badge: 'الخبر ← المنامة',
             title: 'استراحة ومنفذ جسر الملك فهد',
             desc: 'إنهاء إجراءات العودة عبر جسر الملك فهد والدخول إلى أراضي مملكة البحرين.',
-            mapUrl: 'https://www.google.com/maps/search/?api=1&query=King+Fahd+Causeway+Passport+Control',
+            mapUrl: 'https://www.google.com/maps?q=26.1856,50.3267',
             btnLabel: '🗺️ موقع المنفذ',
             lat: 26.1856,
             lon: 50.3267
@@ -173,17 +174,17 @@ module.exports = {
     ],
 
     gpsStations: [
-        { km: 1280, name: 'الانطلاق (المنامة)', lat: 26.2235, lon: 50.5876 },
-        { km: 1255, name: 'منفذ جسر الملك فهد', lat: 26.1856, lon: 50.3267 },
-        { km: 1200, name: 'محطة ساسكو (طريق الدمام - الرياض)', lat: 26.2500, lon: 49.9500 },
-        { km: 1040, name: 'محطة جو ستيشن (طريق 80)', lat: 25.0500, lon: 47.4500 },
-        { km: 950, name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
-        { km: 900, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
-        { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-        { km: 600, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
-        { km: 455, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
-        { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-        { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
+        { km: 1350, name: 'الانطلاق (المنامة)', lat: 26.2235, lon: 50.5876 },
+        { km: 1310, name: 'منفذ جسر الملك فهد', lat: 26.1856, lon: 50.3267 },
+        { km: 1255, name: 'محطة ساسكو (طريق الدمام - الرياض)', lat: 26.2500, lon: 49.9500 },
+        { km: 980, name: 'محطة جو ستيشن (طريق 40)', lat: 25.1351, lon: 47.5337 },
+        { km: 900, name: 'بداية الرياض (الدريس)', lat: 24.8356, lon: 46.8333 },
+        { km: 854, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
+        { km: 721, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
+        { km: 551, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
+        { km: 407, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
+        { km: 335, name: 'محطة ساسكو (ظلم)', lat: 22.7062, lon: 42.1446 },
+        { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6232, lon: 40.4331 },
         { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
     ]
 };

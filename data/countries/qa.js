@@ -36,7 +36,7 @@ module.exports = {
 
     routes: [
         {
-            title: 'طريق 80 السريع (المسار الرئيسي)',
+            title: 'طريق 40 السريع (طريق 80M - المسار الرئيسي)',
             itinerary: 'الدوحة ← منفذ سلوى ← الهفوف ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.',
             description: 'أكثر الطرق أماناً ومضاء في معظمه، ويحتوي على أحدث المحطات النموذجية (ساسكو والدريس).',
             distanceKm: 1480,
@@ -73,7 +73,7 @@ module.exports = {
             mapUrl: 'https://maps.app.goo.gl/innPYmtbPCw4yBsG6',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 180,
-            remainingToMakkahKm: 1210,
+            remainingToMakkahKm: 1150,
             lat: 25.1278,
             lon: 48.1633
         },
@@ -81,13 +81,13 @@ module.exports = {
             id: 'qa-jo-station',
             badge: 'تبعد ~170 كم عن ساسكو خريص',
             title: 'محطة جو ستيشن',
-            desc: 'بداية طريق الدمام - الرياض (طريق 80 السريع).',
+            desc: 'بعد التقاء طريق خريص مع طريق الدمام - الرياض السريع (طريق 40 / 80M).',
             mapUrl: 'https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 170,
-            remainingToMakkahKm: 1040,
-            lat: 25.0500,
-            lon: 47.4500
+            remainingToMakkahKm: 980,
+            lat: 25.1351,
+            lon: 47.5337
         },
         {
             id: 'qa-aldrees-riyadh-entry',
@@ -97,9 +97,9 @@ module.exports = {
             mapUrl: 'https://maps.app.goo.gl/AbU7P9gM571Gks2z7',
             btnLabel: '🗺️ موقع المحطة',
             distanceFromPrevKm: 80,
-            remainingToMakkahKm: 950,
-            lat: 24.8333,
-            lon: 46.8500
+            remainingToMakkahKm: 900,
+            lat: 24.8356,
+            lon: 46.8333
         }
     ],
 
@@ -161,15 +161,15 @@ module.exports = {
     gpsStations: [
         { km: 1480, name: 'الانطلاق (الدوحة)', lat: 25.2854, lon: 51.5310 },
         { km: 1390, name: 'منفذ أبو سمرة / سلوى', lat: 24.7441, lon: 50.8354 },
-        { km: 1210, name: 'محطة ساسكو (طريق خريص)', lat: 25.1278, lon: 48.1633 },
-        { km: 1040, name: 'محطة جو ستيشن (طريق 80)', lat: 25.0500, lon: 47.4500 },
-        { km: 950, name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
-        { km: 900, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
-        { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-        { km: 600, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
-        { km: 455, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
-        { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-        { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
+        { km: 1150, name: 'محطة ساسكو (طريق خريص)', lat: 25.1278, lon: 48.1633 },
+        { km: 980, name: 'محطة جو ستيشن (طريق 40)', lat: 25.1351, lon: 47.5337 },
+        { km: 900, name: 'بداية الرياض (الدريس)', lat: 24.8356, lon: 46.8333 },
+        { km: 854, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
+        { km: 721, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
+        { km: 551, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
+        { km: 407, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
+        { km: 335, name: 'محطة ساسكو (ظلم)', lat: 22.7062, lon: 42.1446 },
+        { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6232, lon: 40.4331 },
         { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
     ]
 };

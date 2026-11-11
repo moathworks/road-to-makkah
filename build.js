@@ -77,6 +77,29 @@ function validateCountryData(country) {
     if (country.routes[0].distanceKm !== country.totalDistanceKm) {
         throw new Error(`[Validation Error] الدولة (${country.slug}): مسافة المسار الرئيسي (${country.routes[0].distanceKm}) لا تطابق المسافة الكلية (${country.totalDistanceKm}).`);
     }
+
+    // التحقق من مصفوفة محطات GPS وتدرج المسافات تنازلياً من المسافة الكلية حتى الصفر
+    if (!Array.isArray(country.gpsStations) || country.gpsStations.length < 3) {
+        throw new Error(`[Validation Error] الدولة (${country.slug}): مصفوفة gpsStations مفقودة أو غير مكتملة.`);
+    }
+    if (country.gpsStations[0].km !== country.totalDistanceKm) {
+        throw new Error(`[Validation Error] الدولة (${country.slug}): أول نقطة في gpsStations (${country.gpsStations[0].km}) لا تطابق المسافة الكلية (${country.totalDistanceKm}).`);
+    }
+    if (country.gpsStations[country.gpsStations.length - 1].km !== 0) {
+        throw new Error(`[Validation Error] الدولة (${country.slug}): آخر نقطة في gpsStations يجب أن تكون 0 كم (مكة المكرمة).`);
+    }
+    for (let i = 1; i < country.gpsStations.length; i++) {
+        if (country.gpsStations[i].km >= country.gpsStations[i - 1].km) {
+            throw new Error(`[Validation Error] الدولة (${country.slug}): المسافات في gpsStations غير مرتبة تنازلياً عند (${country.gpsStations[i].name}).`);
+        }
+    }
+
+    // التحقق من حساب الوقود الابتدائي
+    const expectedLiters = ((country.totalDistanceKm * shared.defaultFuelRate) / 100).toFixed(1);
+    const expectedCost = Math.round(parseFloat(expectedLiters) * shared.defaultFuelPrice);
+    if (country.fuelLitersInitial !== expectedLiters || country.fuelCostInitialSar !== expectedCost) {
+        throw new Error(`[Validation Error] الدولة (${country.slug}): حساب الوقود الابتدائي (${country.fuelLitersInitial} لتر / ${country.fuelCostInitialSar} ريال) لا يطابق المسافة الكلية (${expectedLiters} لتر / ${expectedCost} ريال).`);
+    }
 }
 
 function renderSitemapXml(siteUrl, activeCountries) {

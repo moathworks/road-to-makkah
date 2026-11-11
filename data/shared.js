@@ -60,8 +60,8 @@ module.exports = {
                 title: 'محطة الدريس - طويق',
                 desc: 'موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.',
                 mapUrl: 'https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9',
-                distanceFromPrevKm: 50,
-                remainingToMakkahKm: 900,
+                distanceFromPrevKm: 46,
+                remainingToMakkahKm: 854,
                 lat: 24.5800,
                 lon: 46.3500
             },
@@ -72,7 +72,7 @@ module.exports = {
                 desc: 'محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.',
                 mapUrl: 'https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5',
                 distanceFromPrevKm: 7,
-                remainingToMakkahKm: 893,
+                remainingToMakkahKm: 847,
                 lat: 24.5600,
                 lon: 46.2800
             },
@@ -83,7 +83,7 @@ module.exports = {
                 desc: 'من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.',
                 mapUrl: 'https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6',
                 distanceFromPrevKm: 66,
-                remainingToMakkahKm: 830,
+                remainingToMakkahKm: 781,
                 lat: 24.3300,
                 lon: 45.7500
             },
@@ -94,7 +94,7 @@ module.exports = {
                 desc: 'نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.',
                 mapUrl: 'https://maps.app.goo.gl/oq6EuAoKghBGKjRYA',
                 distanceFromPrevKm: 60,
-                remainingToMakkahKm: 770,
+                remainingToMakkahKm: 721,
                 lat: 24.0489,
                 lon: 45.2494
             },
@@ -105,7 +105,7 @@ module.exports = {
                 desc: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.',
                 mapUrl: 'https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6',
                 distanceFromPrevKm: 170,
-                remainingToMakkahKm: 600,
+                remainingToMakkahKm: 551,
                 lat: 23.4500,
                 lon: 43.9500
             },
@@ -116,7 +116,7 @@ module.exports = {
                 desc: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.',
                 mapUrl: 'https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A',
                 distanceFromPrevKm: 144,
-                remainingToMakkahKm: 455,
+                remainingToMakkahKm: 407,
                 lat: 22.9500,
                 lon: 42.8500
             },
@@ -127,9 +127,9 @@ module.exports = {
                 desc: 'محطة كبرى قبل التوجه إلى منطقة الطائف وميقات قرن المنازل.',
                 mapUrl: 'https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A',
                 distanceFromPrevKm: 72,
-                remainingToMakkahKm: 380,
-                lat: 22.6500,
-                lon: 42.1800
+                remainingToMakkahKm: 335,
+                lat: 22.7062,
+                lon: 42.1446
             },
             {
                 id: 'albaik-pre-sail',
@@ -152,8 +152,8 @@ module.exports = {
                 mapUrl: 'https://maps.app.goo.gl/Vds8UPCtvsFRXoG26',
                 distanceFromPrevKm: 245,
                 remainingToMakkahKm: 90,
-                lat: 21.6267,
-                lon: 40.4267
+                lat: 21.6232,
+                lon: 40.4331
             }
         ],
 
