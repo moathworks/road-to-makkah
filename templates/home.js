@@ -1,5 +1,6 @@
 /**
- * قالب الصفحة الرئيسية (index.html) - موحد مع هوية المشروع وخط Tajawal ووسوم Open Graph وشارات "قريباً"
+ * قالب الصفحة الرئيسية (index.html)
+ * الأنماط في css/home.css، والسلوك (المشاركة، الطقس، Service Worker) من js/app.js المشترك.
  */
 
 const { escapeHtml } = require('./country');
@@ -7,16 +8,20 @@ const { escapeHtml } = require('./country');
 const PLAY_STORE_WHITE_SVG = `<svg viewBox="0 0 512 512" width="20" height="20"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>`;
 const APP_STORE_WHITE_SVG = `<svg viewBox="0 0 384 512" width="20" height="20"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>`;
 
-function renderHomePage(shared, homeCountriesOrder) {
+// أول صورتين تظهران فوق الطيّة فتُحمَّلان مباشرة، والباقي تحميل مؤجل
+const EAGER_FLAGS_COUNT = 2;
+
+function renderHomePage(shared, siteCountries, ctx) {
+    const { assetHashes } = ctx;
     const canonicalUrl = `${shared.siteUrl}/`;
     const ogImageUrl = `${shared.siteUrl}/assets/images/kaaba.jpg`;
     const metaDesc = 'دليل السفر البري الشامل إلى مكة المكرمة من دول الخليج والدول العربية المجاورة: مسارات الطرق، محطات الوقود، حاسبة المسافات، وقائمة الفحص.';
     const pageTitle = 'دليل السفر البري إلى مكة المكرمة';
 
-    const countryLinksHtml = homeCountriesOrder.map((c) => {
-        const cls = c.featured ? 'country-link featured' : 'country-link upcoming';
-        const lazyAttr = c.lazy ? ' loading="lazy"' : '';
-        const badgeHtml = c.featured ? '' : ' <span class="soon-badge">قريباً</span>';
+    const countryLinksHtml = siteCountries.map((c, idx) => {
+        const cls = c.active ? 'country-link featured' : 'country-link upcoming';
+        const lazyAttr = idx >= EAGER_FLAGS_COUNT ? ' loading="lazy"' : '';
+        const badgeHtml = c.active ? '' : ' <span class="soon-badge">قريباً</span>';
         return `            <a href="./${escapeHtml(c.slug)}/" class="${cls}"><span>${escapeHtml(c.name)}</span> <img${lazyAttr} src="assets/images/${escapeHtml(c.flag)}" alt="${escapeHtml(c.name)}" class="country-flag">${badgeHtml}</a>`;
     }).join('\n');
 
@@ -66,341 +71,7 @@ function renderHomePage(shared, homeCountriesOrder) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html,
-        body {
-            overflow-x: hidden;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            min-height: 100vh;
-            min-height: 100dvh;
-            background-color: #0d0d0d;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            direction: rtl;
-            position: relative;
-            padding: 20px 12px;
-        }
-
-        .bg-fixed {
-            position: fixed;
-            inset: 0;
-            background: url('assets/images/kaaba.jpg') no-repeat center center;
-            background-size: cover;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 40px 32px;
-            text-align: center;
-            max-width: 660px;
-            width: 100%;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-size: clamp(1.35rem, 5.3vw, 2.3rem);
-            font-weight: 900;
-            margin-bottom: 14px;
-            margin-top: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-            color: #f1c40f;
-            line-height: 1.35;
-        }
-
-        .weather-widget {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.35);
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin-top: 6px;
-            margin-bottom: 26px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #f1c40f;
-        }
-
-        .countries {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .country-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            padding: 14px 10px;
-            min-height: 54px;
-            border-radius: 14px;
-            font-size: 1.02rem;
-            font-weight: 700;
-            white-space: nowrap;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
-            position: relative;
-        }
-
-        .country-link.featured {
-            background: rgba(241, 196, 15, 0.16);
-            border-color: rgba(241, 196, 15, 0.55);
-        }
-
-        .country-link.upcoming {
-            opacity: 0.82;
-        }
-
-        .soon-badge {
-            font-size: 0.65rem;
-            font-weight: 800;
-            background: rgba(255, 255, 255, 0.16);
-            color: #f1c40f;
-            padding: 2px 6px;
-            border-radius: 8px;
-            border: 1px solid rgba(241, 196, 15, 0.35);
-        }
-
-        .country-link:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.45);
-            opacity: 1;
-        }
-
-        .country-flag {
-            width: 26px;
-            height: 18px;
-            object-fit: cover;
-            border-radius: 3px;
-            flex-shrink: 0;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .apps-section,
-        .faq-section {
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 24px;
-            text-align: right;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .app-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .app-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .app-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-            flex: 1;
-        }
-
-        .app-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .app-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #f1c40f;
-            margin-bottom: 2px;
-        }
-
-        .app-desc {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.78);
-            line-height: 1.35;
-        }
-
-        .app-links {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .app-store-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 14px;
-            min-width: 44px;
-            min-height: 44px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            transition: all 0.25s ease;
-            font-weight: 700;
-        }
-
-        .app-store-btn:hover {
-            background: rgba(255, 255, 255, 0.28);
-            transform: translateY(-2px);
-        }
-
-        .faq-item {
-            margin-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .faq-q {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #f1c40f;
-            margin-bottom: 4px;
-        }
-
-        .faq-a {
-            font-size: 0.92rem;
-            color: #e0e0e0;
-            line-height: 1.5;
-        }
-
-        .share-btn {
-            background: linear-gradient(135deg, #f1c40f, #f39c12);
-            color: #1e272e;
-            border: none;
-            padding: 12px 30px;
-            min-height: 48px;
-            border-radius: 25px;
-            font-size: 1.05rem;
-            font-weight: 900;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
-            margin-top: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .share-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(241, 196, 15, 0.6);
-        }
-
-        .footer {
-            font-size: 1rem;
-            color: #dcdde1;
-            margin-top: 26px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 28px 16px;
-                border-radius: 20px;
-            }
-
-            .countries {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .apps-section,
-            .faq-section {
-                padding: 16px 14px;
-            }
-        }
-
-        @media (max-width: 420px) {
-            .app-item {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .app-links {
-                width: 100%;
-            }
-
-            .app-store-btn {
-                flex: 1;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/home.css?v=${escapeHtml(assetHashes.homeCss)}">
 </head>
 
 <body>
@@ -411,7 +82,7 @@ function renderHomePage(shared, homeCountriesOrder) {
         <h1>دليل السفر البري إلى مكة المكرمة</h1>
 
         <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp">مكة المكرمة: جاري جلب الطقس... ⏳</span>
+            <span id="weatherTemp" data-makkah-temp data-temp-format="مكة المكرمة الآن: {t}°C 🌤️" data-temp-fallback="مكة المكرمة 🕋">مكة المكرمة: جاري جلب الطقس... ⏳</span>
         </div>
 
         <div class="countries">
@@ -419,15 +90,15 @@ ${countryLinksHtml}
         </div>
 
         <div class="apps-section">
-            <h2 style="font-size: 1.15rem; color: #fff; margin-top: 0; margin-bottom: 16px; text-align: center; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة
+            <h2 class="home-section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة
             </h2>
 
 ${appsHtml}
         </div>
 
         <div class="faq-section">
-            <h2 style="font-size: 1.15rem; color: #fff; margin-top: 0; margin-bottom: 14px; text-align: center;">💡 أسئلة شائعة للمسافر براً</h2>
+            <h2 class="home-section-title">💡 أسئلة شائعة للمسافر براً</h2>
             <div class="faq-item">
                 <div class="faq-q">هل الطرق السريعة المؤدية إلى مكة مخدومة بالكامل؟</div>
                 <div class="faq-a">نعم، الطرق الرئيسية مثل طريق 40 السعودي (طريق 80M الدولي من الخليج عبر الرياض إلى الطائف ومكة) وطريق الهجرة السريع تضم محطات نموذجية متكاملة (ساسكو، الدريس، بترومين) على مدار الساعة، مع ضرورة الحذر عند القيادة ليلاً.</div>
@@ -438,76 +109,16 @@ ${appsHtml}
             </div>
         </div>
 
-        <button id="shareButton" class="share-btn" type="button">مشاركة الصفحة 🔗</button>
+        <button id="shareButton" class="share-btn" type="button" onclick="sharePage()">مشاركة الصفحة 🔗</button>
 
         <div class="footer">
-            <p style="margin-bottom: 8px; margin-top: 0;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
-            <p style="color: #f1c40f; font-weight: 700; margin-bottom: 12px;">تذكرونا بدعوة صالحة 🤲</p>
-            <p style="font-size: 0.9rem; opacity: 0.75; margin: 0;">تم تصميم الدليل بواسطة معاذ بلال</p>
+            <p class="footer-greeting">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
+            <p class="footer-dua">تذكرونا بدعوة صالحة 🤲</p>
+            <p class="footer-credit">تم تصميم الدليل بواسطة معاذ بلال</p>
         </div>
     </div>
 
-    <script>
-        document.getElementById('shareButton').addEventListener('click', async () => {
-            const shareTitle = 'دليل السفر البري إلى مكة المكرمة 🕋';
-            const shareText = 'دليل السفر البري إلى مكة المكرمة 🕋\\nتذكرونا بدعوة صالحة 🤲';
-            const shareUrl = window.location.href;
-
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: shareTitle,
-                        text: shareText + '\\n',
-                        url: shareUrl
-                    });
-                } catch (err) {}
-            } else {
-                const shareTextWithUrl = \`\${shareTitle}\\n\${shareUrl}\`;
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(shareTextWithUrl).then(() => {
-                        alert('✅ تم نسخ العنوان والرابط بنجاح! يمكنك مشاركته الآن.');
-                    }).catch(() => {
-                        fallbackCopy(shareTextWithUrl);
-                    });
-                } else {
-                    fallbackCopy(shareTextWithUrl);
-                }
-            }
-        });
-
-        function fallbackCopy(text) {
-            try {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = text;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                alert('✅ تم نسخ العنوان والرابط بنجاح!\\nيمكنك الآن لصقه ومشاركته مع من تحب.');
-            } catch (err) {
-                alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
-            }
-        }
-
-        async function fetchWeather() {
-            const el = document.getElementById('weatherTemp');
-            if (!el) return;
-            try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
-                if (!response.ok) throw new Error('HTTP error');
-                const data = await response.json();
-                const temp = Math.round(data.current_weather.temperature);
-                el.textContent = \`مكة المكرمة الآن: \${temp}°C 🌤️\`;
-            } catch (e) {
-                el.textContent = 'مكة المكرمة 🕋';
-            }
-        }
-        fetchWeather();
-
-        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
-            navigator.serviceWorker.register('./sw.js').catch(() => {});
-        }
-    </script>
+    <script src="js/app.js?v=${escapeHtml(assetHashes.appJs)}"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 /**
- * قالب توليد ملف Service Worker (sw.js) آلياً مع بصمات الملفات واستراتيجية Stale-While-Revalidate
+ * قالب توليد ملف Service Worker (sw.js) آلياً مع بصمات الملفات
  */
 
 function renderServiceWorker(cacheHash, coreAssets) {
@@ -22,7 +22,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-function fetchWithTimeout(request, timeoutMs = 2500) {
+function fetchWithTimeout(request, timeoutMs) {
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => reject(new Error('Network timeout')), timeoutMs);
         fetch(request).then(
@@ -38,7 +38,19 @@ function fetchWithTimeout(request, timeoutMs = 2500) {
     });
 }
 
-// استراتيجية Stale-While-Revalidate للملفات الثابتة، وNetwork-First بمهلة 2.5 ثانية لصفحات HTML مع ignoreSearch: true
+// يجلب من الشبكة ويحدّث الكاش؛ يعيد undefined عند الفشل أو انتهاء المهلة
+function fetchAndCache(request, timeoutMs) {
+    return fetchWithTimeout(request, timeoutMs)
+        .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+                const clone = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+            }
+            return networkResponse;
+        })
+        .catch(() => undefined);
+}
+
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
 
@@ -47,35 +59,29 @@ self.addEventListener('fetch', (event) => {
 
     const isNavigation = event.request.mode === 'navigate' || (event.request.headers.get('accept') || '').includes('text/html');
 
+    // صفحات HTML: الشبكة أولاً بمهلة 2.5 ثانية، ثم الكاش عند ضعف التغطية أو انقطاعها
     if (isNavigation) {
         event.respondWith(
-            fetchWithTimeout(event.request, 2500)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const clone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-                    }
-                    return networkResponse;
-                })
-                .catch(() => caches.match(event.request, { ignoreSearch: true }))
+            fetchAndCache(event.request, 2500).then((networkResponse) =>
+                networkResponse || caches.match(event.request, { ignoreSearch: true })
+            ).then((response) => response || Response.error())
         );
         return;
     }
 
-    // Stale-While-Revalidate للملفات الثابتة (CSS, JS, الصور، الأيقونات)
+    // الملفات الثابتة (CSS, JS, الصور): Stale-While-Revalidate بمطابقة تامة للرابط.
+    // المطابقة التامة تضمن ألا تُخدَم نسخة قديمة (‎?v=قديم) لصفحة تطلب نسخة جديدة؛
+    // وتجاهل ‎?v= يُستخدم فقط كملاذ أخير عند فشل الشبكة.
     event.respondWith(
-        caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
-            const networkFetch = fetchWithTimeout(event.request, 4000)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const clone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-                    }
-                    return networkResponse;
-                })
-                .catch(() => cachedResponse);
-
-            return cachedResponse || networkFetch;
+        caches.match(event.request).then((exactMatch) => {
+            const networkFetch = fetchAndCache(event.request, 4000);
+            if (exactMatch) {
+                event.waitUntil(networkFetch);
+                return exactMatch;
+            }
+            return networkFetch
+                .then((networkResponse) => networkResponse || caches.match(event.request, { ignoreSearch: true }))
+                .then((response) => response || Response.error());
         })
     );
 });
@@ -85,4 +91,3 @@ self.addEventListener('fetch', (event) => {
 module.exports = {
     renderServiceWorker
 };
-

@@ -43,7 +43,7 @@ function renderStationCards(stations, startNumber = 1) {
             : '';
         return `                    <div class="${cardClass}">
                         <div>${badgeHtml}
-                            <h2>${displayTitle}</h2>
+                            <h3>${displayTitle}</h3>
                             <p>${escapeHtml(st.desc)}</p>
                         </div>
                         <a href="${escapeHtml(st.mapUrl)}" target="_blank" rel="noopener noreferrer" class="btn-station-map">${btnLabel}</a>
@@ -54,14 +54,14 @@ function renderStationCards(stations, startNumber = 1) {
 function renderPrayersSection() {
     return `        <details class="custom-accordion" id="section-prayers">
             <summary>
-                <span>🤲 أدعية وأذكار السفر</span>
+                <h2 class="accordion-title">🤲 أدعية وأذكار السفر</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <p style="margin-bottom: 10px;"><strong>دعاء السفر:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
+                <p class="text-block"><strong>دعاء السفر:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
                     له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى، اللهم هوّن علينا سفرنا هذا، واطوِ عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل، اللهم إني أعوذ بك من وعثاء السفر، وكآبة المنظر، وسوء المنقلب في المال والأهل" وإذا رجع قالهنّ وزاد فيهنّ: آيبون، تائبون، عابدون، لربنا حامدون.
                 </p>
-                <p style="margin-bottom: 10px;"><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق"</p>
+                <p class="text-block"><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق"</p>
                 <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.</p>
             </div>
         </details>`;
@@ -86,7 +86,7 @@ function renderChecklistSection(country, shared) {
 
     return `        <details class="custom-accordion" id="section-checklist">
             <summary>
-                <span>✅ قائمة الفحص الذكية قبل السفر</span>
+                <h2 class="accordion-title">✅ قائمة الفحص الذكية قبل السفر</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -101,15 +101,13 @@ function renderChecklistSection(country, shared) {
                         </div>
                     </div>
 
-                    <div id="checklist-collapse-content">
-                        <div class="checklist-btn-group">
-                            <button type="button" class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
-                            <button type="button" class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
-                        </div>
+                    <div class="checklist-btn-group">
+                        <button type="button" class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
+                        <button type="button" class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
+                    </div>
 
-                        <div class="checklist-grid">
+                    <div class="checklist-grid">
 ${gridContent}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -119,27 +117,27 @@ ${gridContent}
 function renderPilgrimInfoSection(country) {
     return `        <details class="custom-accordion" id="section-pilgrim-info">
             <summary>
-                <span>ℹ️ معلومات تهم المعتمر والزائر</span>
+                <h2 class="accordion-title">ℹ️ معلومات تهم المعتمر والزائر</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <p style="margin-bottom: 8px;">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطرق السريعة للسيارات الصغيرة. التزم بحزام الأمان وتفادى استخدام الجوال أثناء القيادة.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">🐪 <strong>الجمال السائبة:</strong> ${escapeHtml(country.camelWarningText)}</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">📱 <strong>شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح بتفعيل باقة تجوال أو اقتناء شريحة إنترنت أو شريحة إلكترونية (eSIM) لتسهيل استخدام الخرائط وتطبيقات التوصيل.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">🏨 <strong>الفنادق والمواقف:</strong> تأكد من حجز الفنادق مسبقاً مع التأكد من توفر موقف للسيارة في الفندق، أو استخدام مواقف مداخل مكة الرسمية (مثل موقف كدي أو الزاهر) واستقلال حافلات مكة الترددية للحرم.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">🚕 <strong>المواصلات:</strong> اعتمد على تطبيقات مثل Uber و Careem للتنقل داخل مكة والمدينة بأسعار واضحة ومعتمدة.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 8px;">🚄 <strong>قطار الحرمين السريع:</strong> وسيلة ممتازة ومريحة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر تطبيق أو موقع قطار الحرمين.</p>
-                <hr style="border-color: var(--card-border); margin: 14px 0; opacity: 0.5;">
-                <p style="margin-bottom: 0;">💧 <strong>ماء زمزم:</strong> يمكن شراء عبوات ماء زمزم المعبأ رسمياً من 📍 <a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: inherit; font-weight: bold;">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a> في مكة المكرمة (حي كدي).</p>
+                <p class="info-tip">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن.</p>
+                <hr class="info-divider">
+                <p class="info-tip">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطرق السريعة للسيارات الصغيرة. التزم بحزام الأمان وتفادى استخدام الجوال أثناء القيادة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🐪 <strong>الجمال السائبة:</strong> ${escapeHtml(country.camelWarningText)}</p>
+                <hr class="info-divider">
+                <p class="info-tip">📱 <strong>شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح بتفعيل باقة تجوال أو اقتناء شريحة إنترنت أو شريحة إلكترونية (eSIM) لتسهيل استخدام الخرائط وتطبيقات التوصيل.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🏨 <strong>الفنادق والمواقف:</strong> تأكد من حجز الفنادق مسبقاً مع التأكد من توفر موقف للسيارة في الفندق، أو استخدام مواقف مداخل مكة الرسمية (مثل موقف كدي أو الزاهر) واستقلال حافلات مكة الترددية للحرم.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🚕 <strong>المواصلات:</strong> اعتمد على تطبيقات مثل Uber و Careem للتنقل داخل مكة والمدينة بأسعار واضحة ومعتمدة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🚄 <strong>قطار الحرمين السريع:</strong> وسيلة ممتازة ومريحة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر تطبيق أو موقع قطار الحرمين.</p>
+                <hr class="info-divider">
+                <p class="info-tip">💧 <strong>ماء زمزم:</strong> يمكن شراء عبوات ماء زمزم المعبأ رسمياً من 📍 <a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" rel="noopener noreferrer" class="inline-link">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a> في مكة المكرمة (حي كدي).</p>
             </div>
         </details>`;
 }
@@ -147,16 +145,16 @@ function renderPilgrimInfoSection(country) {
 function renderPlacesSection() {
     return `        <details class="custom-accordion" id="section-places">
             <summary>
-                <span>🕌 الأماكن التاريخية والدينية للزيارة</span>
+                <h2 class="accordion-title">🕌 الأماكن التاريخية والدينية للزيارة</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <div style="margin-top: 8px;">
-                    <div style="margin-bottom: 20px;">
-                        <h3 style="margin: 0 0 12px 0; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <div class="places-wrap">
+                    <div class="places-group">
+                        <h3 class="places-title">
                             <span>🕋</span> <strong>مكة المكرمة:</strong>
                         </h3>
-                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <ul class="places-list">
                             <li><a href="https://maps.app.goo.gl/q8VcxANhQNgSPaJ36" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> غار ثور</li>
                             <li><a href="https://maps.app.goo.gl/TNMGNBzyxWRseN5y6" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> غار حراء (جبل النور)</li>
                             <li><a href="https://maps.app.goo.gl/suRzhpC1ZehUrzJP7" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> حي حراء الثقافي</li>
@@ -165,16 +163,16 @@ function renderPlacesSection() {
                     </div>
 
                     <div>
-                        <h3 style="margin: 0 0 12px 0; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                        <h3 class="places-title">
                             <span>🕌</span> <strong>المدينة المنورة:</strong>
                         </h3>
-                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                        <ul class="places-list">
                             <li><a href="https://maps.app.goo.gl/f5cViWhDRbNprjN76" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> المعرض والمتحف الدولي للسيرة النبوية</li>
                             <li>
                                 <a href="https://maps.app.goo.gl/hyXifHzKYRpVnqY78" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مسجد قباء
-                                <div style="font-size: 0.85em; color: var(--text-muted); margin-top: 6px; margin-right: 10px;">💡 بجانبه جادة قباء ومجموعة متنوعة من الأكشاك والمقاهي</div>
-                                <div style="margin-top: 6px; margin-right: 10px; font-size: 0.92em;">
-                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: inherit; font-weight: bold;">محل تمور "بستان العجوة"</a> <span style="font-size: 0.9em; color: var(--text-muted);">(مميز وقريب من مسجد قباء)</span>
+                                <div class="place-note">💡 بجانبه جادة قباء ومجموعة متنوعة من الأكشاك والمقاهي</div>
+                                <div class="place-extra">
+                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" rel="noopener noreferrer" class="inline-link">محل تمور "بستان العجوة"</a> <span class="place-extra-note">(مميز وقريب من مسجد قباء)</span>
                                 </div>
                             </li>
                             <li><a href="https://maps.app.goo.gl/ci7CuEkf32CNRvQW8" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مقبرة شهداء أحد وجبل الرماة</li>
@@ -189,13 +187,11 @@ function renderPlacesSection() {
 
 function renderAppCard(app) {
     let iconMarkup = '';
-    if (app.iconHtml) {
-        iconMarkup = app.iconHtml;
-    } else if (app.iconEmoji) {
-        iconMarkup = `<div class="app-icon" style="background-color: white; display: flex; align-items: center; justify-content: center; font-size: ${escapeHtml(app.iconEmojiFontSize || '26px')};">${escapeHtml(app.iconEmoji)}</div>`;
+    if (app.iconEmoji) {
+        iconMarkup = `<div class="app-icon app-icon-emoji">${escapeHtml(app.iconEmoji)}</div>`;
     } else {
-        const styleAttr = app.iconStyle ? ` style="${escapeHtml(app.iconStyle)}"` : '';
-        iconMarkup = `<img loading="lazy" src="../${escapeHtml(app.iconSrc)}" alt="${escapeHtml(app.iconAlt || app.title)}" class="app-icon"${styleAttr}>`;
+        const iconClass = app.iconContain ? 'app-icon app-icon-contain' : 'app-icon';
+        iconMarkup = `<img loading="lazy" src="../${escapeHtml(app.iconSrc)}" alt="${escapeHtml(app.iconAlt || app.title)}" class="${iconClass}">`;
     }
 
     const ariaBase = app.ariaName || app.title;
@@ -231,9 +227,9 @@ function renderAppsSection(country, shared) {
 
     return `        <details class="custom-accordion apps-section" id="section-apps">
             <summary>
-                <span style="display: flex; align-items: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 22px; height: 22px; margin-left: 8px;"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
-                </span>
+                <h2 class="accordion-title summary-with-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات وروابط مهمة
+                </h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -245,40 +241,40 @@ ${cardsHtml}
 function renderEmergencySection(country) {
     const localEmergencyCard = country.countryCode !== 'sa' ? `
                     <div class="emergency-box country-local">
-                        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <h3>
                             <img loading="lazy" src="../assets/images/${escapeHtml(country.flagFile)}" alt="${escapeHtml(country.countryName)}" class="flag-img">
                             في ${escapeHtml(country.countryName)} (طوارئ عامة)
-                        </h2>
+                        </h3>
                         <a href="tel:${escapeHtml(country.emergencyNumber)}" class="emergency-number" title="اتصال بطوارئ ${escapeHtml(country.countryName)} ${escapeHtml(country.emergencyNumber)}">📞 ${escapeHtml(country.emergencyNumber)}</a>
                     </div>` : '';
 
-    return `        <div class="emergency-section" id="section-emergency" style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--border-radius); margin-bottom: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; scroll-margin-top: 14px;">
+    return `        <div class="emergency-section" id="section-emergency">
             <div class="emergency-header-title">
-                <span>📞 أرقام الطوارئ (اضغط على الرقم للاتصال المباشر)</span>
+                <h2 class="accordion-title">📞 أرقام الطوارئ (اضغط على الرقم للاتصال المباشر)</h2>
             </div>
-            <div style="padding: 18px;">
+            <div class="emergency-body">
                 <div class="emergency-grid">${localEmergencyCard}
                     <div class="emergency-box saudi">
-                        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <h3>
                             <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
                             في السعودية (أمن الطرق)
-                        </h2>
+                        </h3>
                         <a href="tel:911" class="emergency-number" title="اتصال بأمن الطرق 911">📞 911</a>
                     </div>
                     <div class="emergency-box saudi">
-                        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <h3>
                             <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
                             الهلال الأحمر (إسعاف)
-                        </h2>
+                        </h3>
                         <a href="tel:997" class="emergency-number" title="اتصال بالإسعاف 997">📞 997</a>
                     </div>
                     <div class="emergency-box saudi">
-                        <h2 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <h3>
                             <img loading="lazy" src="../assets/images/sa-flag.png" alt="السعودية" class="flag-img">
                             نجم للحوادث (السعودية)
-                        </h2>
-                        <a href="tel:920000560" class="emergency-number" style="font-size: 1.4rem;" title="اتصال بنجم للحوادث">📞 920000560</a>
-                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4;">المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة</p>
+                        </h3>
+                        <a href="tel:920000560" class="emergency-number emergency-number-long" title="اتصال بنجم للحوادث">📞 920000560</a>
+                        <p class="emergency-note">المنصة الوطنية لإدارة حوادث السير للمركبات المؤمنة</p>
                     </div>
                 </div>
             </div>
@@ -288,7 +284,7 @@ function renderEmergencySection(country) {
 function renderSuggestionsSection(country, shared) {
     return `        <details class="custom-accordion suggestions-wrapper" id="section-suggestions">
             <summary>
-                <span>💡 اقتراحاتك واستفساراتك</span>
+                <h2 class="accordion-title">💡 اقتراحاتك واستفساراتك</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -298,27 +294,27 @@ function renderSuggestionsSection(country, shared) {
 
                 <form id="suggestionForm" class="suggestion-form" action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="${escapeHtml(shared.web3formsAccessKey)}">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <input type="checkbox" name="botcheck" class="hidden">
                     <input type="hidden" name="from_page" value="دليل ${escapeHtml(country.countryName)} - مكة المكرمة">
                     <input type="hidden" name="from_name" value="دليل ${escapeHtml(country.countryName)} - مكة المكرمة 🕋">
                     <input type="hidden" name="subject" value="اقتراح/استفسار من دليل ${escapeHtml(country.countryName)} - مكة المكرمة 🕋">
 
                     <div class="form-group">
-                        <label for="suggest_name" class="form-label">الاسم الكريم <span style="color: #e74c3c;">*</span></label>
+                        <label for="suggest_name" class="form-label">الاسم الكريم <span class="required-mark">*</span></label>
                         <input type="text" id="suggest_name" name="name" class="form-input" required placeholder="مثال: محمد">
                     </div>
 
                     <div class="form-group">
-                        <label for="suggest_email" class="form-label">البريد الإلكتروني <span style="color: #e74c3c;">*</span></label>
+                        <label for="suggest_email" class="form-label">البريد الإلكتروني <span class="required-mark">*</span></label>
                         <input type="email" id="suggest_email" name="email" class="form-input" required placeholder="name@example.com">
                     </div>
 
                     <div class="form-group-full">
-                        <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span style="color: #e74c3c;">*</span></label>
+                        <label for="suggest_message" class="form-label">اقتراحك أو رسالتك <span class="required-mark">*</span></label>
                         <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="اكتب اقتراحك أو تفاصيل التعديل الذي ترغب بإضافته هنا..."></textarea>
                     </div>
 
-                    <div class="recaptcha-container" id="h-captcha-wrapper">
+                    <div class="captcha-container" id="h-captcha-wrapper">
                         <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="ar" data-theme="light"></div>
                     </div>
 
@@ -336,9 +332,9 @@ function renderSuggestionsSection(country, shared) {
 
 function renderFooterSection() {
     return `        <footer>
-            <p style="font-size: 1.1rem; font-weight: bold; color: #fff; margin-bottom: 5px;">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
-            <p style="font-size: 0.98rem; color: var(--gold); font-weight: bold; margin-bottom: 12px;">تذكرونا بدعوة صالحة 🤲</p>
-            <p style="opacity: 0.75; font-size: 0.85rem; margin-bottom: 0;">تم تصميم الدليل بواسطة معاذ بلال</p>
+            <p class="footer-greeting">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
+            <p class="footer-dua">تذكرونا بدعوة صالحة 🤲</p>
+            <p class="footer-credit">تم تصميم الدليل بواسطة معاذ بلال</p>
         </footer>`;
 }
 
@@ -367,31 +363,32 @@ function renderMobileNav() {
     </nav>`;
 }
 
-function renderCountryPage(country, shared, assetHashes = {}) {
-    const cssVersion = assetHashes.styleCss || '2.0';
-    const jsVersion = assetHashes.appJs || '2.4';
+function renderCountryPage(country, shared, ctx) {
+    const { assetHashes, derived, lastUpdatedText } = ctx;
+    const cssVersion = assetHashes.styleCss;
+    const jsVersion = assetHashes.appJs;
 
     const outboundCount = country.outboundStations.filter(s => !s.unnumbered).length;
     const riyadhStartNum = outboundCount + 1;
-    const riyadhMainCount = shared.routeSegments.riyadhMain80.filter(s => !s.unnumbered).length;
+    const riyadhMainCount = shared.routeSegments.riyadhMain.filter(s => !s.unnumbered).length;
     const riyadhToMakkahStartNum = riyadhStartNum + riyadhMainCount;
 
     const totalDistFormatted = formatNumber(country.totalDistanceKm);
 
     const routesHtml = country.routes.map((r) => `            <div class="route-card">
                 <div>
-                    <h2>${escapeHtml(r.title)}</h2>
+                    <h3>${escapeHtml(r.title)}</h3>
                     <p><strong>خط السير:</strong> ${escapeHtml(r.itinerary)}</p>
-                    <p style="margin-top: 6px;">${escapeHtml(r.description)}</p>
+                    <p class="route-desc">${escapeHtml(r.description)}</p>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                <div class="route-card-footer">
                     <div class="route-badge">المسافة: ${formatNumber(r.distanceKm)} كم</div>
                     <a href="${escapeHtml(r.mapUrl)}" target="_blank" rel="noopener noreferrer" class="route-card-link">📍 بدء الرحلة</a>
                 </div>
             </div>`).join('\n');
 
     const outboundCardsHtml = renderStationCards(country.outboundStations, 1);
-    const riyadhMainCardsHtml = renderStationCards(shared.routeSegments.riyadhMain80, riyadhStartNum);
+    const riyadhMainCardsHtml = renderStationCards(shared.routeSegments.riyadhMain, riyadhStartNum);
     const riyadhBypassCardsHtml = renderStationCards(shared.routeSegments.riyadhBypassSalman, riyadhStartNum);
     const riyadhToMakkahCardsHtml = renderStationCards(shared.routeSegments.riyadhToMakkah, riyadhToMakkahStartNum);
     const madinahToRiyadhReturnCardsHtml = renderStationCards(shared.routeSegments.madinahToRiyadhReturn, 1);
@@ -403,9 +400,10 @@ function renderCountryPage(country, shared, assetHashes = {}) {
         defaultCity: country.defaultCity,
         totalDistanceKm: country.totalDistanceKm,
         estimatedDriveHours: country.estimatedDriveHours,
-        locale: country.locale,
-        stations: country.gpsStations
+        stations: derived.gpsPoints
     };
+    // JSON داخل <script>: نهرّب «<» حتى لا يُغلق الوسم نصٌّ داخل البيانات
+    const runtimeConfigJson = JSON.stringify(runtimeConfig).replace(/</g, '\\u003c');
 
     const canonicalUrl = `${shared.siteUrl}/${country.slug}/`;
     const ogImageUrl = `${shared.siteUrl}/assets/images/kaaba.jpg`;
@@ -444,10 +442,10 @@ function renderCountryPage(country, shared, assetHashes = {}) {
     <link rel="stylesheet" href="../css/style.css?v=${escapeHtml(cssVersion)}">
     <style>
         /* ${escapeHtml(country.themeComment)} */
-        body.light-mode {
-            --primary-brand: ${escapeHtml(country.themeColor)};
-            --primary-brand-rgb: ${escapeHtml(country.themeColorRgb)};
-            --primary-dark: ${escapeHtml(country.themeColorDark)};
+        :root {
+            --brand: ${escapeHtml(country.themeColor)};
+            --brand-rgb: ${escapeHtml(country.themeColorRgb)};
+            --brand-dark: ${escapeHtml(country.themeColorDark)};
         }
     </style>
 </head>
@@ -464,14 +462,14 @@ function renderCountryPage(country, shared, assetHashes = {}) {
 
         <!-- الهيدر -->
         <header>
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+            <div class="header-title-block">
                 <h1 class="header-h1">
                     <a href="../" class="header-logo">
                         <img loading="lazy" src="../assets/images/${escapeHtml(country.flagFile)}" alt="${escapeHtml(country.countryName)}" class="flag-img">
                         ${escapeHtml(country.countryName)} ← 🕋 مكة المكرمة
                     </a>
                 </h1>
-                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: ${escapeHtml(shared.lastUpdatedText)}</div>
+                <div class="last-updated">آخر تحديث: ${escapeHtml(lastUpdatedText)}</div>
             </div>
             <div class="quick-actions-row">
                 <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" aria-label="الرئيسية (كل الدول)">
@@ -511,24 +509,24 @@ function renderCountryPage(country, shared, assetHashes = {}) {
                     </svg>
                 </button>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 2px 0 0 0; line-height: 1.4; max-width: 92%;">${escapeHtml(country.headerSubtitle)}</p>
+            <p class="header-subtitle">${escapeHtml(country.headerSubtitle)}</p>
         </header>
 
         <!-- البار العلوي للمعلومات (مواقيت الصلاة الحية في مكة + الطقس المباشر) -->
         <div class="top-info-bar">
-            <div class="info-item prayer" style="gap: 6px;">
-                <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">🔔</span>
-                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
-                    <span id="prayer-line-1" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">مواقيت مكة: جاري التحديث...</span>
-                    <span id="prayer-line-2" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">--:--</span>
+            <div class="info-item prayer">
+                <span class="info-icon">🔔</span>
+                <div class="prayer-lines">
+                    <span id="prayer-line-1">مواقيت مكة: جاري التحديث...</span>
+                    <span id="prayer-line-2">--:--</span>
                 </div>
             </div>
-            <div class="info-item weather" style="flex-direction: column; align-items: center; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 4px;">
-                    <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">☀️</span>
-                    <span id="makkah-temp">--°C</span>
+            <div class="info-item weather">
+                <div class="weather-now">
+                    <span class="info-icon">☀️</span>
+                    <span id="makkah-temp" data-makkah-temp data-temp-format="{t}°C" data-temp-fallback="غير متاح">--°C</span>
                 </div>
-                <span style="font-size: 0.75rem; font-weight: 600; opacity: 0.9;">مكة المكرمة</span>
+                <span class="weather-city">مكة المكرمة</span>
             </div>
         </div>
 
@@ -542,9 +540,9 @@ ${renderChecklistSection(country, shared)}
         <details class="custom-accordion hero-section" id="section-calculator">
             <summary>
                 <h2 class="hero-title">⏱️ حاسبة وقت ومسار وتكلفة الرحلة</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
-            <div class="accordion-content" style="text-align: center;">
+            <div class="accordion-content">
 
                 <!-- 1. حاسبة وقت الانطلاق والوصول -->
                 <div class="trip-planner">
@@ -558,7 +556,7 @@ ${renderChecklistSection(country, shared)}
                     </div>
                     <div class="planner-group">
                         <span>وقت الوصول المتوقع (شامل التوقفات)</span>
-                        <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
+                        <strong id="arr-time" class="planner-highlight">حدد وقت الانطلاق</strong>
                     </div>
                 </div>
 
@@ -566,8 +564,8 @@ ${renderChecklistSection(country, shared)}
                 <div class="trip-planner">
                     <div class="planner-group">
                         <span>الموقع الحالي (GPS)</span>
-                        <strong id="currentLocationName" style="color: #fff;">${escapeHtml(country.defaultCity)}</strong>
-                        <button type="button" id="btnLocateMe" class="checklist-btn" style="margin-top: 6px; padding: 5px 12px; min-height: 32px; font-size: 0.78rem;" onclick="requestUserLocation()">📍 حدّد موقعي الآن</button>
+                        <strong id="currentLocationName">${escapeHtml(country.defaultCity)}</strong>
+                        <button type="button" id="btnLocateMe" class="checklist-btn btn-locate" onclick="toggleLocationTracking()">📍 حدّد موقعي الآن</button>
                     </div>
                     <div class="planner-group">
                         <span>المسافة المتبقية لمكة</span>
@@ -575,13 +573,13 @@ ${renderChecklistSection(country, shared)}
                     </div>
                     <div class="planner-group">
                         <span>وقت الوصول من موقعك*</span>
-                        <strong id="remArrival" style="color: var(--gold);">--:--</strong>
-                        <span style="font-size: 0.72rem; opacity: 0.85; margin-top: 4px; color: var(--text-muted);">*الزمن الصافي: <span id="remTime">${escapeHtml(country.remainingDriveTimeText)}</span> قيادة</span>
+                        <strong id="remArrival" class="planner-highlight">--:--</strong>
+                        <span class="planner-note">*الزمن الصافي: <span id="remTime">${escapeHtml(derived.netDriveTimeText)}</span> قيادة</span>
                     </div>
                 </div>
 
                 <!-- 3. حاسبة تكلفة الوقود التقديرية -->
-                <div class="trip-planner" style="margin-bottom: 18px;">
+                <div class="trip-planner trip-planner-fuel">
                     <div class="planner-group">
                         <label for="calc-distance">المسافة لحساب الوقود (كم)</label>
                         <input type="number" id="calc-distance" class="planner-input" value="${country.totalDistanceKm}" min="0" step="10" oninput="calculateFuel()">
@@ -596,8 +594,8 @@ ${renderChecklistSection(country, shared)}
                     </div>
                     <div class="planner-group">
                         <span>الوقود والتكلفة التقديرية</span>
-                        <strong id="res-total" style="color: var(--gold); font-size: 1.15rem;">${country.fuelCostInitialSar} ريال</strong>
-                        <span id="res-liters" style="font-size: 0.75rem; margin-top: 3px; color: rgba(255,255,255,0.8);">${escapeHtml(country.fuelLitersInitial)} لتر</span>
+                        <strong id="res-total" class="planner-highlight planner-total">${formatNumber(derived.fuelCostSar)} ريال</strong>
+                        <span id="res-liters" class="fuel-liters">${escapeHtml(derived.fuelLitersText)} لتر</span>
                     </div>
                 </div>
 
@@ -606,7 +604,7 @@ ${renderChecklistSection(country, shared)}
         </details>
 
         <!-- ${escapeHtml(country.routeComment)} -->
-        <div class="section-header" id="section-routes">🛣️ خيارات مسارات السفر البري</div>
+        <h2 class="section-header" id="section-routes">🛣️ خيارات مسارات السفر البري</h2>
         <div class="carousel-container">
 ${routesHtml}
         </div>
@@ -614,7 +612,7 @@ ${routesHtml}
         <!-- ${escapeHtml(country.outboundComment)} -->
         <details class="custom-accordion" id="section-stations-start">
             <summary>
-                <span>${escapeHtml(country.outboundSummaryTitle)}</span>
+                <h2 class="accordion-title">${escapeHtml(country.outboundSummaryTitle)}</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -627,7 +625,7 @@ ${outboundCardsHtml}
         <!-- محطات داخل الرياض - طريق 40 (80M) -->
         <details class="custom-accordion">
             <summary>
-                <span>⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)</span>
+                <h2 class="accordion-title">⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -638,13 +636,13 @@ ${riyadhMainCardsHtml}
         </details>
 
         <!-- محطات الرياض - المسار الالتفافي -->
-        <details class="custom-accordion" style="border-color: rgba(212, 175, 55, 0.35);">
+        <details class="custom-accordion accordion-bypass">
             <summary>
-                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
+                <h2 class="accordion-title">⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+                <p class="section-intro">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
                 <div class="riyadh-inner-grid">
 ${riyadhBypassCardsHtml}
                 </div>
@@ -654,7 +652,7 @@ ${riyadhBypassCardsHtml}
         <!-- محطات طريق الذهاب (الرياض ← الطائف ← مكة) -->
         <details class="custom-accordion">
             <summary>
-                <span>⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</span>
+                <h2 class="accordion-title">⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
@@ -667,11 +665,11 @@ ${riyadhToMakkahCardsHtml}
         <!-- محطات طريق العودة (المدينة المنورة ← الرياض) -->
         <details class="custom-accordion">
             <summary>
-                <span>⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</span>
+                <h2 class="accordion-title">⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
+                <p class="section-intro">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
                 <div class="stations-grid">
 ${madinahToRiyadhReturnCardsHtml}
                 </div>
@@ -681,11 +679,11 @@ ${madinahToRiyadhReturnCardsHtml}
         <!-- ${escapeHtml(country.returnComment)} -->
         <details class="custom-accordion">
             <summary>
-                <span>${escapeHtml(country.returnSummaryTitle)}</span>
+                <h2 class="accordion-title">${escapeHtml(country.returnSummaryTitle)}</h2>
                 ${CHEVRON_SVG}
             </summary>
             <div class="accordion-content">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">${escapeHtml(country.returnIntroText)}</p>
+                <p class="section-intro">${escapeHtml(country.returnIntroText)}</p>
                 <div class="stations-grid">
 ${returnCardsHtml}
                 </div>
@@ -705,7 +703,7 @@ ${renderFooterSection()}
     <!-- شريط التنقل السفلي الذكي للجوال -->
 ${renderMobileNav()}
 
-    <script>window.COUNTRY_DATA = ${JSON.stringify(runtimeConfig)};</script>
+    <script>window.COUNTRY_DATA = ${runtimeConfigJson};</script>
     <script src="../js/app.js?v=${escapeHtml(jsVersion)}"></script>
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>

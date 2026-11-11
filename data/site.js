@@ -1,78 +1,73 @@
 /**
- * بيانات الدول الثماني قيد الإعداد (قريباً) وترتيب ظهور جميع الدول في الصفحة الرئيسية
+ * ترتيب ظهور الدول في الصفحة الرئيسية + بيانات صفحات «قريباً».
+ *
+ * - الدولة التي لها ملف في data/countries/ تُعتبر «فعّالة» تلقائياً: يُبنى دليلها الكامل
+ *   وتُؤخذ بياناتها (الاسم والعلم) من ملفها، ويُتجاهل هنا كل ما عدا slug.
+ * - الدولة التي ليس لها ملف تُبنى لها صفحة «قريباً» من الحقول أدناه.
+ *
+ * لإضافة دولة جديدة: أنشئ ملفها في data/countries/ فقط. لا حاجة لأي تعديل هنا
+ * ما دام الـ slug موجوداً في القائمة.
  */
 
 module.exports = {
-    homeCountriesOrder: [
-        { slug: 'qatar', name: 'قطر', flag: 'qa-flag.png', featured: true, lazy: false },
-        { slug: 'ksa', name: 'السعودية', flag: 'sa-flag.png', featured: false, lazy: false },
-        { slug: 'uae', name: 'الإمارات', flag: 'ae-flag.png', featured: false, lazy: true },
-        { slug: 'bahrain', name: 'البحرين', flag: 'bh-flag.png', featured: true, lazy: true },
-        { slug: 'kuwait', name: 'الكويت', flag: 'kw-flag.png', featured: false, lazy: true },
-        { slug: 'oman', name: 'عُمان', flag: 'om-flag.png', featured: false, lazy: true },
-        { slug: 'jordan', name: 'الأردن', flag: 'jo-flag.png', featured: false, lazy: true },
-        { slug: 'syria', name: 'سوريا', flag: 'sy-flag.png', featured: false, lazy: true },
-        { slug: 'iraq', name: 'العراق', flag: 'iq-flag.png', featured: false, lazy: true },
-        { slug: 'yemen', name: 'اليمن', flag: 'ye-flag.png', featured: false, lazy: true }
-    ],
-
-    upcomingPages: [
+    countriesOrder: [
+        { slug: 'qatar' },
         {
             slug: 'ksa',
-            countryCode: 'sa',
             countryName: 'السعودية',
+            flagFile: 'sa-flag.png',
             pageTitle: 'دليل السفر البري من السعودية إلى مكة المكرمة',
             heading: 'دليل مسارات مدن المملكة إلى مكة المكرمة'
         },
         {
             slug: 'uae',
-            countryCode: 'ae',
             countryName: 'الإمارات',
+            flagFile: 'ae-flag.png',
             pageTitle: 'دليل السفر البري من الإمارات إلى مكة المكرمة',
             heading: 'دليل السفر البري من الإمارات إلى مكة المكرمة'
         },
+        { slug: 'bahrain' },
         {
             slug: 'kuwait',
-            countryCode: 'kw',
             countryName: 'الكويت',
+            flagFile: 'kw-flag.png',
             pageTitle: 'دليل السفر البري من الكويت إلى مكة المكرمة',
             heading: 'دليل السفر البري من الكويت إلى مكة المكرمة'
         },
         {
             slug: 'oman',
-            countryCode: 'om',
             countryName: 'عُمان',
+            flagFile: 'om-flag.png',
             pageTitle: 'دليل السفر البري من عُمان إلى مكة المكرمة',
             heading: 'دليل السفر البري من سلطنة عُمان إلى مكة المكرمة'
         },
         {
             slug: 'jordan',
-            countryCode: 'jo',
             countryName: 'الأردن',
+            flagFile: 'jo-flag.png',
             pageTitle: 'دليل السفر البري من الأردن إلى مكة المكرمة',
             heading: 'دليل السفر البري من الأردن إلى مكة المكرمة'
         },
         {
             slug: 'syria',
-            countryCode: 'sy',
             countryName: 'سوريا',
+            flagFile: 'sy-flag.png',
             pageTitle: 'دليل السفر البري من سوريا إلى مكة المكرمة',
             heading: 'دليل السفر البري من سوريا إلى مكة المكرمة'
         },
         {
             slug: 'iraq',
-            countryCode: 'iq',
             countryName: 'العراق',
+            flagFile: 'iq-flag.png',
             pageTitle: 'دليل السفر البري من العراق إلى مكة المكرمة',
             heading: 'دليل السفر البري من العراق إلى مكة المكرمة'
         },
         {
             slug: 'yemen',
-            countryCode: 'ye',
             countryName: 'اليمن',
+            flagFile: 'ye-flag.png',
             pageTitle: 'دليل السفر البري من اليمن إلى مكة المكرمة',
             heading: 'دليل السفر البري من اليمن إلى مكة المكرمة'
         }
     ]
 };
-

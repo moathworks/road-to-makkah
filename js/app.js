@@ -1,20 +1,15 @@
 /**
  * دليل السفر البري إلى مكة المكرمة - الملف البرمجي التفاعلي (Mobile-First Architecture)
- * يعمل على صفحات HTML المولّدة مسبقاً عبر build.js
+ * يعمل على صفحات HTML المولّدة مسبقاً عبر build.js:
+ * - صفحات الدول: تحمل window.COUNTRY_DATA فتُفعَّل كل الوظائف.
+ * - الصفحة الرئيسية: بلا COUNTRY_DATA فتُفعَّل الوظائف المشتركة فقط (الطقس، المشاركة، Service Worker).
  */
 
-const CONFIG = Object.assign(
-    {
-        countryCode: 'qa',
-        countryName: 'قطر',
-        defaultCity: 'الدوحة (افتراضي)',
-        totalDistanceKm: 1480,
-        estimatedDriveHours: 16,
-        locale: 'ar-QA',
-        stations: []
-    },
-    window.COUNTRY_DATA || {}
-);
+const IS_COUNTRY_PAGE = Boolean(window.COUNTRY_DATA);
+const CONFIG = window.COUNTRY_DATA || {};
+
+// رابط هذا الملف: يُشتق منه مسار sw.js في جذر الموقع أياً كان عمق الصفحة
+const APP_SCRIPT_URL = document.currentScript ? document.currentScript.src : '';
 
 const CHECKLIST_STORAGE_KEY = `meccaTripChecklist_${CONFIG.countryCode}`;
 const LATIN_AR_LOCALE = 'ar-u-nu-latn';
@@ -283,17 +278,23 @@ function updateThemeBtn(isLight) {
 }
 
 // 7. جلب درجة الحرارة ومواقيت الصلاة الفعلية لمكة المكرمة (دون إبقاء قيم وهمية عند الفشل)
+// يعمل على أي عنصر يحمل data-makkah-temp، وصيغة العرض ونص الفشل يحددهما القالب
 async function getMakkahTemp() {
-    const tempEl = document.getElementById('makkah-temp');
-    if (!tempEl) return;
+    const tempEls = document.querySelectorAll('[data-makkah-temp]');
+    if (!tempEls.length) return;
     try {
         const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
         if (!response.ok) throw new Error('Weather HTTP error');
         const data = await response.json();
         const temp = Math.round(data.current_weather.temperature);
-        tempEl.textContent = `${temp}°C`;
+        if (Number.isNaN(temp)) throw new Error('Weather data error');
+        tempEls.forEach((el) => {
+            el.textContent = (el.dataset.tempFormat || '{t}°C').replace('{t}', temp);
+        });
     } catch (e) {
-        tempEl.textContent = 'غير متاح';
+        tempEls.forEach((el) => {
+            el.textContent = el.dataset.tempFallback || 'غير متاح';
+        });
     }
 }
 
@@ -318,18 +319,17 @@ async function getMakkahPrayers() {
         const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabia&method=4');
         if (!response.ok) throw new Error('Prayers HTTP error');
         const json = await response.json();
-        if (json && json.data && json.data.timings) {
-            const t = json.data.timings;
-            line1.textContent = `الفجر ${formatTime12Ar(t.Fajr)} | الشروق ${formatTime12Ar(t.Sunrise)}`;
-            line2.textContent = `المغرب ${formatTime12Ar(t.Maghrib)} | العشاء ${formatTime12Ar(t.Isha)}`;
-        }
+        if (!json || !json.data || !json.data.timings) throw new Error('Prayers data error');
+        const t = json.data.timings;
+        line1.textContent = `الفجر ${formatTime12Ar(t.Fajr)} | الشروق ${formatTime12Ar(t.Sunrise)}`;
+        line2.textContent = `المغرب ${formatTime12Ar(t.Maghrib)} | العشاء ${formatTime12Ar(t.Isha)}`;
     } catch (e) {
         line1.textContent = 'مواقيت الصلاة بمكة المكرمة';
         line2.textContent = 'تتطلب اتصالاً بالإنترنت';
     }
 }
 
-// 8. حساب المسافة الجغرافية بمعادلة Haversine الدقيقة وتحديد الموقع عند الطلب فقط
+// 8. تحديد الموقع على المسار (عند الطلب فقط) مع تتبّع مباشر
 function haversineKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -340,54 +340,116 @@ function haversineKm(lat1, lon1, lat2, lon2) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function requestUserLocation() {
-    const locNameEl = document.getElementById('currentLocationName');
+// أقصى بُعد عن خط المسار يُعدّ بعده المستخدم «خارج المسار».
+// الخط بين نقطتين متتاليتين مستقيم بينما الطريق ينحني، فالهامش يغطي هذا الانحناء.
+const OFF_ROUTE_THRESHOLD_KM = 60;
+// معامل تقريبي لتحويل المسافة المستقيمة إلى مسافة طريق لمن هو خارج المسار
+const ROAD_DETOUR_FACTOR = 1.22;
+
+/**
+ * يُسقط موقع المستخدم على أقرب مقطع من المسار (بين نقطتين متتاليتين) ويحسب المسافة المتبقية
+ * بالاستيفاء بينهما، بدل القفز إلى أقرب محطة. يعيد أيضاً بُعد المستخدم عن خط المسار.
+ */
+function locateOnRoute(userLat, userLon, points) {
+    // إسقاط مستوٍ محلي حول موقع المستخدم (دقيق كفاية لمقاطع بمئات الكيلومترات)
+    const kmPerDegLon = 111.32 * Math.cos(userLat * Math.PI / 180);
+    const kmPerDegLat = 110.57;
+    let best = null;
+
+    for (let i = 0; i < points.length - 1; i++) {
+        const ax = (points[i].lon - userLon) * kmPerDegLon;
+        const ay = (points[i].lat - userLat) * kmPerDegLat;
+        const bx = (points[i + 1].lon - userLon) * kmPerDegLon;
+        const by = (points[i + 1].lat - userLat) * kmPerDegLat;
+        const dx = bx - ax;
+        const dy = by - ay;
+        const lengthSq = dx * dx + dy * dy;
+        const t = lengthSq > 0 ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / lengthSq)) : 0;
+        const offKm = Math.hypot(ax + t * dx, ay + t * dy);
+        if (!best || offKm < best.offKm) {
+            best = { offKm, t, from: points[i], to: points[i + 1] };
+        }
+    }
+
+    best.remainingKm = best.from.km - best.t * (best.from.km - best.to.km);
+    return best;
+}
+
+function describeRoutePosition(match) {
+    if (match.t <= 0.08) return match.from.name;
+    if (match.t >= 0.92) return match.to.name;
+    return `بين ${match.from.name} و${match.to.name}`;
+}
+
+let locationWatchId = null;
+let hasLocationFix = false;
+
+function setLocateButtonTracking(isTracking) {
     const btnLocate = document.getElementById('btnLocateMe');
+    if (btnLocate) btnLocate.textContent = isTracking ? '⏹️ إيقاف التتبّع' : '📍 حدّد موقعي الآن';
+}
+
+function handleUserPosition(position) {
+    const locNameEl = document.getElementById('currentLocationName');
+    const points = Array.isArray(CONFIG.stations) ? CONFIG.stations : [];
+    if (!locNameEl || points.length < 2) return;
+
+    hasLocationFix = true;
+    const userLat = position.coords.latitude;
+    const userLon = position.coords.longitude;
+    const match = locateOnRoute(userLat, userLon, points);
+
+    if (match.offKm > OFF_ROUTE_THRESHOLD_KM) {
+        const destination = points[points.length - 1];
+        const nearest = match.t < 0.5 ? match.from : match.to;
+        locNameEl.textContent = `خارج المسار (أقرب نقطة: ${nearest.name})`;
+        calcRemaining(haversineKm(userLat, userLon, destination.lat, destination.lon) * ROAD_DETOUR_FACTOR);
+    } else {
+        locNameEl.textContent = describeRoutePosition(match);
+        calcRemaining(match.remainingKm);
+    }
+}
+
+function handleUserPositionError() {
+    // أثناء التتبّع قد يفشل تحديث عابر: لا نمسح آخر موقع صحيح معروض
+    if (hasLocationFix) return;
+    const locNameEl = document.getElementById('currentLocationName');
+    if (locNameEl) locNameEl.textContent = `${CONFIG.defaultCity} (تعذر جلب GPS)`;
+    calcRemaining(CONFIG.totalDistanceKm);
+    stopLocationTracking();
+}
+
+function stopLocationTracking() {
+    if (locationWatchId !== null) {
+        navigator.geolocation.clearWatch(locationWatchId);
+        locationWatchId = null;
+    }
+    setLocateButtonTracking(false);
+}
+
+// زر «حدّد موقعي»: يبدأ تتبّعاً مباشراً يحدّث المسافة أثناء السير، والضغطة الثانية توقفه
+function toggleLocationTracking() {
+    const locNameEl = document.getElementById('currentLocationName');
     if (!locNameEl) return;
+
+    if (locationWatchId !== null) {
+        stopLocationTracking();
+        return;
+    }
 
     if (!navigator.geolocation) {
         locNameEl.textContent = 'المتصفح لا يدعم GPS';
         return;
     }
 
+    hasLocationFix = false;
     locNameEl.textContent = 'جاري تحديد الموقع...';
-    if (btnLocate) btnLocate.disabled = true;
-
-    navigator.geolocation.getCurrentPosition(function (position) {
-        if (btnLocate) btnLocate.disabled = false;
-        const userLat = position.coords.latitude;
-        const userLon = position.coords.longitude;
-
-        const stations = Array.isArray(CONFIG.stations) && CONFIG.stations.length ? CONFIG.stations : [];
-        let closestStation = stations[0] || { km: CONFIG.totalDistanceKm, name: CONFIG.defaultCity, lat: 21.4225, lon: 39.8262 };
-        let minDistance = Infinity;
-
-        stations.forEach(station => {
-            const dist = haversineKm(userLat, userLon, station.lat, station.lon);
-            if (dist < minDistance) {
-                minDistance = dist;
-                closestStation = station;
-            }
-        });
-
-        const makkahLat = 21.4225;
-        const makkahLon = 39.8262;
-        const directToMakkahKm = haversineKm(userLat, userLon, makkahLat, makkahLon);
-
-        // إذا كان المستخدم بعيداً أكثر من 120 كم عن أقرب نقطة في المسار، نوضح أنه خارج المسار ونحسب المسافة التقديرية لمكة
-        if (minDistance > 120) {
-            const estimatedRoadKm = Math.round(directToMakkahKm * 1.22);
-            locNameEl.textContent = `خارج المسار (قرب ${closestStation.name})`;
-            calcRemaining(estimatedRoadKm);
-        } else {
-            locNameEl.textContent = closestStation.name;
-            calcRemaining(closestStation.km);
-        }
-    }, function () {
-        if (btnLocate) btnLocate.disabled = false;
-        locNameEl.textContent = `${CONFIG.defaultCity} (تعذر جلب GPS)`;
-        calcRemaining(CONFIG.totalDistanceKm);
-    }, { timeout: 8000, maximumAge: 60000 });
+    setLocateButtonTracking(true);
+    locationWatchId = navigator.geolocation.watchPosition(
+        handleUserPosition,
+        handleUserPositionError,
+        { enableHighAccuracy: false, timeout: 15000, maximumAge: 30000 }
+    );
 }
 
 function calcRemaining(kmVal) {
@@ -424,10 +486,13 @@ function calcRemaining(kmVal) {
     if (remArrivalEl) remArrivalEl.textContent = arrivalDate.toLocaleDateString(LATIN_AR_LOCALE, options);
 }
 
-// 9. طباعة مسار الرحلة (يدعم زر الطباعة واختصار Ctrl+P عبر beforeprint/afterprint)
+// 9. طباعة مسار الرحلة: فتح الأقسام وإعادتها يتمّان عبر beforeprint/afterprint فقط،
+// فيعمل زر الطباعة و Ctrl+P بالطريقة نفسها
 let savedAccordionStatesBeforePrint = null;
 
 function expandAccordionsForPrint() {
+    // قد يُطلق المتصفح beforeprint أكثر من مرة: لا نستبدل الحالة الأصلية المحفوظة
+    if (savedAccordionStatesBeforePrint) return;
     const accordions = document.querySelectorAll('details.custom-accordion');
     savedAccordionStatesBeforePrint = Array.from(accordions).map(acc => acc.open);
     accordions.forEach(acc => acc.setAttribute('open', ''));
@@ -449,9 +514,7 @@ window.addEventListener('beforeprint', expandAccordionsForPrint);
 window.addEventListener('afterprint', restoreAccordionsAfterPrint);
 
 function printRoute() {
-    expandAccordionsForPrint();
     window.print();
-    restoreAccordionsAfterPrint();
 }
 
 // 10. مشاركة الصفحة
@@ -605,12 +668,20 @@ function initMobileScrollSpy() {
 }
 
 function registerPWA() {
-    if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
-        navigator.serviceWorker.register('../sw.js').catch(() => {});
-    }
+    if (!('serviceWorker' in navigator) || window.location.protocol === 'file:' || !APP_SCRIPT_URL) return;
+    // js/app.js ← ../sw.js = جذر الموقع، فيصحّ المسار من الرئيسية ومن صفحات الدول
+    navigator.serviceWorker.register(new URL('../sw.js', APP_SCRIPT_URL)).catch(() => {});
 }
 
 function bootstrapApp() {
+    // وظائف مشتركة بين كل الصفحات
+    getMakkahTemp();
+    registerPWA();
+
+    if (IS_COUNTRY_PAGE) bootstrapCountryPage();
+}
+
+function bootstrapCountryPage() {
     // 1. استعادة المظهر المفضل أو احترام تفضيل النظام (prefers-color-scheme)
     const savedTheme = localStorage.getItem('darkGuideTheme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -633,11 +704,9 @@ function bootstrapApp() {
     initChecklist();
     calcRemaining(CONFIG.totalDistanceKm);
     calculateFuel();
-    getMakkahTemp();
     getMakkahPrayers();
     initSuggestionForm();
     initMobileScrollSpy();
-    registerPWA();
 
     const suggestionsDetails = document.getElementById('section-suggestions');
     if (suggestionsDetails) {

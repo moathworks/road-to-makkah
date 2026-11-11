@@ -1,4 +1,8 @@
 :root {
+    /* لون هوية الدولة: يُعرَّف في <style> كل صفحة، وهذه القيم الافتراضية */
+    --brand: #8A1538;
+    --brand-rgb: 138, 21, 56;
+    --brand-dark: #5A0E25;
     --primary-brand: #ffffff;
     --primary-brand-rgb: 138, 21, 56;
     --primary-dark: #1e1e1e;
@@ -15,9 +19,9 @@
 }
 
 body.light-mode {
-    --primary-brand: #8A1538;
-    --primary-brand-rgb: 138, 21, 56;
-    --primary-dark: #5A0E25;
+    --primary-brand: var(--brand);
+    --primary-brand-rgb: var(--brand-rgb);
+    --primary-dark: var(--brand-dark);
     --bg-dark: #F9F7F1;
     --card-bg: #FFFFFF;
     --card-border: rgba(0, 0, 0, 0.08);
@@ -90,10 +94,6 @@ header {
     gap: 8px;
     text-decoration: none;
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
-}
-
-.header-logo span {
-    color: var(--gold);
 }
 
 .quick-actions-row {
@@ -181,8 +181,45 @@ body:not(.light-mode) .info-item.weather {
 }
 
 .info-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1;
     flex-shrink: 0;
+}
+
+.info-item.prayer {
+    gap: 6px;
+}
+
+.info-item.weather {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.prayer-lines {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.prayer-lines span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.95;
+    line-height: 1.25;
+}
+
+.weather-now {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.weather-city {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.9;
 }
 
 /* الأكورديون المخصص */
@@ -385,7 +422,7 @@ details.custom-accordion.hero-section {
     border-color: rgba(212, 175, 55, 0.3);
 }
 
-.route-card h2 {
+.route-card h3 {
     font-size: 1.05rem;
     color: #fff;
     margin-bottom: 10px;
@@ -456,7 +493,7 @@ details.custom-accordion.hero-section {
     border-color: var(--gold);
 }
 
-.station-card h2 {
+.station-card h3 {
     font-size: 1.05rem;
     color: #fff;
     margin-bottom: 6px;
@@ -513,7 +550,7 @@ details.custom-accordion.hero-section {
     background: rgba(231, 76, 60, 0.05);
 }
 
-.station-card.station-card-food h2 {
+.station-card.station-card-food h3 {
     color: #e74c3c;
 }
 
@@ -836,10 +873,14 @@ body.light-mode .apps-section .app-title {
     background: rgba(var(--primary-brand-rgb), 0.04);
 }
 
-.emergency-box h2 {
+.emergency-box h3 {
     font-size: 0.88rem;
     color: var(--text-muted);
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .emergency-number {
@@ -941,7 +982,7 @@ body.light-mode .apps-section .app-title {
     min-height: 110px;
 }
 
-.recaptcha-container {
+.captcha-container {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
@@ -1024,6 +1065,288 @@ footer p {
     margin-bottom: 10px;
 }
 
+/* ====== أصناف دلالية (بديلة عن الأنماط الداخلية inline) ====== */
+.hidden {
+    display: none;
+}
+
+.accordion-title {
+    font: inherit;
+    color: inherit;
+}
+
+.summary-with-icon {
+    display: flex;
+    align-items: center;
+}
+
+.summary-with-icon svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+}
+
+details.custom-accordion.accordion-bypass {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.hero-section .chevron-icon {
+    color: var(--gold);
+}
+
+.header-title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.last-updated {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-top: 2px;
+}
+
+.header-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 2px 0 0 0;
+    line-height: 1.4;
+    max-width: 92%;
+}
+
+.text-block {
+    margin-bottom: 10px;
+}
+
+.section-intro {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.inline-link {
+    text-decoration: underline;
+    color: inherit;
+    font-weight: bold;
+}
+
+.info-tip {
+    margin-bottom: 8px;
+}
+
+.info-tip:last-child {
+    margin-bottom: 0;
+}
+
+.info-divider {
+    border-color: var(--card-border);
+    margin: 14px 0;
+    opacity: 0.5;
+}
+
+/* الحاسبة */
+.planner-group .planner-highlight {
+    color: var(--gold);
+}
+
+.planner-group .planner-total {
+    font-size: 1.15rem;
+}
+
+.planner-group .planner-note {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.planner-group .fuel-liters {
+    font-size: 0.75rem;
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.trip-planner-fuel {
+    margin-bottom: 18px;
+}
+
+.btn-locate {
+    margin-top: 6px;
+    padding: 5px 12px;
+    min-height: 32px;
+    font-size: 0.78rem;
+}
+
+/* بطاقات المسارات */
+.route-card .route-desc {
+    margin-top: 6px;
+}
+
+.route-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* الأماكن التاريخية */
+.places-wrap {
+    margin-top: 8px;
+}
+
+.places-group {
+    margin-bottom: 20px;
+}
+
+.places-title {
+    margin: 0 0 12px 0;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.places-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.place-note {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    margin-top: 6px;
+    margin-right: 10px;
+}
+
+.place-extra {
+    margin-top: 6px;
+    margin-right: 10px;
+    font-size: 0.92em;
+}
+
+.place-extra-note {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+/* أيقونات التطبيقات */
+.apps-section .app-icon.app-icon-emoji {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.apps-section .app-icon.app-icon-contain {
+    background-color: #fff;
+    padding: 6px;
+    object-fit: contain;
+}
+
+/* قسم الطوارئ */
+.emergency-section {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    margin-bottom: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    scroll-margin-top: 14px;
+}
+
+.emergency-body {
+    padding: 18px;
+}
+
+.emergency-number.emergency-number-long {
+    font-size: 1.4rem;
+}
+
+.emergency-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.required-mark {
+    color: #e74c3c;
+}
+
+/* الفوتر */
+.footer-greeting {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.footer-dua {
+    font-size: 0.98rem;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.footer-credit {
+    opacity: 0.75;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+/* صفحات «قريباً» */
+.container.coming-soon {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.route-card.coming-soon-card {
+    max-width: 480px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.coming-soon-title {
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+}
+
+.route-card .coming-soon-text {
+    margin-bottom: 24px;
+}
+
+.coming-soon-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.coming-soon-actions > a {
+    flex: 1;
+    text-decoration: none;
+}
+
 /* شريط التنقل السفلي الذكي للجوال (Mobile Sticky Bottom Nav) */
 .mobile-bottom-nav {
     display: none;
@@ -1035,21 +1358,17 @@ body.light-mode .header-logo {
     text-shadow: none;
 }
 
-body.light-mode .header-logo span {
-    color: var(--primary-brand) !important;
-}
-
 body.light-mode #themeToggleBtn,
 body.light-mode .quick-access-btn {
-    background: #ffffff !important;
-    color: var(--primary-brand) !important;
-    border: 1.5px solid var(--primary-brand) !important;
+    background: #ffffff;
+    color: var(--primary-brand);
+    border: 1.5px solid var(--primary-brand);
     box-shadow: 0 2px 10px rgba(var(--primary-brand-rgb), 0.1);
 }
 
 body.light-mode #themeToggleBtn:hover,
 body.light-mode .quick-access-btn:hover {
-    background: rgba(var(--primary-brand-rgb), 0.06) !important;
+    background: rgba(var(--primary-brand-rgb), 0.06);
 }
 
 body.light-mode .hero-section,
@@ -1075,22 +1394,22 @@ body.light-mode .emergency-header-title {
 }
 
 body.light-mode .hero-title {
-    color: #fff !important;
+    color: #fff;
 }
 
 body.light-mode .hero-section .planner-group span,
 body.light-mode .hero-section .planner-group label {
-    color: rgba(255, 255, 255, 0.78) !important;
+    color: rgba(255, 255, 255, 0.78);
 }
 
 body.light-mode .hero-section .planner-group strong,
 body.light-mode .hero-section #currentLocationName,
 body.light-mode .hero-section #remDist {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 body.light-mode .hero-section #remTime {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 body.light-mode .section-header {
@@ -1098,14 +1417,14 @@ body.light-mode .section-header {
     border-right-color: var(--gold);
 }
 
-body.light-mode .route-card h2,
-body.light-mode .station-card h2 {
+body.light-mode .route-card h3,
+body.light-mode .station-card h3 {
     color: var(--primary-dark);
 }
 
 body.light-mode .route-card p strong,
 body.light-mode .station-card p strong {
-    color: var(--text-light) !important;
+    color: var(--text-light);
 }
 
 body.light-mode .route-badge,
@@ -1121,7 +1440,7 @@ body.light-mode .distance-badge-dark.badge-miqat {
     border-color: rgba(27, 94, 32, 0.2);
 }
 
-body.light-mode .station-card.station-card-food h2 {
+body.light-mode .station-card.station-card-food h3 {
     color: #c0392b;
 }
 
@@ -1165,8 +1484,8 @@ body.light-mode .emergency-box.country-local {
     border-color: rgba(var(--primary-brand-rgb), 0.2);
 }
 
-body.light-mode .emergency-box.country-local h2 {
-    color: var(--primary-brand) !important;
+body.light-mode .emergency-box.country-local h3 {
+    color: var(--primary-brand);
 }
 
 body.light-mode .emergency-box.saudi {
@@ -1175,11 +1494,11 @@ body.light-mode .emergency-box.saudi {
 }
 
 body.light-mode .emergency-box.country-local .emergency-number {
-    color: var(--primary-brand) !important;
+    color: var(--primary-brand);
 }
 
 body.light-mode .emergency-box.saudi .emergency-number {
-    color: #1b5e20 !important;
+    color: #1b5e20;
 }
 
 body.light-mode .switch-item {
@@ -1220,24 +1539,16 @@ body.light-mode .btn-submit-suggestion:hover {
 }
 
 body.light-mode footer {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand)) !important;
-    border-color: rgba(0, 0, 0, 0.05) !important;
-    box-shadow: 0 10px 30px rgba(var(--primary-brand-rgb), 0.15) !important;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand));
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(var(--primary-brand-rgb), 0.15);
 }
 
-body.light-mode footer p {
-    color: #ffffff !important;
+body.light-mode .footer-credit {
+    color: rgba(255, 255, 255, 0.75);
 }
 
-body.light-mode footer p:nth-child(2) {
-    color: var(--gold) !important;
-}
-
-body.light-mode footer p:last-child {
-    color: rgba(255, 255, 255, 0.75) !important;
-}
-
-/* ====== التجاوب الخاص بشاشات الجوال (Mobile-First Optimization) ====== */
+/* ====== تجاوب شاشات الجوال ====== */
 @media (max-width: 768px) {
     body {
         padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
@@ -1347,91 +1658,155 @@ body.light-mode footer p:last-child {
         flex: 1;
     }
 
-    .recaptcha-container .h-captcha {
+    .captcha-container .h-captcha {
         transform: scale(0.9);
         transform-origin: center;
     }
 }
 
-/* تنسيق خاص بالطباعة لمسار الرحلة */
+/* ====== الطباعة ====== */
 .print-only {
     display: none;
 }
 
 @media print {
-    body {
-        background: white !important;
-        color: black !important;
-        padding-bottom: 0 !important;
+    /*
+     * ورق أبيض وحبر داكن أياً كان المظهر المختار على الشاشة (نهاري أو داكن).
+     * !important هنا مقصودة: هذه القاعدة العامة يجب أن تغلب كل ألوان الشاشة مهما كانت خصوصية محدداتها،
+     * وإلا طُبع نص أبيض على ورق أبيض (كما في قسم الحاسبة والفوتر).
+     */
+    *,
+    *::before,
+    *::after {
+        color: #1a1a1a !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
     }
 
-    .suggestions-wrapper,
-    .checklist-btn-group,
-    #themeToggleBtn,
-    .quick-access-btn,
-    .btn-station-map,
-    .mobile-bottom-nav,
-    .btn-launch {
-        display: none !important;
+    body {
+        padding-bottom: 0;
     }
 
     .container {
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* عناصر تفاعلية لا معنى لها على الورق */
+    .quick-actions-row,
+    .mobile-bottom-nav,
+    .suggestions-wrapper,
+    .checklist-btn-group,
+    .progress-container,
+    .btn-station-map,
+    .route-card-link,
+    .btn-launch,
+    .btn-locate,
+    .app-links,
+    .chevron-icon,
+    .switch,
+    .hero-section::before {
+        display: none;
     }
 
     .print-only {
-        display: block !important;
+        display: block;
         text-align: center;
         margin-bottom: 20px;
         padding-bottom: 12px;
-        border-bottom: 2px solid var(--primary-brand);
+        border-bottom: 2px solid var(--brand);
     }
 
     .print-only .print-title {
         font-size: 1.5rem;
         font-weight: 900;
-        color: var(--primary-brand);
         margin-bottom: 4px;
     }
 
-    .section-header {
-        color: var(--primary-brand) !important;
-        border-right: 4px solid var(--primary-brand) !important;
-        font-size: 1.3rem !important;
-        margin-top: 30px !important;
-        margin-bottom: 20px !important;
-        padding-right: 12px !important;
-        page-break-after: avoid;
-        page-break-inside: avoid;
+    /* العناوين بلون هوية الدولة */
+    .print-only .print-title,
+    .header-logo,
+    .section-header,
+    .accordion-title,
+    .hero-title,
+    .checklist-section-title,
+    .route-card h3,
+    .station-card h3 {
+        color: var(--brand) !important;
     }
 
+    .section-header {
+        border-right-color: var(--brand);
+        margin-top: 24px;
+        break-after: avoid;
+    }
+
+    details.custom-accordion,
+    .emergency-section,
+    .top-info-bar,
+    .trip-planner,
+    .route-card,
+    .station-card,
+    .emergency-box,
+    .planner-input,
+    footer {
+        border: 1px solid #ccc !important;
+    }
+
+    details.custom-accordion {
+        overflow: visible;
+        margin-bottom: 14px;
+    }
+
+    details.custom-accordion summary {
+        min-height: 0;
+        break-after: avoid;
+    }
+
+    /* الشبكات تُطبع كقائمة عمودية حتى لا تنقسم البطاقات بين الصفحات */
     .carousel-container,
     .stations-grid,
     .riyadh-inner-grid,
-    .checklist-grid,
     .emergency-grid {
-        display: block !important;
+        display: block;
     }
 
     .route-card,
     .station-card,
-    .emergency-box,
-    .hero-section {
-        background: #fff !important;
-        color: #333 !important;
-        border: 1px solid #ccc !important;
-        margin-bottom: 15px !important;
-        padding: 15px !important;
-        box-shadow: none !important;
-        transform: none !important;
-        page-break-inside: avoid;
+    .emergency-box {
+        margin-bottom: 10px;
+        padding: 12px;
+        break-inside: avoid;
+    }
+
+    /* قائمة الفحص: مربع يُطبع بدل المفتاح، وعلامة ✓ لما أُنجز */
+    .checklist-grid {
+        gap: 4px;
+    }
+
+    .switch-item {
+        justify-content: flex-start;
+        min-height: 0;
+        padding: 4px 0;
+        border: none;
+        break-inside: avoid;
+    }
+
+    .switch-item::before {
+        content: '☐';
+    }
+
+    .switch-item.completed::before {
+        content: '☑';
+    }
+
+    .switch-item.completed .switch-label {
+        text-decoration: none;
     }
 
     footer {
-        border-top: 2px solid #ccc !important;
-        color: #333 !important;
-        margin-top: 30px !important;
+        margin-top: 24px;
     }
 }
