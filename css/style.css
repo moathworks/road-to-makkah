@@ -73,6 +73,13 @@ header {
     border-bottom: none;
 }
 
+.header-h1 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
 .header-logo {
     font-size: 1.35rem;
     font-weight: 900;
@@ -264,15 +271,6 @@ details.custom-accordion.hero-section {
     letter-spacing: -0.3px;
 }
 
-.hero-subtitle {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* حاسبة الرحلة والتخطيط */
 .trip-planner {
     display: grid;
@@ -293,7 +291,8 @@ details.custom-accordion.hero-section {
     text-align: center;
 }
 
-.planner-group span {
+.planner-group span,
+.planner-group label {
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 6px;
@@ -316,6 +315,12 @@ details.custom-accordion.hero-section {
     font-size: 1rem;
     min-height: 44px;
     cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.planner-input:focus-visible {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35);
 }
 
 .planner-input::-webkit-calendar-picker-indicator {
@@ -502,6 +507,34 @@ details.custom-accordion.hero-section {
     border-color: var(--gold);
 }
 
+/* أنماط البطاقات المميزة (مطعم البيك / الميقات) بدون inline styles */
+.station-card.station-card-food {
+    border: 2px solid #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.station-card.station-card-food h2 {
+    color: #e74c3c;
+}
+
+.station-card.station-card-food .btn-station-map {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    color: #ffffff;
+}
+
+.distance-badge-dark.badge-food {
+    background: rgba(231, 76, 60, 0.12);
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.25);
+}
+
+.distance-badge-dark.badge-miqat {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.2);
+}
+
 /* مجموعات محطات الرياض */
 .riyadh-inner-grid {
     display: grid;
@@ -637,6 +670,11 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(-20px);
+}
+
+.switch input:focus-visible + .slider {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
 }
 
 /* أزرار تحديد الكل بقائمة المهام */
@@ -793,7 +831,7 @@ body.light-mode .apps-section .app-title {
     background: rgba(46, 204, 113, 0.03);
 }
 
-.emergency-box.qatar {
+.emergency-box.country-local {
     border-color: rgba(var(--primary-brand-rgb), 0.25);
     background: rgba(var(--primary-brand-rgb), 0.04);
 }
@@ -826,7 +864,7 @@ body.light-mode .apps-section .app-title {
     color: #2ecc71;
 }
 
-.qatar .emergency-number {
+.country-local .emergency-number {
     color: var(--gold);
 }
 
@@ -1040,11 +1078,8 @@ body.light-mode .hero-title {
     color: #fff !important;
 }
 
-body.light-mode .hero-subtitle {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-body.light-mode .hero-section .planner-group span {
+body.light-mode .hero-section .planner-group span,
+body.light-mode .hero-section .planner-group label {
     color: rgba(255, 255, 255, 0.78) !important;
 }
 
@@ -1080,11 +1115,14 @@ body.light-mode .distance-badge-dark {
     border-color: rgba(var(--primary-brand-rgb), 0.2);
 }
 
-body.light-mode .distance-badge-dark[style*="color:#2ecc71"],
-body.light-mode .station-card [style*="color:#2ecc71"] {
-    color: #1b5e20 !important;
-    background: rgba(27, 94, 32, 0.06) !important;
-    border-color: rgba(27, 94, 32, 0.2) !important;
+body.light-mode .distance-badge-dark.badge-miqat {
+    color: #1b5e20;
+    background: rgba(27, 94, 32, 0.06);
+    border-color: rgba(27, 94, 32, 0.2);
+}
+
+body.light-mode .station-card.station-card-food h2 {
+    color: #c0392b;
 }
 
 body.light-mode .btn-station-map,
@@ -1108,7 +1146,7 @@ body.light-mode .progress-bar-bg {
 }
 
 body.light-mode .progress-bar-fill {
-    background: linear-gradient(90deg, var(--primary-brand), #c02d53);
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-brand));
     box-shadow: 0 0 8px rgba(var(--primary-brand-rgb), 0.3);
 }
 
@@ -1122,12 +1160,12 @@ body.light-mode .checklist-section-title {
     border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
-body.light-mode .emergency-box.qatar {
-    background: #f7e8ec;
+body.light-mode .emergency-box.country-local {
+    background: rgba(var(--primary-brand-rgb), 0.06);
     border-color: rgba(var(--primary-brand-rgb), 0.2);
 }
 
-body.light-mode .emergency-box.qatar h2 {
+body.light-mode .emergency-box.country-local h2 {
     color: var(--primary-brand) !important;
 }
 
@@ -1136,7 +1174,7 @@ body.light-mode .emergency-box.saudi {
     border-color: rgba(27, 94, 32, 0.15);
 }
 
-body.light-mode .emergency-box.qatar .emergency-number {
+body.light-mode .emergency-box.country-local .emergency-number {
     color: var(--primary-brand) !important;
 }
 
@@ -1344,7 +1382,18 @@ body.light-mode footer p:last-child {
     }
 
     .print-only {
-        display: none !important;
+        display: block !important;
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--primary-brand);
+    }
+
+    .print-only .print-title {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--primary-brand);
+        margin-bottom: 4px;
     }
 
     .section-header {

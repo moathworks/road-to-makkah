@@ -1,164 +1,23 @@
 /**
- * دليل السفر البري إلى مكة المكرمة - الملف البرمجي الموحد (Mobile-First Architecture)
- * يدعم تعدد الدول، حساب المسافات بمعادلة Haversine، حاسبة الوقود، الطقس ومواقيت الصلاة الحية، والعمل دون اتصال (PWA)
+ * دليل السفر البري إلى مكة المكرمة - الملف البرمجي التفاعلي (Mobile-First Architecture)
+ * يعمل على صفحات HTML المولّدة مسبقاً عبر build.js
  */
 
-// قوالب الإعدادات الجاهزة لجميع دول المشروع (تُفعل تلقائياً عبر data-country على وسم body أو window.COUNTRY_CONFIG)
-const COUNTRY_PRESETS = {
-    qa: {
+const CONFIG = Object.assign(
+    {
         countryCode: 'qa',
         countryName: 'قطر',
         defaultCity: 'الدوحة (افتراضي)',
         totalDistanceKm: 1480,
         estimatedDriveHours: 16,
         locale: 'ar-QA',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'البطاقة الشخصية القطرية QID',
-        emergencyNumber: '999',
-        flagFile: 'qa-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر بعد سلوى وحتى خريص، وبعد القويعية وحتى الطائف.',
-        stations: [
-            { km: 1480, name: 'الانطلاق (الدوحة)', lat: 25.2854, lon: 51.5310 },
-            { km: 1390, name: 'منفذ أبو سمرة / سلوى', lat: 24.7441, lon: 50.8354 },
-            { km: 1210, name: 'محطة ساسكو (طريق خريص)', lat: 25.1278, lon: 48.1633 },
-            { km: 1040, name: 'محطة جو ستيشن (طريق 80)', lat: 25.0500, lon: 47.4500 },
-            { km: 950, name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
-            { km: 900, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
-            { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-            { km: 600, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
-            { km: 455, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
-            { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
+        stations: []
     },
-    ae: {
-        countryCode: 'ae',
-        countryName: 'الإمارات',
-        defaultCity: 'أبوظبي (افتراضي)',
-        totalDistanceKm: 1550,
-        estimatedDriveHours: 16.5,
-        locale: 'ar-AE',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'بطاقة الهوية الإماراتية',
-        emergencyNumber: '999',
-        flagFile: 'ae-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر بعد منفذ البطحاء وحتى حرض/الأحساء، وبعد القويعية وحتى الطائف.',
-        stations: [
-            { km: 1550, name: 'الانطلاق (أبوظبي)', lat: 24.4539, lon: 54.3773 },
-            { km: 1210, name: 'منفذ الغويفات / البطحاء', lat: 24.1322, lon: 51.5739 },
-            { km: 950, name: 'الرياض', lat: 24.7136, lon: 46.6753 },
-            { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-            { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
-    },
-    bh: {
-        countryCode: 'bh',
-        countryName: 'البحرين',
-        defaultCity: 'المنامة (افتراضي)',
-        totalDistanceKm: 1280,
-        estimatedDriveHours: 13.5,
-        locale: 'ar-BH',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'البطاقة الشخصية البحرينية (CPR)',
-        emergencyNumber: '999',
-        flagFile: 'bh-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر على امتداد الطريق بعد القويعية وحتى منطقة الطائف.',
-        extraApps: [
-            {
-                title: 'جسر (JESR - جسر الملك فهد)',
-                desc: 'لدفع رسوم عبور الجسر، وتأمين المركبة، ومعرفة حالة الازدحام مباشرة',
-                iconHtml: '<div class="app-icon" style="background-color: white; display: flex; align-items: center; justify-content: center; font-size: 25px;">🌉</div>',
-                playUrl: 'https://play.google.com/store/apps/details?id=com.kfca.sa.jesr',
-                appleUrl: 'https://apps.apple.com/bh/app/jesr-%D8%AC%D8%B3%D8%B1/id1482105365',
-                webUrl: 'https://kfca.sa'
-            }
-        ],
-        stations: [
-            { km: 1280, name: 'الانطلاق (المنامة)', lat: 26.2235, lon: 50.5876 },
-            { km: 1255, name: 'منفذ جسر الملك فهد', lat: 26.1856, lon: 50.3267 },
-            { km: 1200, name: 'محطة ساسكو (طريق الدمام - الرياض)', lat: 26.2500, lon: 49.9500 },
-            { km: 1040, name: 'محطة جو ستيشن (طريق 80)', lat: 25.0500, lon: 47.4500 },
-            { km: 950, name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
-            { km: 900, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
-            { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-            { km: 600, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
-            { km: 455, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
-            { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
-    },
-    kw: {
-        countryCode: 'kw',
-        countryName: 'الكويت',
-        defaultCity: 'مدينة الكويت (افتراضي)',
-        totalDistanceKm: 1250,
-        estimatedDriveHours: 13.5,
-        locale: 'ar-KW',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'البطاقة المدنية الكويتية',
-        emergencyNumber: '112',
-        flagFile: 'kw-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر بعد منفذ السالمي/الرقعي، وعلى طريق شقراء - المويه - الطائف.',
-        stations: [
-            { km: 1250, name: 'الانطلاق (الكويت)', lat: 29.3759, lon: 47.9774 },
-            { km: 1140, name: 'منفذ السالمي / الرقعي', lat: 29.0789, lon: 46.6631 },
-            { km: 730, name: 'المجمعة / شقراء', lat: 25.9044, lon: 45.3447 },
-            { km: 380, name: 'ظلم / المويه', lat: 22.6500, lon: 42.1800 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
-    },
-    om: {
-        countryCode: 'om',
-        countryName: 'عُمان',
-        defaultCity: 'مسقط (افتراضي)',
-        totalDistanceKm: 1950,
-        estimatedDriveHours: 20,
-        locale: 'ar-OM',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'البطاقة الشخصية العُمانية',
-        emergencyNumber: '9999',
-        flagFile: 'om-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة والرمال المتحركة على طريق الربع الخالي - شيبة - البطحاء، وبعد القويعية وحتى الطائف.',
-        stations: [
-            { km: 1950, name: 'الانطلاق (مسقط)', lat: 23.5880, lon: 58.3829 },
-            { km: 1620, name: 'منفذ الربع الخالي (رملة خيلة)', lat: 22.0083, lon: 55.5667 },
-            { km: 950, name: 'الرياض / الخرج', lat: 24.1483, lon: 47.3050 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
-    },
-    sa: {
-        countryCode: 'sa',
-        countryName: 'السعودية',
-        defaultCity: 'الرياض (افتراضي)',
-        totalDistanceKm: 870,
-        estimatedDriveHours: 9,
-        locale: 'ar-SA',
-        fuelPriceDefault: 2.18,
-        nationalIdLabel: 'الهوية الوطنية السعودية / الإقامة',
-        emergencyNumber: '911',
-        flagFile: 'sa-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.',
-        stations: [
-            { km: 870, name: 'الانطلاق (الرياض)', lat: 24.7136, lon: 46.6753 },
-            { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
-            { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
-            { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
-            { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
-        ]
-    }
-};
+    window.COUNTRY_DATA || {}
+);
 
-const bodyCountryKey = (typeof document !== 'undefined' && document.body && document.body.dataset.country) || 'qa';
-const DEFAULT_CONFIG = COUNTRY_PRESETS[bodyCountryKey] || COUNTRY_PRESETS.qa;
-
-const CONFIG = Object.assign({}, DEFAULT_CONFIG, window.COUNTRY_CONFIG || {});
 const CHECKLIST_STORAGE_KEY = `meccaTripChecklist_${CONFIG.countryCode}`;
+const LATIN_AR_LOCALE = 'ar-u-nu-latn';
 
 // 1. إدارة فتح وطي الأقسام (Accordions) - مغلقة افتراضياً لتجربة تصفح نظيفة وسريعة
 let isAllExpanded = false;
@@ -201,9 +60,7 @@ function initAccordions() {
     const detailsElements = document.querySelectorAll('details.custom-accordion');
 
     detailsElements.forEach((details) => {
-        // تبدأ جميع القوائم مغلقة بشكل افتراضي دائماً عند فتح أو تحديث الصفحة
         details.removeAttribute('open');
-
         details.addEventListener('toggle', () => {
             updateToggleIcon();
         });
@@ -234,7 +91,7 @@ function startJourney() {
     window.open('https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate', '_blank', 'noopener');
 }
 
-// 3. حساب وقت الوصول المتوقع
+// 3. حساب وقت الوصول المتوقع (باستخدام setMinutes لدعم أنصاف الساعات بدقة دون اقتطاع)
 function calcArrival() {
     const depInputEl = document.getElementById('dep-time');
     const arrDisplay = document.getElementById('arr-time');
@@ -243,16 +100,17 @@ function calcArrival() {
     const depInput = depInputEl.value;
     if (depInput) {
         const depDate = new Date(depInput);
-        depDate.setHours(depDate.getHours() + CONFIG.estimatedDriveHours);
+        const totalMinutes = Math.round(CONFIG.estimatedDriveHours * 60);
+        depDate.setMinutes(depDate.getMinutes() + totalMinutes);
 
         const options = { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        arrDisplay.textContent = depDate.toLocaleDateString(CONFIG.locale, options);
+        arrDisplay.textContent = depDate.toLocaleDateString(LATIN_AR_LOCALE, options);
     } else {
         arrDisplay.textContent = 'حدد وقت الانطلاق';
     }
 }
 
-// 4. حاسبة تكلفة الوقود التقديرية
+// 4. حاسبة تكلفة الوقود التقديرية (بأرقام لاتينية موحدة)
 function calculateFuel() {
     const distEl = document.getElementById('calc-distance');
     const rateEl = document.getElementById('calc-rate');
@@ -270,16 +128,20 @@ function calculateFuel() {
     const totalCost = liters * price;
 
     litersEl.textContent = liters.toFixed(1) + ' لتر';
-    totalEl.textContent = Math.round(totalCost).toLocaleString() + ' ريال';
+    totalEl.textContent = Math.round(totalCost).toLocaleString('en-US') + ' ريال';
 }
 
-// 5. نظام قائمة المهام بسحّابات (Checklist)
+// 5. نظام قائمة المهام بسحّابات (Checklist) مع حفظ الحالة بمعرّف ثابت لكل بند
 function initChecklist() {
     const toggles = document.querySelectorAll('.checklist-toggle');
     const progressBarFill = document.getElementById('progress-fill');
     const progressPercent = document.getElementById('progress-percent');
 
     if (!toggles.length) return;
+
+    function getToggleKey(toggle, index) {
+        return toggle.dataset.checkId || toggle.id || ('check-' + index);
+    }
 
     function updateProgress() {
         let checkedCount = 0;
@@ -300,20 +162,26 @@ function initChecklist() {
 
     function saveChecklistState() {
         const state = {};
-        toggles.forEach(toggle => { state[toggle.id] = toggle.checked; });
+        toggles.forEach((toggle, idx) => {
+            state[getToggleKey(toggle, idx)] = toggle.checked;
+        });
         localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
-        if (CONFIG.countryCode === 'qa') {
-            localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
-        }
     }
 
     function loadChecklistState() {
-        const savedState = localStorage.getItem(CHECKLIST_STORAGE_KEY) || (CONFIG.countryCode === 'qa' ? localStorage.getItem('meccaTripChecklist') : null);
+        const savedState = localStorage.getItem(CHECKLIST_STORAGE_KEY)
+            || (CONFIG.countryCode === 'qa' ? localStorage.getItem('meccaTripChecklist') : null);
         if (savedState) {
             try {
                 const state = JSON.parse(savedState);
-                toggles.forEach(toggle => {
-                    if (state[toggle.id] !== undefined) toggle.checked = state[toggle.id];
+                toggles.forEach((toggle, idx) => {
+                    const stableKey = getToggleKey(toggle, idx);
+                    const legacyKey = toggle.dataset.legacyId || ('check-' + idx);
+                    if (state[stableKey] !== undefined) {
+                        toggle.checked = Boolean(state[stableKey]);
+                    } else if (state[legacyKey] !== undefined) {
+                        toggle.checked = Boolean(state[legacyKey]);
+                    }
                 });
             } catch (e) {
                 console.error('Error loading checklist state:', e);
@@ -322,11 +190,9 @@ function initChecklist() {
         updateProgress();
     }
 
-    toggles.forEach((toggle, index) => {
-        toggle.id = 'check-' + index;
+    toggles.forEach((toggle) => {
         toggle.addEventListener('change', updateProgress);
 
-        // السماح بالنقر على كامل سطر البند في الجوال لتبديل الحالة بسهولة
         const itemRow = toggle.closest('.switch-item');
         if (itemRow) {
             itemRow.addEventListener('click', (e) => {
@@ -355,15 +221,13 @@ function initChecklist() {
     }
 
     loadChecklistState();
-    window.updateProgress = updateProgress;
 }
 
-// 6. إدارة المظهر (الوضع النهاري / الداكن)
+// 6. إدارة المظهر (الوضع النهاري / الداكن) مع احترام تفضيل النظام افتراضياً
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
     const isLight = document.body.classList.contains('light-mode');
     localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
-    localStorage.setItem('makkahDarkMode', isLight ? 'false' : 'true');
     updateThemeBtn(isLight);
     changehCaptchaTheme(isLight ? 'light' : 'dark');
 }
@@ -418,16 +282,18 @@ function updateThemeBtn(isLight) {
     }
 }
 
-// 7. جلب درجة الحرارة ومواقيت الصلاة الفعلية لمكة المكرمة
+// 7. جلب درجة الحرارة ومواقيت الصلاة الفعلية لمكة المكرمة (دون إبقاء قيم وهمية عند الفشل)
 async function getMakkahTemp() {
+    const tempEl = document.getElementById('makkah-temp');
+    if (!tempEl) return;
     try {
         const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
+        if (!response.ok) throw new Error('Weather HTTP error');
         const data = await response.json();
         const temp = Math.round(data.current_weather.temperature);
-        const tempEl = document.getElementById('makkah-temp');
-        if (tempEl) tempEl.textContent = `${temp}°C`;
+        tempEl.textContent = `${temp}°C`;
     } catch (e) {
-        // الإبقاء على القيمة الافتراضية عند عدم توفر الإنترنت
+        tempEl.textContent = 'غير متاح';
     }
 }
 
@@ -449,8 +315,8 @@ async function getMakkahPrayers() {
     if (!line1 || !line2) return;
 
     try {
-        // method=4 هو تقويم أم القرى بمكة المكرمة
         const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabia&method=4');
+        if (!response.ok) throw new Error('Prayers HTTP error');
         const json = await response.json();
         if (json && json.data && json.data.timings) {
             const t = json.data.timings;
@@ -458,11 +324,12 @@ async function getMakkahPrayers() {
             line2.textContent = `المغرب ${formatTime12Ar(t.Maghrib)} | العشاء ${formatTime12Ar(t.Isha)}`;
         }
     } catch (e) {
-        // الإبقاء على القيم الافتراضية في حال عدم الاتصال بالإنترنت
+        line1.textContent = 'مواقيت الصلاة بمكة المكرمة';
+        line2.textContent = 'تتطلب اتصالاً بالإنترنت';
     }
 }
 
-// 8. حساب المسافة الجغرافية بمعادلة Haversine الدقيقة
+// 8. حساب المسافة الجغرافية بمعادلة Haversine الدقيقة وتحديد الموقع عند الطلب فقط
 function haversineKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -473,24 +340,29 @@ function haversineKm(lat1, lon1, lat2, lon2) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function initGeolocation() {
+function requestUserLocation() {
     const locNameEl = document.getElementById('currentLocationName');
+    const btnLocate = document.getElementById('btnLocateMe');
     if (!locNameEl) return;
 
     if (!navigator.geolocation) {
-        locNameEl.innerText = CONFIG.defaultCity;
-        calcRemaining(CONFIG.totalDistanceKm);
+        locNameEl.textContent = 'المتصفح لا يدعم GPS';
         return;
     }
 
+    locNameEl.textContent = 'جاري تحديد الموقع...';
+    if (btnLocate) btnLocate.disabled = true;
+
     navigator.geolocation.getCurrentPosition(function (position) {
+        if (btnLocate) btnLocate.disabled = false;
         const userLat = position.coords.latitude;
         const userLon = position.coords.longitude;
 
-        let closestStation = CONFIG.stations[0];
+        const stations = Array.isArray(CONFIG.stations) && CONFIG.stations.length ? CONFIG.stations : [];
+        let closestStation = stations[0] || { km: CONFIG.totalDistanceKm, name: CONFIG.defaultCity, lat: 21.4225, lon: 39.8262 };
         let minDistance = Infinity;
 
-        CONFIG.stations.forEach(station => {
+        stations.forEach(station => {
             const dist = haversineKm(userLat, userLon, station.lat, station.lon);
             if (dist < minDistance) {
                 minDistance = dist;
@@ -498,60 +370,88 @@ function initGeolocation() {
             }
         });
 
-        locNameEl.innerText = closestStation.name;
-        calcRemaining(closestStation.km);
+        const makkahLat = 21.4225;
+        const makkahLon = 39.8262;
+        const directToMakkahKm = haversineKm(userLat, userLon, makkahLat, makkahLon);
+
+        // إذا كان المستخدم بعيداً أكثر من 120 كم عن أقرب نقطة في المسار، نوضح أنه خارج المسار ونحسب المسافة التقديرية لمكة
+        if (minDistance > 120) {
+            const estimatedRoadKm = Math.round(directToMakkahKm * 1.22);
+            locNameEl.textContent = `خارج المسار (قرب ${closestStation.name})`;
+            calcRemaining(estimatedRoadKm);
+        } else {
+            locNameEl.textContent = closestStation.name;
+            calcRemaining(closestStation.km);
+        }
     }, function () {
-        locNameEl.innerText = CONFIG.defaultCity;
+        if (btnLocate) btnLocate.disabled = false;
+        locNameEl.textContent = `${CONFIG.defaultCity} (تعذر جلب GPS)`;
         calcRemaining(CONFIG.totalDistanceKm);
     }, { timeout: 8000, maximumAge: 60000 });
 }
 
 function calcRemaining(kmVal) {
-    const km = (kmVal !== undefined && kmVal !== null) ? kmVal : CONFIG.totalDistanceKm;
+    const km = (kmVal !== undefined && kmVal !== null) ? Math.max(0, Math.round(kmVal)) : CONFIG.totalDistanceKm;
     const remDistEl = document.getElementById('remDist');
     const remTimeEl = document.getElementById('remTime');
     const remArrivalEl = document.getElementById('remArrival');
 
-    if (remDistEl) remDistEl.innerText = km.toLocaleString() + ' كم';
+    if (remDistEl) remDistEl.textContent = km.toLocaleString('en-US') + ' كم';
 
-    const hours = Math.round((km / 100) * 10) / 10;
-    const h = Math.floor(hours);
-    const m = Math.round((hours - h) * 60);
+    // الزمن الصافي للقيادة بسرعة متوسطة 100 كم/س
+    const netDriveHours = km / 100;
+    const netTotalMinutes = Math.round(netDriveHours * 60);
+    const h = Math.floor(netTotalMinutes / 60);
+    const m = netTotalMinutes % 60;
+
     let timeStr = '';
     if (h > 0 && m > 0) {
-        timeStr = h + ' ساعة و ' + m + ' دقيقة';
+        timeStr = `${h} ساعة و ${m} دقيقة`;
     } else if (h > 0) {
-        timeStr = h + ' ساعة';
+        timeStr = `${h} ساعة`;
     } else {
-        timeStr = m + ' دقيقة';
+        timeStr = `${m} دقيقة`;
     }
-    if (remTimeEl) remTimeEl.innerText = timeStr;
+    if (remTimeEl) remTimeEl.textContent = timeStr;
 
-    const now = new Date();
-    const totalMinutes = Math.round(hours * 60);
-    now.setMinutes(now.getMinutes() + totalMinutes);
+    // وقت الوصول المتوقع من الموقع الحالي (بإضافة نسبة التوقفات والمنفذ ليتطابق مع الحاسبة العلوية)
+    const ratio = CONFIG.totalDistanceKm > 0 ? (km / CONFIG.totalDistanceKm) : 0;
+    const totalTripMinutes = Math.round(ratio * CONFIG.estimatedDriveHours * 60);
+    const arrivalDate = new Date();
+    arrivalDate.setMinutes(arrivalDate.getMinutes() + totalTripMinutes);
 
     const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
-    if (remArrivalEl) remArrivalEl.innerText = now.toLocaleDateString(CONFIG.locale, options);
+    if (remArrivalEl) remArrivalEl.textContent = arrivalDate.toLocaleDateString(LATIN_AR_LOCALE, options);
 }
 
-// 9. طباعة مسار الرحلة مع فتح جميع الأقسام مؤقتاً للطباعة الكاملة
-function printRoute() {
+// 9. طباعة مسار الرحلة (يدعم زر الطباعة واختصار Ctrl+P عبر beforeprint/afterprint)
+let savedAccordionStatesBeforePrint = null;
+
+function expandAccordionsForPrint() {
     const accordions = document.querySelectorAll('details.custom-accordion');
-    const previousStates = [];
+    savedAccordionStatesBeforePrint = Array.from(accordions).map(acc => acc.open);
+    accordions.forEach(acc => acc.setAttribute('open', ''));
+}
 
-    accordions.forEach(acc => {
-        previousStates.push(acc.open);
-        acc.setAttribute('open', '');
-    });
-
-    window.print();
-
+function restoreAccordionsAfterPrint() {
+    if (!savedAccordionStatesBeforePrint) return;
+    const accordions = document.querySelectorAll('details.custom-accordion');
     accordions.forEach((acc, idx) => {
-        if (!previousStates[idx]) {
+        if (!savedAccordionStatesBeforePrint[idx]) {
             acc.removeAttribute('open');
         }
     });
+    savedAccordionStatesBeforePrint = null;
+    updateToggleIcon();
+}
+
+window.addEventListener('beforeprint', expandAccordionsForPrint);
+window.addEventListener('afterprint', restoreAccordionsAfterPrint);
+
+function printRoute() {
+    expandAccordionsForPrint();
+    window.print();
+    restoreAccordionsAfterPrint();
 }
 
 // 10. مشاركة الصفحة
@@ -594,13 +494,13 @@ function fallbackCopy(text) {
     }
 }
 
-// 11. معالجة نموذج الاقتراحات وإرساله بالـ AJAX
+// 11. معالجة نموذج الاقتراحات وإرساله بالـ AJAX (باستخدام textContent للأمان)
 function initSuggestionForm() {
     const suggestForm = document.getElementById('suggestionForm');
     const suggestStatus = document.getElementById('suggestionStatus');
     const suggestBtn = document.getElementById('btnSubmitSuggest');
 
-    if (!suggestForm) return;
+    if (!suggestForm || !suggestStatus || !suggestBtn) return;
 
     suggestForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -608,7 +508,7 @@ function initSuggestionForm() {
         const accessKeyVal = suggestForm.querySelector('input[name="access_key"]')?.value.trim();
         if (!accessKeyVal || accessKeyVal === 'YOUR_ACCESS_KEY_HERE') {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.innerHTML = '⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.';
+            suggestStatus.textContent = '⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.';
             suggestStatus.style.display = 'block';
             return;
         }
@@ -616,7 +516,7 @@ function initSuggestionForm() {
         const msgVal = document.getElementById('suggest_message')?.value.trim();
         if (!msgVal) {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.innerHTML = '⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.';
+            suggestStatus.textContent = '⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.';
             suggestStatus.style.display = 'block';
             return;
         }
@@ -624,7 +524,7 @@ function initSuggestionForm() {
         const hCaptchaVal = suggestForm.querySelector('textarea[name=h-captcha-response]')?.value;
         if (!hCaptchaVal) {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.innerHTML = '⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.';
+            suggestStatus.textContent = '⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.';
             suggestStatus.style.display = 'block';
             return;
         }
@@ -650,19 +550,19 @@ function initSuggestionForm() {
                 const res = await response.json();
                 if (response.status === 200) {
                     suggestStatus.className = 'suggestion-status success';
-                    suggestStatus.innerHTML = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
+                    suggestStatus.textContent = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
                     suggestForm.reset();
                     if (typeof hcaptcha !== 'undefined') {
                         hcaptcha.reset();
                     }
                 } else {
                     suggestStatus.className = 'suggestion-status error';
-                    suggestStatus.innerHTML = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
+                    suggestStatus.textContent = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
                 }
             })
             .catch(() => {
                 suggestStatus.className = 'suggestion-status error';
-                suggestStatus.innerHTML = '❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة.';
+                suggestStatus.textContent = '❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة.';
             })
             .then(() => {
                 suggestBtn.disabled = false;
@@ -710,16 +610,12 @@ function registerPWA() {
     }
 }
 
-// تهيئة الأقسام المشتركة والمظهر فور تحميل الملف في نهاية الـ body (قبل تشغيل سكربت Web3Forms/hCaptcha)
 function bootstrapApp() {
-    // 1. حقن الأقسام والمحطات المشتركة فوراً في الـ DOM لتراها مكتبة Web3Forms hCaptcha
-    if (typeof window.renderSharedContent === 'function') {
-        window.renderSharedContent(CONFIG);
-    }
-
-    // 2. استعادة المظهر المفضل
+    // 1. استعادة المظهر المفضل أو احترام تفضيل النظام (prefers-color-scheme)
     const savedTheme = localStorage.getItem('darkGuideTheme');
-    const isLight = savedTheme !== 'dark';
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isLight = savedTheme ? savedTheme === 'light' : !prefersDark;
+
     if (!isLight) {
         document.body.classList.remove('light-mode');
         updateThemeBtn(false);
@@ -728,7 +624,6 @@ function bootstrapApp() {
         updateThemeBtn(true);
     }
 
-    // ضبط مظهر الكابتشا الافتراضي بحسب الوضع الحالي
     const captchaWidget = document.getElementById('h-captcha-widget');
     if (captchaWidget) {
         captchaWidget.setAttribute('data-theme', isLight ? 'light' : 'dark');
@@ -736,7 +631,7 @@ function bootstrapApp() {
 
     initAccordions();
     initChecklist();
-    initGeolocation();
+    calcRemaining(CONFIG.totalDistanceKm);
     calculateFuel();
     getMakkahTemp();
     getMakkahPrayers();
@@ -744,7 +639,6 @@ function bootstrapApp() {
     initMobileScrollSpy();
     registerPWA();
 
-    // التأكد من رندر الـ hCaptcha في حال تم تحميل سكربت hcaptcha مسبقاً
     const suggestionsDetails = document.getElementById('section-suggestions');
     if (suggestionsDetails) {
         suggestionsDetails.addEventListener('toggle', () => {
@@ -758,9 +652,4 @@ function bootstrapApp() {
     }
 }
 
-if (document.body && document.querySelector('.container')) {
-    bootstrapApp();
-} else {
-    document.addEventListener('DOMContentLoaded', bootstrapApp);
-}
-
+bootstrapApp();
