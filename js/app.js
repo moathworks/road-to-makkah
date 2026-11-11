@@ -62,14 +62,30 @@ const COUNTRY_PRESETS = {
         estimatedDriveHours: 13.5,
         locale: 'ar-BH',
         fuelPriceDefault: 2.18,
-        nationalIdLabel: 'البطاقة الشخصية البحرينية',
+        nationalIdLabel: 'البطاقة الشخصية البحرينية (CPR)',
         emergencyNumber: '999',
         flagFile: 'bh-flag.png',
-        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر بعد القويعية وحتى الطائف.',
+        camelWarningText: 'يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر على امتداد الطريق بعد القويعية وحتى منطقة الطائف.',
+        extraApps: [
+            {
+                title: 'جسر (JESR - جسر الملك فهد)',
+                desc: 'لدفع رسوم عبور الجسر، وتأمين المركبة، ومعرفة حالة الازدحام مباشرة',
+                iconHtml: '<div class="app-icon" style="background-color: white; display: flex; align-items: center; justify-content: center; font-size: 25px;">🌉</div>',
+                playUrl: 'https://play.google.com/store/apps/details?id=com.kfca.sa.jesr',
+                appleUrl: 'https://apps.apple.com/bh/app/jesr-%D8%AC%D8%B3%D8%B1/id1482105365',
+                webUrl: 'https://kfca.sa'
+            }
+        ],
         stations: [
-            { km: 1280, name: 'الانطلاق (المنامة - جسر الملك فهد)', lat: 26.1856, lon: 50.3267 },
+            { km: 1280, name: 'الانطلاق (المنامة)', lat: 26.2235, lon: 50.5876 },
+            { km: 1255, name: 'منفذ جسر الملك فهد', lat: 26.1856, lon: 50.3267 },
+            { km: 1200, name: 'محطة ساسكو (طريق الدمام - الرياض)', lat: 26.2500, lon: 49.9500 },
+            { km: 1040, name: 'محطة جو ستيشن (طريق 80)', lat: 25.0500, lon: 47.4500 },
             { km: 950, name: 'بداية الرياض (الدريس)', lat: 24.8333, lon: 46.8500 },
+            { km: 900, name: 'مخرج الرياض (طويق / القدية)', lat: 24.5800, lon: 46.3500 },
             { km: 770, name: 'محطة ساسكو (القويعية)', lat: 24.0489, lon: 45.2494 },
+            { km: 600, name: 'محطة ساسكو (الخاصرة)', lat: 23.4500, lon: 43.9500 },
+            { km: 455, name: 'محطة ساسكو (الحوميات)', lat: 22.9500, lon: 42.8500 },
             { km: 380, name: 'محطة ساسكو (ظلم)', lat: 22.6500, lon: 42.1800 },
             { km: 90, name: 'ميقات السيل الكبير (الطائف)', lat: 21.6267, lon: 40.4267 },
             { km: 0, name: 'مكة المكرمة (الحرم المكي)', lat: 21.4225, lon: 39.8262 }
@@ -170,43 +186,25 @@ function toggleAllAccordions() {
     const accordions = document.querySelectorAll('details.custom-accordion');
     const willExpand = !isAllExpanded;
 
-    accordions.forEach((acc, index) => {
-        const id = getAccordionKey(acc, index);
+    accordions.forEach((acc) => {
         if (willExpand) {
             acc.setAttribute('open', '');
-            localStorage.setItem(id, 'open');
         } else {
             acc.removeAttribute('open');
-            localStorage.setItem(id, 'closed');
         }
     });
 
     updateToggleIcon();
 }
 
-function getAccordionKey(details, index) {
-    if (details.id) return `detailsState_v2_${CONFIG.countryCode}_${details.id}`;
-    const titleElement = details.querySelector('summary');
-    const slug = titleElement ? titleElement.textContent.trim().replace(/\s+/g, '_') : index;
-    return `detailsState_v2_${CONFIG.countryCode}_${slug}`;
-}
-
 function initAccordions() {
     const detailsElements = document.querySelectorAll('details.custom-accordion');
 
-    detailsElements.forEach((details, index) => {
-        const storageKey = getAccordionKey(details, index);
-        const savedState = localStorage.getItem(storageKey);
-
-        if (savedState === 'open') {
-            details.setAttribute('open', '');
-        } else {
-            // مغلقة بشكل افتراضي في جميع الشاشات ما لم يقم المستخدم بفتحها
-            details.removeAttribute('open');
-        }
+    detailsElements.forEach((details) => {
+        // تبدأ جميع القوائم مغلقة بشكل افتراضي دائماً عند فتح أو تحديث الصفحة
+        details.removeAttribute('open');
 
         details.addEventListener('toggle', () => {
-            localStorage.setItem(storageKey, details.open ? 'open' : 'closed');
             updateToggleIcon();
         });
     });
@@ -304,12 +302,13 @@ function initChecklist() {
         const state = {};
         toggles.forEach(toggle => { state[toggle.id] = toggle.checked; });
         localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
-        // توافق مع المفتاح القديم
-        localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
+        if (CONFIG.countryCode === 'qa') {
+            localStorage.setItem('meccaTripChecklist', JSON.stringify(state));
+        }
     }
 
     function loadChecklistState() {
-        const savedState = localStorage.getItem(CHECKLIST_STORAGE_KEY) || localStorage.getItem('meccaTripChecklist');
+        const savedState = localStorage.getItem(CHECKLIST_STORAGE_KEY) || (CONFIG.countryCode === 'qa' ? localStorage.getItem('meccaTripChecklist') : null);
         if (savedState) {
             try {
                 const state = JSON.parse(savedState);

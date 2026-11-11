@@ -1,4 +1,4 @@
-const CACHE_NAME = 'makkah-road-guide-v6';
+const CACHE_NAME = 'makkah-road-guide-v7';
 const CORE_ASSETS = [
     './',
     './index.html',
@@ -9,6 +9,8 @@ const CORE_ASSETS = [
     './js/app.js',
     './qatar/',
     './qatar/index.html',
+    './bahrain/',
+    './bahrain/index.html',
     './assets/images/absher.svg',
     './assets/images/hungerstation.png',
     './assets/images/jahez.png',

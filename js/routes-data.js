@@ -366,7 +366,24 @@ const SHARED_SECTION_RENDERERS = {
             </div>
         </details>`,
 
-    apps: () => `
+    apps: (cfg) => {
+        const extraAppsHtml = (cfg && Array.isArray(cfg.extraApps)) ? cfg.extraApps.map(app => `
+                <div class="app-item">
+                    <div class="app-info">
+                        ${app.iconHtml || `<img loading="lazy" src="${app.iconSrc}" alt="${app.title}" class="app-icon">`}
+                        <div>
+                            <div class="app-title">${app.title}</div>
+                            <div class="app-desc">${app.desc}</div>
+                        </div>
+                    </div>
+                    <div class="app-links">
+                        ${app.playUrl ? `<a href="${app.playUrl}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="${app.title} على Google Play">${PLAY_STORE_SVG}</a>` : ''}
+                        ${app.appleUrl ? `<a href="${app.appleUrl}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="${app.title} على App Store">${APP_STORE_SVG}</a>` : ''}
+                        ${app.webUrl ? `<a href="${app.webUrl}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني" aria-label="موقع ${app.title}">${EXTERNAL_LINK_SVG}</a>` : ''}
+                    </div>
+                </div>`).join('\n') : '';
+
+        return `
         <details class="custom-accordion apps-section" id="section-apps">
             <summary>
                 <span style="display: flex; align-items: center;">
@@ -374,7 +391,7 @@ const SHARED_SECTION_RENDERERS = {
                 </span>
                 ${CHEVRON_SVG}
             </summary>
-            <div class="accordion-content">
+            <div class="accordion-content">${extraAppsHtml}
                 <div class="app-item">
                     <div class="app-info">
                         <img loading="lazy" src="../assets/images/manafeth.png" alt="Manafeth" class="app-icon">
@@ -427,7 +444,7 @@ const SHARED_SECTION_RENDERERS = {
                     </div>
                     <div class="app-links">
                         <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="تطبيق جاهز على Google Play">${PLAY_STORE_SVG}</a>
-                        <a href="https://apps.apple.com/sa/app/jahez-جاهز/id1137352712" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="تطبيق جاهز على App Store">${APP_STORE_SVG}</a>
+                        <a href="https://apps.apple.com/sa/app/jahez-%D8%AC%D8%A7%D9%87%D8%B2/id1137352156" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="تطبيق جاهز على App Store">${APP_STORE_SVG}</a>
                     </div>
                 </div>
 
@@ -468,12 +485,13 @@ const SHARED_SECTION_RENDERERS = {
                     </div>
                     <div class="app-links">
                         <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="تطبيق قطار الحرمين على Google Play">${PLAY_STORE_SVG}</a>
-                        <a href="https://apps.apple.com/es/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="تطبيق قطار الحرمين على App Store">${APP_STORE_SVG}</a>
+                        <a href="https://apps.apple.com/sa/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="تطبيق قطار الحرمين على App Store">${APP_STORE_SVG}</a>
                         <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="الموقع الإلكتروني" aria-label="موقع قطار الحرمين">${EXTERNAL_LINK_SVG}</a>
                     </div>
                 </div>
             </div>
-        </details>`,
+        </details>`;
+    },
 
     emergency: (cfg) => {
         const cCode = (cfg && cfg.countryCode) || 'qa';

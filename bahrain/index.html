@@ -1,24 +1,375 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#CE1126">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="دليل السفر البري من مملكة البحرين إلى مكة المكرمة عبر جسر الملك فهد: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.">
     <title>دليل السفر البري من البحرين إلى مكة المكرمة</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css?v=2.0">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕋</text></svg>">
+    <style>
+        /* تخصيص ألوان الهوية البصرية لمملكة البحرين (الأحمر البحريني) */
+        body.light-mode {
+            --primary-brand: #CE1126;
+            --primary-brand-rgb: 206, 17, 38;
+            --primary-dark: #8F0B1A;
+        }
+    </style>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
 </head>
-<body>
-    <div class="container" style="justify-content: center; align-items: center; text-align: center;">
-        <div class="route-card" style="max-width: 480px; width: 100%; align-items: center; text-align: center; padding: 32px 24px;">
-            <div style="font-size: 3rem; margin-bottom: 12px;">🕋</div>
-            <h1 style="font-size: 1.4rem; color: var(--gold); margin-bottom: 12px;">دليل السفر البري من البحرين إلى مكة المكرمة</h1>
-            <p style="margin-bottom: 24px;">جاري العمل على إعداد وتدقيق محطات ومسارات هذا الدليل ليظهر بأفضل صورة قريباً بإذن الله.</p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 100%;">
-                <a href="../" class="btn-launch" style="text-decoration: none; flex: 1;">🏠 العودة للرئيسية</a>
-                <a href="../qatar/" class="btn-station-map" style="flex: 1;">تصفح دليل قطر المتاح حالياً</a>
+
+<body class="light-mode" data-country="bh">
+
+    <div class="container">
+
+        <!-- هيدر خاص للطباعة فقط -->
+        <div class="print-only print-header">
+            <h1>مسار الرحلة البرية من البحرين إلى مكة المكرمة 🕋</h1>
+            <p>دليل رقمي لتخطيط مسارات السفر البري عبر جسر الملك فهد ومحطات الوقود والراحة 2026</p>
+        </div>
+
+        <!-- الهيدر -->
+        <header>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                <a href="../" class="header-logo">
+                    <img loading="lazy" src="../assets/images/bh-flag.png" alt="البحرين" class="flag-img">
+                    البحرين ← 🕋 مكة المكرمة
+                </a>
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">آخر تحديث: 10 نوفمبر 2026</div>
+            </div>
+            <div class="quick-actions-row">
+                <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" aria-label="الرئيسية (كل الدول)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر" aria-label="تغيير المظهر">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة" aria-label="طباعة مسار الرحلة">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل" aria-label="مشاركة الدليل">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
+                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طي / فتح الكل" aria-label="طي أو فتح الكل">
+                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="7 11 12 6 17 11"></polyline>
+                        <polyline points="7 18 12 13 17 18"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 2px 0 0 0; line-height: 1.4; max-width: 92%;">دليل رقمي متكامل للرحلات البرية عبر جسر الملك فهد وصولاً إلى الحرم المكي الشريف.</p>
+        </header>
+
+        <!-- البار العلوي للمعلومات (مواقيت الصلاة الحية في مكة + الطقس المباشر) -->
+        <div class="top-info-bar">
+            <div class="info-item prayer" style="gap: 6px;">
+                <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">🔔</span>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+                    <span id="prayer-line-1" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">الفجر 4:35 ص | الشروق 6:00 ص</span>
+                    <span id="prayer-line-2" style="font-size: 0.75rem; font-weight: 600; opacity: 0.95; line-height: 1.25;">المغرب 6:30 م | العشاء 8:00 م</span>
+                </div>
+            </div>
+            <div class="info-item weather" style="flex-direction: column; align-items: center; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 4px;">
+                    <span class="info-icon" style="font-size: 1.1rem; line-height: 1;">☀️</span>
+                    <span id="makkah-temp">35°C</span>
+                </div>
+                <span style="font-size: 0.75rem; font-weight: 600; opacity: 0.9;">مكة المكرمة</span>
             </div>
         </div>
+
+        <!-- نصائح السفر وأذكار الطريق (مشترك بين كل الدول) -->
+        <div data-shared-section="prayers"></div>
+
+        <!-- قائمة الفحص الذكية قبل السفر (مشتركة مع تخصيص البطاقة الشخصية البحرينية CPR تلقائياً) -->
+        <div data-shared-section="checklist"></div>
+
+        <!-- حاسبة وقت ومسار وتكلفة الرحلة -->
+        <details class="custom-accordion hero-section" id="section-calculator">
+            <summary>
+                <h2 class="hero-title">⏱️ حاسبة وقت ومسار وتكلفة الرحلة</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content" style="text-align: center;">
+
+                <!-- 1. حاسبة وقت الانطلاق والوصول -->
+                <div class="trip-planner">
+                    <div class="planner-group">
+                        <span>توقيت الانطلاق</span>
+                        <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
+                    </div>
+                    <div class="planner-group">
+                        <span>المسافة المقدرة</span>
+                        <strong>1,280 كم</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>وقت الوصول المتوقع</span>
+                        <strong id="arr-time" style="color: var(--gold);">حدد وقت الانطلاق</strong>
+                    </div>
+                </div>
+
+                <!-- 2. حاسبة المسافة المتبقية المباشرة (GPS) -->
+                <div class="trip-planner">
+                    <div class="planner-group">
+                        <span>الموقع الحالي (تلقائي GPS)</span>
+                        <strong id="currentLocationName" style="color: #fff;">جاري تحديد الموقع...</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>المسافة المتبقية لمكة</span>
+                        <strong id="remDist">1,280 كم</strong>
+                    </div>
+                    <div class="planner-group">
+                        <span>وقت الوصول من موقعك*</span>
+                        <strong id="remArrival" style="color: var(--gold);">--:--</strong>
+                        <span style="font-size: 0.72rem; opacity: 0.85; margin-top: 4px; color: var(--text-muted);">*الزمن المتبقي: <span id="remTime">12 ساعة و 48 دقيقة</span> قيادة</span>
+                    </div>
+                </div>
+
+                <!-- 3. حاسبة تكلفة الوقود التقديرية -->
+                <div class="trip-planner" style="margin-bottom: 18px;">
+                    <div class="planner-group">
+                        <span>المسافة لحساب الوقود (كم)</span>
+                        <input type="number" id="calc-distance" class="planner-input" value="1280" min="0" step="10" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>استهلاك السيارة (لتر/100كم)</span>
+                        <input type="number" id="calc-rate" class="planner-input" value="10" min="1" max="35" step="0.5" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>سعر اللتر (ريال)</span>
+                        <input type="number" id="calc-price" class="planner-input" value="2.18" min="0.5" max="10" step="0.05" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>الوقود والتكلفة التقديرية</span>
+                        <strong id="res-total" style="color: var(--gold); font-size: 1.15rem;">279 ريال</strong>
+                        <span id="res-liters" style="font-size: 0.75rem; margin-top: 3px; color: rgba(255,255,255,0.8);">128.0 لتر</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-launch" onclick="startJourney()">📍 ابدأ الملاحة المباشرة إلى مكة المكرمة</button>
+            </div>
+        </details>
+
+        <!-- خيارات مسارات السفر البري (خاص بمملكة البحرين) -->
+        <div class="section-header" id="section-routes">🛣️ خيارات مسارات السفر البري</div>
+        <div class="carousel-container">
+            <div class="route-card">
+                <div>
+                    <h2>طريق 80 السريع (المسار الرئيسي)</h2>
+                    <p><strong>خط السير:</strong> المنامة ← جسر الملك فهد ← الدمام/الظهران ← طريق 80 السريع ← الرياض ← القويعية ← ظلم ← الطائف ← مكة المكرمة.</p>
+                    <p style="margin-top: 6px;">المسار المباشر والأكثر أماناً، مضاء في معظمه ويحتوي على أحدث المحطات النموذجية (ساسكو والدريس).</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge">المسافة: 1,280 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&dir_action=navigate" target="_blank" rel="noopener noreferrer" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
+            </div>
+            <div class="route-card">
+                <div>
+                    <h2>مسار التفافي حول الرياض</h2>
+                    <p><strong>خط السير:</strong> المنامة ← جسر الملك فهد ← طريق الدمام السريع ← طريق الملك سلمان (الدائري الشمالي الجديد) للربط مع طريق الحجاز.</p>
+                    <p style="margin-top: 6px;">يُنصح به لتجاوز زحام وسط العاصمة الرياض في ساعات الذروة (7 صباحاً - 5 عصراً).</p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px; flex-wrap: wrap; width: 100%;">
+                    <div class="route-badge">المسافة: 1,310 كم</div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate" target="_blank" rel="noopener noreferrer" class="route-card-link">📍 بدء الرحلة</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- محطات طريق الذهاب (المنامة - الرياض) [خاص بالبحرين] -->
+        <details class="custom-accordion" id="section-stations-start">
+            <summary>
+                <span>⛽ محطات طريق الذهاب (المنامة ← الرياض)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~18 كم عن المنامة</div>
+                            <h2>1. محطة بابكو (الجنبية - البحرين)</h2>
+                            <p>آخر محطة للتزود بالوقود داخل البحرين قبل الصعود إلى جسر الملك فهد.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Bapco+Station+Janabiyah+Bahrain" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">في منتصف الجسر (الحدود)</div>
+                            <h2>2. استراحة ومنفذ جسر الملك فهد</h2>
+                            <p>إنهاء إجراءات الجوازات والجمارك والتأمين، وتتوفر بها مساجد ومطاعم واستراحات.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~55 كم عن جسر الملك فهد</div>
+                            <h2>3. محطة ساسكو (طريق الدمام - الرياض)</h2>
+                            <p>أولى المحطات النموذجية الكبرى بعد الخبر والدمام على بداية طريق 80 السريع.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=SASCO+Dammam+Riyadh+Highway" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~160 كم عن المحطة السابقة</div>
+                            <h2>4. محطة جو ستيشن</h2>
+                            <p>محطة حديثة ومتكاملة في منتصف طريق الدمام - الرياض (طريق 80 السريع).</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
+                            <h2>5. الدريس (مدخل الرياض)</h2>
+                            <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل دخول الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- محطات داخل الرياض - طريق 80 (مشترك) -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات مدينة الرياض - طريق 80 (المسار الرئيسي)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div data-shared-stations="riyadhMain80" data-start-number="6" data-grid-class="riyadh-inner-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات الرياض - المسار الالتفافي (مشترك) -->
+        <details class="custom-accordion" style="border-color: rgba(212, 175, 55, 0.35);">
+            <summary>
+                <span>⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+                <div data-shared-stations="riyadhBypassSalman" data-start-number="6" data-grid-class="riyadh-inner-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق الذهاب (الرياض ← الطائف ← مكة) (مشترك) -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div data-shared-stations="riyadhToMakkah" data-start-number="8" data-grid-class="stations-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق العودة (المدينة المنورة ← الرياض) (مشترك) -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
+                <div data-shared-stations="madinahToRiyadhReturn" data-start-number="1" data-grid-class="stations-grid"></div>
+            </div>
+        </details>
+
+        <!-- محطات طريق العودة (الرياض ← المنامة) [خاص بالبحرين] -->
+        <details class="custom-accordion">
+            <summary>
+                <span>⛽ محطات طريق العودة (الرياض ← المنامة)</span>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">المحطات الموصى بها أثناء العودة من الرياض عبر طريق 80 السريع إلى جسر الملك فهد والمنامة:</p>
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">بداية طريق الرياض - الدمام</div>
+                            <h2>1. محطة أدنوك</h2>
+                            <p>من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FojQ3PxaBSpgpBydA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~77 كم عن المحطة السابقة</div>
+                            <h2>2. محطة ساسكو</h2>
+                            <p>من المحطات الكبرى والرئيسية على طريق 80 السريع.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~105 كم عن المحطة السابقة</div>
+                            <h2>3. محطة الدريس</h2>
+                            <p>خدمات وقود واستراحة وتموينات على طريق الرياض - الدمام السريع.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/9NnjRSQ9hupFi64r7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">الخبر ← المنامة</div>
+                            <h2>4. استراحة ومنفذ جسر الملك فهد</h2>
+                            <p>إنهاء إجراءات العودة عبر جسر الملك فهد والدخول إلى أراضي مملكة البحرين.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- الأقسام المشتركة لجميع الدول (تُحقن تلقائياً من routes-data.js) -->
+        <div data-shared-section="pilgrim-info"></div>
+        <div data-shared-section="places"></div>
+        <div data-shared-section="apps"></div>
+        <div data-shared-section="emergency"></div>
+        <div data-shared-section="suggestions"></div>
+        <div data-shared-section="footer"></div>
+
     </div>
+
+    <!-- شريط التنقل السفلي الذكي للجوال -->
+    <div data-shared-section="mobile-nav"></div>
+
+    <script src="../js/routes-data.js?v=2.4"></script>
+    <script src="../js/app.js?v=2.4"></script>
+    <!-- Web3Forms Client Script (يُحمّل بعد بناء نموذج الاقتراحات في الـ DOM ليظهر الـ hCaptcha فوراً) -->
+    <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
+
 </html>
