@@ -1,0 +1,400 @@
+/* أنماط الصفحة الرئيسية (index.html) */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #0d0d0d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    position: relative;
+    padding: 20px 12px;
+}
+
+.bg-fixed {
+    position: fixed;
+    inset: 0;
+    background: url('../assets/images/kaaba.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    max-width: 660px;
+    width: 100%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: clamp(1.35rem, 5.3vw, 2.3rem);
+    font-weight: 900;
+    margin-bottom: 14px;
+    margin-top: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    color: #f1c40f;
+    line-height: 1.35;
+}
+
+.weather-widget {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin-top: 6px;
+    margin-bottom: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #f1c40f;
+}
+
+.countries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.country-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 14px 10px;
+    min-height: 54px;
+    border-radius: 14px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+.country-link.featured {
+    background: rgba(241, 196, 15, 0.16);
+    border-color: rgba(241, 196, 15, 0.55);
+}
+
+.country-link.upcoming {
+    opacity: 0.82;
+}
+
+.soon-badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.16);
+    color: #f1c40f;
+    padding: 2px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(241, 196, 15, 0.35);
+}
+
+.country-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+}
+
+.country-flag {
+    width: 26px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 3px;
+    flex-shrink: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.apps-section,
+.faq-section {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    text-align: start;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.app-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.app-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.app-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.app-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.app-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #f1c40f;
+    margin-bottom: 2px;
+}
+
+.app-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.35;
+}
+
+.app-links {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.app-store-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 14px;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    transition: all 0.25s ease;
+    font-weight: 700;
+}
+
+.app-store-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-2px);
+}
+
+.faq-item {
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.faq-q {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #f1c40f;
+    margin-bottom: 4px;
+}
+
+.faq-a {
+    font-size: 0.92rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+.share-btn {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: #1e272e;
+    border: none;
+    padding: 12px 30px;
+    min-height: 48px;
+    border-radius: 25px;
+    font-size: 1.05rem;
+    font-weight: 900;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(241, 196, 15, 0.6);
+}
+
+.footer {
+    font-size: 1rem;
+    color: #dcdde1;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 28px 16px;
+        border-radius: 20px;
+    }
+
+    .countries {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .apps-section,
+    .faq-section {
+        padding: 16px 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .app-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .app-links {
+        width: 100%;
+    }
+
+    .app-store-btn {
+        flex: 1;
+    }
+}
+
+/* عناوين الأقسام والتذييل (كانت أنماطاً داخلية) */
+.home-section-title {
+    font-size: 1.15rem;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+.apps-section .home-section-title {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-section-title svg {
+    width: 24px;
+    height: 24px;
+    margin-inline-end: 8px;
+}
+
+.app-store-btn svg path {
+    fill: #fff;
+}
+
+/* زر تبديل اللغة (EN / ع) */
+.home-lang-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-inline-start: auto;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.25s ease;
+}
+
+.home-lang-toggle:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.footer-greeting {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.footer-dua {
+    color: #f1c40f;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.footer-credit {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    margin: 0;
+}

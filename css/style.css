@@ -1,4 +1,8 @@
 :root {
+    /* لون هوية الدولة: يُعرَّف في <style> كل صفحة، وهذه القيم الافتراضية */
+    --brand: #8A1538;
+    --brand-rgb: 138, 21, 56;
+    --brand-dark: #5A0E25;
     --primary-brand: #ffffff;
     --primary-brand-rgb: 138, 21, 56;
     --primary-dark: #1e1e1e;
@@ -15,9 +19,9 @@
 }
 
 body.light-mode {
-    --primary-brand: #8A1538;
-    --primary-brand-rgb: 138, 21, 56;
-    --primary-dark: #5A0E25;
+    --primary-brand: var(--brand);
+    --primary-brand-rgb: var(--brand-rgb);
+    --primary-dark: var(--brand-dark);
     --bg-dark: #F9F7F1;
     --card-bg: #FFFFFF;
     --card-border: rgba(0, 0, 0, 0.08);
@@ -73,6 +77,13 @@ header {
     border-bottom: none;
 }
 
+.header-h1 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
 .header-logo {
     font-size: 1.35rem;
     font-weight: 900;
@@ -83,10 +94,6 @@ header {
     gap: 8px;
     text-decoration: none;
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
-}
-
-.header-logo span {
-    color: var(--gold);
 }
 
 .quick-actions-row {
@@ -174,8 +181,45 @@ body:not(.light-mode) .info-item.weather {
 }
 
 .info-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    line-height: 1;
     flex-shrink: 0;
+}
+
+.info-item.prayer {
+    gap: 6px;
+}
+
+.info-item.weather {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.prayer-lines {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.prayer-lines span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.95;
+    line-height: 1.25;
+}
+
+.weather-now {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.weather-city {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.9;
 }
 
 /* الأكورديون المخصص */
@@ -264,15 +308,6 @@ details.custom-accordion.hero-section {
     letter-spacing: -0.3px;
 }
 
-.hero-subtitle {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* حاسبة الرحلة والتخطيط */
 .trip-planner {
     display: grid;
@@ -293,7 +328,8 @@ details.custom-accordion.hero-section {
     text-align: center;
 }
 
-.planner-group span {
+.planner-group span,
+.planner-group label {
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 6px;
@@ -316,6 +352,12 @@ details.custom-accordion.hero-section {
     font-size: 1rem;
     min-height: 44px;
     cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.planner-input:focus-visible {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35);
 }
 
 .planner-input::-webkit-calendar-picker-indicator {
@@ -351,8 +393,8 @@ details.custom-accordion.hero-section {
     display: flex;
     align-items: center;
     gap: 8px;
-    border-right: 4px solid var(--gold);
-    padding-right: 12px;
+    border-inline-start: 4px solid var(--gold);
+    padding-inline-start: 12px;
 }
 
 /* كروت المسارات التفاعلية */
@@ -368,7 +410,6 @@ details.custom-accordion.hero-section {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     padding: 18px;
-    backdrop-filter: blur(10px);
     transition: transform 0.3s, border-color 0.3s;
     display: flex;
     flex-direction: column;
@@ -380,7 +421,7 @@ details.custom-accordion.hero-section {
     border-color: rgba(212, 175, 55, 0.3);
 }
 
-.route-card h2 {
+.route-card h3 {
     font-size: 1.05rem;
     color: #fff;
     margin-bottom: 10px;
@@ -439,7 +480,6 @@ details.custom-accordion.hero-section {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     padding: 18px;
-    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -451,7 +491,7 @@ details.custom-accordion.hero-section {
     border-color: var(--gold);
 }
 
-.station-card h2 {
+.station-card h3 {
     font-size: 1.05rem;
     color: #fff;
     margin-bottom: 6px;
@@ -500,6 +540,34 @@ details.custom-accordion.hero-section {
     background: var(--gold);
     color: #121212;
     border-color: var(--gold);
+}
+
+/* أنماط البطاقات المميزة (مطعم البيك / الميقات) بدون inline styles */
+.station-card.station-card-food {
+    border: 2px solid #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.station-card.station-card-food h3 {
+    color: #e74c3c;
+}
+
+.station-card.station-card-food .btn-station-map {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    color: #ffffff;
+}
+
+.distance-badge-dark.badge-food {
+    background: rgba(231, 76, 60, 0.12);
+    color: #e74c3c;
+    border-color: rgba(231, 76, 60, 0.25);
+}
+
+.distance-badge-dark.badge-miqat {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.2);
 }
 
 /* مجموعات محطات الرياض */
@@ -623,7 +691,7 @@ details.custom-accordion.hero-section {
     content: "";
     height: 20px;
     width: 20px;
-    right: 3px;
+    inset-inline-start: 3px;
     bottom: 3px;
     background-color: white;
     transition: .3s;
@@ -637,6 +705,15 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(-20px);
+}
+
+[dir="ltr"] input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.switch input:focus-visible + .slider {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
 }
 
 /* أزرار تحديد الكل بقائمة المهام */
@@ -745,27 +822,25 @@ body.light-mode .apps-section .app-title {
     fill: var(--card-bg);
 }
 
-/* روابط الأماكن السياحية الدينية */
-.place-map-chip {
-    text-decoration: none;
-    margin-left: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    background-color: var(--inner-bg);
-    border: 1px solid var(--card-border);
-    padding: 6px 12px;
-    border-radius: 8px;
-    color: var(--text-light);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    min-height: 36px;
-    transition: all 0.2s ease;
+/* الأماكن التاريخية: دبوس ثم اسم المكان رابطاً إلى الخريطة */
+.place-pin {
+    margin-inline-end: 6px;
 }
 
-.place-map-chip:hover {
-    border-color: var(--gold);
-    background-color: rgba(212, 175, 55, 0.12);
+.place-link {
+    color: var(--text-light);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(212, 175, 55, 0.6);
+    text-underline-offset: 4px;
+}
+
+.place-link:hover {
+    color: var(--gold);
+}
+
+body.light-mode .place-link:hover {
+    color: var(--primary-brand);
 }
 
 /* أرقام الطوارئ */
@@ -793,15 +868,19 @@ body.light-mode .apps-section .app-title {
     background: rgba(46, 204, 113, 0.03);
 }
 
-.emergency-box.qatar {
+.emergency-box.country-local {
     border-color: rgba(var(--primary-brand-rgb), 0.25);
     background: rgba(var(--primary-brand-rgb), 0.04);
 }
 
-.emergency-box h2 {
+.emergency-box h3 {
     font-size: 0.88rem;
     color: var(--text-muted);
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .emergency-number {
@@ -826,7 +905,7 @@ body.light-mode .apps-section .app-title {
     color: #2ecc71;
 }
 
-.qatar .emergency-number {
+.country-local .emergency-number {
     color: var(--gold);
 }
 
@@ -845,7 +924,6 @@ body.light-mode .apps-section .app-title {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     margin-bottom: 20px;
-    backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transition: border-color 0.3s;
 }
@@ -903,7 +981,7 @@ body.light-mode .apps-section .app-title {
     min-height: 110px;
 }
 
-.recaptcha-container {
+.captcha-container {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
@@ -986,8 +1064,461 @@ footer p {
     margin-bottom: 10px;
 }
 
-/* شريط التنقل السفلي الذكي للجوال (Mobile Sticky Bottom Nav) */
-.mobile-bottom-nav {
+/* ====== أصناف دلالية (بديلة عن الأنماط الداخلية inline) ====== */
+.hidden {
+    display: none;
+}
+
+.accordion-title {
+    font: inherit;
+    color: inherit;
+}
+
+.summary-with-icon {
+    display: flex;
+    align-items: center;
+}
+
+.summary-with-icon svg {
+    width: 22px;
+    height: 22px;
+    margin-inline-end: 8px;
+}
+
+details.custom-accordion.accordion-bypass {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.hero-section .chevron-icon {
+    color: var(--gold);
+}
+
+.header-title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.last-updated {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-top: 2px;
+}
+
+.header-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 2px 0 0 0;
+    line-height: 1.4;
+    max-width: 92%;
+}
+
+.text-block {
+    margin-bottom: 10px;
+}
+
+.text-block:last-child {
+    margin-bottom: 0;
+}
+
+/* الصفحة الإنجليزية: نص الدعاء بالعربية ثم معناه */
+.dua-arabic {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.05em;
+    line-height: 1.9;
+}
+
+.dua-translation {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-muted);
+}
+
+/* زر تبديل اللغة (EN / ع) */
+.lang-toggle {
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.coming-soon-actions > a[hreflang] {
+    flex: 0 0 auto;
+    min-width: 56px;
+}
+
+.section-intro {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.inline-link {
+    text-decoration: underline;
+    color: inherit;
+    font-weight: bold;
+}
+
+.info-tip {
+    margin-bottom: 8px;
+}
+
+.info-tip:last-child {
+    margin-bottom: 0;
+}
+
+.info-divider {
+    border-color: var(--card-border);
+    margin: 14px 0;
+    opacity: 0.5;
+}
+
+/* الحاسبة */
+.planner-group .planner-highlight {
+    color: var(--gold);
+}
+
+.planner-group .planner-total {
+    font-size: 1.15rem;
+}
+
+.planner-group .planner-note {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.planner-group .fuel-liters {
+    font-size: 0.75rem;
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.trip-planner-fuel {
+    margin-bottom: 18px;
+}
+
+.btn-locate {
+    margin-top: 6px;
+    padding: 5px 12px;
+    min-height: 32px;
+    font-size: 0.78rem;
+}
+
+/* بطاقات المسارات */
+.route-card .route-desc {
+    margin-top: 6px;
+}
+
+.route-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* الأماكن التاريخية */
+.places-wrap {
+    margin-top: 8px;
+}
+
+.places-group {
+    margin-bottom: 20px;
+}
+
+.places-group:last-child {
+    margin-bottom: 0;
+}
+
+.places-title {
+    margin: 0 0 12px 0;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.places-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.place-note {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    margin-top: 6px;
+    margin-inline-start: 10px;
+}
+
+.place-extra {
+    margin-top: 6px;
+    margin-inline-start: 10px;
+    font-size: 0.92em;
+}
+
+.place-extra-note {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+/* أيقونات التطبيقات */
+.apps-section .app-icon.app-icon-emoji {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.apps-section .app-icon.app-icon-contain {
+    background-color: #fff;
+    padding: 6px;
+    object-fit: contain;
+}
+
+/* قسم الطوارئ */
+.emergency-section {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    margin-bottom: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    scroll-margin-top: 14px;
+}
+
+.emergency-body {
+    padding: 18px;
+}
+
+.emergency-number.emergency-number-long {
+    font-size: 1.4rem;
+}
+
+.emergency-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.required-mark {
+    color: #e74c3c;
+}
+
+/* الفوتر */
+.footer-greeting {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.footer-dua {
+    font-size: 0.98rem;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.footer-credit {
+    opacity: 0.75;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+/* صفحات «قريباً» */
+.container.coming-soon {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.route-card.coming-soon-card {
+    max-width: 480px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.coming-soon-title {
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+}
+
+.route-card .coming-soon-text {
+    margin-bottom: 24px;
+}
+
+.coming-soon-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.coming-soon-actions > a {
+    flex: 1;
+    text-decoration: none;
+}
+
+/* عناوين مراحل الرحلة (قبل السفر / في الطريق / في مكة والمدينة / العودة) */
+.phase-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin: 30px 0 14px;
+    scroll-margin-top: 14px;
+}
+
+.phase-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+}
+
+.phase-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #121212;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+body.light-mode .phase-header {
+    color: var(--primary-brand);
+}
+
+body.light-mode .phase-num {
+    background: var(--primary-brand);
+    color: #ffffff;
+}
+
+.section-header {
+    scroll-margin-top: 14px;
+}
+
+/* بطاقة «رحلتي الآن»: ظاهرة دائماً أعلى الصفحة */
+.hero-section.trip-now {
+    padding: 16px 18px 18px;
+    scroll-margin-top: 14px;
+}
+
+.trip-now .hero-title {
+    margin-bottom: 12px;
+}
+
+.trip-now .trip-planner {
+    grid-template-columns: 1fr 1fr;
+    padding: 14px;
+}
+
+.trip-now .planner-group {
+    justify-content: flex-start;
+}
+
+.trip-now .planner-group strong {
+    font-size: 1rem;
+}
+
+.trip-now .trip-loc {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    text-align: start;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trip-now .trip-loc-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 100px;
+    min-width: 0;
+}
+
+.trip-now .btn-locate {
+    flex: 0 0 auto;
+    margin-top: 0;
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+}
+
+/* زر تحديد الموقع فوق خلفية البانر الداكنة/الملوّنة في المظهرين */
+.hero-section .btn-locate,
+body.light-mode .hero-section .btn-locate {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.hero-section .btn-locate:hover,
+body.light-mode .hero-section .btn-locate:hover {
+    background: var(--gold);
+    color: #121212;
+    border-color: var(--gold);
+}
+
+/* تمييز الميقات: بطاقة المحطة وتنبيه أعلى القسم */
+.station-card.station-card-miqat {
+    border: 2px solid #2ecc71;
+    background: rgba(46, 204, 113, 0.05);
+}
+
+.section-intro.miqat-note {
+    color: var(--text-light);
+    font-weight: 700;
+    background: rgba(46, 204, 113, 0.08);
+    border-inline-start: 4px solid #2ecc71;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+}
+
+body.light-mode .station-card.station-card-miqat {
+    border-color: #1b5e20;
+    background: rgba(27, 94, 32, 0.04);
+}
+
+body.light-mode .section-intro.miqat-note {
+    background: rgba(27, 94, 32, 0.06);
+    border-inline-start-color: #1b5e20;
+}
+
+/* شريط التنقل السفلي الذكي للجوال (Mobile Sticky Bottom Nav) وقوائمه */
+.mobile-bottom-nav,
+.nav-sheet,
+.nav-sheet-backdrop {
     display: none;
 }
 
@@ -997,21 +1528,17 @@ body.light-mode .header-logo {
     text-shadow: none;
 }
 
-body.light-mode .header-logo span {
-    color: var(--primary-brand) !important;
-}
-
 body.light-mode #themeToggleBtn,
 body.light-mode .quick-access-btn {
-    background: #ffffff !important;
-    color: var(--primary-brand) !important;
-    border: 1.5px solid var(--primary-brand) !important;
+    background: #ffffff;
+    color: var(--primary-brand);
+    border: 1.5px solid var(--primary-brand);
     box-shadow: 0 2px 10px rgba(var(--primary-brand-rgb), 0.1);
 }
 
 body.light-mode #themeToggleBtn:hover,
 body.light-mode .quick-access-btn:hover {
-    background: rgba(var(--primary-brand-rgb), 0.06) !important;
+    background: rgba(var(--primary-brand-rgb), 0.06);
 }
 
 body.light-mode .hero-section,
@@ -1037,40 +1564,37 @@ body.light-mode .emergency-header-title {
 }
 
 body.light-mode .hero-title {
-    color: #fff !important;
+    color: #fff;
 }
 
-body.light-mode .hero-subtitle {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-body.light-mode .hero-section .planner-group span {
-    color: rgba(255, 255, 255, 0.78) !important;
+body.light-mode .hero-section .planner-group span,
+body.light-mode .hero-section .planner-group label {
+    color: rgba(255, 255, 255, 0.78);
 }
 
 body.light-mode .hero-section .planner-group strong,
 body.light-mode .hero-section #currentLocationName,
 body.light-mode .hero-section #remDist {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 body.light-mode .hero-section #remTime {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 body.light-mode .section-header {
     color: var(--primary-brand);
-    border-right-color: var(--gold);
+    border-inline-start-color: var(--gold);
 }
 
-body.light-mode .route-card h2,
-body.light-mode .station-card h2 {
+body.light-mode .route-card h3,
+body.light-mode .station-card h3 {
     color: var(--primary-dark);
 }
 
 body.light-mode .route-card p strong,
 body.light-mode .station-card p strong {
-    color: var(--text-light) !important;
+    color: var(--text-light);
 }
 
 body.light-mode .route-badge,
@@ -1080,11 +1604,14 @@ body.light-mode .distance-badge-dark {
     border-color: rgba(var(--primary-brand-rgb), 0.2);
 }
 
-body.light-mode .distance-badge-dark[style*="color:#2ecc71"],
-body.light-mode .station-card [style*="color:#2ecc71"] {
-    color: #1b5e20 !important;
-    background: rgba(27, 94, 32, 0.06) !important;
-    border-color: rgba(27, 94, 32, 0.2) !important;
+body.light-mode .distance-badge-dark.badge-miqat {
+    color: #1b5e20;
+    background: rgba(27, 94, 32, 0.06);
+    border-color: rgba(27, 94, 32, 0.2);
+}
+
+body.light-mode .station-card.station-card-food h3 {
+    color: #c0392b;
 }
 
 body.light-mode .btn-station-map,
@@ -1108,7 +1635,7 @@ body.light-mode .progress-bar-bg {
 }
 
 body.light-mode .progress-bar-fill {
-    background: linear-gradient(90deg, var(--primary-brand), #c02d53);
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-brand));
     box-shadow: 0 0 8px rgba(var(--primary-brand-rgb), 0.3);
 }
 
@@ -1122,13 +1649,13 @@ body.light-mode .checklist-section-title {
     border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
-body.light-mode .emergency-box.qatar {
-    background: #f7e8ec;
+body.light-mode .emergency-box.country-local {
+    background: rgba(var(--primary-brand-rgb), 0.06);
     border-color: rgba(var(--primary-brand-rgb), 0.2);
 }
 
-body.light-mode .emergency-box.qatar h2 {
-    color: var(--primary-brand) !important;
+body.light-mode .emergency-box.country-local h3 {
+    color: var(--primary-brand);
 }
 
 body.light-mode .emergency-box.saudi {
@@ -1136,12 +1663,12 @@ body.light-mode .emergency-box.saudi {
     border-color: rgba(27, 94, 32, 0.15);
 }
 
-body.light-mode .emergency-box.qatar .emergency-number {
-    color: var(--primary-brand) !important;
+body.light-mode .emergency-box.country-local .emergency-number {
+    color: var(--primary-brand);
 }
 
 body.light-mode .emergency-box.saudi .emergency-number {
-    color: #1b5e20 !important;
+    color: #1b5e20;
 }
 
 body.light-mode .switch-item {
@@ -1182,24 +1709,27 @@ body.light-mode .btn-submit-suggestion:hover {
 }
 
 body.light-mode footer {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand)) !important;
-    border-color: rgba(0, 0, 0, 0.05) !important;
-    box-shadow: 0 10px 30px rgba(var(--primary-brand-rgb), 0.15) !important;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-brand));
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(var(--primary-brand-rgb), 0.15);
 }
 
-body.light-mode footer p {
-    color: #ffffff !important;
+body.light-mode .footer-credit {
+    color: rgba(255, 255, 255, 0.75);
 }
 
-body.light-mode footer p:nth-child(2) {
-    color: var(--gold) !important;
+/*
+ * تبديل المظهر: تُعطَّل الحركات الانتقالية لحظة التبديل حتى يتغير المظهر فوراً
+ * بدل أن تتحرك ألوان مئات العناصر معاً. !important هنا مقصودة لأنها قاعدة مؤقتة تغلب كل transition.
+ */
+body.theme-switching,
+body.theme-switching *,
+body.theme-switching *::before,
+body.theme-switching *::after {
+    transition: none !important;
 }
 
-body.light-mode footer p:last-child {
-    color: rgba(255, 255, 255, 0.75) !important;
-}
-
-/* ====== التجاوب الخاص بشاشات الجوال (Mobile-First Optimization) ====== */
+/* ====== تجاوب شاشات الجوال ====== */
 @media (max-width: 768px) {
     body {
         padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
@@ -1220,6 +1750,20 @@ body.light-mode footer p:last-child {
 
     details.custom-accordion .accordion-content {
         padding: 0 14px 16px 14px;
+    }
+
+    .hero-section.trip-now {
+        padding: 14px 12px;
+    }
+
+    .trip-now .trip-planner {
+        padding: 12px 10px;
+        gap: 12px 8px;
+    }
+
+    .phase-header {
+        font-size: 1.15rem;
+        margin-top: 26px;
     }
 
     .suggestion-form {
@@ -1244,8 +1788,6 @@ body.light-mode footer p:last-child {
         justify-content: space-around;
         align-items: center;
         z-index: 1000;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
     }
 
     .mobile-nav-btn {
@@ -1260,9 +1802,10 @@ body.light-mode footer p:last-child {
         font-size: 0.72rem;
         font-weight: 700;
         cursor: pointer;
-        padding: 6px 8px;
+        padding: 6px 4px;
         border-radius: 10px;
-        min-width: 56px;
+        flex: 1 1 0;
+        min-width: 0;
         min-height: 46px;
         transition: all 0.2s ease;
         text-decoration: none;
@@ -1273,14 +1816,119 @@ body.light-mode footer p:last-child {
         line-height: 1;
     }
 
-    .mobile-nav-btn.active {
+    .mobile-nav-btn .nav-label {
+        white-space: nowrap;
+    }
+
+    .mobile-nav-btn.active,
+    .mobile-nav-btn[aria-expanded="true"] {
         color: var(--gold);
         background: rgba(212, 175, 55, 0.1);
     }
 
-    body.light-mode .mobile-nav-btn.active {
+    body.light-mode .mobile-nav-btn.active,
+    body.light-mode .mobile-nav-btn[aria-expanded="true"] {
         color: var(--primary-brand);
         background: rgba(var(--primary-brand-rgb), 0.08);
+    }
+
+    /* الطوارئ بلون أحمر ثابت ليُعثر عليها فوراً */
+    .mobile-nav-btn.nav-emergency,
+    body.light-mode .mobile-nav-btn.nav-emergency {
+        color: #e74c3c;
+    }
+
+    body.light-mode .mobile-nav-btn.nav-emergency {
+        color: #c0392b;
+    }
+
+    .mobile-nav-btn.nav-emergency.active,
+    body.light-mode .mobile-nav-btn.nav-emergency.active {
+        background: rgba(231, 76, 60, 0.12);
+    }
+
+    /* قوائم «المحطات» و«المزيد»: تظهر فوق الشريط وتُغلق بالضغط خارجها */
+    .nav-sheet-backdrop.is-open {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 998;
+    }
+
+    .nav-sheet.is-open {
+        display: block;
+        position: fixed;
+        left: 8px;
+        right: 8px;
+        bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+        max-height: 65vh;
+        overflow-y: auto;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--border-radius);
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+        padding: 10px 12px;
+        z-index: 999;
+    }
+
+    .nav-sheet-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        padding: 4px 4px 8px;
+    }
+
+    .nav-sheet-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 4px;
+        background: none;
+        border: none;
+        border-top: 1px solid var(--card-border);
+        color: var(--text-light);
+        font-family: inherit;
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: start;
+        cursor: pointer;
+    }
+
+    .nav-sheet-item.nav-sheet-sep {
+        border-top: 2px solid var(--gold);
+    }
+
+    body.light-mode .nav-sheet-item.nav-sheet-sep {
+        border-top-color: var(--primary-brand);
+    }
+
+    .nav-sheet-item.is-current::after {
+        content: attr(data-here);
+        flex-shrink: 0;
+        font-size: 0.72rem;
+        color: #2ecc71;
+        white-space: nowrap;
+    }
+
+    body.light-mode .nav-sheet-item.is-current::after {
+        color: #1b5e20;
+    }
+}
+
+/* الشاشات الضيقة: تصغير خط وحشوات الشريط حتى تتسع أطول تسمية («مكة والمدينة») */
+@media (max-width: 360px) {
+    .mobile-bottom-nav {
+        padding-inline: 4px;
+    }
+
+    .mobile-nav-btn {
+        font-size: 0.66rem;
+        padding-inline: 2px;
     }
 }
 
@@ -1309,80 +1957,162 @@ body.light-mode footer p:last-child {
         flex: 1;
     }
 
-    .recaptcha-container .h-captcha {
+    .captcha-container .h-captcha {
         transform: scale(0.9);
         transform-origin: center;
     }
 }
 
-/* تنسيق خاص بالطباعة لمسار الرحلة */
+/* ====== الطباعة ====== */
 .print-only {
     display: none;
 }
 
 @media print {
-    body {
-        background: white !important;
-        color: black !important;
-        padding-bottom: 0 !important;
+    /*
+     * ورق أبيض وحبر داكن أياً كان المظهر المختار على الشاشة (نهاري أو داكن).
+     * !important هنا مقصودة: هذه القاعدة العامة يجب أن تغلب كل ألوان الشاشة مهما كانت خصوصية محدداتها،
+     * وإلا طُبع نص أبيض على ورق أبيض (كما في قسم الحاسبة والفوتر).
+     */
+    *,
+    *::before,
+    *::after {
+        color: #1a1a1a !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
     }
 
-    .suggestions-wrapper,
-    .checklist-btn-group,
-    #themeToggleBtn,
-    .quick-access-btn,
-    .btn-station-map,
-    .mobile-bottom-nav,
-    .btn-launch {
-        display: none !important;
+    body {
+        padding-bottom: 0;
     }
 
     .container {
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* عناصر تفاعلية لا معنى لها على الورق */
+    .quick-actions-row,
+    .mobile-bottom-nav,
+    .nav-sheet,
+    .nav-sheet-backdrop,
+    .suggestions-wrapper,
+    .checklist-btn-group,
+    .progress-container,
+    .btn-station-map,
+    .route-card-link,
+    .btn-launch,
+    .btn-locate,
+    .app-links,
+    .chevron-icon,
+    .switch,
+    .hero-section::before {
+        display: none;
     }
 
     .print-only {
-        display: none !important;
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--brand);
+    }
+
+    .print-only .print-title {
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-bottom: 4px;
+    }
+
+    /* العناوين بلون هوية الدولة */
+    .print-only .print-title,
+    .header-logo,
+    .phase-header,
+    .section-header,
+    .accordion-title,
+    .hero-title,
+    .checklist-section-title,
+    .route-card h3,
+    .station-card h3 {
+        color: var(--brand) !important;
     }
 
     .section-header {
-        color: var(--primary-brand) !important;
-        border-right: 4px solid var(--primary-brand) !important;
-        font-size: 1.3rem !important;
-        margin-top: 30px !important;
-        margin-bottom: 20px !important;
-        padding-right: 12px !important;
-        page-break-after: avoid;
-        page-break-inside: avoid;
+        border-inline-start-color: var(--brand);
+        margin-top: 24px;
+        break-after: avoid;
     }
 
+    .phase-header {
+        break-after: avoid;
+    }
+
+    details.custom-accordion,
+    .emergency-section,
+    .top-info-bar,
+    .trip-planner,
+    .route-card,
+    .station-card,
+    .emergency-box,
+    .planner-input,
+    footer {
+        border: 1px solid #ccc !important;
+    }
+
+    details.custom-accordion {
+        overflow: visible;
+        margin-bottom: 14px;
+    }
+
+    details.custom-accordion summary {
+        min-height: 0;
+        break-after: avoid;
+    }
+
+    /* الشبكات تُطبع كقائمة عمودية حتى لا تنقسم البطاقات بين الصفحات */
     .carousel-container,
     .stations-grid,
     .riyadh-inner-grid,
-    .checklist-grid,
     .emergency-grid {
-        display: block !important;
+        display: block;
     }
 
     .route-card,
     .station-card,
-    .emergency-box,
-    .hero-section {
-        background: #fff !important;
-        color: #333 !important;
-        border: 1px solid #ccc !important;
-        margin-bottom: 15px !important;
-        padding: 15px !important;
-        box-shadow: none !important;
-        transform: none !important;
-        page-break-inside: avoid;
+    .emergency-box {
+        margin-bottom: 10px;
+        padding: 12px;
+        break-inside: avoid;
+    }
+
+    /* قائمة الفحص: مربع يُطبع بدل المفتاح، وعلامة ✓ لما أُنجز */
+    .checklist-grid {
+        gap: 4px;
+    }
+
+    .switch-item {
+        justify-content: flex-start;
+        min-height: 0;
+        padding: 4px 0;
+        border: none;
+        break-inside: avoid;
+    }
+
+    .switch-item::before {
+        content: '☐';
+    }
+
+    .switch-item.completed::before {
+        content: '☑';
+    }
+
+    .switch-item.completed .switch-label {
+        text-decoration: none;
     }
 
     footer {
-        border-top: 2px solid #ccc !important;
-        color: #333 !important;
-        margin-top: 30px !important;
+        margin-top: 24px;
     }
 }
