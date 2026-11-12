@@ -35,15 +35,14 @@ function formatNumber(num) {
 
 /**
  * قيمة نصية من البيانات: إما نص واحد (محايد لغوياً مثل الروابط والأرقام)
- * أو كائن { ar, en }. يفشل البناء إن نقصت ترجمة لغة مطلوبة.
+ * أو كائن { ar, en }. إن نقصت ترجمة لغة يُعرض النص العربي بدلاً منها.
  */
 function tr(value, lang) {
     if (value === null || value === undefined) return value;
     if (typeof value !== 'object') return value;
-    if (typeof value[lang] !== 'string' || !value[lang]) {
-        throw new Error(`[Validation Error] ترجمة (${lang}) مفقودة للنص: ${JSON.stringify(value).slice(0, 120)}`);
-    }
-    return value[lang];
+    if (typeof value[lang] === 'string' && value[lang].trim()) return value[lang];
+    if (typeof value[DEFAULT_LANG] === 'string' && value[DEFAULT_LANG].trim()) return value[DEFAULT_LANG];
+    throw new Error(`[Validation Error] النص العربي مفقود: ${JSON.stringify(value).slice(0, 120)}`);
 }
 
 /** دالة ترجمة نصوص الواجهة من data/i18n.js، مع استبدال {متغيرات} */

@@ -97,11 +97,21 @@ function formatDate(isoDate, lang) {
 
 /* ---------- التحقق من البيانات ---------- */
 
-/** نص معروض: يجب أن يكون { ar, en } بقيمتين غير فارغتين */
+/** هل للنص ترجمة غير فارغة بهذه اللغة؟ */
+function hasLang(value, lang) {
+    return typeof value[lang] === 'string' && Boolean(value[lang].trim());
+}
+
+/**
+ * نص معروض بصيغة { ar, en }: العربية إلزامية. الترجمة الناقصة لا توقف البناء،
+ * بل يُعرض النص العربي مكانها ويُطبع تنبيه في نهاية البناء لتكملتها لاحقاً.
+ */
+const missingTranslations = [];
 function requireBilingual(value, label) {
     if (!value || typeof value !== 'object') fail(`${label}: يجب أن يكون النص بصيغة { ar, en }.`);
+    if (!hasLang(value, 'ar')) fail(`${label}: النص العربي مفقود.`);
     LANGS.forEach((lang) => {
-        if (typeof value[lang] !== 'string' || !value[lang].trim()) fail(`${label}: الترجمة (${lang}) مفقودة.`);
+        if (!hasLang(value, lang)) missingTranslations.push(`${label} [${lang}]`);
     });
 }
 
@@ -191,13 +201,13 @@ function buildRouteChain(country) {
     // الرقم المكتوب في شارة المحطة («تبعد ~N كم» / «~N km») يجب أن يطابق distanceFromPrevKm في اللغتين
     legs.forEach((leg) => {
         if (!leg.badge) return;
-        LANGS.forEach((lang) => {
+        LANGS.filter(lang => hasLang(leg.badge, lang)).forEach((lang) => {
             const badgeKm = leg.badge[lang].match(BADGE_KM_PATTERN[lang]);
             if (badgeKm && Number(badgeKm[1]) !== leg.distanceFromPrevKm) {
                 fail(`${label}: شارة المحطة (${leg.title.ar}) [${lang}] تذكر ~${badgeKm[1]} بينما distanceFromPrevKm = ${leg.distanceFromPrevKm}.`);
             }
         });
-        if (Boolean(leg.badge.ar.match(BADGE_KM_PATTERN.ar)) !== Boolean(leg.badge.en.match(BADGE_KM_PATTERN.en))) {
+        if (hasLang(leg.badge, 'en') && Boolean(leg.badge.ar.match(BADGE_KM_PATTERN.ar)) !== Boolean(leg.badge.en.match(BADGE_KM_PATTERN.en))) {
             fail(`${label}: شارة المحطة (${leg.title.ar}) تذكر المسافة في لغة دون الأخرى.`);
         }
     });
@@ -413,6 +423,11 @@ function buildAll() {
 
     writeOutput('sw.js', renderServiceWorker(cacheHash, coreAssets));
     console.log(`✅ Built sw.js (cache: makkah-road-guide-${cacheHash})`);
+
+    if (missingTranslations.length) {
+        console.warn(`⚠️ ${missingTranslations.length} نص بلا ترجمة، عُرض مكانه النص العربي:`);
+        missingTranslations.forEach(item => console.warn(`   - ${item}`));
+    }
 }
 
 buildAll();

@@ -13,12 +13,6 @@
 module.exports = {
     countriesOrder: [
         { slug: 'qatar' },
-        {
-            slug: 'ksa',
-            countryName: { ar: 'السعودية', en: 'Saudi Arabia' },
-            flagFile: 'sa-flag.png',
-            heading: { ar: 'دليل مسارات مدن المملكة إلى مكة المكرمة', en: 'Guide to routes from Saudi cities to Makkah' }
-        },
         { slug: 'uae', countryName: { ar: 'الإمارات', en: 'UAE' }, flagFile: 'ae-flag.png' },
         { slug: 'bahrain' },
         { slug: 'kuwait', countryName: { ar: 'الكويت', en: 'Kuwait' }, flagFile: 'kw-flag.png' },

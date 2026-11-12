@@ -159,7 +159,7 @@ module.exports = {
         {
             id: 'qa-ret-emtiyaz-salwa',
             badge: { ar: 'تبعد ~148 كم عن المحطة السابقة', en: '~148 km from the previous station' },
-            title: { ar: 'امتياز الوقود', en: 'Imtiaz Fuel Station' },
+            title: { ar: 'امتياز الوقود', en: 'Privilege Fuel' },
             desc: { ar: 'محطة خدمات متكاملة على طريق الهفوف - سلوى قبل الحدود.', en: 'A full-service station on the Hofuf–Salwa road before the border.' },
             mapUrl: 'https://maps.app.goo.gl/SAk9jxJpcPTuBrQd8'
         },
