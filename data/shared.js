@@ -175,7 +175,7 @@ module.exports = {
             {
                 id: 'return-loder-sudair',
                 badge: { ar: 'تبعد ~225 كم عن المحطة السابقة', en: '~225 km from the previous station' },
-                title: { ar: 'محطة لودر - سدير', en: 'Loder Station – Sudair' },
+                title: { ar: 'محطة لودر - سدير', en: 'Loader Gas Station – Sudair' },
                 desc: { ar: 'محطة حديثة تتوفر بها خدمات متكاملة ومطعم البيك.', en: 'A modern station with full services and an Al Baik restaurant.' },
                 mapUrl: 'https://maps.app.goo.gl/zzCxVacA7Yq8ky74A'
             },

@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    'site.name': { ar: 'دليل السفر البري إلى مكة المكرمة', en: 'Overland Travel Guide to Makkah' },
+    'site.name': { ar: 'دليل السفر البري إلى مكة المكرمة', en: 'Road to Makkah Guide' },
 
     // الهيدر والأزرار العلوية
     'country.headerLogo': { ar: '{country} ← 🕋 مكة المكرمة', en: '{country} → 🕋 Makkah' },
@@ -111,7 +111,7 @@ module.exports = {
     // الفوتر وشريط الجوال
     'footer.greeting': { ar: 'عمرة مقبولة ورحلة آمنة بإذن الله 🕋', en: 'May your Umrah be accepted and your journey safe, in sha Allah 🕋' },
     'footer.dua': { ar: 'تذكرونا بدعوة صالحة 🤲', en: 'Remember us in your prayers 🤲' },
-    'footer.credit': { ar: 'تم تصميم الدليل بواسطة معاذ بلال', en: 'Guide designed by Moath Bilal' },
+    'footer.credit': { ar: 'تم تصميم الدليل بواسطة معاذ بلال', en: 'Guide designed by Moath Belal' },
     'nav.label': { ar: 'التنقل السريع للجوال', en: 'Quick navigation' },
     'nav.trip': { ar: 'رحلتي', en: 'My trip' },
     'nav.stations': { ar: 'المحطات', en: 'Stations' },
@@ -136,15 +136,15 @@ module.exports = {
     'home.faq': { ar: '💡 أسئلة شائعة للمسافر براً', en: '💡 FAQ for overland travellers' },
     'home.faq1q': { ar: 'هل الطرق السريعة المؤدية إلى مكة مخدومة بالكامل؟', en: 'Are the expressways to Makkah fully serviced?' },
     'home.faq1a': {
-        ar: 'نعم، الطرق الرئيسية مثل طريق 40 السعودي (طريق 80M الدولي من الخليج عبر الرياض إلى الطائف ومكة) وطريق الهجرة السريع تضم محطات نموذجية متكاملة (ساسكو، الدريس، بترومين) على مدار الساعة، مع ضرورة الحذر عند القيادة ليلاً.',
-        en: 'Yes. The main roads, such as Saudi Highway 40 (international route 80M from the Gulf through Riyadh to Taif and Makkah) and the Hijrah expressway, have full-service model stations (SASCO, Aldrees, Petromin) open around the clock. Still, take care when driving at night.'
+        ar: 'نعم، الطرق الرئيسية مثل طريق 40 السعودي (طريق 80M الدولي من الخليج عبر الرياض إلى الطائف ومكة) وطريق الهجرة السريع تضم محطات نموذجية متكاملة على مدار الساعة، مع ضرورة الحذر عند القيادة ليلاً.',
+        en: 'Yes. The main roads, such as Saudi Highway 40 (international route 80M from the Gulf through Riyadh to Taif and Makkah) and the Hijrah expressway, have full-service model stations open around the clock. Still, take care when driving at night.'
     },
     'home.faq2q': { ar: 'هل يعمل الدليل على الطريق في حال انقطاع الإنترنت؟', en: 'Does the guide work on the road without internet?' },
     'home.faq2a': {
         ar: 'نعم، بمجرد فتح صفحة دولتك مرة واحدة، يحفظ المتصفح جميع المحطات وحاسبة الوقود وقائمة الفحص للعمل دون اتصال (Offline).',
         en: 'Yes. Once you open your country page a single time, the browser saves all stations, the fuel calculator and the checklist so they work offline.'
     },
-    'home.share': { ar: 'مشاركة الصفحة 🔗', en: 'Share this page 🔗' },
+    'home.share': { ar: 'مشاركة الصفحة', en: 'Share this page' },
 
     // صفحات «قريباً»
     'soon.titleDefault': { ar: 'دليل السفر البري من {country} إلى مكة المكرمة', en: 'Overland Travel Guide from {country} to Makkah' },

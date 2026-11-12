@@ -6,8 +6,6 @@
  * النصوص المعروضة بصيغة { ar, en }.
  *
  * - المحطات تبدأ من أول محطة داخل السعودية (الدريس - الخبر) بعد منفذ الجسر.
- * - الدريس (طريق العودة): إحداثيات محطة موثّقة في OpenStreetMap وواقعة على المسار، ورابطها دبوس
- *   على الإحداثيات إلى أن يتوفر رابط المكان في خرائط Google.
  */
 
 module.exports = {
@@ -187,7 +185,6 @@ module.exports = {
             mapUrl: 'https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6'
         },
         {
-            // إحداثيات محطة الدريس موثّقة في OpenStreetMap وواقعة على طريق الرياض - الدمام
             id: 'bh-ret-aldrees-dammam-hwy',
             badge: { ar: 'تبعد ~175 كم عن المحطة السابقة', en: '~175 km from the previous station' },
             title: { ar: 'محطة الدريس', en: 'Aldrees Station' },
@@ -195,7 +192,7 @@ module.exports = {
                 ar: 'خدمات وقود واستراحة وتموينات على طريق الرياض - الدمام السريع (طريق 40).',
                 en: 'Fuel, a rest area and a convenience store on the Riyadh–Dammam expressway (Highway 40).'
             },
-            mapUrl: 'https://www.google.com/maps/search/?api=1&query=25.9310%2C49.0065'
+            mapUrl: 'https://maps.app.goo.gl/awZLn2MyiMvqMMmC6'
         },
         {
             id: 'bh-ret-causeway',
