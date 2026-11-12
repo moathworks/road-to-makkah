@@ -2,9 +2,10 @@
  * مُجمِّع المشروع (Zero-Dependency Static Builder)
  *
  * - يكتشف الدول الفعّالة تلقائياً من data/countries/*.js (ملف واحد لكل دولة).
+ * - يبني كل صفحة بلغتين: العربية في جذر الموقع، والإنجليزية تحت en/.
  * - يبني سلسلة المسار من distanceFromPrevKm فقط، ويشتق منها: المسافة المتبقية، نقاط GPS،
  *   الوقود والزمن الصافي. لا تُكتب أي قيمة مشتقة يدوياً في ملفات البيانات.
- * - يتحقق من البيانات ويفشل البناء عند أي تناقض.
+ * - يتحقق من البيانات (ومن اكتمال الترجمة) ويفشل البناء عند أي تناقض.
  * - يحسب بصمات الملفات، ويولّد صفحات HTML و sw.js و sitemap.xml.
  *   (لا يُولَّد robots.txt: الموقع على مسار فرعي في GitHub Pages، ومحركات البحث لا تقرأ
  *   robots.txt إلا من جذر النطاق. تُرسَل خريطة الموقع عبر Google Search Console.)
@@ -17,6 +18,7 @@ const { execSync } = require('child_process');
 
 const shared = require('./data/shared');
 const { countriesOrder } = require('./data/site');
+const { LANGS, tr, makeT, pagePath } = require('./templates/helpers');
 const { renderCountryPage } = require('./templates/country');
 const { renderComingSoonPage } = require('./templates/coming-soon');
 const { renderHomePage } = require('./templates/home');
@@ -29,6 +31,9 @@ const CONTENT_PATHS = ['data', 'templates', 'css', 'js', 'assets', 'manifest.jso
 
 // هامش السماح عند مقارنة المسافة المستقيمة بمسافة الطريق (المسافات المعروضة تقريبية «~»)
 const STRAIGHT_LINE_TOLERANCE = 1.03;
+
+// صيغة المسافة داخل شارة المحطة في كل لغة: «~90 كم» / «~90 km»
+const BADGE_KM_PATTERN = { ar: /~\s*(\d+)\s*كم/, en: /~\s*(\d+)\s*km/ };
 
 function fail(message) {
     throw new Error(`[Validation Error] ${message}`);
@@ -84,23 +89,20 @@ function getLastUpdatedIso() {
     return toIsoDate(new Date());
 }
 
-function formatArabicDate(isoDate) {
+function formatDate(isoDate, lang) {
     const [y, m, d] = isoDate.split('-').map(Number);
-    return new Intl.DateTimeFormat('ar-u-nu-latn-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' })
-        .format(new Date(y, m - 1, d));
+    const locale = lang === 'ar' ? 'ar-u-nu-latn-ca-gregory' : 'en-GB';
+    return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(y, m - 1, d));
 }
 
 /* ---------- التحقق من البيانات ---------- */
 
-function validateStation(station, label) {
-    if (!station.title || typeof station.title !== 'string') fail(`${label}: المحطة تفتقر إلى الاسم (title).`);
-    if (!station.desc || typeof station.desc !== 'string') fail(`${label} (${station.title}): المحطة تفتقر إلى الوصف (desc).`);
-    if (!station.mapUrl || !/^https?:\/\//.test(station.mapUrl)) fail(`${label} (${station.title}): رابط الخريطة غير صالح (${station.mapUrl}).`);
-
-    const hasLat = station.lat !== undefined;
-    const hasLon = station.lon !== undefined;
-    if (hasLat !== hasLon) fail(`${label} (${station.title}): يجب تحديد lat و lon معاً أو حذفهما معاً.`);
-    if (hasLat) validateCoords(station, `${label} (${station.title})`);
+/** نص معروض: يجب أن يكون { ar, en } بقيمتين غير فارغتين */
+function requireBilingual(value, label) {
+    if (!value || typeof value !== 'object') fail(`${label}: يجب أن يكون النص بصيغة { ar, en }.`);
+    LANGS.forEach((lang) => {
+        if (typeof value[lang] !== 'string' || !value[lang].trim()) fail(`${label}: الترجمة (${lang}) مفقودة.`);
+    });
 }
 
 function validateCoords(point, label) {
@@ -109,13 +111,55 @@ function validateCoords(point, label) {
     if (point.lat < 12 || point.lat > 38 || point.lon < 34 || point.lon > 60) fail(`${label}: الإحداثيات (${point.lat}, ${point.lon}) خارج النطاق الجغرافي المتوقع.`);
 }
 
+function validateStation(station, label) {
+    requireBilingual(station.title, `${label}.title`);
+    const name = station.title.ar;
+    requireBilingual(station.desc, `${label} (${name}).desc`);
+    ['badge', 'gpsName', 'btnLabel'].forEach((key) => {
+        if (station[key] !== undefined) requireBilingual(station[key], `${label} (${name}).${key}`);
+    });
+    if (!station.mapUrl || !/^https?:\/\//.test(station.mapUrl)) fail(`${label} (${name}): رابط الخريطة غير صالح (${station.mapUrl}).`);
+
+    const hasLat = station.lat !== undefined;
+    const hasLon = station.lon !== undefined;
+    if (hasLat !== hasLon) fail(`${label} (${name}): يجب تحديد lat و lon معاً أو حذفهما معاً.`);
+    if (hasLat) validateCoords(station, `${label} (${name})`);
+}
+
+function validateApp(app, label) {
+    requireBilingual(app.title, `${label}.title`);
+    requireBilingual(app.desc, `${label}.desc`);
+    ['ariaName', 'webAriaLabel'].forEach((key) => {
+        if (app[key] !== undefined) requireBilingual(app[key], `${label}.${key}`);
+    });
+    if (!app.iconEmoji && !app.iconSrc) fail(`${label}: التطبيق بلا أيقونة (iconEmoji أو iconSrc).`);
+    if (app.iconSrc && !fs.existsSync(path.join(__dirname, app.iconSrc))) fail(`${label}: ملف الأيقونة (${app.iconSrc}) غير موجود.`);
+}
+
 function validateSharedData() {
     Object.entries(shared.routeSegments).forEach(([segKey, stations]) => {
         if (!Array.isArray(stations) || stations.length === 0) fail(`المقطع المشترك (${segKey}) فارغ.`);
         stations.forEach((st, idx) => validateStation(st, `shared.${segKey}[${idx}]`));
     });
     if (!shared.destination || typeof shared.destination.distanceFromPrevKm !== 'number') fail('shared.destination مفقود أو بلا distanceFromPrevKm.');
+    requireBilingual(shared.destination.name, 'shared.destination.name');
     validateCoords(shared.destination, 'shared.destination');
+
+    shared.sharedApps.forEach((app, idx) => validateApp(app, `shared.sharedApps[${idx}]`));
+    shared.checklistGroups.forEach((group, g) => {
+        requireBilingual(group.title, `shared.checklistGroups[${g}].title`);
+        group.items.forEach((item) => { if (!item.labelKey) requireBilingual(item.label, `checklist (${item.id})`); });
+    });
+    shared.pilgrimTips.forEach((tip, idx) => {
+        requireBilingual(tip.title, `shared.pilgrimTips[${idx}].title`);
+        if (!tip.textKey) requireBilingual(tip.text, `shared.pilgrimTips[${idx}].text`);
+        if (tip.group !== 'road' && tip.group !== 'city') fail(`shared.pilgrimTips[${idx}]: الحقل group يجب أن يكون 'road' أو 'city'.`);
+    });
+    shared.places.forEach((group, g) => {
+        requireBilingual(group.city, `shared.places[${g}].city`);
+        group.items.forEach((place, idx) => requireBilingual(place.name, `shared.places[${g}].items[${idx}].name`));
+    });
+
     if (!/^https:\/\/[^/]+/.test(shared.siteUrl) || shared.siteUrl.endsWith('/')) fail(`siteUrl غير صالح (${shared.siteUrl}): يجب أن يبدأ بـ https وألا ينتهي بـ /.`);
     if (/\.(test|local|localhost)(\/|$)/.test(shared.siteUrl)) fail(`siteUrl (${shared.siteUrl}) نطاق محلي لا يصلح للنشر.`);
 }
@@ -123,6 +167,7 @@ function validateSharedData() {
 /**
  * يبني سلسلة المسار الكاملة لدولة: الانطلاق ← محطات الذهاب ← المقطع المشترك ← مكة.
  * كل مقطع يحمل distanceFromPrevKm، ومنها تُشتق كل القيم الأخرى.
+ * يعيد نقاط GPS بأسماء ثنائية اللغة.
  */
 function buildRouteChain(country) {
     const label = `الدولة (${country.slug})`;
@@ -130,7 +175,7 @@ function buildRouteChain(country) {
     const legs = [
         ...country.outboundStations.map((st, idx) => {
             if (typeof st.distanceFromPrevKm !== 'number' || st.distanceFromPrevKm <= 0) {
-                fail(`${label}: محطة الذهاب [${idx}] (${st.title}) بلا distanceFromPrevKm صالحة.`);
+                fail(`${label}: محطة الذهاب [${idx}] (${st.title.ar}) بلا distanceFromPrevKm صالحة.`);
             }
             return st;
         }),
@@ -143,11 +188,17 @@ function buildRouteChain(country) {
         fail(`${label}: مجموع مقاطع المسار (${sumKm} كم) لا يطابق المسافة الكلية totalDistanceKm (${country.totalDistanceKm} كم).`);
     }
 
-    // الرقم المكتوب في شارة المحطة «تبعد ~N كم» يجب أن يطابق distanceFromPrevKm
+    // الرقم المكتوب في شارة المحطة («تبعد ~N كم» / «~N km») يجب أن يطابق distanceFromPrevKm في اللغتين
     legs.forEach((leg) => {
-        const badgeKm = leg.badge && leg.badge.match(/~\s*(\d+)\s*كم/);
-        if (badgeKm && Number(badgeKm[1]) !== leg.distanceFromPrevKm) {
-            fail(`${label}: شارة المحطة (${leg.title}) تذكر ~${badgeKm[1]} كم بينما distanceFromPrevKm = ${leg.distanceFromPrevKm}.`);
+        if (!leg.badge) return;
+        LANGS.forEach((lang) => {
+            const badgeKm = leg.badge[lang].match(BADGE_KM_PATTERN[lang]);
+            if (badgeKm && Number(badgeKm[1]) !== leg.distanceFromPrevKm) {
+                fail(`${label}: شارة المحطة (${leg.title.ar}) [${lang}] تذكر ~${badgeKm[1]} بينما distanceFromPrevKm = ${leg.distanceFromPrevKm}.`);
+            }
+        });
+        if (Boolean(leg.badge.ar.match(BADGE_KM_PATTERN.ar)) !== Boolean(leg.badge.en.match(BADGE_KM_PATTERN.en))) {
+            fail(`${label}: شارة المحطة (${leg.title.ar}) تذكر المسافة في لغة دون الأخرى.`);
         }
     });
 
@@ -168,57 +219,65 @@ function buildRouteChain(country) {
         const roadKm = prev.km - curr.km;
         const straightKm = haversineKm(prev.lat, prev.lon, curr.lat, curr.lon);
         if (straightKm > roadKm * STRAIGHT_LINE_TOLERANCE) {
-            fail(`${label}: المسافة المستقيمة بين (${prev.name}) و(${curr.name}) = ${Math.round(straightKm)} كم أكبر من مسافة الطريق المدخلة (${roadKm} كم). راجع الإحداثيات أو distanceFromPrevKm.`);
+            fail(`${label}: المسافة المستقيمة بين (${prev.name.ar}) و(${curr.name.ar}) = ${Math.round(straightKm)} كم أكبر من مسافة الطريق المدخلة (${roadKm} كم). راجع الإحداثيات أو distanceFromPrevKm.`);
         }
     }
 
     return gpsPoints;
 }
 
-function formatDriveTime(totalMinutes) {
+function formatDriveTime(totalMinutes, lang) {
+    const t = makeT(lang);
     const h = Math.floor(totalMinutes / 60);
     const m = totalMinutes % 60;
-    if (h > 0 && m > 0) return `${h} ساعة و ${m} دقيقة`;
-    if (h > 0) return `${h} ساعة`;
-    return `${m} دقيقة`;
+    if (h > 0 && m > 0) return t('js.timeHM', { h, m });
+    if (h > 0) return t('js.timeH', { h });
+    return t('js.timeM', { m });
 }
 
 function validateCountryData(country, fileName) {
-    const requiredStrings = ['slug', 'countryCode', 'countryName', 'defaultCity', 'flagFile', 'themeColor', 'themeColorRgb', 'themeColorDark', 'nationalIdLabel', 'emergencyNumber', 'metaDescription', 'pageTitle'];
-    for (const key of requiredStrings) {
+    ['slug', 'countryCode', 'flagFile', 'themeColor', 'themeColorRgb', 'themeColorDark', 'emergencyNumber'].forEach((key) => {
         if (!country[key] || typeof country[key] !== 'string') fail(`ملف الدولة (${fileName}): الحقل النصي المطلوب (${key}) مفقود.`);
-    }
+    });
     const label = `الدولة (${country.slug})`;
+    ['countryName', 'defaultCity', 'nationalIdLabel', 'metaDescription', 'pageTitle', 'printHeaderTitle', 'printHeaderSubtitle',
+        'headerSubtitle', 'camelWarningText', 'outboundSummaryTitle', 'returnSummaryTitle', 'returnIntroText'].forEach((key) => {
+        requireBilingual(country[key], `${label}.${key}`);
+    });
 
     if (!Number.isInteger(country.totalDistanceKm) || country.totalDistanceKm <= 0) fail(`${label}: المسافة الكلية (totalDistanceKm) غير صالحة.`);
     if (typeof country.estimatedDriveHours !== 'number' || country.estimatedDriveHours <= 0) fail(`${label}: ساعات الرحلة (estimatedDriveHours) غير صالحة.`);
     // الزمن الشامل للتوقفات لا يصح أن يقل عن الزمن الصافي (100 كم/س)
     if (country.estimatedDriveHours < country.totalDistanceKm / 100) fail(`${label}: estimatedDriveHours (${country.estimatedDriveHours}) أقل من زمن القيادة الصافي (${(country.totalDistanceKm / 100).toFixed(1)} ساعة).`);
 
-    if (!country.origin || !country.origin.name) fail(`${label}: نقطة الانطلاق (origin) مفقودة.`);
+    if (!country.origin) fail(`${label}: نقطة الانطلاق (origin) مفقودة.`);
+    requireBilingual(country.origin.name, `${label}.origin.name`);
     validateCoords(country.origin, `${label}.origin`);
 
     if (!Array.isArray(country.outboundStations) || country.outboundStations.length === 0) fail(`${label}: قائمة محطات الذهاب فارغة.`);
     if (!Array.isArray(country.returnStations) || country.returnStations.length === 0) fail(`${label}: قائمة محطات العودة فارغة.`);
     country.outboundStations.forEach((st, idx) => validateStation(st, `${country.slug}.outboundStations[${idx}]`));
     country.returnStations.forEach((st, idx) => validateStation(st, `${country.slug}.returnStations[${idx}]`));
+    (country.extraApps || []).forEach((app, idx) => validateApp(app, `${country.slug}.extraApps[${idx}]`));
 
     if (!Array.isArray(country.routes) || country.routes.length === 0) fail(`${label}: لا توجد مسارات معرفة.`);
+    country.routes.forEach((route, idx) => {
+        ['title', 'itinerary', 'description'].forEach(key => requireBilingual(route[key], `${label}.routes[${idx}].${key}`));
+    });
     if (country.routes[0].distanceKm !== country.totalDistanceKm) {
         fail(`${label}: مسافة المسار الرئيسي (${country.routes[0].distanceKm}) لا تطابق المسافة الكلية (${country.totalDistanceKm}).`);
     }
     if (!fs.existsSync(path.join(__dirname, 'assets', 'images', country.flagFile))) fail(`${label}: ملف العلم (${country.flagFile}) غير موجود في assets/images.`);
 }
 
-/** القيم المشتقة لصفحة الدولة: تُحسب هنا ولا تُكتب في ملفات البيانات */
-function deriveCountryValues(country) {
-    const gpsPoints = buildRouteChain(country);
+/** القيم المشتقة لصفحة الدولة بلغة معيّنة: تُحسب هنا ولا تُكتب في ملفات البيانات */
+function deriveCountryValues(country, gpsPoints, lang) {
     const liters = (country.totalDistanceKm * shared.defaultFuelRate) / 100;
     return {
-        gpsPoints,
+        gpsPoints: gpsPoints.map(p => ({ km: p.km, name: tr(p.name, lang), lat: p.lat, lon: p.lon })),
         fuelLitersText: liters.toFixed(1),
         fuelCostSar: Math.round(liters * shared.defaultFuelPrice),
-        netDriveTimeText: formatDriveTime(Math.round((country.totalDistanceKm / 100) * 60))
+        netDriveTimeText: formatDriveTime(Math.round((country.totalDistanceKm / 100) * 60), lang)
     };
 }
 
@@ -229,6 +288,7 @@ function loadActiveCountries() {
         const country = require(path.join(COUNTRIES_DIR, file));
         validateCountryData(country, file);
         if (bySlug.has(country.slug)) fail(`الـ slug (${country.slug}) مكرر في أكثر من ملف دولة.`);
+        if (LANGS.includes(country.slug)) fail(`الـ slug (${country.slug}) محجوز لمسار اللغة.`);
         bySlug.set(country.slug, country);
     }
     return bySlug;
@@ -249,9 +309,9 @@ function resolveSiteCountries(activeBySlug) {
         if (active) {
             return { slug: entry.slug, name: active.countryName, flag: active.flagFile, active: true, country: active };
         }
-        for (const key of ['countryName', 'flagFile', 'pageTitle', 'heading']) {
-            if (!entry[key]) fail(`الدولة (${entry.slug}) ليس لها ملف في data/countries وينقصها الحقل (${key}) لصفحة «قريباً».`);
-        }
+        requireBilingual(entry.countryName, `countriesOrder (${entry.slug}).countryName`);
+        if (entry.heading !== undefined) requireBilingual(entry.heading, `countriesOrder (${entry.slug}).heading`);
+        if (!entry.flagFile) fail(`الدولة (${entry.slug}) ليس لها ملف في data/countries وينقصها flagFile لصفحة «قريباً».`);
         return { slug: entry.slug, name: entry.countryName, flag: entry.flagFile, active: false, page: entry };
     });
 
@@ -261,22 +321,24 @@ function resolveSiteCountries(activeBySlug) {
     return entries;
 }
 
-/* ---------- ملفات الأرشفة ---------- */
+/* ---------- خريطة الموقع ---------- */
 
 function renderSitemapXml(siteUrl, activeCountries, lastUpdatedIso) {
-    const urls = [
-        { loc: `${siteUrl}/`, priority: '1.0' },
-        ...activeCountries.map(c => ({ loc: `${siteUrl}/${c.slug}/`, priority: '0.9' }))
-    ];
-    const itemsXml = urls.map(u => `  <url>
-    <loc>${u.loc}</loc>
+    // لكل صفحة مفهرسة نسختاها اللغويتان، مع روابط hreflang المتبادلة
+    const slugs = [null, ...activeCountries.map(c => c.slug)];
+    const itemsXml = slugs.flatMap(slug => LANGS.map((lang) => {
+        const alternates = LANGS.map(l => `    <xhtml:link rel="alternate" hreflang="${l}" href="${siteUrl}/${pagePath(slug, l)}"/>`).join('\n');
+        return `  <url>
+    <loc>${siteUrl}/${pagePath(slug, lang)}</loc>
+${alternates}
     <lastmod>${lastUpdatedIso}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join('\n');
+    <priority>${slug ? '0.9' : '1.0'}</priority>
+  </url>`;
+    })).join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${itemsXml}
 </urlset>
 `;
@@ -295,28 +357,28 @@ function buildAll() {
     const activeBySlug = loadActiveCountries();
     const siteCountries = resolveSiteCountries(activeBySlug);
     const activeCountries = siteCountries.filter(c => c.active).map(c => c.country);
+    const routeChains = new Map(activeCountries.map(c => [c.slug, buildRouteChain(c)]));
 
     const lastUpdatedIso = getLastUpdatedIso();
-    const ctx = {
-        assetHashes: {
-            styleCss: getFileHash('css/style.css'),
-            homeCss: getFileHash('css/home.css'),
-            appJs: getFileHash('js/app.js')
-        },
-        lastUpdatedText: formatArabicDate(lastUpdatedIso),
-        activeCountries
+    const assetHashes = {
+        styleCss: getFileHash('css/style.css'),
+        homeCss: getFileHash('css/home.css'),
+        appJs: getFileHash('js/app.js')
     };
 
     const pages = [];
-    pages.push(['index.html', renderHomePage(shared, siteCountries, ctx)]);
-    for (const entry of siteCountries) {
-        const html = entry.active
-            ? renderCountryPage(entry.country, shared, { ...ctx, derived: deriveCountryValues(entry.country) })
-            : renderComingSoonPage(entry.page, shared, ctx);
-        pages.push([`${entry.slug}/index.html`, html]);
+    for (const lang of LANGS) {
+        const ctx = { lang, assetHashes, activeCountries, lastUpdatedText: formatDate(lastUpdatedIso, lang) };
+        pages.push([`${pagePath(null, lang)}index.html`, renderHomePage(shared, siteCountries, ctx)]);
+        for (const entry of siteCountries) {
+            const html = entry.active
+                ? renderCountryPage(entry.country, shared, { ...ctx, derived: deriveCountryValues(entry.country, routeChains.get(entry.slug), lang) })
+                : renderComingSoonPage(entry.page, shared, ctx);
+            pages.push([`${pagePath(entry.slug, lang)}index.html`, html]);
+        }
     }
     pages.forEach(([relPath, html]) => writeOutput(relPath, html));
-    console.log(`✅ Built ${pages.length} pages (${activeCountries.length} active countries) — آخر تحديث: ${ctx.lastUpdatedText}`);
+    console.log(`✅ Built ${pages.length} pages (${activeCountries.length} active countries × ${LANGS.length} languages) — آخر تحديث: ${formatDate(lastUpdatedIso, 'ar')}`);
 
     writeOutput('sitemap.xml', renderSitemapXml(shared.siteUrl, activeCountries, lastUpdatedIso));
     console.log('✅ Built sitemap.xml');
@@ -326,14 +388,18 @@ function buildAll() {
         .sort()
         .map(f => `./assets/images/${f}`);
 
+    // الصفحات المخزّنة للعمل دون اتصال: الرئيسية وأدلة الدول الفعّالة باللغتين
+    const offlinePages = LANGS.flatMap(lang => [null, ...activeCountries.map(c => c.slug)].flatMap((slug) => {
+        const p = pagePath(slug, lang);
+        return [`./${p}`, `./${p}index.html`];
+    }));
+
     const coreAssets = [
-        './',
-        './index.html',
+        ...offlinePages,
         './manifest.json',
-        `./css/style.css?v=${ctx.assetHashes.styleCss}`,
-        `./css/home.css?v=${ctx.assetHashes.homeCss}`,
-        `./js/app.js?v=${ctx.assetHashes.appJs}`,
-        ...activeCountries.flatMap(c => [`./${c.slug}/`, `./${c.slug}/index.html`]),
+        `./css/style.css?v=${assetHashes.styleCss}`,
+        `./css/home.css?v=${assetHashes.homeCss}`,
+        `./js/app.js?v=${assetHashes.appJs}`,
         ...imageFiles
     ];
 

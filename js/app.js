@@ -12,10 +12,41 @@ const CONFIG = window.COUNTRY_DATA || {};
 const APP_SCRIPT_URL = document.currentScript ? document.currentScript.src : '';
 
 const CHECKLIST_STORAGE_KEY = `meccaTripChecklist_${CONFIG.countryCode}`;
-const LATIN_AR_LOCALE = 'ar-u-nu-latn';
+// نصوص الواجهة بلغة الصفحة: يحقنها القالب في window.APP_I18N (مصدرها data/i18n.js)
+const I18N = window.APP_I18N || {};
+const DATE_LOCALE = I18N.locale || 'ar-u-nu-latn';
 
-// 1. إدارة فتح وطي الأقسام (Accordions) - مغلقة افتراضياً لتجربة تصفح نظيفة وسريعة
+function tx(key, vars) {
+    const text = I18N[key] === undefined ? key : I18N[key];
+    return vars ? text.replace(/\{(\w+)\}/g, (m, name) => (name in vars ? vars[name] : m)) : text;
+}
+
+// 1. إدارة فتح وطي الأقسام (Accordions) - مغلقة في أول زيارة، ثم تُستعاد كما تركها المسافر
+// (من يفتح الدليل عند كل توقف يجد قسم محطاته مفتوحاً دون البحث عنه من جديد)
+const OPEN_SECTIONS_STORAGE_KEY = `guideOpenSections_${CONFIG.countryCode}`;
+// نموذج الاقتراحات لا يُستعاد مفتوحاً: فتحه يحمّل الكابتشا الخارجية بلا حاجة
+const NON_PERSISTENT_SECTIONS = ['section-suggestions'];
 let isAllExpanded = false;
+
+function loadOpenSections() {
+    try {
+        const ids = JSON.parse(localStorage.getItem(OPEN_SECTIONS_STORAGE_KEY));
+        return Array.isArray(ids) ? ids : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveOpenSections() {
+    // أثناء الطباعة تُفتح كل الأقسام مؤقتاً: لا نحفظ هذه الحالة العابرة
+    if (savedAccordionStatesBeforePrint) return;
+    const ids = Array.from(document.querySelectorAll('details.custom-accordion[open][id]'))
+        .map(details => details.id)
+        .filter(id => !NON_PERSISTENT_SECTIONS.includes(id));
+    try {
+        localStorage.setItem(OPEN_SECTIONS_STORAGE_KEY, JSON.stringify(ids));
+    } catch (e) { /* التخزين غير متاح (تصفح خاص مثلاً): نكمل بلا حفظ */ }
+}
 
 function updateToggleIcon() {
     const accordions = document.querySelectorAll('details.custom-accordion');
@@ -53,11 +84,17 @@ function toggleAllAccordions() {
 
 function initAccordions() {
     const detailsElements = document.querySelectorAll('details.custom-accordion');
+    const openIds = loadOpenSections();
 
     detailsElements.forEach((details) => {
-        details.removeAttribute('open');
+        if (details.id && openIds.includes(details.id) && !NON_PERSISTENT_SECTIONS.includes(details.id)) {
+            details.setAttribute('open', '');
+        } else {
+            details.removeAttribute('open');
+        }
         details.addEventListener('toggle', () => {
             updateToggleIcon();
+            saveOpenSections();
         });
     });
 
@@ -69,17 +106,57 @@ function navigateToSection(sectionId, btnEl) {
     const target = document.getElementById(sectionId);
     if (!target) return;
 
+    closeNavSheets();
+
     if (target.tagName.toLowerCase() === 'details' && !target.open) {
         target.setAttribute('open', '');
     }
 
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    if (btnEl) {
-        document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
-        btnEl.classList.add('active');
-    }
+    if (btnEl) setActiveNavButton(btnEl);
 }
+
+function setActiveNavButton(btnEl) {
+    document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+}
+
+// قوائم شريط الجوال («المحطات» و«المزيد»): قائمة صغيرة تظهر فوق الشريط لاختيار القسم
+function closeNavSheets() {
+    document.querySelectorAll('.nav-sheet.is-open').forEach(sheet => sheet.classList.remove('is-open'));
+    document.querySelectorAll('.mobile-nav-btn[data-sheet]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    const backdrop = document.getElementById('navSheetBackdrop');
+    if (backdrop) backdrop.classList.remove('is-open');
+}
+
+function toggleNavSheet(sheetId, btnEl) {
+    const sheet = document.getElementById(sheetId);
+    if (!sheet) return;
+
+    const wasOpen = sheet.classList.contains('is-open');
+    closeNavSheets();
+    if (wasOpen) return;
+
+    sheet.classList.add('is-open');
+    const backdrop = document.getElementById('navSheetBackdrop');
+    if (backdrop) backdrop.classList.add('is-open');
+    if (btnEl) btnEl.setAttribute('aria-expanded', 'true');
+
+    // التركيز على المقطع الحالي (إن عُرف من GPS) وإلا على أول خيار
+    const firstItem = sheet.querySelector('.nav-sheet-item.is-current') || sheet.querySelector('.nav-sheet-item');
+    if (firstItem) firstItem.focus({ preventScroll: true });
+}
+
+function navigateFromSheet(sectionId) {
+    const sheet = document.querySelector('.nav-sheet.is-open');
+    const opener = sheet ? document.querySelector(`.mobile-nav-btn[data-sheet="${sheet.id}"]`) : null;
+    navigateToSection(sectionId, opener);
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNavSheets();
+});
 
 // 2. بدء الرحلة وفتح ملاحة خرائط جوجل
 function startJourney() {
@@ -99,9 +176,9 @@ function calcArrival() {
         depDate.setMinutes(depDate.getMinutes() + totalMinutes);
 
         const options = { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        arrDisplay.textContent = depDate.toLocaleDateString(LATIN_AR_LOCALE, options);
+        arrDisplay.textContent = depDate.toLocaleDateString(DATE_LOCALE, options);
     } else {
-        arrDisplay.textContent = 'حدد وقت الانطلاق';
+        arrDisplay.textContent = tx('selectDeparture');
     }
 }
 
@@ -122,8 +199,8 @@ function calculateFuel() {
     const liters = (dist * rate) / 100;
     const totalCost = liters * price;
 
-    litersEl.textContent = liters.toFixed(1) + ' لتر';
-    totalEl.textContent = Math.round(totalCost).toLocaleString('en-US') + ' ريال';
+    litersEl.textContent = liters.toFixed(1) + ' ' + tx('liter');
+    totalEl.textContent = Math.round(totalCost).toLocaleString('en-US') + ' ' + tx('sar');
 }
 
 // 5. نظام قائمة المهام بسحّابات (Checklist) مع حفظ الحالة بمعرّف ثابت لكل بند
@@ -219,15 +296,31 @@ function initChecklist() {
 }
 
 // 6. إدارة المظهر (الوضع النهاري / الداكن) مع احترام تفضيل النظام افتراضياً
+// كابتشا نموذج الاقتراحات تُبنى من جديد عند تغيّر المظهر، وهذا مكلف (iframe خارجي).
+// لذلك لا نعيد بناءها إلا إذا كان القسم مفتوحاً، وإلا نؤجلها إلى حين فتحه.
+let captchaThemeStale = false;
+
 function toggleTheme() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
+    const body = document.body;
+    // تعطيل الحركات الانتقالية أثناء التبديل: وإلا تحرّكت ألوان مئات العناصر معاً لثلث ثانية فيبدو التبديل بطيئاً
+    body.classList.add('theme-switching');
+    body.classList.toggle('light-mode');
+    const isLight = body.classList.contains('light-mode');
     localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
     updateThemeBtn(isLight);
-    changehCaptchaTheme(isLight ? 'light' : 'dark');
+    void body.offsetHeight;
+    requestAnimationFrame(() => requestAnimationFrame(() => body.classList.remove('theme-switching')));
+
+    const suggestions = document.getElementById('section-suggestions');
+    if (suggestions && suggestions.open) {
+        changehCaptchaTheme(isLight ? 'light' : 'dark');
+    } else {
+        captchaThemeStale = true;
+    }
 }
 
 function changehCaptchaTheme(newTheme) {
+    captchaThemeStale = false;
     if (typeof hcaptcha !== 'undefined') {
         const wrapper = document.getElementById('h-captcha-wrapper');
         if (wrapper) {
@@ -236,7 +329,7 @@ function changehCaptchaTheme(newTheme) {
             newWidget.className = 'h-captcha';
             newWidget.id = 'h-captcha-widget';
             newWidget.setAttribute('data-captcha', 'true');
-            newWidget.setAttribute('data-lang', 'ar');
+            newWidget.setAttribute('data-lang', tx('captchaLang'));
             newWidget.setAttribute('data-theme', newTheme);
             newWidget.setAttribute('data-sitekey', '50b2fe65-b00b-4b9e-ad62-3ba471098be2');
             wrapper.appendChild(newWidget);
@@ -244,7 +337,7 @@ function changehCaptchaTheme(newTheme) {
                 hcaptcha.render(newWidget, {
                     sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
                     theme: newTheme,
-                    hl: 'ar'
+                    hl: tx('captchaLang')
                 });
             } catch (e) {
                 console.error('Error rendering hCaptcha:', e);
@@ -260,7 +353,7 @@ function updateThemeBtn(isLight) {
         btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>`;
-        btn.title = 'تفعيل المظهر الداكن';
+        btn.title = tx('themeToDark');
     } else {
         btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5"></circle>
@@ -273,7 +366,7 @@ function updateThemeBtn(isLight) {
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>`;
-        btn.title = 'تفعيل المظهر النهاري';
+        btn.title = tx('themeToLight');
     }
 }
 
@@ -293,7 +386,7 @@ async function getMakkahTemp() {
         });
     } catch (e) {
         tempEls.forEach((el) => {
-            el.textContent = el.dataset.tempFallback || 'غير متاح';
+            el.textContent = el.dataset.tempFallback || '—';
         });
     }
 }
@@ -305,7 +398,7 @@ function formatTime12Ar(time24) {
     if (parts.length < 2) return time24;
     let h = parseInt(parts[0], 10);
     const m = parts[1];
-    const suffix = h >= 12 ? 'م' : 'ص';
+    const suffix = h >= 12 ? tx('pm') : tx('am');
     h = h % 12 || 12;
     return `${h}:${m} ${suffix}`;
 }
@@ -321,11 +414,11 @@ async function getMakkahPrayers() {
         const json = await response.json();
         if (!json || !json.data || !json.data.timings) throw new Error('Prayers data error');
         const t = json.data.timings;
-        line1.textContent = `الفجر ${formatTime12Ar(t.Fajr)} | الشروق ${formatTime12Ar(t.Sunrise)}`;
-        line2.textContent = `المغرب ${formatTime12Ar(t.Maghrib)} | العشاء ${formatTime12Ar(t.Isha)}`;
+        line1.textContent = tx('prayerLine1', { a: formatTime12Ar(t.Fajr), b: formatTime12Ar(t.Sunrise) });
+        line2.textContent = tx('prayerLine2', { a: formatTime12Ar(t.Maghrib), b: formatTime12Ar(t.Isha) });
     } catch (e) {
-        line1.textContent = 'مواقيت الصلاة بمكة المكرمة';
-        line2.textContent = 'تتطلب اتصالاً بالإنترنت';
+        line1.textContent = tx('prayerOffline1');
+        line2.textContent = tx('prayerOffline2');
     }
 }
 
@@ -378,7 +471,27 @@ function locateOnRoute(userLat, userLon, points) {
 function describeRoutePosition(match) {
     if (match.t <= 0.08) return match.from.name;
     if (match.t >= 0.92) return match.to.name;
-    return `بين ${match.from.name} و${match.to.name}`;
+    return tx('gpsBetween', { a: match.from.name, b: match.to.name });
+}
+
+/**
+ * قسم المحطات الذي يقع فيه المسافر الآن. نقاط المسار مرتبة:
+ * الانطلاق ← محطات الذهاب (outboundPointCount نقطة) ← مخرج الرياض ← بقية الطريق إلى مكة.
+ */
+function stationSectionForMatch(match, points) {
+    const toIndex = points.indexOf(match.to);
+    const outboundCount = CONFIG.outboundPointCount || 0;
+    if (toIndex <= outboundCount) return 'section-stations-start';
+    // بين مدخل الرياض (آخر محطة ذهاب) ومخرجها الغربي: محطات داخل المدينة
+    if (toIndex === outboundCount + 1) return 'section-stations-riyadh';
+    return 'section-stations-makkah';
+}
+
+// يميّز المقطع الحالي في قائمة «المحطات» بشريط الجوال (null لإزالة التمييز)
+function markCurrentStationSection(sectionId) {
+    document.querySelectorAll('.nav-sheet-item[data-target]').forEach((item) => {
+        item.classList.toggle('is-current', Boolean(sectionId) && item.dataset.target === sectionId);
+    });
 }
 
 let locationWatchId = null;
@@ -386,7 +499,7 @@ let hasLocationFix = false;
 
 function setLocateButtonTracking(isTracking) {
     const btnLocate = document.getElementById('btnLocateMe');
-    if (btnLocate) btnLocate.textContent = isTracking ? '⏹️ إيقاف التتبّع' : '📍 حدّد موقعي الآن';
+    if (btnLocate) btnLocate.textContent = isTracking ? tx('gpsStop') : tx('gpsLocate');
 }
 
 function handleUserPosition(position) {
@@ -402,11 +515,13 @@ function handleUserPosition(position) {
     if (match.offKm > OFF_ROUTE_THRESHOLD_KM) {
         const destination = points[points.length - 1];
         const nearest = match.t < 0.5 ? match.from : match.to;
-        locNameEl.textContent = `خارج المسار (أقرب نقطة: ${nearest.name})`;
+        locNameEl.textContent = tx('gpsOffRoute', { n: nearest.name });
         calcRemaining(haversineKm(userLat, userLon, destination.lat, destination.lon) * ROAD_DETOUR_FACTOR);
+        markCurrentStationSection(null);
     } else {
         locNameEl.textContent = describeRoutePosition(match);
         calcRemaining(match.remainingKm);
+        markCurrentStationSection(stationSectionForMatch(match, points));
     }
 }
 
@@ -414,7 +529,7 @@ function handleUserPositionError() {
     // أثناء التتبّع قد يفشل تحديث عابر: لا نمسح آخر موقع صحيح معروض
     if (hasLocationFix) return;
     const locNameEl = document.getElementById('currentLocationName');
-    if (locNameEl) locNameEl.textContent = `${CONFIG.defaultCity} (تعذر جلب GPS)`;
+    if (locNameEl) locNameEl.textContent = tx('gpsFailed', { city: CONFIG.defaultCity });
     calcRemaining(CONFIG.totalDistanceKm);
     stopLocationTracking();
 }
@@ -438,12 +553,12 @@ function toggleLocationTracking() {
     }
 
     if (!navigator.geolocation) {
-        locNameEl.textContent = 'المتصفح لا يدعم GPS';
+        locNameEl.textContent = tx('gpsUnsupported');
         return;
     }
 
     hasLocationFix = false;
-    locNameEl.textContent = 'جاري تحديد الموقع...';
+    locNameEl.textContent = tx('gpsLocating');
     setLocateButtonTracking(true);
     locationWatchId = navigator.geolocation.watchPosition(
         handleUserPosition,
@@ -458,7 +573,7 @@ function calcRemaining(kmVal) {
     const remTimeEl = document.getElementById('remTime');
     const remArrivalEl = document.getElementById('remArrival');
 
-    if (remDistEl) remDistEl.textContent = km.toLocaleString('en-US') + ' كم';
+    if (remDistEl) remDistEl.textContent = km.toLocaleString('en-US') + ' ' + tx('km');
 
     // الزمن الصافي للقيادة بسرعة متوسطة 100 كم/س
     const netDriveHours = km / 100;
@@ -468,11 +583,11 @@ function calcRemaining(kmVal) {
 
     let timeStr = '';
     if (h > 0 && m > 0) {
-        timeStr = `${h} ساعة و ${m} دقيقة`;
+        timeStr = tx('timeHM', { h, m });
     } else if (h > 0) {
-        timeStr = `${h} ساعة`;
+        timeStr = tx('timeH', { h });
     } else {
-        timeStr = `${m} دقيقة`;
+        timeStr = tx('timeM', { m });
     }
     if (remTimeEl) remTimeEl.textContent = timeStr;
 
@@ -483,7 +598,7 @@ function calcRemaining(kmVal) {
     arrivalDate.setMinutes(arrivalDate.getMinutes() + totalTripMinutes);
 
     const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
-    if (remArrivalEl) remArrivalEl.textContent = arrivalDate.toLocaleDateString(LATIN_AR_LOCALE, options);
+    if (remArrivalEl) remArrivalEl.textContent = arrivalDate.toLocaleDateString(DATE_LOCALE, options);
 }
 
 // 9. طباعة مسار الرحلة: فتح الأقسام وإعادتها يتمّان عبر beforeprint/afterprint فقط،
@@ -521,7 +636,7 @@ function printRoute() {
 function sharePage() {
     const url = window.location.href;
     const title = document.title;
-    const text = `${title} 🕋\nتذكرونا بدعوة صالحة 🤲`;
+    const text = `${title} 🕋\n${tx('shareText')}`;
 
     if (window.location.protocol !== 'file:' && navigator.share && window.isSecureContext) {
         navigator.share({
@@ -530,10 +645,10 @@ function sharePage() {
             url: url
         }).catch(() => {});
     } else {
-        const shareTextWithUrl = `${title}\nتذكرونا بدعوة صالحة 🤲\n${url}`;
+        const shareTextWithUrl = `${title}\n${tx('shareText')}\n${url}`;
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(shareTextWithUrl).then(() => {
-                alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+                alert(tx('copied'));
             }).catch(() => {
                 fallbackCopy(shareTextWithUrl);
             });
@@ -551,9 +666,9 @@ function fallbackCopy(text) {
         tempInput.select();
         document.execCommand('copy');
         document.body.removeChild(tempInput);
-        alert('✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.');
+        alert(tx('copied'));
     } catch (err) {
-        alert('تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.');
+        alert(tx('copyFailed'));
     }
 }
 
@@ -571,7 +686,7 @@ function initSuggestionForm() {
         const accessKeyVal = suggestForm.querySelector('input[name="access_key"]')?.value.trim();
         if (!accessKeyVal || accessKeyVal === 'YOUR_ACCESS_KEY_HERE') {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.textContent = '⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.';
+            suggestStatus.textContent = tx('formNoKey');
             suggestStatus.style.display = 'block';
             return;
         }
@@ -579,7 +694,7 @@ function initSuggestionForm() {
         const msgVal = document.getElementById('suggest_message')?.value.trim();
         if (!msgVal) {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.textContent = '⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.';
+            suggestStatus.textContent = tx('formNoMessage');
             suggestStatus.style.display = 'block';
             return;
         }
@@ -587,14 +702,14 @@ function initSuggestionForm() {
         const hCaptchaVal = suggestForm.querySelector('textarea[name=h-captcha-response]')?.value;
         if (!hCaptchaVal) {
             suggestStatus.className = 'suggestion-status error';
-            suggestStatus.textContent = '⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.';
+            suggestStatus.textContent = tx('formNoCaptcha');
             suggestStatus.style.display = 'block';
             return;
         }
 
         suggestBtn.disabled = true;
         const originalText = suggestBtn.innerHTML;
-        suggestBtn.innerHTML = '<span>جاري الإرسال...</span>';
+        suggestBtn.textContent = tx('formSending');
         suggestStatus.style.display = 'none';
 
         const formData = new FormData(suggestForm);
@@ -613,19 +728,19 @@ function initSuggestionForm() {
                 const res = await response.json();
                 if (response.status === 200) {
                     suggestStatus.className = 'suggestion-status success';
-                    suggestStatus.textContent = '✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.';
+                    suggestStatus.textContent = tx('formSuccess');
                     suggestForm.reset();
                     if (typeof hcaptcha !== 'undefined') {
                         hcaptcha.reset();
                     }
                 } else {
                     suggestStatus.className = 'suggestion-status error';
-                    suggestStatus.textContent = '❌ ' + (res.message || 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.');
+                    suggestStatus.textContent = '❌ ' + (res.message || tx('formError'));
                 }
             })
             .catch(() => {
                 suggestStatus.className = 'suggestion-status error';
-                suggestStatus.textContent = '❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة.';
+                suggestStatus.textContent = tx('formNetwork');
             })
             .then(() => {
                 suggestBtn.disabled = false;
@@ -643,13 +758,13 @@ function initSuggestionForm() {
 
 // 12. مراقبة التمرير لتحديث شريط الجوال السفلي وتسجيل Service Worker للعمل بدون إنترنت
 function initMobileScrollSpy() {
-    const navButtons = document.querySelectorAll('.mobile-nav-btn[data-target]');
+    const navButtons = document.querySelectorAll('.mobile-nav-btn[data-spy]');
     if (!navButtons.length || !('IntersectionObserver' in window)) return;
 
+    // data-spy يحمل معرّفات كل الأقسام التابعة للزر (الزر الواحد قد يغطي عدة أقسام)
     const targetMap = {};
     navButtons.forEach(btn => {
-        const targetId = btn.getAttribute('data-target');
-        if (targetId) targetMap[targetId] = btn;
+        btn.getAttribute('data-spy').split(' ').filter(Boolean).forEach((targetId) => { targetMap[targetId] = btn; });
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -682,18 +797,9 @@ function bootstrapApp() {
 }
 
 function bootstrapCountryPage() {
-    // 1. استعادة المظهر المفضل أو احترام تفضيل النظام (prefers-color-scheme)
-    const savedTheme = localStorage.getItem('darkGuideTheme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isLight = savedTheme ? savedTheme === 'light' : !prefersDark;
-
-    if (!isLight) {
-        document.body.classList.remove('light-mode');
-        updateThemeBtn(false);
-    } else {
-        document.body.classList.add('light-mode');
-        updateThemeBtn(true);
-    }
+    // المظهر يُطبَّق قبل أول رسم عبر سكربت صغير في الصفحة نفسها؛ هنا نطابق أيقونة الزر فقط
+    const isLight = document.body.classList.contains('light-mode');
+    updateThemeBtn(isLight);
 
     const captchaWidget = document.getElementById('h-captcha-widget');
     if (captchaWidget) {
@@ -713,7 +819,7 @@ function bootstrapCountryPage() {
         suggestionsDetails.addEventListener('toggle', () => {
             if (suggestionsDetails.open) {
                 const wrapper = document.getElementById('h-captcha-wrapper');
-                if (wrapper && !wrapper.querySelector('iframe') && typeof hcaptcha !== 'undefined') {
+                if (wrapper && (captchaThemeStale || !wrapper.querySelector('iframe')) && typeof hcaptcha !== 'undefined') {
                     changehCaptchaTheme(document.body.classList.contains('light-mode') ? 'light' : 'dark');
                 }
             }

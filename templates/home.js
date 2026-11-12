@@ -1,77 +1,70 @@
 /**
- * قالب الصفحة الرئيسية (index.html)
+ * قالب الصفحة الرئيسية (بالعربية أو الإنجليزية حسب ctx.lang)
  * الأنماط في css/home.css، والسلوك (المشاركة، الطقس، Service Worker) من js/app.js المشترك.
  */
 
-const { escapeHtml } = require('./country');
-
-const PLAY_STORE_WHITE_SVG = `<svg viewBox="0 0 512 512" width="20" height="20"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>`;
-const APP_STORE_WHITE_SVG = `<svg viewBox="0 0 384 512" width="20" height="20"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>`;
+const {
+    PLAY_STORE_SVG, APP_STORE_SVG, APPS_GRID_SVG,
+    escapeHtml, tr, makeT, runtimeStrings, pagePath, rootPrefix, jsonForScript,
+    renderHead, renderLangSwitch, LANG_META
+} = require('./helpers');
 
 // أول صورتين تظهران فوق الطيّة فتُحمَّلان مباشرة، والباقي تحميل مؤجل
 const EAGER_FLAGS_COUNT = 2;
 
 function renderHomePage(shared, siteCountries, ctx) {
-    const { assetHashes } = ctx;
-    const canonicalUrl = `${shared.siteUrl}/`;
-    const ogImageUrl = `${shared.siteUrl}/assets/images/kaaba.jpg`;
-    const metaDesc = 'دليل السفر البري الشامل إلى مكة المكرمة من دول الخليج والدول العربية المجاورة: مسارات الطرق، محطات الوقود، حاسبة المسافات، وقائمة الفحص.';
-    const pageTitle = 'دليل السفر البري إلى مكة المكرمة';
+    const { assetHashes, lang } = ctx;
+    const t = makeT(lang);
+    const root = rootPrefix(pagePath(null, lang));
+    const pageTitle = t('site.name');
 
     const countryLinksHtml = siteCountries.map((c, idx) => {
+        const name = escapeHtml(tr(c.name, lang));
         const cls = c.active ? 'country-link featured' : 'country-link upcoming';
         const lazyAttr = idx >= EAGER_FLAGS_COUNT ? ' loading="lazy"' : '';
-        const badgeHtml = c.active ? '' : ' <span class="soon-badge">قريباً</span>';
-        return `            <a href="./${escapeHtml(c.slug)}/" class="${cls}"><span>${escapeHtml(c.name)}</span> <img${lazyAttr} src="assets/images/${escapeHtml(c.flag)}" alt="${escapeHtml(c.name)}" class="country-flag">${badgeHtml}</a>`;
+        const badgeHtml = c.active ? '' : ` <span class="soon-badge">${escapeHtml(t('home.soon'))}</span>`;
+        return `            <a href="./${escapeHtml(c.slug)}/" class="${cls}"><span>${name}</span> <img${lazyAttr} src="${root}assets/images/${escapeHtml(c.flag)}" alt="${name}" class="country-flag">${badgeHtml}</a>`;
     }).join('\n');
 
-    const homeApps = shared.sharedApps.filter(a => a.showOnHome);
-    const appsHtml = homeApps.map((app) => `            <div class="app-item">
+    const appsHtml = shared.sharedApps.filter(a => a.showOnHome).map((app) => {
+        const ariaName = tr(app.ariaName, lang);
+        return `            <div class="app-item">
                 <div class="app-info">
-                    <img loading="lazy" src="${escapeHtml(app.iconSrc)}" alt="${escapeHtml(app.iconAlt)}" class="app-icon">
+                    <img loading="lazy" src="${root}${escapeHtml(app.iconSrc)}" alt="${escapeHtml(app.iconAlt)}" class="app-icon">
                     <div>
-                        <div class="app-title">${escapeHtml(app.title)}</div>
-                        <div class="app-desc">${escapeHtml(app.desc)}</div>
+                        <div class="app-title">${escapeHtml(tr(app.title, lang))}</div>
+                        <div class="app-desc">${escapeHtml(tr(app.desc, lang))}</div>
                     </div>
                 </div>
                 <div class="app-links">
-                    <a href="${escapeHtml(app.playUrl)}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="${escapeHtml(app.ariaName)} على Google Play">${PLAY_STORE_WHITE_SVG}</a>
-                    <a href="${escapeHtml(app.appleUrl)}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="${escapeHtml(app.ariaName)} على App Store">${APP_STORE_WHITE_SVG}</a>
+                    <a href="${escapeHtml(app.playUrl)}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="${escapeHtml(t('app.onGooglePlay', { name: ariaName }))}">${PLAY_STORE_SVG}</a>
+                    <a href="${escapeHtml(app.appleUrl)}" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="${escapeHtml(t('app.onAppStore', { name: ariaName }))}">${APP_STORE_SVG}</a>
                 </div>
-            </div>`).join('\n\n');
+            </div>`;
+    }).join('\n\n');
+
+    const faqHtml = [1, 2].map(n => `            <div class="faq-item">
+                <div class="faq-q">${escapeHtml(t(`home.faq${n}q`))}</div>
+                <div class="faq-a">${escapeHtml(t(`home.faq${n}a`))}</div>
+            </div>`).join('\n');
+
+    const head = renderHead({
+        lang,
+        slug: null,
+        title: pageTitle,
+        description: t('home.description'),
+        siteName: pageTitle,
+        siteUrl: shared.siteUrl,
+        themeColor: '#121212',
+        stylesheet: `css/home.css?v=${assetHashes.homeCss}`
+    });
 
     return `<!-- AUTO-GENERATED BY build.js - DO NOT EDIT MANUALLY -->
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="${lang}" dir="${LANG_META[lang].dir}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#121212">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="${escapeHtml(metaDesc)}">
-    <title>${escapeHtml(pageTitle)}</title>
-    <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_AR">
-    <meta property="og:site_name" content="${escapeHtml(pageTitle)}">
-    <meta property="og:title" content="${escapeHtml(pageTitle)}">
-    <meta property="og:description" content="${escapeHtml(metaDesc)}">
-    <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
-    <meta property="og:image" content="${escapeHtml(ogImageUrl)}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
-    <meta name="twitter:description" content="${escapeHtml(metaDesc)}">
-    <meta name="twitter:image" content="${escapeHtml(ogImageUrl)}">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/home.css?v=${escapeHtml(assetHashes.homeCss)}">
+${head}
 </head>
 
 <body>
@@ -79,10 +72,11 @@ function renderHomePage(shared, siteCountries, ctx) {
     <div class="bg-overlay"></div>
 
     <div class="container">
-        <h1>دليل السفر البري إلى مكة المكرمة</h1>
+        ${renderLangSwitch(null, lang, 'home-lang-toggle')}
+        <h1>${escapeHtml(pageTitle)}</h1>
 
         <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp" data-makkah-temp data-temp-format="مكة المكرمة الآن: {t}°C 🌤️" data-temp-fallback="مكة المكرمة 🕋">مكة المكرمة: جاري جلب الطقس... ⏳</span>
+            <span id="weatherTemp" data-makkah-temp data-temp-format="${escapeHtml(t('home.weatherFormat'))}" data-temp-fallback="${escapeHtml(t('home.weatherFallback'))}">${escapeHtml(t('home.weatherLoading'))}</span>
         </div>
 
         <div class="countries">
@@ -91,34 +85,28 @@ ${countryLinksHtml}
 
         <div class="apps-section">
             <h2 class="home-section-title">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>تطبيقات مهمة
+                ${APPS_GRID_SVG}${escapeHtml(t('home.apps'))}
             </h2>
 
 ${appsHtml}
         </div>
 
         <div class="faq-section">
-            <h2 class="home-section-title">💡 أسئلة شائعة للمسافر براً</h2>
-            <div class="faq-item">
-                <div class="faq-q">هل الطرق السريعة المؤدية إلى مكة مخدومة بالكامل؟</div>
-                <div class="faq-a">نعم، الطرق الرئيسية مثل طريق 40 السعودي (طريق 80M الدولي من الخليج عبر الرياض إلى الطائف ومكة) وطريق الهجرة السريع تضم محطات نموذجية متكاملة (ساسكو، الدريس، بترومين) على مدار الساعة، مع ضرورة الحذر عند القيادة ليلاً.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">هل يعمل الدليل على الطريق في حال انقطاع الإنترنت؟</div>
-                <div class="faq-a">نعم، بمجرد فتح صفحة دولتك مرة واحدة، يحفظ المتصفح جميع المحطات وحاسبة الوقود وقائمة الفحص للعمل دون اتصال (Offline).</div>
-            </div>
+            <h2 class="home-section-title">${escapeHtml(t('home.faq'))}</h2>
+${faqHtml}
         </div>
 
-        <button id="shareButton" class="share-btn" type="button" onclick="sharePage()">مشاركة الصفحة 🔗</button>
+        <button id="shareButton" class="share-btn" type="button" onclick="sharePage()">${escapeHtml(t('home.share'))}</button>
 
         <div class="footer">
-            <p class="footer-greeting">عمرة مقبولة ورحلة آمنة بإذن الله 🕋</p>
-            <p class="footer-dua">تذكرونا بدعوة صالحة 🤲</p>
-            <p class="footer-credit">تم تصميم الدليل بواسطة معاذ بلال</p>
+            <p class="footer-greeting">${escapeHtml(t('footer.greeting'))}</p>
+            <p class="footer-dua">${escapeHtml(t('footer.dua'))}</p>
+            <p class="footer-credit">${escapeHtml(t('footer.credit'))}</p>
         </div>
     </div>
 
-    <script src="js/app.js?v=${escapeHtml(assetHashes.appJs)}"></script>
+    <script>window.APP_I18N = ${jsonForScript(runtimeStrings(lang))};</script>
+    <script src="${root}js/app.js?v=${escapeHtml(assetHashes.appJs)}"></script>
 </body>
 
 </html>

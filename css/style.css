@@ -393,8 +393,8 @@ details.custom-accordion.hero-section {
     display: flex;
     align-items: center;
     gap: 8px;
-    border-right: 4px solid var(--gold);
-    padding-right: 12px;
+    border-inline-start: 4px solid var(--gold);
+    padding-inline-start: 12px;
 }
 
 /* كروت المسارات التفاعلية */
@@ -410,7 +410,6 @@ details.custom-accordion.hero-section {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     padding: 18px;
-    backdrop-filter: blur(10px);
     transition: transform 0.3s, border-color 0.3s;
     display: flex;
     flex-direction: column;
@@ -481,7 +480,6 @@ details.custom-accordion.hero-section {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     padding: 18px;
-    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -693,7 +691,7 @@ details.custom-accordion.hero-section {
     content: "";
     height: 20px;
     width: 20px;
-    right: 3px;
+    inset-inline-start: 3px;
     bottom: 3px;
     background-color: white;
     transition: .3s;
@@ -707,6 +705,10 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(-20px);
+}
+
+[dir="ltr"] input:checked + .slider:before {
+    transform: translateX(20px);
 }
 
 .switch input:focus-visible + .slider {
@@ -820,27 +822,25 @@ body.light-mode .apps-section .app-title {
     fill: var(--card-bg);
 }
 
-/* روابط الأماكن السياحية الدينية */
-.place-map-chip {
-    text-decoration: none;
-    margin-left: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    background-color: var(--inner-bg);
-    border: 1px solid var(--card-border);
-    padding: 6px 12px;
-    border-radius: 8px;
-    color: var(--text-light);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    min-height: 36px;
-    transition: all 0.2s ease;
+/* الأماكن التاريخية: دبوس ثم اسم المكان رابطاً إلى الخريطة */
+.place-pin {
+    margin-inline-end: 6px;
 }
 
-.place-map-chip:hover {
-    border-color: var(--gold);
-    background-color: rgba(212, 175, 55, 0.12);
+.place-link {
+    color: var(--text-light);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(212, 175, 55, 0.6);
+    text-underline-offset: 4px;
+}
+
+.place-link:hover {
+    color: var(--gold);
+}
+
+body.light-mode .place-link:hover {
+    color: var(--primary-brand);
 }
 
 /* أرقام الطوارئ */
@@ -924,7 +924,6 @@ body.light-mode .apps-section .app-title {
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
     margin-bottom: 20px;
-    backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transition: border-color 0.3s;
 }
@@ -1083,7 +1082,7 @@ footer p {
 .summary-with-icon svg {
     width: 22px;
     height: 22px;
-    margin-left: 8px;
+    margin-inline-end: 8px;
 }
 
 details.custom-accordion.accordion-bypass {
@@ -1119,6 +1118,35 @@ details.custom-accordion.accordion-bypass {
 
 .text-block {
     margin-bottom: 10px;
+}
+
+.text-block:last-child {
+    margin-bottom: 0;
+}
+
+/* الصفحة الإنجليزية: نص الدعاء بالعربية ثم معناه */
+.dua-arabic {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.05em;
+    line-height: 1.9;
+}
+
+.dua-translation {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-muted);
+}
+
+/* زر تبديل اللغة (EN / ع) */
+.lang-toggle {
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.coming-soon-actions > a[hreflang] {
+    flex: 0 0 auto;
+    min-width: 56px;
 }
 
 .section-intro {
@@ -1203,6 +1231,10 @@ details.custom-accordion.accordion-bypass {
     margin-bottom: 20px;
 }
 
+.places-group:last-child {
+    margin-bottom: 0;
+}
+
 .places-title {
     margin: 0 0 12px 0;
     font-size: 1.05rem;
@@ -1224,12 +1256,12 @@ details.custom-accordion.accordion-bypass {
     font-size: 0.85em;
     color: var(--text-muted);
     margin-top: 6px;
-    margin-right: 10px;
+    margin-inline-start: 10px;
 }
 
 .place-extra {
     margin-top: 6px;
-    margin-right: 10px;
+    margin-inline-start: 10px;
     font-size: 0.92em;
 }
 
@@ -1347,8 +1379,146 @@ details.custom-accordion.accordion-bypass {
     text-decoration: none;
 }
 
-/* شريط التنقل السفلي الذكي للجوال (Mobile Sticky Bottom Nav) */
-.mobile-bottom-nav {
+/* عناوين مراحل الرحلة (قبل السفر / في الطريق / في مكة والمدينة / العودة) */
+.phase-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin: 30px 0 14px;
+    scroll-margin-top: 14px;
+}
+
+.phase-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+}
+
+.phase-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #121212;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+body.light-mode .phase-header {
+    color: var(--primary-brand);
+}
+
+body.light-mode .phase-num {
+    background: var(--primary-brand);
+    color: #ffffff;
+}
+
+.section-header {
+    scroll-margin-top: 14px;
+}
+
+/* بطاقة «رحلتي الآن»: ظاهرة دائماً أعلى الصفحة */
+.hero-section.trip-now {
+    padding: 16px 18px 18px;
+    scroll-margin-top: 14px;
+}
+
+.trip-now .hero-title {
+    margin-bottom: 12px;
+}
+
+.trip-now .trip-planner {
+    grid-template-columns: 1fr 1fr;
+    padding: 14px;
+}
+
+.trip-now .planner-group {
+    justify-content: flex-start;
+}
+
+.trip-now .planner-group strong {
+    font-size: 1rem;
+}
+
+.trip-now .trip-loc {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    text-align: start;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trip-now .trip-loc-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 100px;
+    min-width: 0;
+}
+
+.trip-now .btn-locate {
+    flex: 0 0 auto;
+    margin-top: 0;
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+}
+
+/* زر تحديد الموقع فوق خلفية البانر الداكنة/الملوّنة في المظهرين */
+.hero-section .btn-locate,
+body.light-mode .hero-section .btn-locate {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.hero-section .btn-locate:hover,
+body.light-mode .hero-section .btn-locate:hover {
+    background: var(--gold);
+    color: #121212;
+    border-color: var(--gold);
+}
+
+/* تمييز الميقات: بطاقة المحطة وتنبيه أعلى القسم */
+.station-card.station-card-miqat {
+    border: 2px solid #2ecc71;
+    background: rgba(46, 204, 113, 0.05);
+}
+
+.section-intro.miqat-note {
+    color: var(--text-light);
+    font-weight: 700;
+    background: rgba(46, 204, 113, 0.08);
+    border-inline-start: 4px solid #2ecc71;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+}
+
+body.light-mode .station-card.station-card-miqat {
+    border-color: #1b5e20;
+    background: rgba(27, 94, 32, 0.04);
+}
+
+body.light-mode .section-intro.miqat-note {
+    background: rgba(27, 94, 32, 0.06);
+    border-inline-start-color: #1b5e20;
+}
+
+/* شريط التنقل السفلي الذكي للجوال (Mobile Sticky Bottom Nav) وقوائمه */
+.mobile-bottom-nav,
+.nav-sheet,
+.nav-sheet-backdrop {
     display: none;
 }
 
@@ -1414,7 +1584,7 @@ body.light-mode .hero-section #remTime {
 
 body.light-mode .section-header {
     color: var(--primary-brand);
-    border-right-color: var(--gold);
+    border-inline-start-color: var(--gold);
 }
 
 body.light-mode .route-card h3,
@@ -1548,6 +1718,17 @@ body.light-mode .footer-credit {
     color: rgba(255, 255, 255, 0.75);
 }
 
+/*
+ * تبديل المظهر: تُعطَّل الحركات الانتقالية لحظة التبديل حتى يتغير المظهر فوراً
+ * بدل أن تتحرك ألوان مئات العناصر معاً. !important هنا مقصودة لأنها قاعدة مؤقتة تغلب كل transition.
+ */
+body.theme-switching,
+body.theme-switching *,
+body.theme-switching *::before,
+body.theme-switching *::after {
+    transition: none !important;
+}
+
 /* ====== تجاوب شاشات الجوال ====== */
 @media (max-width: 768px) {
     body {
@@ -1569,6 +1750,20 @@ body.light-mode .footer-credit {
 
     details.custom-accordion .accordion-content {
         padding: 0 14px 16px 14px;
+    }
+
+    .hero-section.trip-now {
+        padding: 14px 12px;
+    }
+
+    .trip-now .trip-planner {
+        padding: 12px 10px;
+        gap: 12px 8px;
+    }
+
+    .phase-header {
+        font-size: 1.15rem;
+        margin-top: 26px;
     }
 
     .suggestion-form {
@@ -1593,8 +1788,6 @@ body.light-mode .footer-credit {
         justify-content: space-around;
         align-items: center;
         z-index: 1000;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
     }
 
     .mobile-nav-btn {
@@ -1609,9 +1802,10 @@ body.light-mode .footer-credit {
         font-size: 0.72rem;
         font-weight: 700;
         cursor: pointer;
-        padding: 6px 8px;
+        padding: 6px 4px;
         border-radius: 10px;
-        min-width: 56px;
+        flex: 1 1 0;
+        min-width: 0;
         min-height: 46px;
         transition: all 0.2s ease;
         text-decoration: none;
@@ -1622,14 +1816,119 @@ body.light-mode .footer-credit {
         line-height: 1;
     }
 
-    .mobile-nav-btn.active {
+    .mobile-nav-btn .nav-label {
+        white-space: nowrap;
+    }
+
+    .mobile-nav-btn.active,
+    .mobile-nav-btn[aria-expanded="true"] {
         color: var(--gold);
         background: rgba(212, 175, 55, 0.1);
     }
 
-    body.light-mode .mobile-nav-btn.active {
+    body.light-mode .mobile-nav-btn.active,
+    body.light-mode .mobile-nav-btn[aria-expanded="true"] {
         color: var(--primary-brand);
         background: rgba(var(--primary-brand-rgb), 0.08);
+    }
+
+    /* الطوارئ بلون أحمر ثابت ليُعثر عليها فوراً */
+    .mobile-nav-btn.nav-emergency,
+    body.light-mode .mobile-nav-btn.nav-emergency {
+        color: #e74c3c;
+    }
+
+    body.light-mode .mobile-nav-btn.nav-emergency {
+        color: #c0392b;
+    }
+
+    .mobile-nav-btn.nav-emergency.active,
+    body.light-mode .mobile-nav-btn.nav-emergency.active {
+        background: rgba(231, 76, 60, 0.12);
+    }
+
+    /* قوائم «المحطات» و«المزيد»: تظهر فوق الشريط وتُغلق بالضغط خارجها */
+    .nav-sheet-backdrop.is-open {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 998;
+    }
+
+    .nav-sheet.is-open {
+        display: block;
+        position: fixed;
+        left: 8px;
+        right: 8px;
+        bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+        max-height: 65vh;
+        overflow-y: auto;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--border-radius);
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+        padding: 10px 12px;
+        z-index: 999;
+    }
+
+    .nav-sheet-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        padding: 4px 4px 8px;
+    }
+
+    .nav-sheet-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 4px;
+        background: none;
+        border: none;
+        border-top: 1px solid var(--card-border);
+        color: var(--text-light);
+        font-family: inherit;
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: start;
+        cursor: pointer;
+    }
+
+    .nav-sheet-item.nav-sheet-sep {
+        border-top: 2px solid var(--gold);
+    }
+
+    body.light-mode .nav-sheet-item.nav-sheet-sep {
+        border-top-color: var(--primary-brand);
+    }
+
+    .nav-sheet-item.is-current::after {
+        content: attr(data-here);
+        flex-shrink: 0;
+        font-size: 0.72rem;
+        color: #2ecc71;
+        white-space: nowrap;
+    }
+
+    body.light-mode .nav-sheet-item.is-current::after {
+        color: #1b5e20;
+    }
+}
+
+/* الشاشات الضيقة: تصغير خط وحشوات الشريط حتى تتسع أطول تسمية («مكة والمدينة») */
+@media (max-width: 360px) {
+    .mobile-bottom-nav {
+        padding-inline: 4px;
+    }
+
+    .mobile-nav-btn {
+        font-size: 0.66rem;
+        padding-inline: 2px;
     }
 }
 
@@ -1697,6 +1996,8 @@ body.light-mode .footer-credit {
     /* عناصر تفاعلية لا معنى لها على الورق */
     .quick-actions-row,
     .mobile-bottom-nav,
+    .nav-sheet,
+    .nav-sheet-backdrop,
     .suggestions-wrapper,
     .checklist-btn-group,
     .progress-container,
@@ -1728,6 +2029,7 @@ body.light-mode .footer-credit {
     /* العناوين بلون هوية الدولة */
     .print-only .print-title,
     .header-logo,
+    .phase-header,
     .section-header,
     .accordion-title,
     .hero-title,
@@ -1738,8 +2040,12 @@ body.light-mode .footer-credit {
     }
 
     .section-header {
-        border-right-color: var(--brand);
+        border-inline-start-color: var(--brand);
         margin-top: 24px;
+        break-after: avoid;
+    }
+
+    .phase-header {
         break-after: avoid;
     }
 

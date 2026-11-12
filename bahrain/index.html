@@ -12,26 +12,34 @@
     <meta name="description" content="دليل السفر البري من مملكة البحرين إلى مكة المكرمة عبر جسر الملك فهد: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.">
     <title>دليل السفر البري من البحرين إلى مكة المكرمة</title>
     <link rel="canonical" href="https://moathworks.github.io/road-to-makkah/bahrain/">
+    <link rel="alternate" hreflang="ar" href="https://moathworks.github.io/road-to-makkah/bahrain/">
+    <link rel="alternate" hreflang="en" href="https://moathworks.github.io/road-to-makkah/en/bahrain/">
+    <link rel="alternate" hreflang="x-default" href="https://moathworks.github.io/road-to-makkah/bahrain/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_AR">
+    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:site_name" content="دليل السفر البري إلى مكة المكرمة">
     <meta property="og:title" content="دليل السفر البري من البحرين إلى مكة المكرمة">
     <meta property="og:description" content="دليل السفر البري من مملكة البحرين إلى مكة المكرمة عبر جسر الملك فهد: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.">
     <meta property="og:url" content="https://moathworks.github.io/road-to-makkah/bahrain/">
     <meta property="og:image" content="https://moathworks.github.io/road-to-makkah/assets/images/kaaba.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:image:alt" content="دليل السفر البري إلى مكة المكرمة">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="دليل السفر البري من البحرين إلى مكة المكرمة">
     <meta name="twitter:description" content="دليل السفر البري من مملكة البحرين إلى مكة المكرمة عبر جسر الملك فهد: حاسبة المسافات والوقود، محطات التوقف، قائمة الفحص الذكية، وأرقام الطوارئ.">
     <meta name="twitter:image" content="https://moathworks.github.io/road-to-makkah/assets/images/kaaba.jpg">
     <link rel="manifest" href="../manifest.json">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../assets/images/icon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=d30ade2e">
+    <link rel="stylesheet" href="../css/style.css?v=9fed5427">
     <style>
-        /* تخصيص ألوان الهوية البصرية لمملكة البحرين (الأحمر البحريني) */
+        /* لون هوية الدولة */
         :root {
             --brand: #CE1126;
             --brand-rgb: 206, 17, 38;
@@ -41,6 +49,7 @@
 </head>
 
 <body class="light-mode" data-country="bh">
+    <script>try{var s=localStorage.getItem('darkGuideTheme');if(s?s==='dark':matchMedia('(prefers-color-scheme: dark)').matches)document.body.classList.remove('light-mode')}catch(e){}</script>
 
     <div class="container">
 
@@ -50,7 +59,6 @@
             <p>دليل رقمي لتخطيط مسارات السفر البري عبر جسر الملك فهد ومحطات الوقود والراحة 2026</p>
         </div>
 
-        <!-- الهيدر -->
         <header>
             <div class="header-title-block">
                 <h1 class="header-h1">
@@ -63,46 +71,26 @@
             </div>
             <div class="quick-actions-row">
                 <a href="../" class="quick-access-btn" title="الرئيسية (كل الدول)" aria-label="الرئيسية (كل الدول)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 </a>
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="تغيير المظهر" aria-label="تغيير المظهر">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="printRoute()" title="طباعة مسار الرحلة" aria-label="طباعة مسار الرحلة">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                        <rect x="6" y="14" width="12" height="8"></rect>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="sharePage()" title="مشاركة الدليل" aria-label="مشاركة الدليل">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                        <polyline points="16 6 12 2 8 6"></polyline>
-                        <line x1="12" y1="2" x2="12" y2="15"></line>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                 </button>
-                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طي / فتح الكل" aria-label="طي أو فتح الكل">
-                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="7 11 12 6 17 11"></polyline>
-                        <polyline points="7 18 12 13 17 18"></polyline>
-                    </svg>
+                <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="طي / فتح الكل" aria-label="طي / فتح الكل">
+                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline></svg>
                 </button>
+                <a href="../en/bahrain/" class="quick-access-btn lang-toggle" lang="en" hreflang="en" title="English" aria-label="English">EN</a>
             </div>
             <p class="header-subtitle">دليل رقمي متكامل للرحلات البرية عبر جسر الملك فهد وصولاً إلى الحرم المكي الشريف.</p>
         </header>
 
-        <!-- البار العلوي للمعلومات (مواقيت الصلاة الحية في مكة + الطقس المباشر) -->
+        <!-- مواقيت الصلاة الحية في مكة + الطقس المباشر -->
         <div class="top-info-bar">
             <div class="info-item prayer">
                 <span class="info-icon">🔔</span>
@@ -120,373 +108,32 @@
             </div>
         </div>
 
-        <!-- نصائح السفر وأذكار الطريق -->
-        <details class="custom-accordion" id="section-prayers">
-            <summary>
-                <h2 class="accordion-title">🤲 أدعية وأذكار السفر</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p class="text-block"><strong>دعاء السفر:</strong> "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا
-                    له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى، اللهم هوّن علينا سفرنا هذا، واطوِ عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل، اللهم إني أعوذ بك من وعثاء السفر، وكآبة المنظر، وسوء المنقلب في المال والأهل" وإذا رجع قالهنّ وزاد فيهنّ: آيبون، تائبون، عابدون، لربنا حامدون.
-                </p>
-                <p class="text-block"><strong>عند نزول منزل أو استراحة:</strong> "أعوذ بكلمات الله التامات من شر ما خلق"</p>
-                <p><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.</p>
-            </div>
-        </details>
-
-        <!-- قائمة الفحص الذكية قبل السفر (مشتركة مع تخصيص البطاقة الشخصية البحرينية CPR تلقائياً) -->
-        <details class="custom-accordion" id="section-checklist">
-            <summary>
-                <h2 class="accordion-title">✅ قائمة الفحص الذكية قبل السفر</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <div class="checklist-wrapper">
-                    <div class="progress-container">
-                        <div class="progress-header">
-                            <span>مدى جاهزيتك للرحلة</span>
-                            <span id="progress-percent">0%</span>
-                        </div>
-                        <div class="progress-bar-bg">
-                            <div class="progress-bar-fill" id="progress-fill"></div>
-                        </div>
-                    </div>
-
-                    <div class="checklist-btn-group">
-                        <button type="button" class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
-                        <button type="button" class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
-                    </div>
-
-                    <div class="checklist-grid">
-                            <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
-                            <div class="switch-item">
-                                <span class="switch-label">جوازات السفر صالحة (6 أشهر على الأقل)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-passport" data-check-id="doc-passport" data-legacy-id="check-0" aria-label="جوازات السفر صالحة (6 أشهر على الأقل)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">البطاقة الشخصية البحرينية (CPR)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-national-id" data-check-id="doc-national-id" data-legacy-id="check-1" aria-label="البطاقة الشخصية البحرينية (CPR)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تأشيرة السعودية</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-saudi-visa" data-check-id="doc-saudi-visa" data-legacy-id="check-2" aria-label="تأشيرة السعودية">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">استمارة السيارة ورخصة القيادة</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-car-reg" data-check-id="doc-car-reg" data-legacy-id="check-3" aria-label="استمارة السيارة ورخصة القيادة">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تأمين السيارة (للسعودية)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-car-insurance" data-check-id="doc-car-insurance" data-legacy-id="check-4" aria-label="تأمين السيارة (للسعودية)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-roaming-sim" data-check-id="doc-roaming-sim" data-legacy-id="check-5" aria-label="تفعيل باقة تجوال أو شريحة سعودية">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-nusuk-tawakkalna" data-check-id="doc-nusuk-tawakkalna" data-legacy-id="check-6" aria-label="تثبيت وتحديث تطبيقي (نسك) و(توكلنا)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تحميل خرائط Google Maps بدون إنترنت</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-offline-maps" data-check-id="doc-offline-maps" data-legacy-id="check-7" aria-label="تحميل خرائط Google Maps بدون إنترنت">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">دليل العمرة</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-doc-umrah-guide" data-check-id="doc-umrah-guide" data-legacy-id="check-8" aria-label="دليل العمرة">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
-                            <div class="switch-item">
-                                <span class="switch-label">فحص ضغط الإطارات والإطار الاحتياطي</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-tires-pressure" data-check-id="car-tires-pressure" data-legacy-id="check-9" aria-label="فحص ضغط الإطارات والإطار الاحتياطي">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">عدة تبديل الإطارات</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-tire-tools" data-check-id="car-tire-tools" data-legacy-id="check-10" aria-label="عدة تبديل الإطارات">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">منفاخ إطارات كهربائي</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-air-compressor" data-check-id="car-air-compressor" data-legacy-id="check-11" aria-label="منفاخ إطارات كهربائي">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">فحص زيوت المحرك والفرامل</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-engine-brake-oil" data-check-id="car-engine-brake-oil" data-legacy-id="check-12" aria-label="فحص زيوت المحرك والفرامل">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">فحص مياه الراديتر والمساحات</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-coolant-wipers" data-check-id="car-coolant-wipers" data-legacy-id="check-13" aria-label="فحص مياه الراديتر والمساحات">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">فحص تكييف السيارة</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-ac-check" data-check-id="car-ac-check" data-legacy-id="check-14" aria-label="فحص تكييف السيارة">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">عدة تصليح (مفاتيح مقاسات متعددة)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-wrench-kit" data-check-id="car-wrench-kit" data-legacy-id="check-15" aria-label="عدة تصليح (مفاتيح مقاسات متعددة)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-jump-starter" data-check-id="car-jump-starter" data-legacy-id="check-16" aria-label="بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مفتاح احتياطي للسيارة (مع مرافق)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-spare-key" data-check-id="car-spare-key" data-legacy-id="check-17" aria-label="مفتاح احتياطي للسيارة (مع مرافق)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-flashlight" data-check-id="car-flashlight" data-legacy-id="check-18" aria-label="مصباح يدوي (كشاف طوارئ)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">طفاية حريق ومثلث السلامة</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-extinguisher-triangle" data-check-id="car-extinguisher-triangle" data-legacy-id="check-19" aria-label="طفاية حريق ومثلث السلامة">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">حقيبة الإسعافات الأولية</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-first-aid" data-check-id="car-first-aid" data-legacy-id="check-20" aria-label="حقيبة الإسعافات الأولية">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">شاحن السيارة للجوال</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-phone-charger" data-check-id="car-phone-charger" data-legacy-id="check-21" aria-label="شاحن السيارة للجوال">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">بطارية شحن إضافية للجوال (باور بانك)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-power-bank" data-check-id="car-power-bank" data-legacy-id="check-22" aria-label="بطارية شحن إضافية للجوال (باور بانك)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-saudi-cash" data-check-id="car-saudi-cash" data-legacy-id="check-23" aria-label="مبلغ نقدي سعودي (كاش)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-car-ihram-bag" data-check-id="car-ihram-bag" data-legacy-id="check-24" aria-label="تجهيز حقيبة الإحرام بشكل مستقل">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="checklist-section-title">💊 الصحة والراحة الشخصية</div>
-                            <div class="switch-item">
-                                <span class="switch-label">أدوية شخصية (مسكنات، خافض حرارة..)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-painkillers" data-check-id="health-painkillers" data-legacy-id="check-25" aria-label="أدوية شخصية (مسكنات، خافض حرارة..)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">أدوية الأطفال</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-kids-meds" data-check-id="health-kids-meds" data-legacy-id="check-26" aria-label="أدوية الأطفال">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-chafing-cream" data-check-id="health-chafing-cream" data-legacy-id="check-27" aria-label="مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">قطرة ترطيب العين</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-eye-drops" data-check-id="health-eye-drops" data-legacy-id="check-28" aria-label="قطرة ترطيب العين">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">نظارات شمسية</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-sunglasses" data-check-id="health-sunglasses" data-legacy-id="check-29" aria-label="نظارات شمسية">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مظلة شمسية بيضاء للطواف والمشي بالنهار</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-white-umbrella" data-check-id="health-white-umbrella" data-legacy-id="check-30" aria-label="مظلة شمسية بيضاء للطواف والمشي بالنهار">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مياه صالحة للشرب ووجبات خفيفة كافية للطريق</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-water-snacks" data-check-id="health-water-snacks" data-legacy-id="check-31" aria-label="مياه صالحة للشرب ووجبات خفيفة كافية للطريق">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">أدوات حلاقة (ماكينة، مقص، شفرة)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-shaving-kit" data-check-id="health-shaving-kit" data-legacy-id="check-32" aria-label="أدوات حلاقة (ماكينة، مقص، شفرة)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مقص أظافر</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-nail-clipper" data-check-id="health-nail-clipper" data-legacy-id="check-33" aria-label="مقص أظافر">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">مناديل مبللة (غير معطرة للإحرام)</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-unscented-wipes" data-check-id="health-unscented-wipes" data-legacy-id="check-34" aria-label="مناديل مبللة (غير معطرة للإحرام)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="switch-item">
-                                <span class="switch-label">محارم جيب</span>
-                                <label class="switch">
-                                    <input type="checkbox" class="checklist-toggle" id="check-health-pocket-tissues" data-check-id="health-pocket-tissues" data-legacy-id="check-35" aria-label="محارم جيب">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- حاسبة وقت ومسار وتكلفة الرحلة -->
-        <details class="custom-accordion hero-section" id="section-calculator">
-            <summary>
-                <h2 class="hero-title">⏱️ حاسبة وقت ومسار وتكلفة الرحلة</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-
-                <!-- 1. حاسبة وقت الانطلاق والوصول -->
-                <div class="trip-planner">
-                    <div class="planner-group">
-                        <label for="dep-time">توقيت الانطلاق</label>
-                        <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
-                    </div>
-                    <div class="planner-group">
-                        <span>المسافة المقدرة</span>
-                        <strong>1,348 كم</strong>
-                    </div>
-                    <div class="planner-group">
-                        <span>وقت الوصول المتوقع (شامل التوقفات)</span>
-                        <strong id="arr-time" class="planner-highlight">حدد وقت الانطلاق</strong>
-                    </div>
-                </div>
-
-                <!-- 2. حاسبة المسافة المتبقية المباشرة (GPS) -->
-                <div class="trip-planner">
-                    <div class="planner-group">
+        <!-- الأقسام مرتبة حسب مراحل الرحلة: ما يُحتاج أثناء السير أولاً، ثم قبل السفر ← في الطريق ← في مكة والمدينة ← العودة -->
+        <section class="hero-section trip-now" id="section-trip" aria-labelledby="trip-now-title">
+            <h2 class="hero-title" id="trip-now-title">🧭 رحلتي الآن</h2>
+            <div class="trip-planner">
+                <div class="planner-group trip-loc">
+                    <div class="trip-loc-text">
                         <span>الموقع الحالي (GPS)</span>
                         <strong id="currentLocationName">المنامة (افتراضي)</strong>
-                        <button type="button" id="btnLocateMe" class="checklist-btn btn-locate" onclick="toggleLocationTracking()">📍 حدّد موقعي الآن</button>
                     </div>
-                    <div class="planner-group">
-                        <span>المسافة المتبقية لمكة</span>
-                        <strong id="remDist">1,348 كم</strong>
-                    </div>
-                    <div class="planner-group">
-                        <span>وقت الوصول من موقعك*</span>
-                        <strong id="remArrival" class="planner-highlight">--:--</strong>
-                        <span class="planner-note">*الزمن الصافي: <span id="remTime">13 ساعة و 29 دقيقة</span> قيادة</span>
-                    </div>
+                    <button type="button" id="btnLocateMe" class="checklist-btn btn-locate" onclick="toggleLocationTracking()">📍 حدّد موقعي الآن</button>
                 </div>
-
-                <!-- 3. حاسبة تكلفة الوقود التقديرية -->
-                <div class="trip-planner trip-planner-fuel">
-                    <div class="planner-group">
-                        <label for="calc-distance">المسافة لحساب الوقود (كم)</label>
-                        <input type="number" id="calc-distance" class="planner-input" value="1348" min="0" step="10" oninput="calculateFuel()">
-                    </div>
-                    <div class="planner-group">
-                        <label for="calc-rate">استهلاك السيارة (لتر/100كم)</label>
-                        <input type="number" id="calc-rate" class="planner-input" value="10" min="1" max="35" step="0.5" oninput="calculateFuel()">
-                    </div>
-                    <div class="planner-group">
-                        <label for="calc-price">سعر اللتر (ريال)</label>
-                        <input type="number" id="calc-price" class="planner-input" value="2.18" min="0.5" max="10" step="0.05" oninput="calculateFuel()">
-                    </div>
-                    <div class="planner-group">
-                        <span>الوقود والتكلفة التقديرية</span>
-                        <strong id="res-total" class="planner-highlight planner-total">294 ريال</strong>
-                        <span id="res-liters" class="fuel-liters">134.8 لتر</span>
-                    </div>
+                <div class="planner-group">
+                    <span>المسافة المتبقية لمكة</span>
+                    <strong id="remDist">1,348 كم</strong>
                 </div>
-
-                <button type="button" class="btn-launch" onclick="startJourney()">📍 ابدأ الملاحة المباشرة إلى مكة المكرمة</button>
+                <div class="planner-group">
+                    <span>وقت الوصول من موقعك*</span>
+                    <strong id="remArrival" class="planner-highlight">--:--</strong>
+                    <span class="planner-note">*الزمن الصافي: <span id="remTime">13 ساعة و 29 دقيقة</span> قيادة</span>
+                </div>
             </div>
-        </details>
+            <button type="button" class="btn-launch" onclick="startJourney()">📍 ابدأ الملاحة المباشرة إلى مكة المكرمة</button>
+        </section>
 
-        <!-- خيارات مسارات السفر البري (خاص بمملكة البحرين) -->
+        <h2 class="phase-header" id="phase-before"><span class="phase-num" aria-hidden="true">1</span>قبل السفر</h2>
+
         <h2 class="section-header" id="section-routes">🛣️ خيارات مسارات السفر البري</h2>
         <div class="carousel-container">
             <div class="route-card">
@@ -513,371 +160,335 @@
             </div>
         </div>
 
-        <!-- محطات طريق الذهاب (المنامة - الرياض) [خاص بالبحرين] -->
-        <details class="custom-accordion" id="section-stations-start">
+        <details class="custom-accordion hero-section" id="section-calculator">
             <summary>
-                <h2 class="accordion-title">⛽ محطات طريق الذهاب (المنامة ← الرياض)</h2>
+                <h2 class="hero-title">⏱️ حاسبة وقت الوصول وتكلفة الوقود</h2>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <div class="stations-grid">
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">في منتصف الجسر (الحدود)</div>
-                            <h3>1. استراحة ومنفذ جسر الملك فهد</h3>
-                            <p>إنهاء إجراءات الجوازات والجمارك والتأمين، وتتوفر بها مساجد ومطاعم واستراحات.</p>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
-                    </div>
 
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~17 كم عن منفذ الجسر</div>
-                            <h3>2. محطة الدريس (الخبر)</h3>
-                            <p>أول محطة وقود داخل السعودية بعد عبور جسر الملك فهد.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/DUCZ1EP62NpFV8raA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                <!-- 1. وقت الانطلاق والوصول -->
+                <div class="trip-planner">
+                    <div class="planner-group">
+                        <label for="dep-time">توقيت الانطلاق</label>
+                        <input type="datetime-local" id="dep-time" class="planner-input" onchange="calcArrival()">
                     </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~51 كم عن الدريس الخبر</div>
-                            <h3>3. محطة ساسكو (طريق الدمام - الرياض)</h3>
-                            <p>أولى المحطات النموذجية الكبرى بعد الخبر والدمام على بداية طريق 40 (80M) السريع.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/CeuVgcqAbNP4rwV58" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    <div class="planner-group">
+                        <span>المسافة المقدرة</span>
+                        <strong>1,348 كم</strong>
                     </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~265 كم عن محطة ساسكو</div>
-                            <h3>4. محطة جو ستيشن</h3>
-                            <p>محطة حديثة ومتكاملة على طريق الدمام - الرياض السريع (طريق 40 / 80M) قبل الرياض بنحو 80 كم.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    <div class="planner-group">
+                        <span>وقت الوصول المتوقع (شامل التوقفات)</span>
+                        <strong id="arr-time" class="planner-highlight">حدد وقت الانطلاق</strong>
                     </div>
+                </div>
 
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
-                            <h3>5. الدريس (مدخل الرياض)</h3>
-                            <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل دخول الرياض.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                <!-- 2. تكلفة الوقود التقديرية -->
+                <div class="trip-planner trip-planner-fuel">
+                    <div class="planner-group">
+                        <label for="calc-distance">المسافة لحساب الوقود (كم)</label>
+                        <input type="number" id="calc-distance" class="planner-input" value="1348" min="0" step="10" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <label for="calc-rate">استهلاك السيارة (لتر/100كم)</label>
+                        <input type="number" id="calc-rate" class="planner-input" value="10" min="1" max="35" step="0.5" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <label for="calc-price">سعر اللتر (ريال)</label>
+                        <input type="number" id="calc-price" class="planner-input" value="2.18" min="0.5" max="10" step="0.05" oninput="calculateFuel()">
+                    </div>
+                    <div class="planner-group">
+                        <span>الوقود والتكلفة التقديرية</span>
+                        <strong id="res-total" class="planner-highlight planner-total">294 ريال</strong>
+                        <span id="res-liters" class="fuel-liters">134.8 لتر</span>
                     </div>
                 </div>
             </div>
         </details>
 
-        <!-- محطات داخل الرياض - طريق 40 (80M) -->
-        <details class="custom-accordion">
+        <details class="custom-accordion" id="section-checklist">
             <summary>
-                <h2 class="accordion-title">⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)</h2>
+                <h2 class="accordion-title">✅ قائمة الفحص الذكية قبل السفر</h2>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
-                <div class="riyadh-inner-grid">
-                    <div class="station-card">
-                        <div>
-                            <h3>6. محطة ساسكو (الرياض)</h3>
-                            <p>تضم سوبرماركت &quot;نخلة&quot; وخدمات متكاملة ونظيفة للراحة السريعة.</p>
+                <div class="checklist-wrapper">
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span>مدى جاهزيتك للرحلة</span>
+                            <span id="progress-percent">0%</span>
                         </div>
-                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progress-fill"></div>
+                        </div>
                     </div>
 
-                    <div class="station-card">
-                        <div>
-                            <h3>7. محطة الدريس (الرياض)</h3>
-                            <p>يتوفر بها تموينات شاملة وخدمات سيارات أساسية (إطارات وهواء).</p>
+                    <div class="checklist-btn-group">
+                        <button type="button" class="checklist-btn" id="selectAllBtn">✅ تحديد الكل</button>
+                        <button type="button" class="checklist-btn" id="deselectAllBtn">❌ إلغاء تحديد الكل</button>
+                    </div>
+
+                    <div class="checklist-grid">
+                        <div class="checklist-section-title">📄 الوثائق والاتصالات</div>
+                        <div class="switch-item">
+                            <span class="switch-label">جوازات السفر صالحة (6 أشهر على الأقل)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-passport" data-check-id="doc-passport" data-legacy-id="check-0" aria-label="جوازات السفر صالحة (6 أشهر على الأقل)">
+                                <span class="slider"></span>
+                            </label>
                         </div>
-                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                        <div class="switch-item">
+                            <span class="switch-label">البطاقة الشخصية البحرينية (CPR)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-national-id" data-check-id="doc-national-id" data-legacy-id="check-1" aria-label="البطاقة الشخصية البحرينية (CPR)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تأشيرة السعودية</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-saudi-visa" data-check-id="doc-saudi-visa" data-legacy-id="check-2" aria-label="تأشيرة السعودية">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">استمارة السيارة ورخصة القيادة</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-car-reg" data-check-id="doc-car-reg" data-legacy-id="check-3" aria-label="استمارة السيارة ورخصة القيادة">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تأمين السيارة (للسعودية)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-car-insurance" data-check-id="doc-car-insurance" data-legacy-id="check-4" aria-label="تأمين السيارة (للسعودية)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تفعيل باقة تجوال أو شريحة سعودية</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-roaming-sim" data-check-id="doc-roaming-sim" data-legacy-id="check-5" aria-label="تفعيل باقة تجوال أو شريحة سعودية">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تثبيت وتحديث تطبيقي (نسك) و(توكلنا)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-nusuk-tawakkalna" data-check-id="doc-nusuk-tawakkalna" data-legacy-id="check-6" aria-label="تثبيت وتحديث تطبيقي (نسك) و(توكلنا)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تحميل خرائط Google Maps بدون إنترنت</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-offline-maps" data-check-id="doc-offline-maps" data-legacy-id="check-7" aria-label="تحميل خرائط Google Maps بدون إنترنت">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">دليل العمرة</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-doc-umrah-guide" data-check-id="doc-umrah-guide" data-legacy-id="check-8" aria-label="دليل العمرة">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="checklist-section-title">🚗 السيارة والتجهيزات</div>
+                        <div class="switch-item">
+                            <span class="switch-label">فحص ضغط الإطارات والإطار الاحتياطي</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-tires-pressure" data-check-id="car-tires-pressure" data-legacy-id="check-9" aria-label="فحص ضغط الإطارات والإطار الاحتياطي">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">عدة تبديل الإطارات</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-tire-tools" data-check-id="car-tire-tools" data-legacy-id="check-10" aria-label="عدة تبديل الإطارات">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">منفاخ إطارات كهربائي</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-air-compressor" data-check-id="car-air-compressor" data-legacy-id="check-11" aria-label="منفاخ إطارات كهربائي">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">فحص زيوت المحرك والفرامل</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-engine-brake-oil" data-check-id="car-engine-brake-oil" data-legacy-id="check-12" aria-label="فحص زيوت المحرك والفرامل">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">فحص مياه الراديتر والمساحات</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-coolant-wipers" data-check-id="car-coolant-wipers" data-legacy-id="check-13" aria-label="فحص مياه الراديتر والمساحات">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">فحص تكييف السيارة</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-ac-check" data-check-id="car-ac-check" data-legacy-id="check-14" aria-label="فحص تكييف السيارة">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">عدة تصليح (مفاتيح مقاسات متعددة)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-wrench-kit" data-check-id="car-wrench-kit" data-legacy-id="check-15" aria-label="عدة تصليح (مفاتيح مقاسات متعددة)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-jump-starter" data-check-id="car-jump-starter" data-legacy-id="check-16" aria-label="بطارية شحن لتشغيل بطارية السيارة أو كابلات التوصيل">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مفتاح احتياطي للسيارة (مع مرافق)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-spare-key" data-check-id="car-spare-key" data-legacy-id="check-17" aria-label="مفتاح احتياطي للسيارة (مع مرافق)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مصباح يدوي (كشاف طوارئ)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-flashlight" data-check-id="car-flashlight" data-legacy-id="check-18" aria-label="مصباح يدوي (كشاف طوارئ)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">طفاية حريق ومثلث السلامة</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-extinguisher-triangle" data-check-id="car-extinguisher-triangle" data-legacy-id="check-19" aria-label="طفاية حريق ومثلث السلامة">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">حقيبة الإسعافات الأولية</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-first-aid" data-check-id="car-first-aid" data-legacy-id="check-20" aria-label="حقيبة الإسعافات الأولية">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">شاحن السيارة للجوال</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-phone-charger" data-check-id="car-phone-charger" data-legacy-id="check-21" aria-label="شاحن السيارة للجوال">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">بطارية شحن إضافية للجوال (باور بانك)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-power-bank" data-check-id="car-power-bank" data-legacy-id="check-22" aria-label="بطارية شحن إضافية للجوال (باور بانك)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مبلغ نقدي سعودي (كاش)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-saudi-cash" data-check-id="car-saudi-cash" data-legacy-id="check-23" aria-label="مبلغ نقدي سعودي (كاش)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">تجهيز حقيبة الإحرام بشكل مستقل</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-car-ihram-bag" data-check-id="car-ihram-bag" data-legacy-id="check-24" aria-label="تجهيز حقيبة الإحرام بشكل مستقل">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="checklist-section-title">💊 الصحة والراحة الشخصية</div>
+                        <div class="switch-item">
+                            <span class="switch-label">أدوية شخصية (مسكنات، خافض حرارة..)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-painkillers" data-check-id="health-painkillers" data-legacy-id="check-25" aria-label="أدوية شخصية (مسكنات، خافض حرارة..)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">أدوية الأطفال</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-kids-meds" data-check-id="health-kids-meds" data-legacy-id="check-26" aria-label="أدوية الأطفال">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-chafing-cream" data-check-id="health-chafing-cream" data-legacy-id="check-27" aria-label="مرهم طبي للتسلخات الجسدية (مهم أثناء الإحرام)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">قطرة ترطيب العين</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-eye-drops" data-check-id="health-eye-drops" data-legacy-id="check-28" aria-label="قطرة ترطيب العين">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">نظارات شمسية</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-sunglasses" data-check-id="health-sunglasses" data-legacy-id="check-29" aria-label="نظارات شمسية">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مظلة شمسية بيضاء للطواف والمشي بالنهار</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-white-umbrella" data-check-id="health-white-umbrella" data-legacy-id="check-30" aria-label="مظلة شمسية بيضاء للطواف والمشي بالنهار">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مياه صالحة للشرب ووجبات خفيفة كافية للطريق</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-water-snacks" data-check-id="health-water-snacks" data-legacy-id="check-31" aria-label="مياه صالحة للشرب ووجبات خفيفة كافية للطريق">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">أدوات حلاقة (ماكينة، مقص، شفرة)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-shaving-kit" data-check-id="health-shaving-kit" data-legacy-id="check-32" aria-label="أدوات حلاقة (ماكينة، مقص، شفرة)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مقص أظافر</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-nail-clipper" data-check-id="health-nail-clipper" data-legacy-id="check-33" aria-label="مقص أظافر">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">مناديل مبللة (غير معطرة للإحرام)</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-unscented-wipes" data-check-id="health-unscented-wipes" data-legacy-id="check-34" aria-label="مناديل مبللة (غير معطرة للإحرام)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="switch-item">
+                            <span class="switch-label">محارم جيب</span>
+                            <label class="switch">
+                                <input type="checkbox" class="checklist-toggle" id="check-health-pocket-tissues" data-check-id="health-pocket-tissues" data-legacy-id="check-35" aria-label="محارم جيب">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
         </details>
 
-        <!-- محطات الرياض - المسار الالتفافي -->
-        <details class="custom-accordion accordion-bypass">
-            <summary>
-                <h2 class="accordion-title">⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p class="section-intro">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
-                <div class="riyadh-inner-grid">
-                    <div class="station-card">
-                        <div>
-                            <h3>6. ساسكو (قبل المطار)</h3>
-                            <p>محطة كبرى ونموذجية قريبة من مطار الملك خالد تحتوي على كافة الخدمات.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <h3>7. ساسكو (بعد المطار)</h3>
-                            <p>محطة خدمات متكاملة على امتداد المسار الالتفافي.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- محطات طريق الذهاب (الرياض ← الطائف ← مكة) -->
-        <details class="custom-accordion">
-            <summary>
-                <h2 class="accordion-title">⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <div class="stations-grid">
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">مخرج غرب الرياض (طويق)</div>
-                            <h3>8. محطة الدريس - طويق</h3>
-                            <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~7 كم عن الدريس طويق</div>
-                            <h3>9. محطة بترومين - القدية</h3>
-                            <p>محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~66 كم عن المحطة السابقة</div>
-                            <h3>10. محطة ساسكو - تبرك</h3>
-                            <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~60 كم عن المحطة السابقة</div>
-                            <h3>11. محطة ساسكو - القويعية</h3>
-                            <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~170 كم عن المحطة السابقة</div>
-                            <h3>12. محطة ساسكو - الخاصرة</h3>
-                            <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~144 كم عن المحطة السابقة</div>
-                            <h3>13. محطة ساسكو - الحوميات</h3>
-                            <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~72 كم عن المحطة السابقة</div>
-                            <h3>14. محطة ساسكو - ظلم</h3>
-                            <p>محطة كبرى قبل التوجه إلى منطقة الطائف وميقات قرن المنازل.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card station-card-food">
-                        <div>
-                            <div class="distance-badge-dark badge-food">استراحة طعام</div>
-                            <h3>🍔 مطعم البيك (قبل السيل)</h3>
-                            <p>يقع قبل ميقات السيل الكبير مباشرة.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🍗 موقع المطعم</a>
-                    </div>
-
-                    <div class="station-card station-card-miqat">
-                        <div>
-                            <div class="distance-badge-dark badge-miqat">تبعد ~245 كم عن محطة ظلم</div>
-                            <h3>15. محطة ساسكو (السيل الكبير)</h3>
-                            <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام (قرن المنازل).</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- محطات طريق العودة (المدينة المنورة ← الرياض) -->
-        <details class="custom-accordion">
-            <summary>
-                <h2 class="accordion-title">⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p class="section-intro">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
-                <div class="stations-grid">
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~235 كم عن المدينة المنورة</div>
-                            <h3>1. محطة الخدمة الذهبية</h3>
-                            <p>من المحطات الكبرى والرئيسية على طريق المدينة - القصيم.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/SxWiMb8wV5Ny63i78" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~230 كم عن المحطة السابقة</div>
-                            <h3>2. محطة الدريس - البكيرية</h3>
-                            <p>من المحطات الكبرى والرئيسية في منطقة القصيم.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~225 كم عن المحطة السابقة</div>
-                            <h3>3. محطة لودر - سدير</h3>
-                            <p>محطة حديثة تتوفر بها خدمات متكاملة ومطعم البيك.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/zzCxVacA7Yq8ky74A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~200 كم عن المحطة السابقة</div>
-                            <h3>4. محطة ساسكو الجزيرة</h3>
-                            <p>مدخل الرياض الشمالي وتتوفر بها كافة الخدمات ومطعم البيك.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/Bmmvk5oWBikPijqQ8" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- محطات طريق العودة (الرياض ← المنامة) [خاص بالبحرين] -->
-        <details class="custom-accordion">
-            <summary>
-                <h2 class="accordion-title">⛽ محطات طريق العودة (الرياض ← المنامة)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p class="section-intro">المحطات الموصى بها أثناء العودة من الرياض عبر طريق 40 (80M) السريع إلى جسر الملك فهد والمنامة:</p>
-                <div class="stations-grid">
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">بداية طريق الرياض - الدمام</div>
-                            <h3>1. محطة أدنوك</h3>
-                            <p>من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/FojQ3PxaBSpgpBydA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~67 كم عن المحطة السابقة</div>
-                            <h3>2. محطة ساسكو</h3>
-                            <p>من المحطات الكبرى والرئيسية على طريق الرياض - الدمام السريع (طريق 40).</p>
-                        </div>
-                        <a href="https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">تبعد ~175 كم عن المحطة السابقة</div>
-                            <h3>3. محطة الدريس</h3>
-                            <p>خدمات وقود واستراحة وتموينات على طريق الرياض - الدمام السريع (طريق 40).</p>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query=25.9310%2C49.0065" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
-                    </div>
-
-                    <div class="station-card">
-                        <div>
-                            <div class="distance-badge-dark">الخبر ← المنامة</div>
-                            <h3>4. استراحة ومنفذ جسر الملك فهد</h3>
-                            <p>إنهاء إجراءات العودة عبر جسر الملك فهد والدخول إلى أراضي مملكة البحرين.</p>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-        <!-- الأقسام المشتركة المولّدة كـ HTML ثابت -->
-        <details class="custom-accordion" id="section-pilgrim-info">
-            <summary>
-                <h2 class="accordion-title">ℹ️ معلومات تهم المعتمر والزائر</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <p class="info-tip">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
-                <hr class="info-divider">
-                <p class="info-tip">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن.</p>
-                <hr class="info-divider">
-                <p class="info-tip">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطرق السريعة للسيارات الصغيرة. التزم بحزام الأمان وتفادى استخدام الجوال أثناء القيادة.</p>
-                <hr class="info-divider">
-                <p class="info-tip">🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر على امتداد الطريق بعد القويعية وحتى منطقة الطائف.</p>
-                <hr class="info-divider">
-                <p class="info-tip">📱 <strong>شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح بتفعيل باقة تجوال أو اقتناء شريحة إنترنت أو شريحة إلكترونية (eSIM) لتسهيل استخدام الخرائط وتطبيقات التوصيل.</p>
-                <hr class="info-divider">
-                <p class="info-tip">🏨 <strong>الفنادق والمواقف:</strong> تأكد من حجز الفنادق مسبقاً مع التأكد من توفر موقف للسيارة في الفندق، أو استخدام مواقف مداخل مكة الرسمية (مثل موقف كدي أو الزاهر) واستقلال حافلات مكة الترددية للحرم.</p>
-                <hr class="info-divider">
-                <p class="info-tip">🚕 <strong>المواصلات:</strong> اعتمد على تطبيقات مثل Uber و Careem للتنقل داخل مكة والمدينة بأسعار واضحة ومعتمدة.</p>
-                <hr class="info-divider">
-                <p class="info-tip">🚄 <strong>قطار الحرمين السريع:</strong> وسيلة ممتازة ومريحة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر تطبيق أو موقع قطار الحرمين.</p>
-                <hr class="info-divider">
-                <p class="info-tip">💧 <strong>ماء زمزم:</strong> يمكن شراء عبوات ماء زمزم المعبأ رسمياً من 📍 <a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" rel="noopener noreferrer" class="inline-link">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a> في مكة المكرمة (حي كدي).</p>
-            </div>
-        </details>
-        <details class="custom-accordion" id="section-places">
-            <summary>
-                <h2 class="accordion-title">🕌 الأماكن التاريخية والدينية للزيارة</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </summary>
-            <div class="accordion-content">
-                <div class="places-wrap">
-                    <div class="places-group">
-                        <h3 class="places-title">
-                            <span>🕋</span> <strong>مكة المكرمة:</strong>
-                        </h3>
-                        <ul class="places-list">
-                            <li><a href="https://maps.app.goo.gl/q8VcxANhQNgSPaJ36" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> غار ثور</li>
-                            <li><a href="https://maps.app.goo.gl/TNMGNBzyxWRseN5y6" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> غار حراء (جبل النور)</li>
-                            <li><a href="https://maps.app.goo.gl/suRzhpC1ZehUrzJP7" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> حي حراء الثقافي</li>
-                            <li><a href="https://maps.app.goo.gl/HNgT1xdR7fmmoK5U8" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مسجد السيدة عائشة (ميقات التنعيم)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 class="places-title">
-                            <span>🕌</span> <strong>المدينة المنورة:</strong>
-                        </h3>
-                        <ul class="places-list">
-                            <li><a href="https://maps.app.goo.gl/f5cViWhDRbNprjN76" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> المعرض والمتحف الدولي للسيرة النبوية</li>
-                            <li>
-                                <a href="https://maps.app.goo.gl/hyXifHzKYRpVnqY78" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مسجد قباء
-                                <div class="place-note">💡 بجانبه جادة قباء ومجموعة متنوعة من الأكشاك والمقاهي</div>
-                                <div class="place-extra">
-                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" rel="noopener noreferrer" class="inline-link">محل تمور "بستان العجوة"</a> <span class="place-extra-note">(مميز وقريب من مسجد قباء)</span>
-                                </div>
-                            </li>
-                            <li><a href="https://maps.app.goo.gl/ci7CuEkf32CNRvQW8" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مقبرة شهداء أحد وجبل الرماة</li>
-                            <li><a href="https://maps.app.goo.gl/eMzkh1SU2zmkgfVo7" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مطل أحد</li>
-                            <li><a href="https://maps.app.goo.gl/qSRrnmKypC3yPRE88" target="_blank" rel="noopener noreferrer" class="place-map-chip">📍 الخريطة</a> مسجد القبلتين</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </details>
         <details class="custom-accordion apps-section" id="section-apps">
             <summary>
                 <h2 class="accordion-title summary-with-icon">
@@ -1000,6 +611,239 @@
                 </div>
             </div>
         </details>
+
+        <h2 class="phase-header" id="phase-road"><span class="phase-num" aria-hidden="true">2</span>في الطريق</h2>
+
+        <details class="custom-accordion" id="section-road-tips">
+            <summary>
+                <h2 class="accordion-title">⚠️ نصائح الطريق والسلامة</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="info-tip">😴 <strong>الإرهاق والنعاس:</strong> لا تكابر أبداً بالقيادة عند شعورك بالنعاس. توقف فوراً عند أقرب محطة خدمة وخذ غفوة لمدة 20 دقيقة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">☕ <strong>التوقف للاستراحة:</strong> يُفضل التوقف كل 250-300 كم (كل ساعتين إلى 3 ساعات) لتمديد العضلات وتجديد النشاط. تجنب القيادة المتواصلة لأكثر من 3 ساعات، وتبادل القيادة إن أمكن.</p>
+                <hr class="info-divider">
+                <p class="info-tip">📸 <strong>كاميرات ساهر:</strong> السرعة محددة بـ 140 كم/ساعة في معظم الطرق السريعة للسيارات الصغيرة. التزم بحزام الأمان وتفادى استخدام الجوال أثناء القيادة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🐪 <strong>الجمال السائبة:</strong> يرجى توخي أقصى درجات الحيطة والحذر من الجمال السائبة خاصة في الليل والصباح الباكر على امتداد الطريق بعد القويعية وحتى منطقة الطائف.</p>
+                <hr class="info-divider">
+                <p class="info-tip">📱 <strong>شرائح الاتصالات:</strong> تتوفر شركات (STC, Mobily, Zain). يُنصح بتفعيل باقة تجوال أو اقتناء شريحة إنترنت أو شريحة إلكترونية (eSIM) لتسهيل استخدام الخرائط وتطبيقات التوصيل.</p>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-prayers">
+            <summary>
+                <h2 class="accordion-title">🤲 أدعية وأذكار السفر</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="text-block"><strong>دعاء السفر:</strong> &quot;الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى ومن العمل ما ترضى، اللهم هوّن علينا سفرنا هذا، واطوِ عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل، اللهم إني أعوذ بك من وعثاء السفر، وكآبة المنظر، وسوء المنقلب في المال والأهل&quot; وإذا رجع قالهنّ وزاد فيهنّ: آيبون، تائبون، عابدون، لربنا حامدون.</p>
+                <p class="text-block"><strong>عند نزول منزل أو استراحة:</strong> &quot;أعوذ بكلمات الله التامات من شر ما خلق&quot;</p>
+                <p class="text-block"><strong>أثناء القيادة بالطريق:</strong> التكبير (الله أكبر) عند صعود المرتفعات والتسبيح (سبحان الله) عند النزول.</p>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-stations-start">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات طريق الذهاب (المنامة ← الرياض)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">في منتصف الجسر (الحدود)</div>
+                            <h3>1. استراحة ومنفذ جسر الملك فهد</h3>
+                            <p>إنهاء إجراءات الجوازات والجمارك والتأمين، وتتوفر بها مساجد ومطاعم واستراحات.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~17 كم عن منفذ الجسر</div>
+                            <h3>2. محطة الدريس (الخبر)</h3>
+                            <p>أول محطة وقود داخل السعودية بعد عبور جسر الملك فهد.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/DUCZ1EP62NpFV8raA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~51 كم عن الدريس الخبر</div>
+                            <h3>3. محطة ساسكو (طريق الدمام - الرياض)</h3>
+                            <p>أولى المحطات النموذجية الكبرى بعد الخبر والدمام على بداية طريق 40 (80M) السريع.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/CeuVgcqAbNP4rwV58" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~265 كم عن محطة ساسكو</div>
+                            <h3>4. محطة جو ستيشن</h3>
+                            <p>محطة حديثة ومتكاملة على طريق الدمام - الرياض السريع (طريق 40 / 80M) قبل الرياض بنحو 80 كم.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~80 كم عن جو ستيشن</div>
+                            <h3>5. الدريس (مدخل الرياض)</h3>
+                            <p>محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل دخول الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/AbU7P9gM571Gks2z7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-stations-riyadh">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div class="riyadh-inner-grid">
+                    <div class="station-card">
+                        <div>
+                            <h3>6. محطة ساسكو (الرياض)</h3>
+                            <p>تضم سوبرماركت &quot;نخلة&quot; وخدمات متكاملة ونظيفة للراحة السريعة.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <h3>7. محطة الدريس (الرياض)</h3>
+                            <p>يتوفر بها تموينات شاملة وخدمات سيارات أساسية (إطارات وهواء).</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/rresvUcxnb8n59TB7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion accordion-bypass" id="section-stations-bypass">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="section-intro">يُستخدم هذا المسار للابتعاد عن زحام وسط المدينة خلال أوقات الذروة.</p>
+                <div class="riyadh-inner-grid">
+                    <div class="station-card">
+                        <div>
+                            <h3>6. ساسكو (قبل المطار)</h3>
+                            <p>محطة كبرى ونموذجية قريبة من مطار الملك خالد تحتوي على كافة الخدمات.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <h3>7. ساسكو (بعد المطار)</h3>
+                            <p>محطة خدمات متكاملة على امتداد المسار الالتفافي.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-stations-makkah">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="section-intro miqat-note">🕋 الميقات على هذا الطريق: السيل الكبير (قرن المنازل)، وهو آخر محطة في هذه القائمة. من نوى العمرة يُحرم منه قبل تجاوزه.</p>
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">مخرج غرب الرياض (طويق)</div>
+                            <h3>8. محطة الدريس - طويق</h3>
+                            <p>موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~7 كم عن الدريس طويق</div>
+                            <h3>9. محطة بترومين - القدية</h3>
+                            <p>محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~66 كم عن المحطة السابقة</div>
+                            <h3>10. محطة ساسكو - تبرك</h3>
+                            <p>من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~60 كم عن المحطة السابقة</div>
+                            <h3>11. محطة ساسكو - القويعية</h3>
+                            <p>نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/oq6EuAoKghBGKjRYA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~170 كم عن المحطة السابقة</div>
+                            <h3>12. محطة ساسكو - الخاصرة</h3>
+                            <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~144 كم عن المحطة السابقة</div>
+                            <h3>13. محطة ساسكو - الحوميات</h3>
+                            <p>محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~72 كم عن المحطة السابقة</div>
+                            <h3>14. محطة ساسكو - ظلم</h3>
+                            <p>محطة كبرى قبل التوجه إلى منطقة الطائف وميقات قرن المنازل.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card station-card-food">
+                        <div>
+                            <div class="distance-badge-dark badge-food">استراحة طعام</div>
+                            <h3>🍔 مطعم البيك (قبل السيل)</h3>
+                            <p>يقع قبل ميقات السيل الكبير مباشرة.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🍗 موقع المطعم</a>
+                    </div>
+
+                    <div class="station-card station-card-miqat">
+                        <div>
+                            <div class="distance-badge-dark badge-miqat">تبعد ~245 كم عن محطة ظلم</div>
+                            <h3>15. محطة ساسكو (السيل الكبير)</h3>
+                            <p>بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام (قرن المنازل).</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/Vds8UPCtvsFRXoG26" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
         <div class="emergency-section" id="section-emergency">
             <div class="emergency-header-title">
                 <h2 class="accordion-title">📞 أرقام الطوارئ (اضغط على الرقم للاتصال المباشر)</h2>
@@ -1038,6 +882,178 @@
                 </div>
             </div>
         </div>
+
+        <h2 class="phase-header" id="phase-city"><span class="phase-num" aria-hidden="true">3</span>في مكة والمدينة</h2>
+
+        <details class="custom-accordion" id="section-city-info">
+            <summary>
+                <h2 class="accordion-title">🏨 الإقامة والتنقل في مكة والمدينة</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="info-tip">🏨 <strong>الفنادق والمواقف:</strong> تأكد من حجز الفنادق مسبقاً مع التأكد من توفر موقف للسيارة في الفندق، أو استخدام مواقف مداخل مكة الرسمية (مثل موقف كدي أو الزاهر) واستقلال حافلات مكة الترددية للحرم.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🚕 <strong>المواصلات:</strong> اعتمد على تطبيقات مثل Uber و Careem للتنقل داخل مكة والمدينة بأسعار واضحة ومعتمدة.</p>
+                <hr class="info-divider">
+                <p class="info-tip">🚄 <strong>قطار الحرمين السريع:</strong> وسيلة ممتازة ومريحة للتنقل بين مكة المكرمة والمدينة المنورة (يستغرق حوالي ساعتين و20 دقيقة). يُنصح بحجز التذاكر مبكراً عبر تطبيق أو موقع قطار الحرمين.</p>
+                <hr class="info-divider">
+                <p class="info-tip">💧 <strong>ماء زمزم:</strong> يمكن شراء عبوات ماء زمزم المعبأ رسمياً من 📍 <a href="https://maps.app.goo.gl/yce1oqD2uAk5T7gn8" target="_blank" rel="noopener noreferrer" class="inline-link">مشروع الملك عبدالله بن عبدالعزيز لسقيا زمزم</a> في مكة المكرمة (حي كدي).</p>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-places">
+            <summary>
+                <h2 class="accordion-title">🕌 الأماكن التاريخية والدينية للزيارة</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <div class="places-wrap">
+                    <div class="places-group">
+                        <h3 class="places-title">
+                            <span>🕋</span> <strong>مكة المكرمة:</strong>
+                        </h3>
+                        <ul class="places-list">
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/q8VcxANhQNgSPaJ36" target="_blank" rel="noopener noreferrer" class="place-link">غار ثور</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/TNMGNBzyxWRseN5y6" target="_blank" rel="noopener noreferrer" class="place-link">غار حراء (جبل النور)</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/suRzhpC1ZehUrzJP7" target="_blank" rel="noopener noreferrer" class="place-link">حي حراء الثقافي</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/HNgT1xdR7fmmoK5U8" target="_blank" rel="noopener noreferrer" class="place-link">مسجد السيدة عائشة (ميقات التنعيم)</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="places-group">
+                        <h3 class="places-title">
+                            <span>🕌</span> <strong>المدينة المنورة:</strong>
+                        </h3>
+                        <ul class="places-list">
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/f5cViWhDRbNprjN76" target="_blank" rel="noopener noreferrer" class="place-link">المعرض والمتحف الدولي للسيرة النبوية</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/hyXifHzKYRpVnqY78" target="_blank" rel="noopener noreferrer" class="place-link">مسجد قباء</a>
+                                <div class="place-note">💡 بجانبه جادة قباء ومجموعة متنوعة من الأكشاك والمقاهي</div>
+                                <div class="place-extra">
+                                    🌴 <a href="https://maps.app.goo.gl/zCtxTyRjiR93MdJd7" target="_blank" rel="noopener noreferrer" class="inline-link">محل تمور &quot;بستان العجوة&quot;</a> <span class="place-extra-note">(مميز وقريب من مسجد قباء)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/ci7CuEkf32CNRvQW8" target="_blank" rel="noopener noreferrer" class="place-link">مقبرة شهداء أحد وجبل الرماة</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/eMzkh1SU2zmkgfVo7" target="_blank" rel="noopener noreferrer" class="place-link">مطل أحد</a>
+                            </li>
+                            <li>
+                                <span class="place-pin" aria-hidden="true">📍</span><a href="https://maps.app.goo.gl/qSRrnmKypC3yPRE88" target="_blank" rel="noopener noreferrer" class="place-link">مسجد القبلتين</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <h2 class="phase-header" id="phase-return"><span class="phase-num" aria-hidden="true">4</span>العودة</h2>
+
+        <details class="custom-accordion" id="section-return-madinah">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="section-intro">المحطات النموذجية الموصى بها على طريق الهجرة - القصيم - الرياض السريع:</p>
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~235 كم عن المدينة المنورة</div>
+                            <h3>1. محطة الخدمة الذهبية</h3>
+                            <p>من المحطات الكبرى والرئيسية على طريق المدينة - القصيم.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/SxWiMb8wV5Ny63i78" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~230 كم عن المحطة السابقة</div>
+                            <h3>2. محطة الدريس - البكيرية</h3>
+                            <p>من المحطات الكبرى والرئيسية في منطقة القصيم.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~225 كم عن المحطة السابقة</div>
+                            <h3>3. محطة لودر - سدير</h3>
+                            <p>محطة حديثة تتوفر بها خدمات متكاملة ومطعم البيك.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/zzCxVacA7Yq8ky74A" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~200 كم عن المحطة السابقة</div>
+                            <h3>4. محطة ساسكو الجزيرة</h3>
+                            <p>مدخل الرياض الشمالي وتتوفر بها كافة الخدمات ومطعم البيك.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/Bmmvk5oWBikPijqQ8" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="custom-accordion" id="section-return-home">
+            <summary>
+                <h2 class="accordion-title">⛽ محطات طريق العودة (الرياض ← المنامة)</h2>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="accordion-content">
+                <p class="section-intro">المحطات الموصى بها أثناء العودة من الرياض عبر طريق 40 (80M) السريع إلى جسر الملك فهد والمنامة:</p>
+                <div class="stations-grid">
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">بداية طريق الرياض - الدمام</div>
+                            <h3>1. محطة أدنوك</h3>
+                            <p>من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FojQ3PxaBSpgpBydA" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~67 كم عن المحطة السابقة</div>
+                            <h3>2. محطة ساسكو</h3>
+                            <p>من المحطات الكبرى والرئيسية على طريق الرياض - الدمام السريع (طريق 40).</p>
+                        </div>
+                        <a href="https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">تبعد ~175 كم عن المحطة السابقة</div>
+                            <h3>3. محطة الدريس</h3>
+                            <p>خدمات وقود واستراحة وتموينات على طريق الرياض - الدمام السريع (طريق 40).</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=25.9310%2C49.0065" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المحطة</a>
+                    </div>
+
+                    <div class="station-card">
+                        <div>
+                            <div class="distance-badge-dark">الخبر ← المنامة</div>
+                            <h3>4. استراحة ومنفذ جسر الملك فهد</h3>
+                            <p>إنهاء إجراءات العودة عبر جسر الملك فهد والدخول إلى أراضي مملكة البحرين.</p>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=King+Fahd+Causeway+Passport+Control" target="_blank" rel="noopener noreferrer" class="btn-station-map">🗺️ موقع المنفذ</a>
+                    </div>
+                </div>
+            </div>
+        </details>
+
         <details class="custom-accordion suggestions-wrapper" id="section-suggestions">
             <summary>
                 <h2 class="accordion-title">💡 اقتراحاتك واستفساراتك</h2>
@@ -1092,32 +1108,51 @@
 
     </div>
 
-    <!-- شريط التنقل السفلي الذكي للجوال -->
+    <div class="nav-sheet-backdrop" id="navSheetBackdrop" onclick="closeNavSheets()"></div>
+    <div class="nav-sheet" id="navSheet-stations" role="dialog" aria-label="اختر مقطع الطريق">
+        <div class="nav-sheet-title">اختر مقطع الطريق</div>
+        <button type="button" class="nav-sheet-item" data-target="section-stations-start" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-stations-start')">⛽ محطات طريق الذهاب (المنامة ← الرياض)</button>
+        <button type="button" class="nav-sheet-item" data-target="section-stations-riyadh" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-stations-riyadh')">⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)</button>
+        <button type="button" class="nav-sheet-item" data-target="section-stations-bypass" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-stations-bypass')">⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)</button>
+        <button type="button" class="nav-sheet-item" data-target="section-stations-makkah" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-stations-makkah')">⛽ محطات طريق الذهاب (الرياض ← الطائف ← مكة)</button>
+        <button type="button" class="nav-sheet-item nav-sheet-sep" data-target="section-return-madinah" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-return-madinah')">⛽ محطات طريق العودة (المدينة المنورة ← الرياض)</button>
+        <button type="button" class="nav-sheet-item" data-target="section-return-home" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-return-home')">⛽ محطات طريق العودة (الرياض ← المنامة)</button>
+    </div>
+    <div class="nav-sheet" id="navSheet-more" role="dialog" aria-label="بقية أقسام الدليل">
+        <div class="nav-sheet-title">بقية أقسام الدليل</div>
+        <button type="button" class="nav-sheet-item" data-target="section-routes" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-routes')">🛣️ خيارات مسارات السفر البري</button>
+        <button type="button" class="nav-sheet-item" data-target="section-calculator" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-calculator')">⏱️ حاسبة وقت الوصول وتكلفة الوقود</button>
+        <button type="button" class="nav-sheet-item" data-target="section-checklist" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-checklist')">✅ قائمة الفحص الذكية قبل السفر</button>
+        <button type="button" class="nav-sheet-item" data-target="section-apps" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-apps')">📱 تطبيقات وروابط مهمة</button>
+        <button type="button" class="nav-sheet-item nav-sheet-sep" data-target="section-road-tips" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-road-tips')">⚠️ نصائح الطريق والسلامة</button>
+        <button type="button" class="nav-sheet-item" data-target="section-prayers" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-prayers')">🤲 أدعية وأذكار السفر</button>
+        <button type="button" class="nav-sheet-item nav-sheet-sep" data-target="section-suggestions" data-here="📍 أنت هنا" onclick="navigateFromSheet('section-suggestions')">💡 اقتراحاتك واستفساراتك</button>
+    </div>
     <nav class="mobile-bottom-nav" aria-label="التنقل السريع للجوال">
-        <button type="button" class="mobile-nav-btn active" data-target="section-calculator" onclick="navigateToSection('section-calculator', this)">
-            <span class="nav-icon">⏱️</span>
-            <span>الحاسبة</span>
+        <button type="button" class="mobile-nav-btn active" data-spy="section-trip" onclick="navigateToSection('section-trip', this)">
+            <span class="nav-icon">🧭</span>
+            <span class="nav-label">رحلتي</span>
         </button>
-        <button type="button" class="mobile-nav-btn" data-target="section-stations-start" onclick="navigateToSection('section-stations-start', this)">
+        <button type="button" class="mobile-nav-btn" data-sheet="navSheet-stations" data-spy="section-stations-start section-stations-riyadh section-stations-bypass section-stations-makkah section-return-madinah section-return-home" aria-haspopup="dialog" aria-expanded="false" onclick="toggleNavSheet('navSheet-stations', this)">
             <span class="nav-icon">⛽</span>
-            <span>المحطات</span>
+            <span class="nav-label">المحطات</span>
         </button>
-        <button type="button" class="mobile-nav-btn" data-target="section-checklist" onclick="navigateToSection('section-checklist', this)">
-            <span class="nav-icon">✅</span>
-            <span>الفحص</span>
+        <button type="button" class="mobile-nav-btn" data-spy="phase-city section-city-info section-places" onclick="navigateToSection('phase-city', this)">
+            <span class="nav-icon">🕋</span>
+            <span class="nav-label">مكة والمدينة</span>
         </button>
-        <button type="button" class="mobile-nav-btn" data-target="section-prayers" onclick="navigateToSection('section-prayers', this)">
-            <span class="nav-icon">🤲</span>
-            <span>الأدعية</span>
+        <button type="button" class="mobile-nav-btn" data-sheet="navSheet-more" data-spy="section-routes section-calculator section-checklist section-apps section-road-tips section-prayers section-suggestions" aria-haspopup="dialog" aria-expanded="false" onclick="toggleNavSheet('navSheet-more', this)">
+            <span class="nav-icon">☰</span>
+            <span class="nav-label">المزيد</span>
         </button>
-        <button type="button" class="mobile-nav-btn" data-target="section-emergency" onclick="navigateToSection('section-emergency', this)">
+        <button type="button" class="mobile-nav-btn nav-emergency" data-spy="section-emergency" onclick="navigateToSection('section-emergency', this)">
             <span class="nav-icon">📞</span>
-            <span>الطوارئ</span>
+            <span class="nav-label">الطوارئ</span>
         </button>
     </nav>
 
-    <script>window.COUNTRY_DATA = {"countryCode":"bh","countryName":"البحرين","defaultCity":"المنامة (افتراضي)","totalDistanceKm":1348,"estimatedDriveHours":14.5,"stations":[{"km":1348,"name":"الانطلاق (المنامة)","lat":26.2235,"lon":50.5876},{"km":1313,"name":"منفذ جسر الملك فهد","lat":26.1856,"lon":50.3267},{"km":1296,"name":"محطة الدريس (الخبر)","lat":26.2157,"lon":50.1793},{"km":1245,"name":"محطة ساسكو (طريق الدمام - الرياض)","lat":26.2904,"lon":49.7868},{"km":980,"name":"محطة جو ستيشن (طريق 40)","lat":25.1351,"lon":47.5337},{"km":900,"name":"بداية الرياض (الدريس)","lat":24.8356,"lon":46.8333},{"km":854,"name":"مخرج الرياض (طويق)","lat":24.5717,"lon":46.5244},{"km":847,"name":"محطة بترومين - القدية","lat":24.544,"lon":46.4673},{"km":781,"name":"محطة ساسكو - تبرك","lat":24.378,"lon":45.8947},{"km":721,"name":"محطة ساسكو - القويعية","lat":24.133,"lon":45.3945},{"km":551,"name":"محطة ساسكو - الخاصرة","lat":23.4174,"lon":44.0285},{"km":407,"name":"محطة ساسكو - الحوميات","lat":22.9883,"lon":42.7753},{"km":335,"name":"محطة ساسكو - ظلم","lat":22.7062,"lon":42.1446},{"km":90,"name":"محطة ساسكو (السيل الكبير)","lat":21.6232,"lon":40.4331},{"km":0,"name":"مكة المكرمة (الحرم المكي)","lat":21.4225,"lon":39.8262}]};</script>
-    <script src="../js/app.js?v=ba00c095"></script>
+    <script>window.COUNTRY_DATA = {"countryCode":"bh","outboundPointCount":5,"defaultCity":"المنامة (افتراضي)","totalDistanceKm":1348,"estimatedDriveHours":14.5,"stations":[{"km":1348,"name":"الانطلاق (المنامة)","lat":26.2235,"lon":50.5876},{"km":1313,"name":"منفذ جسر الملك فهد","lat":26.1856,"lon":50.3267},{"km":1296,"name":"محطة الدريس (الخبر)","lat":26.2157,"lon":50.1793},{"km":1245,"name":"محطة ساسكو (طريق الدمام - الرياض)","lat":26.2904,"lon":49.7868},{"km":980,"name":"محطة جو ستيشن (طريق 40)","lat":25.1351,"lon":47.5337},{"km":900,"name":"بداية الرياض (الدريس)","lat":24.8356,"lon":46.8333},{"km":854,"name":"مخرج الرياض (طويق)","lat":24.5717,"lon":46.5244},{"km":847,"name":"محطة بترومين - القدية","lat":24.544,"lon":46.4673},{"km":781,"name":"محطة ساسكو - تبرك","lat":24.378,"lon":45.8947},{"km":721,"name":"محطة ساسكو - القويعية","lat":24.133,"lon":45.3945},{"km":551,"name":"محطة ساسكو - الخاصرة","lat":23.4174,"lon":44.0285},{"km":407,"name":"محطة ساسكو - الحوميات","lat":22.9883,"lon":42.7753},{"km":335,"name":"محطة ساسكو - ظلم","lat":22.7062,"lon":42.1446},{"km":90,"name":"محطة ساسكو (السيل الكبير)","lat":21.6232,"lon":40.4331},{"km":0,"name":"مكة المكرمة (الحرم المكي)","lat":21.4225,"lon":39.8262}]}; window.APP_I18N = {"locale":"ar-u-nu-latn","captchaLang":"ar","selectDeparture":"حدد وقت الانطلاق","km":"كم","sar":"ريال","liter":"لتر","timeHM":"{h} ساعة و {m} دقيقة","timeH":"{h} ساعة","timeM":"{m} دقيقة","themeToDark":"تفعيل المظهر الداكن","themeToLight":"تفعيل المظهر النهاري","prayerLine1":"الفجر {a} | الشروق {b}","prayerLine2":"المغرب {a} | العشاء {b}","am":"ص","pm":"م","prayerOffline1":"مواقيت الصلاة بمكة المكرمة","prayerOffline2":"تتطلب اتصالاً بالإنترنت","gpsBetween":"بين {a} و{b}","gpsLocate":"📍 حدّد موقعي الآن","gpsStop":"⏹️ إيقاف التتبّع","gpsLocating":"جاري تحديد الموقع...","gpsOffRoute":"خارج المسار (أقرب نقطة: {n})","gpsFailed":"{city} (تعذر جلب GPS)","gpsUnsupported":"المتصفح لا يدعم GPS","shareText":"تذكرونا بدعوة صالحة 🤲","copied":"✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.","copyFailed":"تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.","formNoKey":"⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.","formNoMessage":"⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.","formNoCaptcha":"⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.","formSending":"جاري الإرسال...","formSuccess":"✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.","formError":"حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.","formNetwork":"❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة."};</script>
+    <script src="../js/app.js?v=a13e181d"></script>
     <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 
