@@ -1,0 +1,35 @@
+# يتحقق أن البيانات سليمة وأن الملفات المولّدة المودعة مطابقة لمخرجات build.js
+# (يفشل إن نُسي تشغيل «node build.js» بعد تعديل data/ أو templates/ أو css/ أو js/).
+name: Build check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # تاريخ «آخر تحديث» يُحسب من سجل git: نحتاج السجل كاملاً، ونبني آخر إيداع في الفرع نفسه
+          # (لا إيداع الدمج المؤقت الذي ينشئه GitHub للطلب)
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Build
+        run: node build.js
+
+      - name: Generated files are up to date
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::الملفات المولّدة غير مطابقة للمصدر. شغّل node build.js وأودع النتيجة."
+            git status --short
+            git diff --stat
+            exit 1
+          fi

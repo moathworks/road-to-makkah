@@ -4,7 +4,8 @@
     --brand-rgb: 138, 21, 56;
     --brand-dark: #5A0E25;
     --primary-brand: #ffffff;
-    --primary-brand-rgb: 138, 21, 56;
+    /* صبغات الهوية (rgba) تتبع لون الدولة في المظهرين، بينما --primary-brand أبيض في المظهر الداكن */
+    --primary-brand-rgb: var(--brand-rgb);
     --primary-dark: #1e1e1e;
     --gold: #D4AF37;
     --gold-glow: rgba(212, 175, 55, 0.15);
@@ -2114,5 +2115,18 @@ body.theme-switching *::after {
 
     footer {
         margin-top: 24px;
+    }
+}
+
+
+/* تقليل الحركة لمن فعّل هذا التفضيل في نظامه (حساسية الحركة) */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

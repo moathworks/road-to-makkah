@@ -7,6 +7,11 @@
 
 module.exports = {
     'site.name': { ar: 'دليل السفر البري إلى مكة المكرمة', en: 'Road to Makkah Guide' },
+    'manifest.shortName': { ar: 'طريق مكة 🕋', en: 'Road to Makkah 🕋' },
+    'manifest.description': {
+        ar: 'دليل رقمي تفاعلي للرحلات البرية ومحطات الوقود والراحة وحاسبة المسافات إلى مكة المكرمة',
+        en: 'An interactive digital guide for overland trips to Makkah: routes, fuel and rest stops, and a distance calculator'
+    },
 
     // الهيدر والأزرار العلوية
     'country.headerLogo': { ar: '{country} ← 🕋 مكة المكرمة', en: '{country} → 🕋 Makkah' },
