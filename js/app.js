@@ -21,6 +21,31 @@ function tx(key, vars) {
     return vars ? text.replace(/\{(\w+)\}/g, (m, name) => (name in vars ? vars[name] : m)) : text;
 }
 
+// التخزين المحلي قد يكون معطلاً أو ممتلئاً (تصفح خاص، إعدادات صارمة): لا نترك ذلك يوقف أي وظيفة
+function storageGet(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
+function storageSet(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) { /* نكمل بلا حفظ */ }
+}
+
+// طلب شبكة بمهلة: على تغطية الطريق الضعيفة لا نترك النص معلقاً على «جاري التحديث» طويلاً
+function fetchWithTimeout(url, timeoutMs) {
+    if (typeof AbortController === 'undefined') return fetch(url);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
+const PREFERS_REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // 1. إدارة فتح وطي الأقسام (Accordions) - مغلقة في أول زيارة، ثم تُستعاد كما تركها المسافر
 // (من يفتح الدليل عند كل توقف يجد قسم محطاته مفتوحاً دون البحث عنه من جديد)
 const OPEN_SECTIONS_STORAGE_KEY = `guideOpenSections_${CONFIG.countryCode}`;
@@ -30,22 +55,26 @@ let isAllExpanded = false;
 
 function loadOpenSections() {
     try {
-        const ids = JSON.parse(localStorage.getItem(OPEN_SECTIONS_STORAGE_KEY));
+        const ids = JSON.parse(storageGet(OPEN_SECTIONS_STORAGE_KEY));
         return Array.isArray(ids) ? ids : [];
     } catch (e) {
         return [];
     }
 }
 
+// «فتح/طي الكل» يطلق حدث toggle لكل قسم: نجمع الحفظ في كتابة واحدة بعد انتهائها
+let saveOpenSectionsTimer = null;
+
 function saveOpenSections() {
-    // أثناء الطباعة تُفتح كل الأقسام مؤقتاً: لا نحفظ هذه الحالة العابرة
-    if (savedAccordionStatesBeforePrint) return;
-    const ids = Array.from(document.querySelectorAll('details.custom-accordion[open][id]'))
-        .map(details => details.id)
-        .filter(id => !NON_PERSISTENT_SECTIONS.includes(id));
-    try {
-        localStorage.setItem(OPEN_SECTIONS_STORAGE_KEY, JSON.stringify(ids));
-    } catch (e) { /* التخزين غير متاح (تصفح خاص مثلاً): نكمل بلا حفظ */ }
+    clearTimeout(saveOpenSectionsTimer);
+    saveOpenSectionsTimer = setTimeout(() => {
+        // أثناء الطباعة تُفتح كل الأقسام مؤقتاً: لا نحفظ هذه الحالة العابرة
+        if (savedAccordionStatesBeforePrint) return;
+        const ids = Array.from(document.querySelectorAll('details.custom-accordion[open][id]'))
+            .map(details => details.id)
+            .filter(id => !NON_PERSISTENT_SECTIONS.includes(id));
+        storageSet(OPEN_SECTIONS_STORAGE_KEY, JSON.stringify(ids));
+    }, 50);
 }
 
 function updateToggleIcon() {
@@ -112,7 +141,7 @@ function navigateToSection(sectionId, btnEl) {
         target.setAttribute('open', '');
     }
 
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: PREFERS_REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
 
     if (btnEl) setActiveNavButton(btnEl);
 }
@@ -123,11 +152,15 @@ function setActiveNavButton(btnEl) {
 }
 
 // قوائم شريط الجوال («المحطات» و«المزيد»): قائمة صغيرة تظهر فوق الشريط لاختيار القسم
-function closeNavSheets() {
+// returnFocus: عند الإغلاق دون اختيار (Escape أو الخلفية) يعود التركيز إلى الزر الذي فتح القائمة
+function closeNavSheets(returnFocus) {
+    const openSheet = document.querySelector('.nav-sheet.is-open');
+    const opener = openSheet ? document.querySelector(`.mobile-nav-btn[data-sheet="${openSheet.id}"]`) : null;
     document.querySelectorAll('.nav-sheet.is-open').forEach(sheet => sheet.classList.remove('is-open'));
     document.querySelectorAll('.mobile-nav-btn[data-sheet]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
     const backdrop = document.getElementById('navSheetBackdrop');
     if (backdrop) backdrop.classList.remove('is-open');
+    if (returnFocus === true && opener) opener.focus({ preventScroll: true });
 }
 
 function toggleNavSheet(sheetId, btnEl) {
@@ -155,7 +188,29 @@ function navigateFromSheet(sectionId) {
 }
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeNavSheets();
+    const openSheet = document.querySelector('.nav-sheet.is-open');
+    if (!openSheet) return;
+    if (e.key === 'Escape') {
+        closeNavSheets(true);
+        return;
+    }
+    // حصر التنقل بـ Tab داخل القائمة المفتوحة (role="dialog")
+    if (e.key === 'Tab') {
+        const items = Array.from(openSheet.querySelectorAll('button'));
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        } else if (!openSheet.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
 });
 
 // 2. بدء الرحلة وفتح ملاحة خرائط جوجل
@@ -170,8 +225,8 @@ function calcArrival() {
     if (!depInputEl || !arrDisplay) return;
 
     const depInput = depInputEl.value;
-    if (depInput) {
-        const depDate = new Date(depInput);
+    const depDate = depInput ? new Date(depInput) : null;
+    if (depDate && !Number.isNaN(depDate.getTime())) {
         const totalMinutes = Math.round(CONFIG.estimatedDriveHours * 60);
         depDate.setMinutes(depDate.getMinutes() + totalMinutes);
 
@@ -237,12 +292,13 @@ function initChecklist() {
         toggles.forEach((toggle, idx) => {
             state[getToggleKey(toggle, idx)] = toggle.checked;
         });
-        localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
+        storageSet(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
     }
 
     function loadChecklistState() {
-        const savedState = localStorage.getItem(CHECKLIST_STORAGE_KEY)
-            || (CONFIG.countryCode === 'qa' ? localStorage.getItem('meccaTripChecklist') : null);
+        // meccaTripChecklist: مفتاح الإصدار الأول (قطر فقط) قبل فصل الحالة لكل دولة
+        const savedState = storageGet(CHECKLIST_STORAGE_KEY)
+            || (CONFIG.countryCode === 'qa' ? storageGet('meccaTripChecklist') : null);
         if (savedState) {
             try {
                 const state = JSON.parse(savedState);
@@ -299,6 +355,7 @@ function initChecklist() {
 // كابتشا نموذج الاقتراحات تُبنى من جديد عند تغيّر المظهر، وهذا مكلف (iframe خارجي).
 // لذلك لا نعيد بناءها إلا إذا كان القسم مفتوحاً، وإلا نؤجلها إلى حين فتحه.
 let captchaThemeStale = false;
+let captchaRendered = false;
 
 function toggleTheme() {
     const body = document.body;
@@ -306,7 +363,7 @@ function toggleTheme() {
     body.classList.add('theme-switching');
     body.classList.toggle('light-mode');
     const isLight = body.classList.contains('light-mode');
-    localStorage.setItem('darkGuideTheme', isLight ? 'light' : 'dark');
+    storageSet('darkGuideTheme', isLight ? 'light' : 'dark');
     updateThemeBtn(isLight);
     void body.offsetHeight;
     requestAnimationFrame(() => requestAnimationFrame(() => body.classList.remove('theme-switching')));
@@ -319,31 +376,50 @@ function toggleTheme() {
     }
 }
 
-function changehCaptchaTheme(newTheme) {
-    captchaThemeStale = false;
-    if (typeof hcaptcha !== 'undefined') {
-        const wrapper = document.getElementById('h-captcha-wrapper');
-        if (wrapper) {
-            wrapper.innerHTML = '';
-            const newWidget = document.createElement('div');
-            newWidget.className = 'h-captcha';
-            newWidget.id = 'h-captcha-widget';
-            newWidget.setAttribute('data-captcha', 'true');
-            newWidget.setAttribute('data-lang', tx('captchaLang'));
-            newWidget.setAttribute('data-theme', newTheme);
-            newWidget.setAttribute('data-sitekey', '50b2fe65-b00b-4b9e-ad62-3ba471098be2');
-            wrapper.appendChild(newWidget);
-            try {
-                hcaptcha.render(newWidget, {
-                    sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
-                    theme: newTheme,
-                    hl: tx('captchaLang')
-                });
-            } catch (e) {
-                console.error('Error rendering hCaptcha:', e);
-            }
-        }
+/**
+ * كابتشا نموذج الاقتراحات (hCaptcha بمفتاح Web3Forms العام). سكربتها الخارجي لا يُحمَّل مع الصفحة،
+ * بل عند أول فتح لقسم الاقتراحات، فلا تُطلب أي موارد خارجية لمن لا يستخدم النموذج.
+ */
+let hcaptchaLoading = null;
+
+function loadHcaptcha() {
+    if (typeof hcaptcha !== 'undefined') return Promise.resolve();
+    if (!hcaptchaLoading) {
+        hcaptchaLoading = new Promise((resolve, reject) => {
+            window.onHcaptchaLoad = resolve;
+            const script = document.createElement('script');
+            script.src = `https://js.hcaptcha.com/1/api.js?render=explicit&onload=onHcaptchaLoad&recaptchacompat=off&hl=${encodeURIComponent(tx('captchaLang'))}`;
+            script.async = true;
+            script.onerror = () => {
+                hcaptchaLoading = null;
+                reject(new Error('hCaptcha failed to load'));
+            };
+            document.head.appendChild(script);
+        });
     }
+    return hcaptchaLoading;
+}
+
+function renderCaptcha(theme) {
+    const wrapper = document.getElementById('h-captcha-wrapper');
+    if (!wrapper || !wrapper.dataset.sitekey) return;
+    captchaThemeStale = false;
+    loadHcaptcha().then(() => {
+        wrapper.innerHTML = '';
+        const widget = document.createElement('div');
+        widget.className = 'h-captcha';
+        widget.id = 'h-captcha-widget';
+        wrapper.appendChild(widget);
+        hcaptcha.render(widget, { sitekey: wrapper.dataset.sitekey, theme, hl: tx('captchaLang') });
+        captchaRendered = true;
+    }).catch((e) => {
+        // بلا إنترنت: يبقى النموذج ظاهراً، ويُعاد المحاولة عند فتح القسم مرة أخرى
+        console.error('Error rendering hCaptcha:', e);
+    });
+}
+
+function changehCaptchaTheme(newTheme) {
+    renderCaptcha(newTheme);
 }
 
 function updateThemeBtn(isLight) {
@@ -376,7 +452,7 @@ async function getMakkahTemp() {
     const tempEls = document.querySelectorAll('[data-makkah-temp]');
     if (!tempEls.length) return;
     try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true');
+        const response = await fetchWithTimeout('https://api.open-meteo.com/v1/forecast?latitude=21.4266&longitude=39.8261&current_weather=true', 8000);
         if (!response.ok) throw new Error('Weather HTTP error');
         const data = await response.json();
         const temp = Math.round(data.current_weather.temperature);
@@ -403,19 +479,45 @@ function formatTime12Ar(time24) {
     return `${h}:${m} ${suffix}`;
 }
 
+// مواقيت اليوم تُحفظ محلياً بتاريخ مكة، فتظهر فوراً (وبلا إنترنت) عند فتح الدليل مرة أخرى في اليوم نفسه
+const PRAYERS_STORAGE_KEY = 'makkahPrayerTimes';
+
+function makkahToday() {
+    try {
+        return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Riyadh' }).format(new Date());
+    } catch (e) {
+        return new Date().toISOString().slice(0, 10);
+    }
+}
+
+function renderPrayers(timings) {
+    document.getElementById('prayer-line-1').textContent = tx('prayerLine1', { a: formatTime12Ar(timings.Fajr), b: formatTime12Ar(timings.Sunrise) });
+    document.getElementById('prayer-line-2').textContent = tx('prayerLine2', { a: formatTime12Ar(timings.Maghrib), b: formatTime12Ar(timings.Isha) });
+}
+
 async function getMakkahPrayers() {
     const line1 = document.getElementById('prayer-line-1');
     const line2 = document.getElementById('prayer-line-2');
     if (!line1 || !line2) return;
 
+    const today = makkahToday();
     try {
-        const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabia&method=4');
+        const cached = JSON.parse(storageGet(PRAYERS_STORAGE_KEY));
+        if (cached && cached.day === today && cached.timings) {
+            renderPrayers(cached.timings);
+            return;
+        }
+    } catch (e) { /* كاش تالف: نجلب من جديد */ }
+
+    try {
+        const response = await fetchWithTimeout('https://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabia&method=4', 8000);
         if (!response.ok) throw new Error('Prayers HTTP error');
         const json = await response.json();
         if (!json || !json.data || !json.data.timings) throw new Error('Prayers data error');
-        const t = json.data.timings;
-        line1.textContent = tx('prayerLine1', { a: formatTime12Ar(t.Fajr), b: formatTime12Ar(t.Sunrise) });
-        line2.textContent = tx('prayerLine2', { a: formatTime12Ar(t.Maghrib), b: formatTime12Ar(t.Isha) });
+        const { Fajr, Sunrise, Maghrib, Isha } = json.data.timings;
+        const timings = { Fajr, Sunrise, Maghrib, Isha };
+        renderPrayers(timings);
+        storageSet(PRAYERS_STORAGE_KEY, JSON.stringify({ day: today, timings }));
     } catch (e) {
         line1.textContent = tx('prayerOffline1');
         line2.textContent = tx('prayerOffline2');
@@ -475,16 +577,11 @@ function describeRoutePosition(match) {
 }
 
 /**
- * قسم المحطات الذي يقع فيه المسافر الآن. نقاط المسار مرتبة:
- * الانطلاق ← محطات الذهاب (outboundPointCount نقطة) ← مخرج الرياض ← بقية الطريق إلى مكة.
+ * قسم المحطات الذي يقع فيه المسافر الآن: كل نقطة مسار تحمل (leg) معرّف القسم الذي يقع فيه
+ * الطريق المؤدي إليها، ويحسبه build.js من أقسام الدولة نفسها، فلا يفترض الكود أي ممر ثابت.
  */
-function stationSectionForMatch(match, points) {
-    const toIndex = points.indexOf(match.to);
-    const outboundCount = CONFIG.outboundPointCount || 0;
-    if (toIndex <= outboundCount) return 'section-stations-start';
-    // بين مدخل الرياض (آخر محطة ذهاب) ومخرجها الغربي: محطات داخل المدينة
-    if (toIndex === outboundCount + 1) return 'section-stations-riyadh';
-    return 'section-stations-makkah';
+function stationSectionForMatch(match) {
+    return match.to.leg || null;
 }
 
 // يميّز المقطع الحالي في قائمة «المحطات» بشريط الجوال (null لإزالة التمييز)
@@ -521,7 +618,7 @@ function handleUserPosition(position) {
     } else {
         locNameEl.textContent = describeRoutePosition(match);
         calcRemaining(match.remainingKm);
-        markCurrentStationSection(stationSectionForMatch(match, points));
+        markCurrentStationSection(stationSectionForMatch(match));
     }
 }
 
@@ -782,10 +879,28 @@ function initMobileScrollSpy() {
     });
 }
 
+/**
+ * الصفحة المفتوحة ونسختها باللغة الأخرى تُطلب من Service Worker تخزينها للعمل دون اتصال.
+ * (أول زيارة تسبق تثبيت Service Worker، فلا تمر الصفحة عبره ولا تُخزَّن تلقائياً.)
+ */
+function pagesToCacheOffline() {
+    const urls = [window.location.href];
+    document.querySelectorAll('link[rel="alternate"][hreflang]:not([hreflang="x-default"])').forEach((link) => {
+        try {
+            const url = new URL(link.href, window.location.href);
+            if (url.origin === window.location.origin) urls.push(url.href);
+        } catch (e) { /* رابط غير صالح: نتجاهله */ }
+    });
+    return urls;
+}
+
 function registerPWA() {
     if (!('serviceWorker' in navigator) || window.location.protocol === 'file:' || !APP_SCRIPT_URL) return;
     // js/app.js ← ../sw.js = جذر الموقع، فيصحّ المسار من الرئيسية ومن صفحات الدول
     navigator.serviceWorker.register(new URL('../sw.js', APP_SCRIPT_URL)).catch(() => {});
+    navigator.serviceWorker.ready.then((registration) => {
+        if (registration.active) registration.active.postMessage({ type: 'CACHE_PAGES', urls: pagesToCacheOffline() });
+    }).catch(() => {});
 }
 
 function bootstrapApp() {
@@ -801,11 +916,6 @@ function bootstrapCountryPage() {
     const isLight = document.body.classList.contains('light-mode');
     updateThemeBtn(isLight);
 
-    const captchaWidget = document.getElementById('h-captcha-widget');
-    if (captchaWidget) {
-        captchaWidget.setAttribute('data-theme', isLight ? 'light' : 'dark');
-    }
-
     initAccordions();
     initChecklist();
     calcRemaining(CONFIG.totalDistanceKm);
@@ -817,11 +927,8 @@ function bootstrapCountryPage() {
     const suggestionsDetails = document.getElementById('section-suggestions');
     if (suggestionsDetails) {
         suggestionsDetails.addEventListener('toggle', () => {
-            if (suggestionsDetails.open) {
-                const wrapper = document.getElementById('h-captcha-wrapper');
-                if (wrapper && (captchaThemeStale || !wrapper.querySelector('iframe')) && typeof hcaptcha !== 'undefined') {
-                    changehCaptchaTheme(document.body.classList.contains('light-mode') ? 'light' : 'dark');
-                }
+            if (suggestionsDetails.open && (!captchaRendered || captchaThemeStale)) {
+                renderCaptcha(document.body.classList.contains('light-mode') ? 'light' : 'dark');
             }
         });
     }

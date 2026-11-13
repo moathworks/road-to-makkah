@@ -31,13 +31,11 @@
     <meta name="twitter:title" content="Overland Travel Guide from Bahrain to Makkah">
     <meta name="twitter:description" content="Overland travel guide from Bahrain to Makkah via the King Fahd Causeway: distance and fuel calculator, fuel stops, smart checklist and emergency numbers.">
     <meta name="twitter:image" content="https://moathworks.github.io/road-to-makkah/assets/images/kaaba.jpg">
-    <link rel="manifest" href="../../manifest.json">
+    <link rel="manifest" href="../../en/manifest.json">
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/style.css?v=9fed5427">
+    <link rel="stylesheet" href="../../css/fonts.css?v=4d81fe39">
+    <link rel="stylesheet" href="../../css/style.css?v=a3921937">
     <style>
         /* لون هوية الدولة */
         :root {
@@ -63,27 +61,27 @@
             <div class="header-title-block">
                 <h1 class="header-h1">
                     <a href="../" class="header-logo">
-                        <img loading="lazy" src="../../assets/images/bh-flag.png" alt="Bahrain" class="flag-img">
+                        <img src="../../assets/images/bh-flag.png" alt="" class="flag-img">
                         Bahrain → 🕋 Makkah
                     </a>
                 </h1>
-                <div class="last-updated">Last updated: 13 November 2026</div>
+                <div class="last-updated">Last updated: November 13, 2026</div>
             </div>
             <div class="quick-actions-row">
                 <a href="../" class="quick-access-btn" title="Home (all countries)" aria-label="Home (all countries)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 </a>
                 <button type="button" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="printRoute()" title="Print the route" aria-label="Print the route">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="sharePage()" title="Share the guide" aria-label="Share the guide">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                 </button>
                 <button type="button" class="quick-access-btn" onclick="toggleAllAccordions()" title="Collapse / expand all" aria-label="Collapse / expand all">
-                    <svg id="toggleAllIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline></svg>
+                    <svg id="toggleAllIcon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="7 11 12 6 17 11"></polyline><polyline points="7 18 12 13 17 18"></polyline></svg>
                 </button>
                 <a href="../../bahrain/" class="quick-access-btn lang-toggle" lang="ar" hreflang="ar" title="العربية" aria-label="العربية">ع</a>
             </div>
@@ -163,7 +161,7 @@
         <details class="custom-accordion hero-section" id="section-calculator">
             <summary>
                 <h2 class="hero-title">⏱️ Arrival time and fuel cost calculator</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
 
@@ -209,7 +207,7 @@
         <details class="custom-accordion" id="section-checklist">
             <summary>
                 <h2 class="accordion-title">✅ Smart pre-trip checklist</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="checklist-wrapper">
@@ -492,9 +490,9 @@
         <details class="custom-accordion apps-section" id="section-apps">
             <summary>
                 <h2 class="accordion-title summary-with-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>Important apps and links
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 0120.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>Important apps and links
                 </h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="app-item">
@@ -506,9 +504,9 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.kfca.sa.jesr" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="JESR (King Fahd Causeway) on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/bh/app/jesr-%D8%AC%D8%B3%D8%B1/id1482105365" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="JESR (King Fahd Causeway) on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                        <a href="https://kfca.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="JESR (King Fahd Causeway) website"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.kfca.sa.jesr" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="JESR (King Fahd Causeway) on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/bh/app/jesr-%D8%AC%D8%B3%D8%B1/id1482105365" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="JESR (King Fahd Causeway) on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://kfca.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="JESR (King Fahd Causeway) website"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
                     </div>
                 </div>
 
@@ -521,8 +519,8 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Manafeth app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Manafeth app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.najm.manafeth" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Manafeth app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/manafith-منافذ/id1630305902" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Manafeth app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
 
@@ -535,8 +533,8 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Nusuk app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Nusuk app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.moh.nusukapp" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Nusuk app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/nusuk-نسك/id6469515422" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Nusuk app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
 
@@ -549,8 +547,8 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Najm app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Najm app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.najm.najm" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Najm app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/qa/app/najm-نجم/id953140409" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Najm app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
 
@@ -563,8 +561,8 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Jahez app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/sa/app/jahez-%D8%AC%D8%A7%D9%87%D8%B2/id1137352156" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Jahez app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=net.jahez" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Jahez app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/sa/app/jahez-%D8%AC%D8%A7%D9%87%D8%B2/id1137352156" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Jahez app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
 
@@ -577,8 +575,8 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="HungerStation app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/sa/app/hungerstation/id596011949" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="HungerStation app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.hungerstation.android.web" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="HungerStation app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/sa/app/hungerstation/id596011949" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="HungerStation app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
                     </div>
                 </div>
 
@@ -591,7 +589,7 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="Check traffic violations on Absher"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                        <a href="https://www.absher.sa/wps/portal/individuals/Home/myservices/einquiries/traffic/qtvfvisitor/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8zizYx8nA09LIy8DQK9zA0CjUKDAgJ9XY0M_A30w8EKDDxNTDwMTYy83Q3MjAwcw4IsTFw9TQ3dzUz0o0DSOIAjTD8eCwjqj8KixNHAKcjIydjAwN3fCKsCFDOCE4v0C3JDIwyyTBQB1Lzbtw!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="Check traffic violations on Absher"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
                     </div>
                 </div>
 
@@ -604,9 +602,9 @@
                         </div>
                     </div>
                     <div class="app-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Haramain railway app on Google Play"><svg viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
-                        <a href="https://apps.apple.com/sa/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Haramain railway app on the App Store"><svg viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
-                        <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="Haramain railway website"><svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.indra.haramain.pro" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Google Play" aria-label="Haramain railway app on Google Play"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg></a>
+                        <a href="https://apps.apple.com/sa/app/hhr-train/id1533264335" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="App Store" aria-label="Haramain railway app on the App Store"><svg aria-hidden="true" focusable="false" viewBox="0 0 384 512" width="20" height="20"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg></a>
+                        <a href="https://sar.hhr.sa" target="_blank" rel="noopener noreferrer" class="app-store-btn" title="Website" aria-label="Haramain railway website"><svg aria-hidden="true" focusable="false" viewBox="0 0 512 512" width="20" height="20" fill="currentColor"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
                     </div>
                 </div>
             </div>
@@ -617,7 +615,7 @@
         <details class="custom-accordion" id="section-road-tips">
             <summary>
                 <h2 class="accordion-title">⚠️ Road tips and safety</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="info-tip">😴 <strong>Fatigue and drowsiness:</strong> Never push on when you feel sleepy. Stop at the nearest service station right away and take a 20-minute nap.</p>
@@ -635,7 +633,7 @@
         <details class="custom-accordion" id="section-prayers">
             <summary>
                 <h2 class="accordion-title">🤲 Travel supplications</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="text-block"><strong>Travel supplication:</strong>
@@ -653,7 +651,7 @@
         <details class="custom-accordion" id="section-stations-start">
             <summary>
                 <h2 class="accordion-title">⛽ Outbound stations (Manama → Riyadh)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="stations-grid">
@@ -708,7 +706,7 @@
         <details class="custom-accordion" id="section-stations-riyadh">
             <summary>
                 <h2 class="accordion-title">⛽ Riyadh city stations – Highway 40 (main, 80M)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="riyadh-inner-grid">
@@ -734,7 +732,7 @@
         <details class="custom-accordion accordion-bypass" id="section-stations-bypass">
             <summary>
                 <h2 class="accordion-title">⛽ Riyadh city stations – bypass (King Salman Road)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="section-intro">Use this route to avoid city-centre traffic at peak hours.</p>
@@ -761,7 +759,7 @@
         <details class="custom-accordion" id="section-stations-makkah">
             <summary>
                 <h2 class="accordion-title">⛽ Outbound stations (Riyadh → Taif → Makkah)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="section-intro miqat-note">🕋 The miqat on this road is As-Sayl Al-Kabir (Qarn al-Manazil), the last station in this list. If you intend Umrah, enter ihram there before passing it.</p>
@@ -861,28 +859,28 @@
                             <img loading="lazy" src="../../assets/images/bh-flag.png" alt="Bahrain" class="flag-img">
                             In Bahrain (general emergency)
                         </h3>
-                        <a href="tel:999" class="emergency-number" title="Call Bahrain emergency 999">📞 999</a>
+                        <a href="tel:999" class="emergency-number" title="Call Bahrain emergency 999"><span aria-hidden="true">📞</span> 999</a>
                     </div>
                     <div class="emergency-box saudi">
                         <h3>
                             <img loading="lazy" src="../../assets/images/sa-flag.png" alt="Saudi Arabia" class="flag-img">
                             In Saudi Arabia (road security)
                         </h3>
-                        <a href="tel:911" class="emergency-number" title="Call road security 911">📞 911</a>
+                        <a href="tel:911" class="emergency-number" title="Call road security 911"><span aria-hidden="true">📞</span> 911</a>
                     </div>
                     <div class="emergency-box saudi">
                         <h3>
                             <img loading="lazy" src="../../assets/images/sa-flag.png" alt="Saudi Arabia" class="flag-img">
                             Red Crescent (ambulance)
                         </h3>
-                        <a href="tel:997" class="emergency-number" title="Call ambulance 997">📞 997</a>
+                        <a href="tel:997" class="emergency-number" title="Call ambulance 997"><span aria-hidden="true">📞</span> 997</a>
                     </div>
                     <div class="emergency-box saudi">
                         <h3>
                             <img loading="lazy" src="../../assets/images/sa-flag.png" alt="Saudi Arabia" class="flag-img">
                             Najm for accidents (Saudi Arabia)
                         </h3>
-                        <a href="tel:920000560" class="emergency-number emergency-number-long" title="Call Najm">📞 920000560</a>
+                        <a href="tel:920000560" class="emergency-number emergency-number-long" title="Call Najm"><span aria-hidden="true">📞</span> 920000560</a>
                         <p class="emergency-note">The national platform for handling traffic accidents of insured vehicles</p>
                     </div>
                 </div>
@@ -894,7 +892,7 @@
         <details class="custom-accordion" id="section-city-info">
             <summary>
                 <h2 class="accordion-title">🏨 Staying and getting around in Makkah and Madinah</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="info-tip">🏨 <strong>Hotels and parking:</strong> Book hotels in advance and make sure parking is available, or use the official car parks at the entrances to Makkah (such as Kudai or Az-Zahir) and take the Makkah shuttle buses to the Haram.</p>
@@ -910,7 +908,7 @@
         <details class="custom-accordion" id="section-places">
             <summary>
                 <h2 class="accordion-title">🕌 Historical and religious places to visit</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="places-wrap">
@@ -969,7 +967,7 @@
         <details class="custom-accordion" id="section-return-madinah">
             <summary>
                 <h2 class="accordion-title">⛽ Return stations (Madinah → Riyadh)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="section-intro">Recommended model stations on the Hijrah – Qassim – Riyadh expressway:</p>
@@ -1016,7 +1014,7 @@
         <details class="custom-accordion" id="section-return-home">
             <summary>
                 <h2 class="accordion-title">⛽ Return stations (Riyadh → Manama)</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <p class="section-intro">Recommended stations on the way back from Riyadh via Highway 40 (80M) to the King Fahd Causeway and Manama:</p>
@@ -1063,7 +1061,7 @@
         <details class="custom-accordion suggestions-wrapper" id="section-suggestions">
             <summary>
                 <h2 class="accordion-title">💡 Suggestions and questions</h2>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <svg class="chevron-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </summary>
             <div class="accordion-content">
                 <div class="suggestions-header">
@@ -1092,9 +1090,8 @@
                         <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="Write your suggestion or the details of the change you would like here…"></textarea>
                     </div>
 
-                    <div class="captcha-container" id="h-captcha-wrapper">
-                        <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="en" data-theme="light"></div>
-                    </div>
+                    <!-- الكابتشا تُحمَّل عند فتح القسم فقط (js/app.js)، فلا تُطلب سكربتات خارجية مع كل زيارة -->
+                    <div class="captcha-container" id="h-captcha-wrapper" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
 
                     <div class="btn-submit-container">
                         <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
@@ -1114,7 +1111,7 @@
 
     </div>
 
-    <div class="nav-sheet-backdrop" id="navSheetBackdrop" onclick="closeNavSheets()"></div>
+    <div class="nav-sheet-backdrop" id="navSheetBackdrop" onclick="closeNavSheets(true)"></div>
     <div class="nav-sheet" id="navSheet-stations" role="dialog" aria-label="Choose a road section">
         <div class="nav-sheet-title">Choose a road section</div>
         <button type="button" class="nav-sheet-item" data-target="section-stations-start" data-here="📍 You are here" onclick="navigateFromSheet('section-stations-start')">⛽ Outbound stations (Manama → Riyadh)</button>
@@ -1136,30 +1133,29 @@
     </div>
     <nav class="mobile-bottom-nav" aria-label="Quick navigation">
         <button type="button" class="mobile-nav-btn active" data-spy="section-trip" onclick="navigateToSection('section-trip', this)">
-            <span class="nav-icon">🧭</span>
+            <span class="nav-icon" aria-hidden="true">🧭</span>
             <span class="nav-label">My trip</span>
         </button>
         <button type="button" class="mobile-nav-btn" data-sheet="navSheet-stations" data-spy="section-stations-start section-stations-riyadh section-stations-bypass section-stations-makkah section-return-madinah section-return-home" aria-haspopup="dialog" aria-expanded="false" onclick="toggleNavSheet('navSheet-stations', this)">
-            <span class="nav-icon">⛽</span>
+            <span class="nav-icon" aria-hidden="true">⛽</span>
             <span class="nav-label">Stations</span>
         </button>
         <button type="button" class="mobile-nav-btn" data-spy="phase-city section-city-info section-places" onclick="navigateToSection('phase-city', this)">
-            <span class="nav-icon">🕋</span>
+            <span class="nav-icon" aria-hidden="true">🕋</span>
             <span class="nav-label">Makkah</span>
         </button>
         <button type="button" class="mobile-nav-btn" data-sheet="navSheet-more" data-spy="section-routes section-calculator section-checklist section-apps section-road-tips section-prayers section-suggestions" aria-haspopup="dialog" aria-expanded="false" onclick="toggleNavSheet('navSheet-more', this)">
-            <span class="nav-icon">☰</span>
+            <span class="nav-icon" aria-hidden="true">☰</span>
             <span class="nav-label">More</span>
         </button>
         <button type="button" class="mobile-nav-btn nav-emergency" data-spy="section-emergency" onclick="navigateToSection('section-emergency', this)">
-            <span class="nav-icon">📞</span>
+            <span class="nav-icon" aria-hidden="true">📞</span>
             <span class="nav-label">Emergency</span>
         </button>
     </nav>
 
-    <script>window.COUNTRY_DATA = {"countryCode":"bh","outboundPointCount":5,"defaultCity":"Manama (default)","totalDistanceKm":1348,"estimatedDriveHours":14.5,"stations":[{"km":1348,"name":"Start (Manama)","lat":26.2235,"lon":50.5876},{"km":1313,"name":"King Fahd Causeway border","lat":26.1856,"lon":50.3267},{"km":1296,"name":"Aldrees Station (Khobar)","lat":26.2157,"lon":50.1793},{"km":1245,"name":"SASCO Station (Dammam–Riyadh road)","lat":26.2904,"lon":49.7868},{"km":980,"name":"GO Station (Highway 40)","lat":25.1351,"lon":47.5337},{"km":900,"name":"Riyadh entrance (Aldrees)","lat":24.8356,"lon":46.8333},{"km":854,"name":"Riyadh exit (Tuwaiq)","lat":24.5717,"lon":46.5244},{"km":847,"name":"Petromin Station – Qiddiya","lat":24.544,"lon":46.4673},{"km":781,"name":"SASCO Station – Tebrak","lat":24.378,"lon":45.8947},{"km":721,"name":"SASCO Station – Al Quwayiyah","lat":24.133,"lon":45.3945},{"km":551,"name":"SASCO Station – Al Khasirah","lat":23.4174,"lon":44.0285},{"km":407,"name":"SASCO Station – Al Humiyat","lat":22.9883,"lon":42.7753},{"km":335,"name":"SASCO Station – Dhalm","lat":22.7062,"lon":42.1446},{"km":90,"name":"SASCO Station (As-Sayl Al-Kabir)","lat":21.6232,"lon":40.4331},{"km":0,"name":"Makkah (Al-Masjid Al-Haram)","lat":21.4225,"lon":39.8262}]}; window.APP_I18N = {"locale":"en-US","captchaLang":"en","selectDeparture":"Select a departure time","km":"km","sar":"SAR","liter":"L","timeHM":"{h} h {m} min","timeH":"{h} h","timeM":"{m} min","themeToDark":"Switch to dark theme","themeToLight":"Switch to light theme","prayerLine1":"Fajr {a} | Sunrise {b}","prayerLine2":"Maghrib {a} | Isha {b}","am":"AM","pm":"PM","prayerOffline1":"Makkah prayer times","prayerOffline2":"need an internet connection","gpsBetween":"Between {a} and {b}","gpsLocate":"📍 Locate me now","gpsStop":"⏹️ Stop tracking","gpsLocating":"Locating…","gpsOffRoute":"Off route (nearest point: {n})","gpsFailed":"{city} (GPS unavailable)","gpsUnsupported":"This browser does not support GPS","shareText":"Remember us in your prayers 🤲","copied":"✅ Title and link copied!\nYou can now paste and share them.","copyFailed":"Could not copy automatically. Please copy the link from the address bar.","formNoKey":"⚠️ Please configure the Web3Forms access key in the code first.","formNoMessage":"⚠️ Please write your suggestion or question first.","formNoCaptcha":"⚠️ Please complete the captcha (I am not a robot) first.","formSending":"Sending…","formSuccess":"✅ Your suggestion was sent. Thank you for helping us improve the guide.","formError":"Something went wrong while sending. Please try again later.","formNetwork":"❌ Sorry, the server could not be reached. Check your internet connection and try again."};</script>
-    <script src="../../js/app.js?v=a13e181d"></script>
-    <script src="https://web3forms.com/client/script.js" async defer></script>
+    <script>window.COUNTRY_DATA = {"countryCode":"bh","defaultCity":"Manama (default)","totalDistanceKm":1348,"estimatedDriveHours":14.5,"stations":[{"km":1348,"name":"Start (Manama)","lat":26.2235,"lon":50.5876,"leg":"section-stations-start"},{"km":1313,"name":"King Fahd Causeway border","lat":26.1856,"lon":50.3267,"leg":"section-stations-start"},{"km":1296,"name":"Aldrees Station (Khobar)","lat":26.2157,"lon":50.1793,"leg":"section-stations-start"},{"km":1245,"name":"SASCO Station (Dammam–Riyadh road)","lat":26.2904,"lon":49.7868,"leg":"section-stations-start"},{"km":980,"name":"GO Station (Highway 40)","lat":25.1351,"lon":47.5337,"leg":"section-stations-start"},{"km":900,"name":"Riyadh entrance (Aldrees)","lat":24.8356,"lon":46.8333,"leg":"section-stations-start"},{"km":854,"name":"Riyadh exit (Tuwaiq)","lat":24.5717,"lon":46.5244,"leg":"section-stations-riyadh"},{"km":847,"name":"Petromin Station – Qiddiya","lat":24.544,"lon":46.4673,"leg":"section-stations-makkah"},{"km":781,"name":"SASCO Station – Tebrak","lat":24.378,"lon":45.8947,"leg":"section-stations-makkah"},{"km":721,"name":"SASCO Station – Al Quwayiyah","lat":24.133,"lon":45.3945,"leg":"section-stations-makkah"},{"km":551,"name":"SASCO Station – Al Khasirah","lat":23.4174,"lon":44.0285,"leg":"section-stations-makkah"},{"km":407,"name":"SASCO Station – Al Humiyat","lat":22.9883,"lon":42.7753,"leg":"section-stations-makkah"},{"km":335,"name":"SASCO Station – Dhalm","lat":22.7062,"lon":42.1446,"leg":"section-stations-makkah"},{"km":90,"name":"SASCO Station (As-Sayl Al-Kabir)","lat":21.6232,"lon":40.4331,"leg":"section-stations-makkah"},{"km":0,"name":"Makkah (Al-Masjid Al-Haram)","lat":21.4225,"lon":39.8262,"leg":"section-stations-makkah"}]}; window.APP_I18N = {"locale":"en-US","captchaLang":"en","selectDeparture":"Select a departure time","km":"km","sar":"SAR","liter":"L","timeHM":"{h} h {m} min","timeH":"{h} h","timeM":"{m} min","themeToDark":"Switch to dark theme","themeToLight":"Switch to light theme","prayerLine1":"Fajr {a} | Sunrise {b}","prayerLine2":"Maghrib {a} | Isha {b}","am":"AM","pm":"PM","prayerOffline1":"Makkah prayer times","prayerOffline2":"need an internet connection","gpsBetween":"Between {a} and {b}","gpsLocate":"📍 Locate me now","gpsStop":"⏹️ Stop tracking","gpsLocating":"Locating…","gpsOffRoute":"Off route (nearest point: {n})","gpsFailed":"{city} (GPS unavailable)","gpsUnsupported":"This browser does not support GPS","shareText":"Remember us in your prayers 🤲","copied":"✅ Title and link copied!\nYou can now paste and share them.","copyFailed":"Could not copy automatically. Please copy the link from the address bar.","formNoKey":"⚠️ Please configure the Web3Forms access key in the code first.","formNoMessage":"⚠️ Please write your suggestion or question first.","formNoCaptcha":"⚠️ Please complete the captcha (I am not a robot) first.","formSending":"Sending…","formSuccess":"✅ Your suggestion was sent. Thank you for helping us improve the guide.","formError":"Something went wrong while sending. Please try again later.","formNetwork":"❌ Sorry, the server could not be reached. Check your internet connection and try again."};</script>
+    <script src="../../js/app.js?v=8a6e073a"></script>
 </body>
 
 </html>

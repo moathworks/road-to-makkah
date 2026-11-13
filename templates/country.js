@@ -25,6 +25,26 @@ ${body}
         </details>`;
 }
 
+/**
+ * يحسب رقم أول محطة في كل قسم: الترقيم متصل داخل المرحلة (الذهاب أو العودة)،
+ * والقسم البديل ('alternative') يبدأ برقم القسم السابق نفسه ولا يغيّر العدّاد، و'restart' يبدأ من 1.
+ */
+function numberSections(sections) {
+    let next = 1;
+    let prevStart = 1;
+    return sections.map((sec) => {
+        let start;
+        if (sec.numbering === 'alternative') {
+            start = prevStart;
+        } else {
+            start = sec.numbering === 'restart' ? 1 : next;
+            prevStart = start;
+            next = start + sec.stations.filter(s => !s.unnumbered).length;
+        }
+        return { ...sec, start };
+    });
+}
+
 function renderStationCards(stations, startNumber, lang, t) {
     let currentNum = startNumber;
     return stations.map((st) => {
@@ -319,7 +339,7 @@ function renderEmergencySection(country, root, lang, t) {
                             ${flagHtml}
                             ${escapeHtml(heading)}
                         </h3>
-                        <a href="tel:${escapeHtml(tel)}" class="${numClass}" title="${escapeHtml(callTitle)}">📞 ${escapeHtml(tel)}</a>${extra}
+                        <a href="tel:${escapeHtml(tel)}" class="${numClass}" title="${escapeHtml(callTitle)}"><span aria-hidden="true">📞</span> ${escapeHtml(tel)}</a>${extra}
                     </div>`;
 
     const localBox = country.countryCode !== 'sa'
@@ -378,9 +398,8 @@ function renderSuggestionsSection(country, shared, lang, t) {
                         <textarea id="suggest_message" name="message" class="form-textarea" required placeholder="${escapeHtml(t('suggest.messagePh'))}"></textarea>
                     </div>
 
-                    <div class="captcha-container" id="h-captcha-wrapper">
-                        <div class="h-captcha" id="h-captcha-widget" data-captcha="true" data-lang="${lang}" data-theme="light"></div>
-                    </div>
+                    <!-- الكابتشا تُحمَّل عند فتح القسم فقط (js/app.js)، فلا تُطلب سكربتات خارجية مع كل زيارة -->
+                    <div class="captcha-container" id="h-captcha-wrapper" data-sitekey="${escapeHtml(shared.hcaptchaSiteKey)}"></div>
 
                     <div class="btn-submit-container">
                         <button type="submit" id="btnSubmitSuggest" class="btn-submit-suggestion">
@@ -409,15 +428,15 @@ ${sections.map(sec => `        <button type="button" class="nav-sheet-item${sec.
 
     const spy = (ids) => ids.join(' ');
     const direct = (target, icon, labelKey, spyIds, extraClass = '') => `        <button type="button" class="mobile-nav-btn${extraClass}" data-spy="${spy(spyIds)}" onclick="navigateToSection('${target}', this)">
-            <span class="nav-icon">${icon}</span>
+            <span class="nav-icon" aria-hidden="true">${icon}</span>
             <span class="nav-label">${escapeHtml(t(labelKey))}</span>
         </button>`;
     const opener = (sheetId, icon, labelKey, sections) => `        <button type="button" class="mobile-nav-btn" data-sheet="${sheetId}" data-spy="${spy(sections.map(sec => sec.id))}" aria-haspopup="dialog" aria-expanded="false" onclick="toggleNavSheet('${sheetId}', this)">
-            <span class="nav-icon">${icon}</span>
+            <span class="nav-icon" aria-hidden="true">${icon}</span>
             <span class="nav-label">${escapeHtml(t(labelKey))}</span>
         </button>`;
 
-    return `    <div class="nav-sheet-backdrop" id="navSheetBackdrop" onclick="closeNavSheets()"></div>
+    return `    <div class="nav-sheet-backdrop" id="navSheetBackdrop" onclick="closeNavSheets(true)"></div>
 ${sheet('navSheet-stations', 'nav.stationsSheet', stationSections)}
 ${sheet('navSheet-more', 'nav.moreSheet', moreSections)}
     <nav class="mobile-bottom-nav" aria-label="${escapeHtml(t('nav.label'))}">
@@ -432,7 +451,7 @@ ${[
 }
 
 function renderQuickActions(country, lang, t) {
-    const svg = (inner, id = '') => `<svg${id ? ` id="${id}"` : ''} xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">${inner}</svg>`;
+    const svg = (inner, id = '') => `<svg${id ? ` id="${id}"` : ''} aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">${inner}</svg>`;
     const label = (key) => { const text = escapeHtml(t(key)); return `title="${text}" aria-label="${text}"`; };
 
     return `            <div class="quick-actions-row">
@@ -456,28 +475,29 @@ function renderQuickActions(country, lang, t) {
 }
 
 function renderCountryPage(country, shared, ctx) {
-    const { assetHashes, derived, lastUpdatedText, lang } = ctx;
+    const { assetHashes, derived, lastUpdatedText, lastUpdatedYear, lang } = ctx;
     const t = makeT(lang);
     const root = rootPrefix(pagePath(country.slug, lang));
     const countryName = tr(country.countryName, lang);
-    const seg = shared.routeSegments;
-
-    const outboundCount = country.outboundStations.filter(s => !s.unnumbered).length;
-    const riyadhStartNum = outboundCount + 1;
-    const riyadhToMakkahStartNum = riyadhStartNum + seg.riyadhMain.filter(s => !s.unnumbered).length;
-    const cards = (stations, start) => renderStationCards(stations, start, lang, t);
     const phase = (num, id, key) => `        <h2 class="phase-header" id="${id}"><span class="phase-num" aria-hidden="true">${num}</span>${escapeHtml(t(key))}</h2>`;
 
-    // أقسام المحطات بترتيب الرحلة: مصدر واحد للأكورديونات ولقائمة «المحطات» في شريط الجوال
-    const stationSections = [
-        { id: 'section-stations-start', title: escapeHtml(tr(country.outboundSummaryTitle, lang)), body: stationsGrid(cards(country.outboundStations, 1)) },
-        { id: 'section-stations-riyadh', title: escapeHtml(t('section.riyadhMain')), body: stationsGrid(cards(seg.riyadhMain, riyadhStartNum), 'riyadh-inner-grid') },
-        { id: 'section-stations-bypass', extraClass: 'accordion-bypass', title: escapeHtml(t('section.riyadhBypass')), body: stationsGrid(cards(seg.riyadhBypassSalman, riyadhStartNum), 'riyadh-inner-grid', t('section.riyadhBypassIntro')) },
-        { id: 'section-stations-makkah', title: escapeHtml(t('section.riyadhToMakkah')), body: stationsGrid(cards(seg.riyadhToMakkah, riyadhToMakkahStartNum), 'stations-grid', t('section.miqatNote'), 'miqat-note') },
-        { id: 'section-return-madinah', separator: true, title: escapeHtml(t('section.madinahReturn')), body: stationsGrid(cards(seg.madinahToRiyadhReturn, 1), 'stations-grid', t('section.madinahReturnIntro')) },
-        { id: 'section-return-home', title: escapeHtml(tr(country.returnSummaryTitle, lang)), body: stationsGrid(cards(country.returnStations, 1), 'stations-grid', tr(country.returnIntroText, lang)) }
-    ];
-    const stationAccordions = (from, to) => stationSections.slice(from, to).map(accordion).join('\n\n');
+    // قسم المحطات كما يُعرض: المقاطع المشتركة تأخذ نصوصها من data/i18n.js، وأقسام الدولة من ملفها
+    const toAccordion = (sec) => {
+        const title = sec.titleKey ? t(sec.titleKey) : tr(sec.title, lang);
+        const intro = sec.introKey ? t(sec.introKey) : (sec.intro ? tr(sec.intro, lang) : '');
+        return {
+            id: sec.id,
+            extraClass: sec.extraClass || '',
+            title: escapeHtml(title),
+            body: stationsGrid(renderStationCards(sec.stations, sec.start, lang, t), sec.grid || 'stations-grid', intro, sec.introClass || '')
+        };
+    };
+    // أقسام المحطات بترتيب الرحلة (كما اختارتها الدولة): مصدر واحد للأكورديونات ولقائمة «المحطات» في شريط الجوال
+    const outboundAccordions = numberSections(country.outboundSections).map(toAccordion);
+    const returnAccordions = numberSections(country.returnSections).map(toAccordion);
+    returnAccordions[0].separator = true;
+    const stationSections = [...outboundAccordions, ...returnAccordions];
+    const renderAccordions = list => list.map(accordion).join('\n\n');
 
     // بقية الأقسام التي تصل إليها خانة «المزيد» في شريط الجوال
     const moreSections = [
@@ -492,11 +512,10 @@ function renderCountryPage(country, shared, ctx) {
 
     const runtimeConfig = {
         countryCode: country.countryCode,
-        // عدد نقاط GPS التابعة لمحطات الذهاب (قبل الرياض): يحدد به js/app.js مقطع المحطات الحالي
-        outboundPointCount: country.outboundStations.filter(st => typeof st.lat === 'number' && typeof st.lon === 'number').length,
         defaultCity: tr(country.defaultCity, lang),
         totalDistanceKm: country.totalDistanceKm,
         estimatedDriveHours: country.estimatedDriveHours,
+        // نقاط GPS بترتيب المسار، ومع كل نقطة (leg) معرّف قسم المحطات الذي يقع فيه الطريق المؤدي إليها
         stations: derived.gpsPoints
     };
 
@@ -509,6 +528,7 @@ function renderCountryPage(country, shared, ctx) {
         siteUrl: shared.siteUrl,
         themeColor: country.themeColor,
         stylesheet: `css/style.css?v=${assetHashes.styleCss}`,
+        fontsStylesheet: `css/fonts.css?v=${assetHashes.fontsCss}`,
         extra: `
     <style>
         /* لون هوية الدولة */
@@ -536,14 +556,14 @@ ${head}
         <!-- هيدر خاص للطباعة فقط -->
         <div class="print-only print-header">
             <div class="print-title">${escapeHtml(tr(country.printHeaderTitle, lang))}</div>
-            <p>${escapeHtml(tr(country.printHeaderSubtitle, lang))}</p>
+            <p>${escapeHtml(tr(country.printHeaderSubtitle, lang))} ${escapeHtml(lastUpdatedYear)}</p>
         </div>
 
         <header>
             <div class="header-title-block">
                 <h1 class="header-h1">
                     <a href="../" class="header-logo">
-                        <img loading="lazy" src="${root}assets/images/${escapeHtml(country.flagFile)}" alt="${escapeHtml(countryName)}" class="flag-img">
+                        <img src="${root}assets/images/${escapeHtml(country.flagFile)}" alt="" class="flag-img">
                         ${escapeHtml(t('country.headerLogo', { country: countryName }))}
                     </a>
                 </h1>
@@ -590,7 +610,7 @@ ${renderTipsSection(country, shared, 'road', 'section-road-tips', 'section.roadT
 
 ${renderPrayersSection(shared, lang, t)}
 
-${stationAccordions(0, 4)}
+${renderAccordions(outboundAccordions)}
 
 ${renderEmergencySection(country, root, lang, t)}
 
@@ -602,7 +622,7 @@ ${renderPlacesSection(shared, lang, t)}
 
 ${phase(4, 'phase-return', 'phase.return')}
 
-${stationAccordions(4, 6)}
+${renderAccordions(returnAccordions)}
 
 ${renderSuggestionsSection(country, shared, lang, t)}
         <footer>
@@ -617,7 +637,6 @@ ${renderMobileNav(stationSections, moreSections, t)}
 
     <script>window.COUNTRY_DATA = ${jsonForScript(runtimeConfig)}; window.APP_I18N = ${jsonForScript(runtimeStrings(lang))};</script>
     <script src="${root}js/app.js?v=${escapeHtml(assetHashes.appJs)}"></script>
-    <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 
 </html>

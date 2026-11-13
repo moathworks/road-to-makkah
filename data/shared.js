@@ -10,183 +10,286 @@ module.exports = {
     defaultFuelRate: 10,
     defaultFuelPrice: 2.18,
     web3formsAccessKey: '6481c10e-7bff-4bdc-bc38-20944e398cd6',
+    // مفتاح hCaptcha العام الخاص بخدمة Web3Forms (تتحقق منه الخدمة عند استلام النموذج)
+    hcaptchaSiteKey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
 
-    // نهاية المسار: آخر مقطع من آخر محطة في riyadhToMakkah (السيل الكبير) إلى الحرم المكي
+    // نهاية المسار (الحرم المكي). مسافة آخر مقطع إليه تُكتب في المقطع الأخير من سلسلة الذهاب (toMakkahKm).
     destination: {
         name: { ar: 'مكة المكرمة (الحرم المكي)', en: 'Makkah (Al-Masjid Al-Haram)' },
-        distanceFromPrevKm: 90,
         lat: 21.4225,
         lon: 39.8262
     },
 
     /**
-     * المقاطع المشتركة لمحطات الطرق بين دول الخليج ومكة المكرمة.
-     *
-     * - distanceFromPrevKm: المسافة عن المحطة السابقة في المسار، وهي المصدر الوحيد للمسافات.
-     *   المحطة التي تحمل هذا الحقل تدخل في سلسلة المسار، والتي لا تحمله (مثل استراحة طعام) لا تدخل.
-     * - lat/lon: مطلوبة فقط لمحطات سلسلة المسار (تُبنى منها نقاط GPS)، ومأخوذة من رابط الخريطة نفسه.
-     * - أول محطة في riyadhToMakkah تُقاس مسافتها من آخر محطة ذهاب في ملف الدولة (مدخل الرياض).
+     * مكتبة المحطات المشتركة بين أكثر من دولة. تُستدعى في ملف الدولة بـ { ref: 'id', ... }.
+     * بيانات المقطع نفسه (distanceFromPrevKm و badge) تُكتب مع الاستدعاء لا هنا، لأن المسافة
+     * تخص الزوج (المحطة السابقة ← هذه المحطة) لا المحطة وحدها. يمكن أيضاً تخصيص desc عند الاستدعاء.
      */
-    routeSegments: {
-        // محطات داخل مدينة الرياض (طريق 40 / 80M السريع - المسار الرئيسي)
-        riyadhMain: [
-            {
-                id: 'riyadh-sasco-main',
-                title: { ar: 'محطة ساسكو (الرياض)', en: 'SASCO Station (Riyadh)' },
-                desc: { ar: 'تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.', en: 'Has a "Nakhla" supermarket and clean, full services for a quick rest.' },
-                mapUrl: 'https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9'
+    stations: {
+        // نقطة الالتقاء: آخر محطة ذهاب لدول الشرق قبل المقطع المشترك riyadhToMakkah
+        'aldrees-riyadh-entry': {
+            title: { ar: 'الدريس (مدخل الرياض)', en: 'Aldrees (Riyadh entrance)' },
+            gpsName: { ar: 'بداية الرياض (الدريس)', en: 'Riyadh entrance (Aldrees)' },
+            desc: {
+                ar: 'محطة ممتازة للتزود بالوقود والتأكد من الجاهزية قبل دخول الرياض.',
+                en: 'A great station to refuel and check everything before entering Riyadh.'
             },
-            {
-                id: 'riyadh-aldrees-main',
-                title: { ar: 'محطة الدريس (الرياض)', en: 'Aldrees Station (Riyadh)' },
-                desc: { ar: 'يتوفر بها تموينات شاملة وخدمات سيارات أساسية (إطارات وهواء).', en: 'A well-stocked convenience store and basic car services (tyres and air).' },
-                mapUrl: 'https://maps.app.goo.gl/rresvUcxnb8n59TB7'
-            }
-        ],
+            mapUrl: 'https://maps.app.goo.gl/AbU7P9gM571Gks2z7',
+            lat: 24.8356,
+            lon: 46.8333
+        },
+        'go-station-hwy40': {
+            title: { ar: 'محطة جو ستيشن', en: 'GO Station' },
+            gpsName: { ar: 'محطة جو ستيشن (طريق 40)', en: 'GO Station (Highway 40)' },
+            desc: {
+                ar: 'محطة حديثة ومتكاملة على طريق الدمام - الرياض السريع (طريق 40 / 80M) قبل الرياض بنحو 80 كم.',
+                en: 'A modern full-service station on the Dammam–Riyadh expressway (Highway 40 / 80M), about 80 km before Riyadh.'
+            },
+            mapUrl: 'https://maps.app.goo.gl/HPuPhAP7GZSLiY5c6',
+            lat: 25.1351,
+            lon: 47.5337
+        },
+        // طريق العودة شرقاً (الرياض ← الدمام)
+        'adnoc-riyadh-east': {
+            title: { ar: 'محطة أدنوك', en: 'ADNOC Station' },
+            desc: { ar: 'من المحطات الكبرى والرئيسية عند الخروج من الرياض شرقاً.', en: 'One of the main large stations when leaving Riyadh eastbound.' },
+            mapUrl: 'https://maps.app.goo.gl/FojQ3PxaBSpgpBydA'
+        },
+        'sasco-riyadh-dammam': {
+            title: { ar: 'محطة ساسكو', en: 'SASCO Station' },
+            desc: {
+                ar: 'من المحطات الكبرى والرئيسية على طريق الرياض - الدمام السريع (طريق 40).',
+                en: 'One of the main large stations on the Riyadh–Dammam expressway (Highway 40).'
+            },
+            mapUrl: 'https://maps.app.goo.gl/5DjKtLpzV2yLEQhu6'
+        }
+    },
+
+    // مسارات مشتركة لبطاقات «خيارات المسارات»: تُستدعى في ملف الدولة بـ { ref, itinerary, distanceKm }
+    routeTemplates: {
+        riyadhBypass: {
+            title: { ar: 'مسار التفافي حول الرياض', en: 'Riyadh bypass route' },
+            description: {
+                ar: 'يُنصح به لتجاوز زحام وسط العاصمة الرياض في ساعات الذروة (7 صباحاً - 5 عصراً).',
+                en: 'Recommended to avoid central Riyadh traffic at peak hours (7 am – 5 pm).'
+            },
+            mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Makkah,+Saudi+Arabia&waypoints=طريق+الملك+سلمان+الرياض&dir_action=navigate'
+        }
+    },
+
+    /**
+     * المقاطع المشتركة (أقسام محطات جاهزة). تختار كل دولة مقاطعها بالترتيب في outbound و return
+     * بكتابة اسم المقطع، فلا يفترض البناء ممراً ثابتاً (مثل الرياض) لكل الدول.
+     *
+     * حقول المقطع:
+     * - id: معرّف القسم في الصفحة (ثابت: تعتمد عليه حالة الأقسام المحفوظة لدى المستخدم).
+     * - titleKey / introKey / introClass: عنوان القسم ونصه التمهيدي من data/i18n.js.
+     * - chain: false لقسم لا يدخل سلسلة المسار (محطات بديلة داخل مدينة). الافتراضي: أقسام الذهاب تدخلها.
+     * - numbering: 'alternative' لقسم بديل يبدأ بترقيم القسم السابق نفسه، أو 'restart' للبدء من 1.
+     * - startsFrom: محطة المكتبة التي يجب أن تكون آخر نقطة في السلسلة قبل هذا المقطع، لأن مسافة
+     *   أول محطة فيه مقيسة منها. يفشل البناء إن لم تنتهِ محطات الدولة السابقة بها.
+     * - entryLegVia: المقطع الذي يُنسب إليه الطريق المؤدي إلى أول محطة هنا (لتمييز «أنت هنا» في GPS).
+     * - toMakkahKm: مسافة آخر محطة في المقطع إلى الحرم. مطلوبة في آخر مقطع من سلسلة الذهاب فقط.
+     *
+     * حقول المحطة:
+     * - distanceFromPrevKm: المسافة عن المحطة السابقة، المصدر الوحيد للمسافات (ويُطابَق معها رقم الشارة).
+     * - lat/lon: لمحطات سلسلة المسار (تُبنى منها نقاط GPS)، مأخوذة من رابط الخريطة نفسه.
+     * - unnumbered: محطة إضافية بلا رقم ولا تدخل السلسلة (مثل استراحة طعام).
+     */
+    segments: {
+        // محطات داخل مدينة الرياض (طريق 40 / 80M السريع - المسار الرئيسي)
+        riyadhMain: {
+            id: 'section-stations-riyadh',
+            titleKey: 'section.riyadhMain',
+            grid: 'riyadh-inner-grid',
+            chain: false,
+            stations: [
+                {
+                    id: 'riyadh-sasco-main',
+                    title: { ar: 'محطة ساسكو (الرياض)', en: 'SASCO Station (Riyadh)' },
+                    desc: { ar: 'تضم سوبرماركت "نخلة" وخدمات متكاملة ونظيفة للراحة السريعة.', en: 'Has a "Nakhla" supermarket and clean, full services for a quick rest.' },
+                    mapUrl: 'https://maps.app.goo.gl/hX4K7Xxvz9VDeZTa9'
+                },
+                {
+                    id: 'riyadh-aldrees-main',
+                    title: { ar: 'محطة الدريس (الرياض)', en: 'Aldrees Station (Riyadh)' },
+                    desc: { ar: 'يتوفر بها تموينات شاملة وخدمات سيارات أساسية (إطارات وهواء).', en: 'A well-stocked convenience store and basic car services (tyres and air).' },
+                    mapUrl: 'https://maps.app.goo.gl/rresvUcxnb8n59TB7'
+                }
+            ]
+        },
 
         // محطات المسار الالتفافي حول الرياض (طريق الملك سلمان)
-        riyadhBypassSalman: [
-            {
-                id: 'riyadh-sasco-pre-airport',
-                title: { ar: 'ساسكو (قبل المطار)', en: 'SASCO (before the airport)' },
-                desc: { ar: 'محطة كبرى ونموذجية قريبة من مطار الملك خالد تحتوي على كافة الخدمات.', en: 'A large model station near King Khalid Airport with all services.' },
-                mapUrl: 'https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA'
-            },
-            {
-                id: 'riyadh-sasco-post-airport',
-                title: { ar: 'ساسكو (بعد المطار)', en: 'SASCO (after the airport)' },
-                desc: { ar: 'محطة خدمات متكاملة على امتداد المسار الالتفافي.', en: 'A full-service station along the bypass route.' },
-                mapUrl: 'https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6'
-            }
-        ],
+        riyadhBypassSalman: {
+            id: 'section-stations-bypass',
+            titleKey: 'section.riyadhBypass',
+            introKey: 'section.riyadhBypassIntro',
+            grid: 'riyadh-inner-grid',
+            extraClass: 'accordion-bypass',
+            numbering: 'alternative',
+            chain: false,
+            stations: [
+                {
+                    id: 'riyadh-sasco-pre-airport',
+                    title: { ar: 'ساسكو (قبل المطار)', en: 'SASCO (before the airport)' },
+                    desc: { ar: 'محطة كبرى ونموذجية قريبة من مطار الملك خالد تحتوي على كافة الخدمات.', en: 'A large model station near King Khalid Airport with all services.' },
+                    mapUrl: 'https://maps.app.goo.gl/qkcbBxYQv7Yocg3MA'
+                },
+                {
+                    id: 'riyadh-sasco-post-airport',
+                    title: { ar: 'ساسكو (بعد المطار)', en: 'SASCO (after the airport)' },
+                    desc: { ar: 'محطة خدمات متكاملة على امتداد المسار الالتفافي.', en: 'A full-service station along the bypass route.' },
+                    mapUrl: 'https://maps.app.goo.gl/8HdbnqV5uGX6ewyW6'
+                }
+            ]
+        },
 
         // محطات طريق الذهاب المشترك (الرياض ← الطائف ← السيل الكبير ← مكة)
-        riyadhToMakkah: [
-            {
-                id: 'tuwaiq-aldrees',
-                badge: { ar: 'مخرج غرب الرياض (طويق)', en: 'West Riyadh exit (Tuwaiq)' },
-                title: { ar: 'محطة الدريس - طويق', en: 'Aldrees Station – Tuwaiq' },
-                gpsName: { ar: 'مخرج الرياض (طويق)', en: 'Riyadh exit (Tuwaiq)' },
-                desc: { ar: 'موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.', en: 'A good place to top up the tank before actually leaving Riyadh.' },
-                mapUrl: 'https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9',
-                distanceFromPrevKm: 46,
-                lat: 24.5717,
-                lon: 46.5244
-            },
-            {
-                id: 'qiddiya-petromin',
-                badge: { ar: 'تبعد ~7 كم عن الدريس طويق', en: '~7 km from Aldrees Tuwaiq' },
-                title: { ar: 'محطة بترومين - القدية', en: 'Petromin Station – Qiddiya' },
-                desc: { ar: 'محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.', en: 'A large station just outside Riyadh, with the popular Al Baik restaurant.' },
-                mapUrl: 'https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5',
-                distanceFromPrevKm: 7,
-                lat: 24.5440,
-                lon: 46.4673
-            },
-            {
-                id: 'tebrak-sasco',
-                badge: { ar: 'تبعد ~66 كم عن المحطة السابقة', en: '~66 km from the previous station' },
-                title: { ar: 'محطة ساسكو - تبرك', en: 'SASCO Station – Tebrak' },
-                desc: { ar: 'من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.', en: 'A reliable model station after leaving the Riyadh area.' },
-                mapUrl: 'https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6',
-                distanceFromPrevKm: 66,
-                lat: 24.3780,
-                lon: 45.8947
-            },
-            {
-                id: 'quwayiyah-sasco',
-                badge: { ar: 'تبعد ~60 كم عن المحطة السابقة', en: '~60 km from the previous station' },
-                title: { ar: 'محطة ساسكو - القويعية', en: 'SASCO Station – Al Quwayiyah' },
-                desc: { ar: 'نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.', en: 'A key stop to rest and stretch.' },
-                mapUrl: 'https://maps.app.goo.gl/oq6EuAoKghBGKjRYA',
-                distanceFromPrevKm: 60,
-                lat: 24.1330,
-                lon: 45.3945
-            },
-            {
-                id: 'khasrah-sasco',
-                badge: { ar: 'تبعد ~170 كم عن المحطة السابقة', en: '~170 km from the previous station' },
-                title: { ar: 'محطة ساسكو - الخاصرة', en: 'SASCO Station – Al Khasirah' },
-                desc: { ar: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.', en: 'A large station on the Riyadh–Makkah road with all services and restaurants.' },
-                mapUrl: 'https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6',
-                distanceFromPrevKm: 170,
-                lat: 23.4174,
-                lon: 44.0285
-            },
-            {
-                id: 'humiyat-sasco',
-                badge: { ar: 'تبعد ~144 كم عن المحطة السابقة', en: '~144 km from the previous station' },
-                title: { ar: 'محطة ساسكو - الحوميات', en: 'SASCO Station – Al Humiyat' },
-                desc: { ar: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.', en: 'A large station on the Riyadh–Makkah road with all services and restaurants.' },
-                mapUrl: 'https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A',
-                distanceFromPrevKm: 144,
-                lat: 22.9883,
-                lon: 42.7753
-            },
-            {
-                id: 'dhalm-sasco',
-                badge: { ar: 'تبعد ~72 كم عن المحطة السابقة', en: '~72 km from the previous station' },
-                title: { ar: 'محطة ساسكو - ظلم', en: 'SASCO Station – Dhalm' },
-                desc: { ar: 'محطة كبرى قبل التوجه إلى منطقة الطائف وميقات قرن المنازل.', en: 'A large station before heading to the Taif area and the miqat of Qarn al-Manazil.' },
-                mapUrl: 'https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A',
-                distanceFromPrevKm: 72,
-                lat: 22.7062,
-                lon: 42.1446
-            },
-            {
-                id: 'albaik-pre-sail',
-                unnumbered: true,
-                variant: 'food',
-                badge: { ar: 'استراحة طعام', en: 'Food stop' },
-                title: { ar: '🍔 مطعم البيك (قبل السيل)', en: '🍔 Al Baik Restaurant (before As-Sayl)' },
-                desc: { ar: 'يقع قبل ميقات السيل الكبير مباشرة.', en: 'Located right before the As-Sayl Al-Kabir miqat.' },
-                mapUrl: 'https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A',
-                btnLabel: { ar: '🍗 موقع المطعم', en: '🍗 Restaurant location' }
-            },
-            {
-                id: 'sail-kabeer-sasco',
-                variant: 'miqat',
-                badge: { ar: 'تبعد ~245 كم عن محطة ظلم', en: '~245 km from Dhalm station' },
-                title: { ar: 'محطة ساسكو (السيل الكبير)', en: 'SASCO Station (As-Sayl Al-Kabir)' },
-                desc: { ar: 'بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام (قرن المنازل).', en: 'Near Taif and the miqat: the place to prepare and bathe for ihram (Qarn al-Manazil).' },
-                mapUrl: 'https://maps.app.goo.gl/Vds8UPCtvsFRXoG26',
-                distanceFromPrevKm: 245,
-                lat: 21.6232,
-                lon: 40.4331
-            }
-        ],
+        riyadhToMakkah: {
+            id: 'section-stations-makkah',
+            titleKey: 'section.riyadhToMakkah',
+            introKey: 'section.miqatNote',
+            introClass: 'miqat-note',
+            startsFrom: 'aldrees-riyadh-entry',
+            entryLegVia: 'riyadhMain',
+            // من محطة السيل الكبير (آخر محطة في المقطع) إلى الحرم المكي
+            toMakkahKm: 90,
+            stations: [
+                {
+                    id: 'tuwaiq-aldrees',
+                    badge: { ar: 'مخرج غرب الرياض (طويق)', en: 'West Riyadh exit (Tuwaiq)' },
+                    title: { ar: 'محطة الدريس - طويق', en: 'Aldrees Station – Tuwaiq' },
+                    gpsName: { ar: 'مخرج الرياض (طويق)', en: 'Riyadh exit (Tuwaiq)' },
+                    desc: { ar: 'موقع مناسب للتأكد من خزان الوقود قبل الخروج الفعلي من حدود الرياض.', en: 'A good place to top up the tank before actually leaving Riyadh.' },
+                    mapUrl: 'https://maps.app.goo.gl/FjZRJmY1mFFgT5Az9',
+                    distanceFromPrevKm: 46,
+                    lat: 24.5717,
+                    lon: 46.5244
+                },
+                {
+                    id: 'qiddiya-petromin',
+                    badge: { ar: 'تبعد ~7 كم عن الدريس طويق', en: '~7 km from Aldrees Tuwaiq' },
+                    title: { ar: 'محطة بترومين - القدية', en: 'Petromin Station – Qiddiya' },
+                    desc: { ar: 'محطة كبرى بعد الخروج من الرياض، تضم مطعم البيك الشهير.', en: 'A large station just outside Riyadh, with the popular Al Baik restaurant.' },
+                    mapUrl: 'https://maps.app.goo.gl/yVAcfAs2ZfEX9dKx5',
+                    distanceFromPrevKm: 7,
+                    lat: 24.5440,
+                    lon: 46.4673
+                },
+                {
+                    id: 'tebrak-sasco',
+                    badge: { ar: 'تبعد ~66 كم عن المحطة السابقة', en: '~66 km from the previous station' },
+                    title: { ar: 'محطة ساسكو - تبرك', en: 'SASCO Station – Tebrak' },
+                    desc: { ar: 'من المحطات النموذجية والموثوقة بعد مغادرة منطقة الرياض.', en: 'A reliable model station after leaving the Riyadh area.' },
+                    mapUrl: 'https://maps.app.goo.gl/4A5Lp96UrZ3onjQj6',
+                    distanceFromPrevKm: 66,
+                    lat: 24.3780,
+                    lon: 45.8947
+                },
+                {
+                    id: 'quwayiyah-sasco',
+                    badge: { ar: 'تبعد ~60 كم عن المحطة السابقة', en: '~60 km from the previous station' },
+                    title: { ar: 'محطة ساسكو - القويعية', en: 'SASCO Station – Al Quwayiyah' },
+                    desc: { ar: 'نقطة توقف استراتيجية ورئيسية للراحة وتمديد العضلات.', en: 'A key stop to rest and stretch.' },
+                    mapUrl: 'https://maps.app.goo.gl/oq6EuAoKghBGKjRYA',
+                    distanceFromPrevKm: 60,
+                    lat: 24.1330,
+                    lon: 45.3945
+                },
+                {
+                    id: 'khasrah-sasco',
+                    badge: { ar: 'تبعد ~170 كم عن المحطة السابقة', en: '~170 km from the previous station' },
+                    title: { ar: 'محطة ساسكو - الخاصرة', en: 'SASCO Station – Al Khasirah' },
+                    desc: { ar: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.', en: 'A large station on the Riyadh–Makkah road with all services and restaurants.' },
+                    mapUrl: 'https://maps.app.goo.gl/ynR4FzfqCVQnBnLw6',
+                    distanceFromPrevKm: 170,
+                    lat: 23.4174,
+                    lon: 44.0285
+                },
+                {
+                    id: 'humiyat-sasco',
+                    badge: { ar: 'تبعد ~144 كم عن المحطة السابقة', en: '~144 km from the previous station' },
+                    title: { ar: 'محطة ساسكو - الحوميات', en: 'SASCO Station – Al Humiyat' },
+                    desc: { ar: 'محطة كبرى على طريق الرياض - مكة المكرمة توفر جميع الخدمات والمطاعم.', en: 'A large station on the Riyadh–Makkah road with all services and restaurants.' },
+                    mapUrl: 'https://maps.app.goo.gl/Lj4sBrVA4Ug9oqz8A',
+                    distanceFromPrevKm: 144,
+                    lat: 22.9883,
+                    lon: 42.7753
+                },
+                {
+                    id: 'dhalm-sasco',
+                    badge: { ar: 'تبعد ~72 كم عن المحطة السابقة', en: '~72 km from the previous station' },
+                    title: { ar: 'محطة ساسكو - ظلم', en: 'SASCO Station – Dhalm' },
+                    desc: { ar: 'محطة كبرى قبل التوجه إلى منطقة الطائف وميقات قرن المنازل.', en: 'A large station before heading to the Taif area and the miqat of Qarn al-Manazil.' },
+                    mapUrl: 'https://maps.app.goo.gl/Z5aUUuPz5jJNYoL1A',
+                    distanceFromPrevKm: 72,
+                    lat: 22.7062,
+                    lon: 42.1446
+                },
+                {
+                    id: 'albaik-pre-sail',
+                    unnumbered: true,
+                    variant: 'food',
+                    badge: { ar: 'استراحة طعام', en: 'Food stop' },
+                    title: { ar: '🍔 مطعم البيك (قبل السيل)', en: '🍔 Al Baik Restaurant (before As-Sayl)' },
+                    desc: { ar: 'يقع قبل ميقات السيل الكبير مباشرة.', en: 'Located right before the As-Sayl Al-Kabir miqat.' },
+                    mapUrl: 'https://maps.app.goo.gl/fXBgtMqVtdHjzGt5A',
+                    btnLabel: { ar: '🍗 موقع المطعم', en: '🍗 Restaurant location' }
+                },
+                {
+                    id: 'sail-kabeer-sasco',
+                    variant: 'miqat',
+                    badge: { ar: 'تبعد ~245 كم عن محطة ظلم', en: '~245 km from Dhalm station' },
+                    title: { ar: 'محطة ساسكو (السيل الكبير)', en: 'SASCO Station (As-Sayl Al-Kabir)' },
+                    desc: { ar: 'بالقرب من الطائف والميقات، نقطة الاستعداد والاغتسال للإحرام (قرن المنازل).', en: 'Near Taif and the miqat: the place to prepare and bathe for ihram (Qarn al-Manazil).' },
+                    mapUrl: 'https://maps.app.goo.gl/Vds8UPCtvsFRXoG26',
+                    distanceFromPrevKm: 245,
+                    lat: 21.6232,
+                    lon: 40.4331
+                }
+            ]
+        },
 
         // محطات طريق العودة المشترك (المدينة المنورة ← القصيم ← سدير ← الرياض)
-        madinahToRiyadhReturn: [
-            {
-                id: 'return-golden-service',
-                badge: { ar: 'تبعد ~235 كم عن المدينة المنورة', en: '~235 km from Madinah' },
-                title: { ar: 'محطة الخدمة الذهبية', en: 'Golden Service Station' },
-                desc: { ar: 'من المحطات الكبرى والرئيسية على طريق المدينة - القصيم.', en: 'One of the main large stations on the Madinah–Qassim road.' },
-                mapUrl: 'https://maps.app.goo.gl/SxWiMb8wV5Ny63i78'
-            },
-            {
-                id: 'return-aldrees-bukayriyah',
-                badge: { ar: 'تبعد ~230 كم عن المحطة السابقة', en: '~230 km from the previous station' },
-                title: { ar: 'محطة الدريس - البكيرية', en: 'Aldrees Station – Al Bukayriyah' },
-                desc: { ar: 'من المحطات الكبرى والرئيسية في منطقة القصيم.', en: 'One of the main large stations in the Qassim region.' },
-                mapUrl: 'https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7'
-            },
-            {
-                id: 'return-loder-sudair',
-                badge: { ar: 'تبعد ~225 كم عن المحطة السابقة', en: '~225 km from the previous station' },
-                title: { ar: 'محطة لودر - سدير', en: 'Loader Gas Station – Sudair' },
-                desc: { ar: 'محطة حديثة تتوفر بها خدمات متكاملة ومطعم البيك.', en: 'A modern station with full services and an Al Baik restaurant.' },
-                mapUrl: 'https://maps.app.goo.gl/zzCxVacA7Yq8ky74A'
-            },
-            {
-                id: 'return-sasco-jazeera',
-                badge: { ar: 'تبعد ~200 كم عن المحطة السابقة', en: '~200 km from the previous station' },
-                title: { ar: 'محطة ساسكو الجزيرة', en: 'SASCO Al Jazeera Station' },
-                desc: { ar: 'مدخل الرياض الشمالي وتتوفر بها كافة الخدمات ومطعم البيك.', en: "Riyadh's northern entrance, with all services and an Al Baik restaurant." },
-                mapUrl: 'https://maps.app.goo.gl/Bmmvk5oWBikPijqQ8'
-            }
-        ]
+        madinahToRiyadh: {
+            id: 'section-return-madinah',
+            titleKey: 'section.madinahReturn',
+            introKey: 'section.madinahReturnIntro',
+            stations: [
+                {
+                    id: 'return-golden-service',
+                    badge: { ar: 'تبعد ~235 كم عن المدينة المنورة', en: '~235 km from Madinah' },
+                    title: { ar: 'محطة الخدمة الذهبية', en: 'Golden Service Station' },
+                    desc: { ar: 'من المحطات الكبرى والرئيسية على طريق المدينة - القصيم.', en: 'One of the main large stations on the Madinah–Qassim road.' },
+                    mapUrl: 'https://maps.app.goo.gl/SxWiMb8wV5Ny63i78',
+                    distanceFromPrevKm: 235
+                },
+                {
+                    id: 'return-aldrees-bukayriyah',
+                    badge: { ar: 'تبعد ~230 كم عن المحطة السابقة', en: '~230 km from the previous station' },
+                    title: { ar: 'محطة الدريس - البكيرية', en: 'Aldrees Station – Al Bukayriyah' },
+                    desc: { ar: 'من المحطات الكبرى والرئيسية في منطقة القصيم.', en: 'One of the main large stations in the Qassim region.' },
+                    mapUrl: 'https://maps.app.goo.gl/Kpvjq8gj46RtKsWJ7',
+                    distanceFromPrevKm: 230
+                },
+                {
+                    id: 'return-loder-sudair',
+                    badge: { ar: 'تبعد ~225 كم عن المحطة السابقة', en: '~225 km from the previous station' },
+                    title: { ar: 'محطة لودر - سدير', en: 'Loader Gas Station – Sudair' },
+                    desc: { ar: 'محطة حديثة تتوفر بها خدمات متكاملة ومطعم البيك.', en: 'A modern station with full services and an Al Baik restaurant.' },
+                    mapUrl: 'https://maps.app.goo.gl/zzCxVacA7Yq8ky74A',
+                    distanceFromPrevKm: 225
+                },
+                {
+                    id: 'return-sasco-jazeera',
+                    badge: { ar: 'تبعد ~200 كم عن المحطة السابقة', en: '~200 km from the previous station' },
+                    title: { ar: 'محطة ساسكو الجزيرة', en: 'SASCO Al Jazeera Station' },
+                    desc: { ar: 'مدخل الرياض الشمالي وتتوفر بها كافة الخدمات ومطعم البيك.', en: "Riyadh's northern entrance, with all services and an Al Baik restaurant." },
+                    mapUrl: 'https://maps.app.goo.gl/Bmmvk5oWBikPijqQ8',
+                    distanceFromPrevKm: 200
+                }
+            ]
+        }
     },
 
     /**
