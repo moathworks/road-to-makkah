@@ -88,12 +88,21 @@ h1 {
     background: rgba(0, 0, 0, 0.35);
     padding: 8px 20px;
     border-radius: 20px;
-    margin-top: 6px;
-    margin-bottom: 26px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     font-weight: 700;
     font-size: 0.95rem;
     color: #f1c40f;
+}
+
+/* شارة جو مكة وزر تبديل اللغة في سطر واحد بالألوان نفسها */
+.home-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 6px;
+    margin-bottom: 26px;
 }
 
 .countries {
@@ -361,25 +370,26 @@ h1 {
 
 /* زر تبديل اللغة (EN / ع) */
 .home-lang-toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    margin-inline-start: auto;
-    margin-bottom: 6px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 800;
+    min-width: 44px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f1c40f;
+    font-size: 0.95rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: background 0.25s ease;
+    transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.home-lang-toggle:hover {
-    background: rgba(255, 255, 255, 0.28);
+.home-lang-toggle:hover,
+.home-lang-toggle:focus-visible {
+    background: rgba(0, 0, 0, 0.55);
+    border-color: rgba(241, 196, 15, 0.6);
 }
 
 .footer-greeting {
@@ -409,5 +419,83 @@ h1 {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* تنبيه «تثبيت التطبيق» أعلى الصفحة (يُنشئه js/app.js حين يعرض المتصفح التثبيت).
+   النمط نفسه في css/style.css و css/home.css: لكل صفحة ملف أنماط واحد */
+.install-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: #121212;
+    color: #ffffff;
+    border-bottom: 2px solid #D4AF37;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    font-family: 'Tajawal', sans-serif;
+}
+
+.install-banner-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.4;
+}
+
+.install-banner-text strong {
+    font-size: 0.95rem;
+    color: #D4AF37;
+}
+
+.install-banner-text span {
+    font-size: 0.82rem;
+    color: #d8d8d8;
+}
+
+.install-banner-btn,
+.install-banner-close {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    flex-shrink: 0;
+}
+
+.install-banner-btn {
+    background: #D4AF37;
+    color: #121212;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    min-height: 40px;
+}
+
+.install-banner-close {
+    background: transparent;
+    color: #ffffff;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.install-banner-btn:focus-visible,
+.install-banner-close:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+@media print {
+    .install-banner {
+        display: none !important;
     }
 }

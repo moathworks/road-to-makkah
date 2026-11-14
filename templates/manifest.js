@@ -15,8 +15,8 @@ function renderManifest(lang) {
     const t = makeT(lang);
     const root = rootPrefix(pagePath(null, lang));
     const manifest = {
-        name: t('site.name'),
-        short_name: t('manifest.shortName'),
+        name: t('app.name'),
+        short_name: t('app.name'),
         description: t('manifest.description'),
         start_url: './',
         scope: root,

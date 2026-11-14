@@ -7,7 +7,9 @@
 
 module.exports = {
     'site.name': { ar: 'دليل السفر البري إلى مكة المكرمة', en: 'Road to Makkah Guide' },
-    'manifest.shortName': { ar: 'طريق مكة 🕋', en: 'Road to Makkah 🕋' },
+    // اسم الموقع حين يُثبَّت تطبيقاً أو يُنشأ له اختصار (manifest.json و application-name). بلا رموز:
+    // أيقونة التطبيق نفسها فيها الكعبة
+    'app.name': { ar: 'طريق مكة', en: 'Road to Makkah' },
     'manifest.description': {
         ar: 'دليل رقمي تفاعلي للرحلات البرية ومحطات الوقود والراحة وحاسبة المسافات إلى مكة المكرمة',
         en: 'An interactive digital guide for overland trips to Makkah: routes, fuel and rest stops, and a distance calculator'
@@ -162,6 +164,10 @@ module.exports = {
 
     // ===== نصوص وقت التشغيل (js/app.js) =====
     'js.locale': { ar: 'ar-u-nu-latn', en: 'en-US' },
+    'js.installTitle': { ar: 'ثبّت «طريق مكة» على جهازك', en: 'Install “Road to Makkah”' },
+    'js.installText': { ar: 'يفتح كتطبيق من شاشتك ويعمل دون اتصال على الطريق.', en: 'Opens like an app from your home screen and works offline on the road.' },
+    'js.installBtn': { ar: 'تثبيت', en: 'Install' },
+    'js.installClose': { ar: 'إغلاق', en: 'Close' },
     'js.captchaLang': { ar: 'ar', en: 'en' },
     'js.selectDeparture': { ar: 'حدد وقت الانطلاق', en: 'Select a departure time' },
     'js.km': { ar: 'كم', en: 'km' },

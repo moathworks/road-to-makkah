@@ -992,8 +992,102 @@ function registerPWA() {
     }).catch(() => {});
 }
 
+/**
+ * تنبيه «تثبيت التطبيق» أعلى الصفحة: يظهر فقط حين يعرض المتصفح التثبيت فعلاً (حدث beforeinstallprompt
+ * في Chrome و Edge وأندرويد)، فلا يظهر في متصفح لا يدعمه ولا بعد التثبيت.
+ * الإغلاق يخفيه 30 يوماً، والتثبيت يخفيه نهائياً.
+ */
+const INSTALL_DISMISSED_KEY = 'installBannerDismissedAt';
+const INSTALL_SNOOZE_MS = 30 * 24 * 60 * 60 * 1000;
+
+function installBannerSnoozed() {
+    const at = Number(storageGet(INSTALL_DISMISSED_KEY));
+    return at > 0 && (at === Infinity || Date.now() - at < INSTALL_SNOOZE_MS);
+}
+
+function initInstallBanner() {
+    let deferredPrompt = null;
+    let banner = null;
+
+    // التنبيه ثابت أعلى الشاشة: نزيح محتوى الصفحة بقدر ارتفاعه فلا يغطي عنوانها
+    const basePadding = () => {
+        document.body.style.paddingTop = '';
+        return parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+    };
+    const reserveSpace = () => {
+        if (banner) document.body.style.paddingTop = `${basePadding() + banner.offsetHeight}px`;
+    };
+
+    const hide = () => {
+        if (banner) banner.remove();
+        banner = null;
+        document.body.style.paddingTop = '';
+        window.removeEventListener('resize', reserveSpace);
+    };
+
+    const show = () => {
+        if (banner) return;
+        banner = document.createElement('div');
+        banner.className = 'install-banner';
+        banner.setAttribute('role', 'region');
+        banner.setAttribute('aria-label', tx('installTitle'));
+        const text = document.createElement('div');
+        text.className = 'install-banner-text';
+        const title = document.createElement('strong');
+        title.textContent = tx('installTitle');
+        const desc = document.createElement('span');
+        desc.textContent = tx('installText');
+        text.append(title, desc);
+
+        const installBtn = document.createElement('button');
+        installBtn.type = 'button';
+        installBtn.className = 'install-banner-btn';
+        installBtn.textContent = tx('installBtn');
+        installBtn.addEventListener('click', () => {
+            if (!deferredPrompt) return hide();
+            const promptEvent = deferredPrompt;
+            deferredPrompt = null;
+            hide();
+            promptEvent.prompt();
+            // رفض نافذة المتصفح نفسها يُعامل كالإغلاق
+            promptEvent.userChoice.then((choice) => {
+                if (choice && choice.outcome === 'dismissed') storageSet(INSTALL_DISMISSED_KEY, String(Date.now()));
+            }).catch(() => {});
+        });
+
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'install-banner-close';
+        closeBtn.setAttribute('aria-label', tx('installClose'));
+        closeBtn.title = tx('installClose');
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', () => {
+            storageSet(INSTALL_DISMISSED_KEY, String(Date.now()));
+            hide();
+        });
+
+        banner.append(text, installBtn, closeBtn);
+        document.body.prepend(banner);
+        reserveSpace();
+        window.addEventListener('resize', reserveSpace);
+    };
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        if (installBannerSnoozed()) return; // يبقى خيار المتصفح نفسه (في شريط العنوان أو القائمة) كما هو
+        e.preventDefault();
+        deferredPrompt = e;
+        show();
+    });
+    window.addEventListener('appinstalled', () => {
+        storageSet(INSTALL_DISMISSED_KEY, 'Infinity');
+        deferredPrompt = null;
+        hide();
+    });
+}
+
 function bootstrapApp() {
     // وظائف مشتركة بين كل الصفحات
+    initInstallBanner();
     getMakkahTemp();
     registerPWA();
 
