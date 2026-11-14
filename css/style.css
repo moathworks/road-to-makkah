@@ -2004,6 +2004,8 @@ body.theme-switching *::after {
     .progress-container,
     .btn-station-map,
     .route-card-link,
+    .route-switch,
+    .route-card-select,
     .btn-launch,
     .btn-locate,
     .app-links,
@@ -2120,6 +2122,84 @@ body.theme-switching *::after {
 
 
 /* تقليل الحركة لمن فعّل هذا التفضيل في نظامه (حساسية الحركة) */
+/* مبدّل المسار (للدول ذات المنافذ المختلفة): الزر المختار يُلوَّن بقاعدة مولّدة في كل صفحة حسب body[data-route] */
+:root {
+    --route-on-bg: var(--gold);
+    --route-on-fg: #121212;
+}
+
+body.light-mode {
+    --route-on-bg: var(--brand);
+    --route-on-fg: #FFFFFF;
+}
+
+.route-switch {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin: 0 0 14px;
+}
+
+.route-switch-stations {
+    margin: 4px 0 16px;
+    padding: 12px 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+}
+
+.route-switch-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.route-switch-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.route-switch-btn {
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--card-border);
+    background: var(--inner-bg);
+    color: var(--text-light);
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.route-switch-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* داخل بطاقة «رحلتي الآن» الملوّنة: نصوص فاتحة والاختيار بالذهبي في المظهرين */
+.trip-now .route-switch {
+    --route-on-bg: var(--gold);
+    --route-on-fg: #121212;
+    justify-content: center;
+}
+
+.trip-now .route-switch-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.trip-now .route-switch-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+}
+
+.route-card-select {
+    border-radius: 8px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

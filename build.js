@@ -39,8 +39,13 @@ const STRAIGHT_LINE_TOLERANCE = 1.03;
 // صيغة المسافة داخل شارة المحطة في كل لغة: «~90 كم» / «~90 km»
 const BADGE_KM_PATTERN = { ar: /~\s*(\d+)\s*كم/, en: /~\s*(\d+)\s*km/ };
 
-// أدنى نسبة تباين بين لون هوية الدولة والأبيض (يُستخدم خلفيةً لنص أبيض ولوناً لنص على أبيض)
+// أدنى نسبة تباين للون هوية الدولة (ودرجته الداكنة): خلفيةً لنص أبيض، ولوناً لنص على البطاقات
+// البيضاء وعلى خلفية المظهر النهاري (#F9F7F1 في css/style.css، أغمق قليلاً من الأبيض)
 const MIN_BRAND_CONTRAST = 4.5;
+const LIGHT_BACKGROUNDS = ['#FFFFFF', '#F9F7F1'];
+
+// معرّف المسار الوحيد لدولة بلا مسارات بديلة كاملة
+const DEFAULT_ROUTE_ID = 'main';
 
 // ملفات نصية تُوحَّد نهايات أسطرها قبل حساب البصمة، فتتطابق البصمة على أي نظام تشغيل
 const TEXT_EXTENSIONS = /\.(css|js|json|svg|html|xml|txt)$/i;
@@ -222,7 +227,10 @@ function resolveRoute(route, label) {
 
 /**
  * يحوّل قائمة أقسام الدولة (outbound أو return) إلى أقسام كاملة جاهزة للعرض:
- * الاسم النصي يشير إلى مقطع مشترك في shared.segments، والكائن قسم خاص بالدولة.
+ * - الاسم النصي يشير إلى مقطع مشترك في shared.segments.
+ * - { segment, joinKm, joinBadge? }: مقطع مشترك تلتحق به الدولة من نقطة غير محطة الالتقاء المعتادة
+ *   (startsFrom)، فتكتب مسافتها هي إلى أول محطة فيه (joinKm)، وشارة بديلة لها إن لزم.
+ * - أي كائن آخر قسم خاص بالدولة.
  */
 function resolveSections(list, phase, label) {
     if (!Array.isArray(list) || list.length === 0) fail(`${label}.${phase}: قائمة الأقسام فارغة.`);
@@ -232,6 +240,13 @@ function resolveSections(list, phase, label) {
         if (typeof entry === 'string') {
             if (!shared.segments[entry]) fail(`${where}: المقطع المشترك (${entry}) غير موجود في shared.segments.`);
             section = { ...shared.segments[entry], segmentKey: entry };
+        } else if (entry && typeof entry === 'object' && entry.segment !== undefined) {
+            const unknown = Object.keys(entry).filter(k => !['segment', 'joinKm', 'joinBadge'].includes(k));
+            if (unknown.length) fail(`${where}: حقول غير معروفة في استدعاء المقطع (${unknown.join(', ')}). المسموح: segment, joinKm, joinBadge.`);
+            if (!shared.segments[entry.segment]) fail(`${where}: المقطع المشترك (${entry.segment}) غير موجود في shared.segments.`);
+            if (!isPositiveInt(entry.joinKm)) fail(`${where}: joinKm (مسافة الالتحاق بالمقطع ${entry.segment}) يجب أن يكون عدداً صحيحاً موجباً.`);
+            if (entry.joinBadge !== undefined) requireBilingual(entry.joinBadge, `${where}.joinBadge`);
+            section = { ...shared.segments[entry.segment], segmentKey: entry.segment, joinKm: entry.joinKm, joinBadge: entry.joinBadge };
         } else if (entry && typeof entry === 'object') {
             section = { ...entry };
             requireBilingual(section.title, `${where}.title`);
@@ -244,8 +259,8 @@ function resolveSections(list, phase, label) {
         if (!Array.isArray(section.stations) || section.stations.length === 0) fail(`${where} (${section.id}): القسم بلا محطات.`);
 
         section.chain = phase === 'outbound' && section.chain !== false;
-        if (!section.chain && (section.startsFrom || section.toMakkahKm !== undefined)) {
-            fail(`${where} (${section.id}): startsFrom و toMakkahKm لأقسام سلسلة الذهاب فقط.`);
+        if (!section.chain && (section.startsFrom || section.toMakkahKm !== undefined || section.joinKm !== undefined)) {
+            fail(`${where} (${section.id}): startsFrom و toMakkahKm و joinKm لأقسام سلسلة الذهاب فقط.`);
         }
         section.stations = section.stations.map((stop, sIdx) => {
             const st = resolveStation(stop, `${where}.stations[${sIdx}]`);
@@ -253,6 +268,13 @@ function resolveSections(list, phase, label) {
             if (!section.segmentKey) validateStation(st, `${label}.${section.id}[${sIdx}]`);
             return st;
         });
+        if (section.joinKm !== undefined) {
+            // مسافة أول محطة في المقطع تُقاس من آخر محطة للدولة نفسها، فتُستبدل وتُفحص شارتها من جديد
+            const first = { ...section.stations[0], distanceFromPrevKm: section.joinKm };
+            if (section.joinBadge) first.badge = section.joinBadge;
+            validateStation(first, `${where} (${section.segmentKey}، أول محطة بعد joinKm)`);
+            section.stations = [first, ...section.stations.slice(1)];
+        }
         return section;
     });
 }
@@ -324,22 +346,23 @@ function contrastRatio(hexA, hexB) {
 }
 
 /**
- * يبني سلسلة المسار الكاملة لدولة من أقسام الذهاب التي تدخل السلسلة (chain)، ثم الحرم المكي.
+ * يبني سلسلة مسار كامل (للدولة مسار واحد أو أكثر) من أقسام الذهاب التي تدخل السلسلة (chain)، ثم الحرم المكي.
  * كل محطة مرقّمة في قسم من السلسلة تحمل distanceFromPrevKm، ومنها تُشتق كل القيم الأخرى.
  * يعيد نقاط GPS بأسماء ثنائية اللغة، ومع كل نقطة معرّف القسم الذي يقع فيه الطريق المؤدي إليها (leg).
  */
-function buildRouteChain(country, outboundSections) {
-    const label = `الدولة (${country.slug})`;
+function buildRouteChain(country, route) {
+    const { outboundSections } = route;
+    const label = route.id === DEFAULT_ROUTE_ID ? `الدولة (${country.slug})` : `الدولة (${country.slug}) / المسار (${route.id})`;
     const chainSections = outboundSections.filter(sec => sec.chain);
     if (chainSections.length === 0) fail(`${label}: لا توجد أقسام ذهاب تدخل سلسلة المسار.`);
 
     const legs = [];
     chainSections.forEach((sec, secIdx) => {
         const isLast = secIdx === chainSections.length - 1;
-        if (sec.startsFrom) {
+        if (sec.startsFrom && sec.joinKm === undefined) {
             const prev = legs[legs.length - 1];
             if (!prev || prev.station.ref !== sec.startsFrom) {
-                fail(`${label}: المقطع (${sec.segmentKey || sec.id}) تُقاس مسافاته من المحطة المشتركة (${sec.startsFrom})، فيجب أن تكون آخر محطة قبله في السلسلة { ref: '${sec.startsFrom}' }.`);
+                fail(`${label}: المقطع (${sec.segmentKey || sec.id}) تُقاس مسافاته من المحطة المشتركة (${sec.startsFrom})، فيجب أن تكون آخر محطة قبله في السلسلة { ref: '${sec.startsFrom}' }، أو اكتب { segment: '${sec.segmentKey}', joinKm: N } بمسافتك إلى أول محطة فيه.`);
             }
         }
         if (isLast !== (sec.toMakkahKm !== undefined)) {
@@ -363,12 +386,12 @@ function buildRouteChain(country, outboundSections) {
     });
 
     const sumKm = legs.reduce((acc, l) => acc + l.km, 0);
-    if (sumKm !== country.totalDistanceKm) {
-        fail(`${label}: مجموع مقاطع المسار (${sumKm} كم) لا يطابق المسافة الكلية totalDistanceKm (${country.totalDistanceKm} كم).`);
+    if (sumKm !== route.distanceKm) {
+        fail(`${label}: مجموع مقاطع المسار (${sumKm} كم) لا يطابق مسافته المعلنة (${route.distanceKm} كم).`);
     }
 
     // نقاط GPS: كل محطة لها إحداثيات في السلسلة، مع المسافة المتبقية المحسوبة
-    const gpsPoints = [{ km: sumKm, name: country.origin.name, lat: country.origin.lat, lon: country.origin.lon, leg: chainSections[0].id }];
+    const gpsPoints = [{ km: sumKm, name: route.origin.name, lat: route.origin.lat, lon: route.origin.lon, leg: chainSections[0].id }];
     let remainingKm = sumKm;
     legs.forEach((l) => {
         remainingKm -= l.km;
@@ -415,8 +438,12 @@ function prepareCountry(country, fileName) {
     if (!/^#[0-9a-f]{6}$/i.test(country.themeColor) || !/^#[0-9a-f]{6}$/i.test(country.themeColorDark)) fail(`${label}: themeColor و themeColorDark بصيغة #RRGGBB.`);
     const rgb = [1, 3, 5].map(i => parseInt(country.themeColor.slice(i, i + 2), 16)).join(', ');
     if (country.themeColorRgb.replace(/\s/g, '') !== rgb.replace(/\s/g, '')) fail(`${label}: themeColorRgb (${country.themeColorRgb}) لا يطابق themeColor (${rgb}).`);
-    const contrast = contrastRatio(country.themeColor, '#FFFFFF');
-    if (contrast < MIN_BRAND_CONTRAST) fail(`${label}: تباين لون الهوية ${country.themeColor} مع الأبيض ${contrast.toFixed(2)} أقل من ${MIN_BRAND_CONTRAST}. اختر درجة أغمق.`);
+    ['themeColor', 'themeColorDark'].forEach((key) => {
+        LIGHT_BACKGROUNDS.forEach((bg) => {
+            const contrast = contrastRatio(country[key], bg);
+            if (contrast < MIN_BRAND_CONTRAST) fail(`${label}: تباين ${key} (${country[key]}) مع ${bg} = ${contrast.toFixed(2)} أقل من ${MIN_BRAND_CONTRAST}. اختر درجة أغمق.`);
+        });
+    });
 
     if (!isPositiveInt(country.totalDistanceKm)) fail(`${label}: المسافة الكلية (totalDistanceKm) غير صالحة.`);
     if (typeof country.estimatedDriveHours !== 'number' || country.estimatedDriveHours <= 0) fail(`${label}: ساعات الرحلة (estimatedDriveHours) غير صالحة.`);
@@ -426,10 +453,6 @@ function prepareCountry(country, fileName) {
     if (!country.origin) fail(`${label}: نقطة الانطلاق (origin) مفقودة.`);
     requireBilingual(country.origin.name, `${label}.origin.name`);
     validateCoords(country.origin, `${label}.origin`);
-
-    const outbound = resolveSections(country.outbound, 'outbound', label);
-    const ret = resolveSections(country.return, 'return', label);
-    requireUniqueIds([...outbound, ...ret].map(s => s.id), `${label}: معرّفات الأقسام`);
 
     (country.extraApps || []).forEach((app, idx) => validateApp(app, `${country.slug}.extraApps[${idx}]`));
     requireUniqueIds([...(country.extraApps || []), ...shared.sharedApps].map(a => a.id), `${label}: معرّفات التطبيقات`);
@@ -447,14 +470,113 @@ function prepareCountry(country, fileName) {
     }
     if (!fs.existsSync(path.join(__dirname, 'assets', 'images', country.flagFile))) fail(`${label}: ملف العلم (${country.flagFile}) غير موجود في assets/images.`);
 
-    return { ...country, routes, outboundSections: outbound, returnSections: ret };
+    const fullRoutes = prepareFullRoutes(country, routes, label);
+    return {
+        ...country,
+        routes,
+        fullRoutes,
+        outboundBlocks: groupSectionBlocks(fullRoutes, 'outboundSections'),
+        returnBlocks: groupSectionBlocks(fullRoutes, 'returnSections')
+    };
+}
+
+/**
+ * المسارات الكاملة (لكل منها محطاته وسلسلة GPS خاصة به):
+ * - الدولة ذات المنفذ الواحد تكتب outbound و return على مستوى الدولة، فلها مسار كامل واحد،
+ *   وبقية بطاقات routes وصفية (مثل الالتفاف حول الرياض).
+ * - الدولة ذات المنافذ المختلفة (عُمان، الأردن...) تكتب outbound داخل بطاقة كل مسار كامل،
+ *   مع id و switchLabel، و return خاص به إن اختلف طريق العودة (وإلا فـ return الدولة).
+ *   المسار الأول هو الافتراضي، ويختار المسافر غيره (أو يُختار تلقائياً من موقعه) في الصفحة.
+ */
+function prepareFullRoutes(country, routes, label) {
+    const hasCountryReturn = country.return !== undefined;
+    const countryReturn = hasCountryReturn ? resolveSections(country.return, 'return', label) : null;
+    const withOwnChain = routes.filter(r => r.outbound !== undefined);
+
+    let fullRoutes;
+    if (withOwnChain.length === 0) {
+        if (!hasCountryReturn) fail(`${label}: قائمة أقسام العودة (return) مفقودة.`);
+        fullRoutes = [{
+            id: DEFAULT_ROUTE_ID,
+            card: routes[0],
+            distanceKm: country.totalDistanceKm,
+            estimatedDriveHours: country.estimatedDriveHours,
+            origin: country.origin,
+            outboundSections: resolveSections(country.outbound, 'outbound', label),
+            returnSections: countryReturn
+        }];
+    } else {
+        if (country.outbound !== undefined) fail(`${label}: المسارات معرّفة بمحطاتها داخل routes، فلا يُكتب outbound على مستوى الدولة.`);
+        if (routes[0].outbound === undefined) fail(`${label}: المسار الأول (الافتراضي) يجب أن يكون مساراً كاملاً بمحطاته (outbound).`);
+        if (withOwnChain.length < 2) fail(`${label}: مسار كامل واحد يُكتب outbound و return على مستوى الدولة لا داخل routes.`);
+        fullRoutes = withOwnChain.map((route) => {
+            const where = `${label}.routes (${route.id})`;
+            if (!/^[a-z0-9-]+$/.test(route.id || '') || route.id === DEFAULT_ROUTE_ID) fail(`${where}: المسار الكامل يحتاج id بأحرف لاتينية صغيرة وأرقام وشرطات.`);
+            requireBilingual(route.switchLabel, `${where}.switchLabel`);
+            const isDefault = route === routes[0];
+            if (isDefault && route.estimatedDriveHours !== undefined) fail(`${where}: ساعات المسار الافتراضي تُكتب في estimatedDriveHours للدولة.`);
+            const hours = isDefault ? country.estimatedDriveHours : route.estimatedDriveHours;
+            if (typeof hours !== 'number' || hours < route.distanceKm / 100) fail(`${where}: estimatedDriveHours مطلوبة ولا تقل عن زمن القيادة الصافي (${(route.distanceKm / 100).toFixed(1)} ساعة).`);
+            const origin = route.origin || country.origin;
+            if (route.origin) {
+                requireBilingual(origin.name, `${where}.origin.name`);
+                validateCoords(origin, `${where}.origin`);
+            }
+            if (route.return === undefined && !hasCountryReturn) fail(`${where}: لا توجد أقسام عودة (return) للمسار ولا للدولة.`);
+            return {
+                id: route.id,
+                card: route,
+                switchLabel: route.switchLabel,
+                distanceKm: route.distanceKm,
+                estimatedDriveHours: hours,
+                origin,
+                outboundSections: resolveSections(route.outbound, 'outbound', where),
+                returnSections: route.return === undefined ? countryReturn : resolveSections(route.return, 'return', where)
+            };
+        });
+        requireUniqueIds(fullRoutes.map(r => r.id), `${label}: معرّفات المسارات`);
+    }
+    fullRoutes.forEach((route) => {
+        requireUniqueIds([...route.outboundSections, ...route.returnSections].map(s => s.id), `${label} (${route.id}): معرّفات الأقسام`);
+    });
+    return fullRoutes;
+}
+
+/**
+ * يجمع أقسام المسارات الكاملة في «كتل» عرض: المسارات التي تشترك في القائمة نفسها (مثل return الدولة)
+ * تُعرض قائمتها مرة واحدة. تُرقَّم كل كتلة وحدها، وتحمل معرّفات المسارات التي تظهر معها
+ * (routeIds، أو null إن ظهرت مع كل المسارات). القسم المكرر في كتلة لاحقة (كمقطع مشترك يمر به المساران)
+ * يأخذ معرّفاً فريداً بلاحقة المسار، وتتبعه نقاط GPS لذلك المسار.
+ */
+function groupSectionBlocks(fullRoutes, key) {
+    const blocks = [];
+    fullRoutes.forEach((route) => {
+        const block = blocks.find(b => b.source === route[key]);
+        if (block) block.routeIds.push(route.id);
+        else blocks.push({ source: route[key], routeIds: [route.id] });
+    });
+
+    const usedIds = new Set();
+    return blocks.map((block) => {
+        const suffix = block.routeIds[0];
+        const sections = block.source.map(sec => ({ ...sec, id: usedIds.has(sec.id) ? `${sec.id}--${suffix}` : sec.id }));
+        sections.forEach(sec => usedIds.add(sec.id));
+        // المسارات تبني سلاسلها من أقسامها بالمعرّفات النهائية
+        fullRoutes.filter(r => block.routeIds.includes(r.id)).forEach((r) => { r[key] = sections; });
+        return { routeIds: block.routeIds.length === fullRoutes.length ? null : block.routeIds, sections };
+    });
 }
 
 /** القيم المشتقة لصفحة الدولة بلغة معيّنة: تُحسب هنا ولا تُكتب في ملفات البيانات */
-function deriveCountryValues(country, gpsPoints, lang) {
+function deriveCountryValues(country, chains, lang) {
     const liters = (country.totalDistanceKm * shared.defaultFuelRate) / 100;
     return {
-        gpsPoints: gpsPoints.map(p => ({ km: p.km, name: tr(p.name, lang), lat: p.lat, lon: p.lon, leg: p.leg })),
+        routes: country.fullRoutes.map(route => ({
+            id: route.id,
+            totalDistanceKm: route.distanceKm,
+            estimatedDriveHours: route.estimatedDriveHours,
+            stations: chains.get(route.id).map(p => ({ km: p.km, name: tr(p.name, lang), lat: p.lat, lon: p.lon, leg: p.leg }))
+        })),
         fuelLitersText: liters.toFixed(1),
         fuelCostSar: Math.round(liters * shared.defaultFuelPrice),
         netDriveTimeText: formatDriveTime(Math.round((country.totalDistanceKm / 100) * 60), lang)
@@ -532,16 +654,12 @@ function writeOutput(relPath, content) {
     fs.writeFileSync(outPath, content, 'utf8');
 }
 
-function listFiles(relDir, pattern) {
-    return fs.readdirSync(path.join(__dirname, relDir)).filter(f => pattern.test(f)).sort().map(f => `${relDir}/${f}`);
-}
-
 function buildAll() {
     validateSharedData();
     const activeBySlug = loadActiveCountries();
     const siteCountries = resolveSiteCountries(activeBySlug);
     const activeCountries = siteCountries.filter(c => c.active).map(c => c.country);
-    const routeChains = new Map(activeCountries.map(c => [c.slug, buildRouteChain(c, c.outboundSections)]));
+    const routeChains = new Map(activeCountries.map(c => [c.slug, new Map(c.fullRoutes.map(r => [r.id, buildRouteChain(c, r)]))]));
 
     const lastUpdatedIso = getLastUpdatedIso();
     const assetHashes = {
@@ -565,7 +683,7 @@ function buildAll() {
     pages.forEach(p => writeOutput(p.relPath, p.html));
     console.log(`✅ Built ${pages.length} pages (${activeCountries.length} active countries × ${LANGS.length} languages) — آخر تحديث: ${formatDate(lastUpdatedIso, 'ar')}`);
 
-    // ملف manifest لكل لغة: من يثبّت التطبيق من الصفحة الإنجليزية يحصل على اسم إنجليزي ويبدأ منها
+    // ملف manifest لكل لغة: من يضيف الموقع إلى الشاشة الرئيسية من الصفحة الإنجليزية يحصل على أيقونة باسم إنجليزي تفتح عليها
     const manifests = LANGS.map(lang => ({ relPath: `${pagePath(null, lang)}manifest.json`, json: renderManifest(lang) }));
     manifests.forEach(m => writeOutput(m.relPath, m.json));
     console.log(`✅ Built ${manifests.map(m => m.relPath).join(', ')}`);
@@ -585,10 +703,15 @@ function buildAll() {
         `./js/app.js?v=${assetHashes.appJs}`,
         ...manifests.map(m => `./${m.relPath}`)
     ];
-    const optionalFiles = [
-        ...listFiles('assets/images', /\.(png|svg|jpg|jpeg|webp)$/i),
-        ...listFiles('assets/fonts', /\.woff2$/i)
-    ];
+    // الصور التي تعرضها الصفحات فعلاً (<img src>) والخطوط التي يطلبها fonts.css فقط: صورة المشاركة
+    // (og:image) وأيقونات الإضافة للشاشة الرئيسية لا تُعرض داخل الصفحة فلا حاجة لها دون اتصال.
+    // صور صفحات الدول اليوم أعلام تعرضها الرئيسية أصلاً، فلا يكبر الكاش إلا ببضع مئات من البايتات لكل دولة.
+    const shownImages = new Set();
+    pages.forEach(p => p.html.replace(/<img[^>]*\ssrc="(?:\.\.?\/)*(assets\/images\/[^"?#]+)"/g, (m, file) => shownImages.add(file)));
+    const fontFiles = new Set();
+    fs.readFileSync(path.join(__dirname, 'css', 'fonts.css'), 'utf8').replace(/url\(['"]?(?:\.\.\/)?(assets\/fonts\/[^'")?#]+)/g, (m, file) => fontFiles.add(file));
+    const optionalFiles = [...shownImages, ...fontFiles].sort();
+    optionalFiles.forEach((file) => { if (!fs.existsSync(path.join(__dirname, file))) fail(`ملف (${file}) مستخدم في الصفحات لكنه غير موجود.`); });
     const homePages = LANGS.map(lang => `./${pagePath(null, lang)}`);
 
     const cacheHash = sha256Short(JSON.stringify([criticalAssets, optionalFiles, homePages]) +
