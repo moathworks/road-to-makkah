@@ -66,6 +66,8 @@ module.exports = {
     'route.itinerary': { ar: 'خط السير:', en: 'Itinerary:' },
     'route.distance': { ar: 'المسافة: {km} كم', en: 'Distance: {km} km' },
     'route.start': { ar: '📍 بدء الرحلة', en: '📍 Start trip' },
+    'route.switchLabel': { ar: 'مسار رحلتك:', en: 'Your route:' },
+    'route.use': { ar: '✔ اعتماد هذا المسار', en: '✔ Use this route' },
     'station.mapBtn': { ar: '🗺️ موقع المحطة', en: '🗺️ Station location' },
     'section.riyadhMain': { ar: '⛽ محطات مدينة الرياض - طريق 40 (80M الرئيسي)', en: '⛽ Riyadh city stations – Highway 40 (main, 80M)' },
     'section.riyadhBypass': { ar: '⛽ محطات مدينة الرياض - مسار التفافي (طريق الملك سلمان)', en: '⛽ Riyadh city stations – bypass (King Salman Road)' },

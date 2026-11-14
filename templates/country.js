@@ -11,10 +11,15 @@ const {
 // يُطبَّق المظهر المحفوظ (أو تفضيل النظام) قبل أول رسم للصفحة حتى لا تومض بالمظهر النهاري ثم تتحول
 const THEME_PREPAINT_SCRIPT = `<script>try{var s=localStorage.getItem('darkGuideTheme');if(s?s==='dark':matchMedia('(prefers-color-scheme: dark)').matches)document.body.classList.remove('light-mode')}catch(e){}</script>`;
 
-function accordion({ id, extraClass = '', title, body }) {
+// يظهر العنصر مع هذه المسارات فقط (للدول ذات المسارات الكاملة المتعددة)؛ null = مع كل المسارات
+function routesAttr(routeIds) {
+    return routeIds ? ` data-routes="${routeIds.join(' ')}"` : '';
+}
+
+function accordion({ id, extraClass = '', title, body, routeIds = null }) {
     const idAttr = id ? ` id="${id}"` : '';
     const cls = extraClass ? `custom-accordion ${extraClass}` : 'custom-accordion';
-    return `        <details class="${cls}"${idAttr}>
+    return `        <details class="${cls}"${idAttr}${routesAttr(routeIds)}>
             <summary>
                 <h2 class="accordion-title">${title}</h2>
                 ${CHEVRON_SVG}
@@ -145,12 +150,13 @@ ${gridContent}
  * (الموقع على المسار، المسافة المتبقية، وقت الوصول، وزر الملاحة).
  */
 function renderTripNowSection(country, derived, lang, t) {
+    const routeSwitch = renderRouteSwitch(country, lang, t);
     const totalText = `${formatNumber(country.totalDistanceKm)} ${escapeHtml(t('unit.km'))}`;
     const netTimeHtml = escapeHtml(t('calc.netTime', { time: '%%TIME%%' }))
         .replace('%%TIME%%', `<span id="remTime">${escapeHtml(derived.netDriveTimeText)}</span>`);
 
     return `        <section class="hero-section trip-now" id="section-trip" aria-labelledby="trip-now-title">
-            <h2 class="hero-title" id="trip-now-title">${escapeHtml(t('section.trip'))}</h2>
+            <h2 class="hero-title" id="trip-now-title">${escapeHtml(t('section.trip'))}</h2>${routeSwitch ? `\n${routeSwitch}` : ''}
             <div class="trip-planner">
                 <div class="planner-group trip-loc">
                     <div class="trip-loc-text">
@@ -191,7 +197,7 @@ function renderCalculatorSection(country, shared, derived, lang, t) {
                     </div>
                     <div class="planner-group">
                         <span>${escapeHtml(t('calc.distance'))}</span>
-                        <strong>${totalText}</strong>
+                        <strong data-route-total>${totalText}</strong>
                     </div>
                     <div class="planner-group">
                         <span>${escapeHtml(t('calc.arrival'))}</span>
@@ -223,8 +229,28 @@ function renderCalculatorSection(country, shared, derived, lang, t) {
         </details>`;
 }
 
+/**
+ * مبدّل المسار للدول ذات المنافذ المختلفة: الزر المختار يُلوَّن بقاعدة CSS مولّدة لكل مسار
+ * (body[data-route])، فيظهر الاختيار المحفوظ صحيحاً من أول رسم قبل تحميل js/app.js.
+ */
+function renderRouteSwitch(country, lang, t, extraClass = '') {
+    if (country.fullRoutes.length < 2) return '';
+    const label = escapeHtml(t('route.switchLabel'));
+    const buttons = country.fullRoutes.map(r => `<button type="button" class="route-switch-btn" data-route-select="${r.id}" aria-pressed="${r === country.fullRoutes[0]}">${escapeHtml(tr(r.switchLabel, lang))}</button>`).join('');
+    return `            <div class="route-switch${extraClass}" role="group" aria-label="${label}">
+                <span class="route-switch-label">${label}</span>
+                <div class="route-switch-options">${buttons}</div>
+            </div>`;
+}
+
 function renderRoutesSection(country, lang, t) {
-    const cards = country.routes.map((r) => `            <div class="route-card">
+    const multi = country.fullRoutes.length > 1;
+    const cards = country.routes.map((r) => {
+        const full = multi && country.fullRoutes.find(fr => fr.card === r);
+        const selectBtn = full
+            ? `\n                    <button type="button" class="route-switch-btn route-card-select" data-route-select="${full.id}" aria-pressed="${full === country.fullRoutes[0]}">${escapeHtml(t('route.use'))}</button>`
+            : '';
+        return `            <div class="route-card">
                 <div>
                     <h3>${escapeHtml(tr(r.title, lang))}</h3>
                     <p><strong>${escapeHtml(t('route.itinerary'))}</strong> ${escapeHtml(tr(r.itinerary, lang))}</p>
@@ -232,9 +258,10 @@ function renderRoutesSection(country, lang, t) {
                 </div>
                 <div class="route-card-footer">
                     <div class="route-badge">${escapeHtml(t('route.distance', { km: formatNumber(r.distanceKm) }))}</div>
-                    <a href="${escapeHtml(r.mapUrl)}" target="_blank" rel="noopener noreferrer" class="route-card-link">${escapeHtml(t('route.start'))}</a>
+                    <a href="${escapeHtml(r.mapUrl)}" target="_blank" rel="noopener noreferrer" class="route-card-link">${escapeHtml(t('route.start'))}</a>${selectBtn}
                 </div>
-            </div>`).join('\n');
+            </div>`;
+    }).join('\n');
 
     return `        <h2 class="section-header" id="section-routes">${escapeHtml(t('section.routes'))}</h2>
         <div class="carousel-container">
@@ -423,7 +450,7 @@ function renderMobileNav(stationSections, moreSections, t) {
     const hereLabel = escapeHtml(t('nav.youAreHere'));
     const sheet = (id, titleKey, sections) => `    <div class="nav-sheet" id="${id}" role="dialog" aria-label="${escapeHtml(t(titleKey))}">
         <div class="nav-sheet-title">${escapeHtml(t(titleKey))}</div>
-${sections.map(sec => `        <button type="button" class="nav-sheet-item${sec.separator ? ' nav-sheet-sep' : ''}" data-target="${sec.id}" data-here="${hereLabel}" onclick="navigateFromSheet('${sec.id}')">${sec.title}</button>`).join('\n')}
+${sections.map(sec => `        <button type="button" class="nav-sheet-item${sec.separator ? ' nav-sheet-sep' : ''}" data-target="${sec.id}"${routesAttr(sec.routeIds || null)} data-here="${hereLabel}" onclick="navigateFromSheet('${sec.id}')">${sec.title}</button>`).join('\n')}
     </div>`;
 
     const spy = (ids) => ids.join(' ');
@@ -482,20 +509,27 @@ function renderCountryPage(country, shared, ctx) {
     const phase = (num, id, key) => `        <h2 class="phase-header" id="${id}"><span class="phase-num" aria-hidden="true">${num}</span>${escapeHtml(t(key))}</h2>`;
 
     // قسم المحطات كما يُعرض: المقاطع المشتركة تأخذ نصوصها من data/i18n.js، وأقسام الدولة من ملفها
-    const toAccordion = (sec) => {
+    const toAccordion = routeIds => (sec) => {
         const title = sec.titleKey ? t(sec.titleKey) : tr(sec.title, lang);
         const intro = sec.introKey ? t(sec.introKey) : (sec.intro ? tr(sec.intro, lang) : '');
         return {
             id: sec.id,
+            routeIds,
             extraClass: sec.extraClass || '',
             title: escapeHtml(title),
             body: stationsGrid(renderStationCards(sec.stations, sec.start, lang, t), sec.grid || 'stations-grid', intro, sec.introClass || '')
         };
     };
-    // أقسام المحطات بترتيب الرحلة (كما اختارتها الدولة): مصدر واحد للأكورديونات ولقائمة «المحطات» في شريط الجوال
-    const outboundAccordions = numberSections(country.outboundSections).map(toAccordion);
-    const returnAccordions = numberSections(country.returnSections).map(toAccordion);
-    returnAccordions[0].separator = true;
+    // أقسام المحطات بترتيب الرحلة (كما اختارتها الدولة): مصدر واحد للأكورديونات ولقائمة «المحطات» في شريط الجوال.
+    // كل كتلة تخص مساراً كاملاً أو أكثر (routeIds)، وتُرقَّم وحدها.
+    const blocksToAccordions = blocks => blocks.flatMap(b => numberSections(b.sections).map(toAccordion(b.routeIds)));
+    const outboundAccordions = blocksToAccordions(country.outboundBlocks);
+    const returnAccordions = blocksToAccordions(country.returnBlocks);
+    // أول قسم عودة لكل مسار يُفصل بخط عن أقسام الذهاب في القائمة
+    returnAccordions.forEach((acc, idx) => {
+        const prev = returnAccordions[idx - 1];
+        if (idx === 0 || String(prev.routeIds) !== String(acc.routeIds)) acc.separator = true;
+    });
     const stationSections = [...outboundAccordions, ...returnAccordions];
     const renderAccordions = list => list.map(accordion).join('\n\n');
 
@@ -513,11 +547,20 @@ function renderCountryPage(country, shared, ctx) {
     const runtimeConfig = {
         countryCode: country.countryCode,
         defaultCity: tr(country.defaultCity, lang),
-        totalDistanceKm: country.totalDistanceKm,
-        estimatedDriveHours: country.estimatedDriveHours,
-        // نقاط GPS بترتيب المسار، ومع كل نقطة (leg) معرّف قسم المحطات الذي يقع فيه الطريق المؤدي إليها
-        stations: derived.gpsPoints
+        // المسارات الكاملة (الأول افتراضي): لكل منها مسافته وزمنه ونقاط GPS بترتيبه،
+        // ومع كل نقطة (leg) معرّف قسم المحطات الذي يقع فيه الطريق المؤدي إليها
+        routes: derived.routes
     };
+
+    // للدول ذات المسارات المتعددة: إخفاء أقسام المسارات الأخرى وتلوين الزر المختار حسب body[data-route]
+    const routeIds = country.fullRoutes.map(r => r.id);
+    const multiRoute = routeIds.length > 1;
+    const routeStyles = multiRoute ? routeIds.map(id => `
+        body[data-route="${id}"] [data-routes]:not([data-routes~="${id}"]) { display: none !important; }
+        body[data-route="${id}"] [data-route-select="${id}"] { background: var(--route-on-bg); color: var(--route-on-fg); border-color: var(--route-on-bg); }`).join('') : '';
+    const routePrepaint = multiRoute
+        ? `<script>try{var r=localStorage.getItem('selectedRoute_${escapeHtml(country.countryCode)}');if(${jsonForScript(routeIds)}.indexOf(r)>-1)document.body.setAttribute('data-route',r)}catch(e){}</script>`
+        : '';
 
     const head = renderHead({
         lang,
@@ -536,7 +579,7 @@ function renderCountryPage(country, shared, ctx) {
             --brand: ${escapeHtml(country.themeColor)};
             --brand-rgb: ${escapeHtml(country.themeColorRgb)};
             --brand-dark: ${escapeHtml(country.themeColorDark)};
-        }
+        }${routeStyles}
     </style>`
     });
 
@@ -548,8 +591,8 @@ function renderCountryPage(country, shared, ctx) {
 ${head}
 </head>
 
-<body class="light-mode" data-country="${escapeHtml(country.countryCode)}">
-    ${THEME_PREPAINT_SCRIPT}
+<body class="light-mode" data-country="${escapeHtml(country.countryCode)}"${multiRoute ? ` data-route="${routeIds[0]}"` : ''}>
+    ${THEME_PREPAINT_SCRIPT}${routePrepaint}
 
     <div class="container">
 
@@ -610,7 +653,7 @@ ${renderTipsSection(country, shared, 'road', 'section-road-tips', 'section.roadT
 
 ${renderPrayersSection(shared, lang, t)}
 
-${renderAccordions(outboundAccordions)}
+${multiRoute ? `${renderRouteSwitch(country, lang, t, ' route-switch-stations')}\n\n` : ''}${renderAccordions(outboundAccordions)}
 
 ${renderEmergencySection(country, root, lang, t)}
 

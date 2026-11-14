@@ -36,12 +36,27 @@ function storageSet(key, value) {
     } catch (e) { /* نكمل بلا حفظ */ }
 }
 
-// طلب شبكة بمهلة: على تغطية الطريق الضعيفة لا نترك النص معلقاً على «جاري التحديث» طويلاً
-function fetchWithTimeout(url, timeoutMs) {
-    if (typeof AbortController === 'undefined') return fetch(url);
+// طلب شبكة بمهلة: على تغطية الطريق الضعيفة لا نترك النص معلقاً على «جاري التحديث» أو «جاري الإرسال» طويلاً
+function fetchWithTimeout(url, timeoutMs, options = {}) {
+    if (typeof AbortController === 'undefined') return fetch(url, options);
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
-    return fetch(url, { signal: controller.signal }).finally(() => clearTimeout(timer));
+    return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
+/**
+ * المسارات الكاملة للدولة (الأول افتراضي). الدولة ذات المنافذ المختلفة لها أكثر من مسار، ولكل مسار
+ * مسافته وزمنه ونقاط GPS. المسار المختار محفوظ في body[data-route] (يضبطه سكربت صغير قبل أول رسم).
+ * (الصفحات المخزّنة قبل دعم المسارات المتعددة تحمل الحقول القديمة مباشرة في COUNTRY_DATA.)
+ */
+const ROUTES = Array.isArray(CONFIG.routes) && CONFIG.routes.length
+    ? CONFIG.routes
+    : [{ id: 'main', totalDistanceKm: CONFIG.totalDistanceKm, estimatedDriveHours: CONFIG.estimatedDriveHours, stations: CONFIG.stations || [] }];
+const ROUTE_STORAGE_KEY = `selectedRoute_${CONFIG.countryCode}`;
+
+function activeRoute() {
+    const id = document.body.dataset.route;
+    return ROUTES.find(r => r.id === id) || ROUTES[0];
 }
 
 const PREFERS_REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -227,7 +242,7 @@ function calcArrival() {
     const depInput = depInputEl.value;
     const depDate = depInput ? new Date(depInput) : null;
     if (depDate && !Number.isNaN(depDate.getTime())) {
-        const totalMinutes = Math.round(CONFIG.estimatedDriveHours * 60);
+        const totalMinutes = Math.round(activeRoute().estimatedDriveHours * 60);
         depDate.setMinutes(depDate.getMinutes() + totalMinutes);
 
         const options = { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -599,15 +614,41 @@ function setLocateButtonTracking(isTracking) {
     if (btnLocate) btnLocate.textContent = isTracking ? tx('gpsStop') : tx('gpsLocate');
 }
 
+let lastPosition = null;
+
+/**
+ * يُسقط الموقع على المسار المختار. إن كان المسافر خارجه لكنه على مسار كامل آخر للدولة
+ * (منفذ آخر)، يُختار ذلك المسار تلقائياً. أما على مقطع يشترك فيه المساران فيبقى اختيار المسافر.
+ */
+function matchUserOnRoutes(userLat, userLon) {
+    let route = activeRoute();
+    let match = route.stations.length >= 2 ? locateOnRoute(userLat, userLon, route.stations) : null;
+    if (ROUTES.length > 1 && (!match || match.offKm > OFF_ROUTE_THRESHOLD_KM)) {
+        ROUTES.forEach((candidate) => {
+            if (candidate === route || candidate.stations.length < 2) return;
+            const m = locateOnRoute(userLat, userLon, candidate.stations);
+            if (m.offKm <= OFF_ROUTE_THRESHOLD_KM && (!match || m.offKm < match.offKm)) {
+                route = candidate;
+                match = m;
+            }
+        });
+        if (route !== activeRoute()) selectRoute(route.id, true);
+    }
+    return { route, match };
+}
+
 function handleUserPosition(position) {
     const locNameEl = document.getElementById('currentLocationName');
-    const points = Array.isArray(CONFIG.stations) ? CONFIG.stations : [];
-    if (!locNameEl || points.length < 2) return;
+    if (!locNameEl) return;
 
-    hasLocationFix = true;
     const userLat = position.coords.latitude;
     const userLon = position.coords.longitude;
-    const match = locateOnRoute(userLat, userLon, points);
+    const { route, match } = matchUserOnRoutes(userLat, userLon);
+    if (!match) return;
+    const points = route.stations;
+
+    hasLocationFix = true;
+    lastPosition = position;
 
     if (match.offKm > OFF_ROUTE_THRESHOLD_KM) {
         const destination = points[points.length - 1];
@@ -627,7 +668,7 @@ function handleUserPositionError() {
     if (hasLocationFix) return;
     const locNameEl = document.getElementById('currentLocationName');
     if (locNameEl) locNameEl.textContent = tx('gpsFailed', { city: CONFIG.defaultCity });
-    calcRemaining(CONFIG.totalDistanceKm);
+    calcRemaining(activeRoute().totalDistanceKm);
     stopLocationTracking();
 }
 
@@ -665,7 +706,8 @@ function toggleLocationTracking() {
 }
 
 function calcRemaining(kmVal) {
-    const km = (kmVal !== undefined && kmVal !== null) ? Math.max(0, Math.round(kmVal)) : CONFIG.totalDistanceKm;
+    const route = activeRoute();
+    const km = (kmVal !== undefined && kmVal !== null) ? Math.max(0, Math.round(kmVal)) : route.totalDistanceKm;
     const remDistEl = document.getElementById('remDist');
     const remTimeEl = document.getElementById('remTime');
     const remArrivalEl = document.getElementById('remArrival');
@@ -689,13 +731,58 @@ function calcRemaining(kmVal) {
     if (remTimeEl) remTimeEl.textContent = timeStr;
 
     // وقت الوصول المتوقع من الموقع الحالي (بإضافة نسبة التوقفات والمنفذ ليتطابق مع الحاسبة العلوية)
-    const ratio = CONFIG.totalDistanceKm > 0 ? (km / CONFIG.totalDistanceKm) : 0;
-    const totalTripMinutes = Math.round(ratio * CONFIG.estimatedDriveHours * 60);
+    const ratio = route.totalDistanceKm > 0 ? (km / route.totalDistanceKm) : 0;
+    const totalTripMinutes = Math.round(ratio * route.estimatedDriveHours * 60);
     const arrivalDate = new Date();
     arrivalDate.setMinutes(arrivalDate.getMinutes() + totalTripMinutes);
 
     const options = { weekday: 'long', hour: '2-digit', minute: '2-digit' };
     if (remArrivalEl) remArrivalEl.textContent = arrivalDate.toLocaleDateString(DATE_LOCALE, options);
+}
+
+/**
+ * يعتمد مساراً كاملاً: تُخفى أقسام المسارات الأخرى (قواعد CSS مولّدة حسب body[data-route])،
+ * وتتبعه المسافة الكلية وحاسبة الوقود ووقت الوصول. fromGps: الاختيار جاء من موقع المسافر نفسه.
+ */
+function selectRoute(routeId, fromGps) {
+    const route = ROUTES.find(r => r.id === routeId);
+    if (!route || ROUTES.length < 2) return;
+    document.body.dataset.route = route.id;
+    storageSet(ROUTE_STORAGE_KEY, route.id);
+    syncRouteUi();
+
+    const calcDistEl = document.getElementById('calc-distance');
+    if (calcDistEl) {
+        calcDistEl.value = route.totalDistanceKm;
+        calculateFuel();
+    }
+    calcArrival();
+    // اختيار يدوي أثناء التتبّع: يُعاد حساب الموقع على المسار الجديد
+    if (!fromGps) {
+        if (lastPosition) handleUserPosition(lastPosition);
+        else calcRemaining(route.totalDistanceKm);
+    }
+}
+
+function syncRouteUi() {
+    const route = activeRoute();
+    document.querySelectorAll('[data-route-select]').forEach((btn) => {
+        btn.setAttribute('aria-pressed', String(btn.dataset.routeSelect === route.id));
+    });
+    document.querySelectorAll('[data-route-total]').forEach((el) => {
+        el.textContent = route.totalDistanceKm.toLocaleString('en-US') + ' ' + tx('km');
+    });
+}
+
+function initRouteSwitch() {
+    if (ROUTES.length < 2) return;
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-route-select]');
+        if (btn) selectRoute(btn.dataset.routeSelect, false);
+    });
+    syncRouteUi();
+    const calcDistEl = document.getElementById('calc-distance');
+    if (calcDistEl) calcDistEl.value = activeRoute().totalDistanceKm;
 }
 
 // 9. طباعة مسار الرحلة: فتح الأقسام وإعادتها يتمّان عبر beforeprint/afterprint فقط،
@@ -770,6 +857,8 @@ function fallbackCopy(text) {
 }
 
 // 11. معالجة نموذج الاقتراحات وإرساله بالـ AJAX (باستخدام textContent للأمان)
+// مهلة الإرسال: بعدها تظهر رسالة تعذّر الاتصال بدل بقاء الزر على «جاري الإرسال»
+const SUBMIT_TIMEOUT_MS = 20000;
 function initSuggestionForm() {
     const suggestForm = document.getElementById('suggestionForm');
     const suggestStatus = document.getElementById('suggestionStatus');
@@ -813,7 +902,7 @@ function initSuggestionForm() {
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
 
-        fetch('https://api.web3forms.com/submit', {
+        fetchWithTimeout('https://api.web3forms.com/submit', SUBMIT_TIMEOUT_MS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -918,7 +1007,8 @@ function bootstrapCountryPage() {
 
     initAccordions();
     initChecklist();
-    calcRemaining(CONFIG.totalDistanceKm);
+    initRouteSwitch();
+    calcRemaining(activeRoute().totalDistanceKm);
     calculateFuel();
     getMakkahPrayers();
     initSuggestionForm();
