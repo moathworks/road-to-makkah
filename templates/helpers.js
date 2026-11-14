@@ -90,6 +90,8 @@ function renderHead(options) {
     const path = pagePath(slug, lang);
     const root = rootPrefix(path);
     const canonicalUrl = `${siteUrl}/${path}`;
+    // اسم الاختصار والتطبيق المثبّت (يقرؤه المتصفح بدل عنوان الصفحة الطويل)
+    const appName = makeT(lang)('app.name');
     const ogImageUrl = `${siteUrl}/assets/images/kaaba.jpg`;
     const alternates = LANGS.map(l => `    <link rel="alternate" hreflang="${l}" href="${escapeHtml(`${siteUrl}/${pagePath(slug, l)}`)}">`).join('\n');
 
@@ -98,7 +100,9 @@ function renderHead(options) {
     <meta name="theme-color" content="${escapeHtml(themeColor)}">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">${robots ? `\n    <meta name="robots" content="${escapeHtml(robots)}">` : ''}
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="${escapeHtml(appName)}">
+    <meta name="apple-mobile-web-app-title" content="${escapeHtml(appName)}">${robots ? `\n    <meta name="robots" content="${escapeHtml(robots)}">` : ''}
     <meta name="description" content="${escapeHtml(description)}">
     <title>${escapeHtml(title)}</title>
     <link rel="canonical" href="${escapeHtml(canonicalUrl)}">

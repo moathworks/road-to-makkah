@@ -7,7 +7,8 @@
  *   shared.segments)، فلا يفترض البناء ممراً ثابتاً لكل الدول.
  * - يبني سلسلة المسار من distanceFromPrevKm فقط، ويشتق منها: المسافة المتبقية، نقاط GPS،
  *   الوقود والزمن الصافي. لا تُكتب أي قيمة مشتقة يدوياً في ملفات البيانات.
- * - يتحقق من البيانات ويفشل البناء عند أي تناقض (الترجمة الناقصة تنبيه فقط ويُعرض مكانها العربي).
+ * - يتحقق من البيانات: التناقض تنبيه تُبنى الصفحة معه، والخطأ في ملف دولة يُبقي صفحتها السابقة
+ *   ويُبنى الباقي (انظر warn و fail). الترجمة الناقصة تنبيه ويُعرض مكانها العربي.
  * - يحسب بصمات الملفات، ويولّد صفحات HTML و manifest.json و sw.js و sitemap.xml.
  *   (لا يُولَّد robots.txt: الموقع على مسار فرعي في GitHub Pages، ومحركات البحث لا تقرأ
  *   robots.txt إلا من جذر النطاق. تُرسَل خريطة الموقع عبر Google Search Console.)
@@ -50,8 +51,21 @@ const DEFAULT_ROUTE_ID = 'main';
 // ملفات نصية تُوحَّد نهايات أسطرها قبل حساب البصمة، فتتطابق البصمة على أي نظام تشغيل
 const TEXT_EXTENSIONS = /\.(css|js|json|svg|html|xml|txt)$/i;
 
+/*
+ * مستويات أخطاء البيانات (لا يتوقف البناء بسبب خطأ في دولة واحدة):
+ * - warn: تناقض في البيانات تُبنى الصفحة معه كما هي (مسافة، شارة، لون، حقل زائد...)، ويُطبع
+ *   في نهاية البناء لتصحيحه، ويظهر تنبيهاً في GitHub Actions.
+ * - fail: خطأ لا تُبنى معه الصفحة (حقل إلزامي مفقود، مرجع غير موجود...). إن كان في ملف دولة
+ *   تبقى صفحتها المنشورة السابقة كما هي وتُبنى بقية الصفحات، ويُطبع الخطأ ويفشل فحص GitHub
+ *   ليظهر. يتوقف البناء كله فقط حين يكون الخطأ في البيانات المشتركة بين كل الصفحات.
+ */
 function fail(message) {
     throw new Error(`[Validation Error] ${message}`);
+}
+
+const buildWarnings = [];
+function warn(message) {
+    buildWarnings.push(message);
 }
 
 function sha256Short(content) {
@@ -154,7 +168,7 @@ function requireUniqueIds(ids, label) {
 function validateCoords(point, label) {
     if (!hasCoords(point) || Number.isNaN(point.lat) || Number.isNaN(point.lon)) fail(`${label}: الإحداثيات (lat/lon) مفقودة أو غير رقمية.`);
     // نطاق شبه الجزيرة العربية والدول المجاورة: يلتقط الأخطاء الفادحة مثل تبديل lat و lon
-    if (point.lat < 12 || point.lat > 38 || point.lon < 34 || point.lon > 60) fail(`${label}: الإحداثيات (${point.lat}, ${point.lon}) خارج النطاق الجغرافي المتوقع.`);
+    if (point.lat < 12 || point.lat > 38 || point.lon < 34 || point.lon > 60) warn(`${label}: الإحداثيات (${point.lat}, ${point.lon}) خارج النطاق الجغرافي المتوقع.`);
 }
 
 /**
@@ -181,13 +195,13 @@ function validateStation(station, label) {
             const match = station.badge[lang].match(BADGE_KM_PATTERN[lang]);
             badgeKm[lang] = match ? Number(match[1]) : null;
             if (match && badgeKm[lang] !== station.distanceFromPrevKm) {
-                fail(station.distanceFromPrevKm === undefined
+                warn(station.distanceFromPrevKm === undefined
                     ? `${where}: الشارة [${lang}] تذكر ~${badgeKm[lang]} كم لكن المحطة بلا distanceFromPrevKm.`
                     : `${where}: الشارة [${lang}] تذكر ~${badgeKm[lang]} بينما distanceFromPrevKm = ${station.distanceFromPrevKm}.`);
             }
         });
         if ('en' in badgeKm && (badgeKm.ar === null) !== (badgeKm.en === null)) {
-            fail(`${where}: الشارة تذكر المسافة في لغة دون الأخرى.`);
+            warn(`${where}: الشارة تذكر المسافة في لغة دون الأخرى.`);
         }
     }
 
@@ -242,11 +256,12 @@ function resolveSections(list, phase, label) {
             section = { ...shared.segments[entry], segmentKey: entry };
         } else if (entry && typeof entry === 'object' && entry.segment !== undefined) {
             const unknown = Object.keys(entry).filter(k => !['segment', 'joinKm', 'joinBadge'].includes(k));
-            if (unknown.length) fail(`${where}: حقول غير معروفة في استدعاء المقطع (${unknown.join(', ')}). المسموح: segment, joinKm, joinBadge.`);
+            if (unknown.length) warn(`${where}: حقول غير معروفة في استدعاء المقطع (${unknown.join(', ')}) تُجوهلت. المسموح: segment, joinKm, joinBadge.`);
             if (!shared.segments[entry.segment]) fail(`${where}: المقطع المشترك (${entry.segment}) غير موجود في shared.segments.`);
-            if (!isPositiveInt(entry.joinKm)) fail(`${where}: joinKm (مسافة الالتحاق بالمقطع ${entry.segment}) يجب أن يكون عدداً صحيحاً موجباً.`);
+            const joinKm = isPositiveInt(entry.joinKm) ? entry.joinKm : undefined;
+            if (joinKm === undefined) warn(`${where}: joinKm (مسافة الالتحاق بالمقطع ${entry.segment}) يجب أن يكون عدداً صحيحاً موجباً (${entry.joinKm})، فتُجوهل.`);
             if (entry.joinBadge !== undefined) requireBilingual(entry.joinBadge, `${where}.joinBadge`);
-            section = { ...shared.segments[entry.segment], segmentKey: entry.segment, joinKm: entry.joinKm, joinBadge: entry.joinBadge };
+            section = { ...shared.segments[entry.segment], segmentKey: entry.segment, joinKm, joinBadge: joinKm === undefined ? undefined : entry.joinBadge };
         } else if (entry && typeof entry === 'object') {
             section = { ...entry };
             requireBilingual(section.title, `${where}.title`);
@@ -362,7 +377,7 @@ function buildRouteChain(country, route) {
         if (sec.startsFrom && sec.joinKm === undefined) {
             const prev = legs[legs.length - 1];
             if (!prev || prev.station.ref !== sec.startsFrom) {
-                fail(`${label}: المقطع (${sec.segmentKey || sec.id}) تُقاس مسافاته من المحطة المشتركة (${sec.startsFrom})، فيجب أن تكون آخر محطة قبله في السلسلة { ref: '${sec.startsFrom}' }، أو اكتب { segment: '${sec.segmentKey}', joinKm: N } بمسافتك إلى أول محطة فيه.`);
+                warn(`${label}: المقطع (${sec.segmentKey || sec.id}) تُقاس مسافاته من المحطة المشتركة (${sec.startsFrom})، فيجب أن تكون آخر محطة قبله في السلسلة { ref: '${sec.startsFrom}' }، أو اكتب { segment: '${sec.segmentKey}', joinKm: N } بمسافتك إلى أول محطة فيه.`);
             }
         }
         if (isLast !== (sec.toMakkahKm !== undefined)) {
@@ -387,7 +402,7 @@ function buildRouteChain(country, route) {
 
     const sumKm = legs.reduce((acc, l) => acc + l.km, 0);
     if (sumKm !== route.distanceKm) {
-        fail(`${label}: مجموع مقاطع المسار (${sumKm} كم) لا يطابق مسافته المعلنة (${route.distanceKm} كم).`);
+        warn(`${label}: مجموع مقاطع المسار (${sumKm} كم) لا يطابق مسافته المعلنة (${route.distanceKm} كم).`);
     }
 
     // نقاط GPS: كل محطة لها إحداثيات في السلسلة، مع المسافة المتبقية المحسوبة
@@ -408,7 +423,7 @@ function buildRouteChain(country, route) {
         const roadKm = prev.km - curr.km;
         const straightKm = haversineKm(prev.lat, prev.lon, curr.lat, curr.lon);
         if (straightKm > roadKm * STRAIGHT_LINE_TOLERANCE) {
-            fail(`${label}: المسافة المستقيمة بين (${prev.name.ar}) و(${curr.name.ar}) = ${Math.round(straightKm)} كم أكبر من مسافة الطريق المدخلة (${roadKm} كم). راجع الإحداثيات أو distanceFromPrevKm.`);
+            warn(`${label}: المسافة المستقيمة بين (${prev.name.ar}) و(${curr.name.ar}) = ${Math.round(straightKm)} كم أكبر من مسافة الطريق المدخلة (${roadKm} كم). راجع الإحداثيات أو distanceFromPrevKm.`);
         }
     }
 
@@ -437,18 +452,18 @@ function prepareCountry(country, fileName) {
 
     if (!/^#[0-9a-f]{6}$/i.test(country.themeColor) || !/^#[0-9a-f]{6}$/i.test(country.themeColorDark)) fail(`${label}: themeColor و themeColorDark بصيغة #RRGGBB.`);
     const rgb = [1, 3, 5].map(i => parseInt(country.themeColor.slice(i, i + 2), 16)).join(', ');
-    if (country.themeColorRgb.replace(/\s/g, '') !== rgb.replace(/\s/g, '')) fail(`${label}: themeColorRgb (${country.themeColorRgb}) لا يطابق themeColor (${rgb}).`);
+    if (country.themeColorRgb.replace(/\s/g, '') !== rgb.replace(/\s/g, '')) warn(`${label}: themeColorRgb (${country.themeColorRgb}) لا يطابق themeColor (${rgb}).`);
     ['themeColor', 'themeColorDark'].forEach((key) => {
         LIGHT_BACKGROUNDS.forEach((bg) => {
             const contrast = contrastRatio(country[key], bg);
-            if (contrast < MIN_BRAND_CONTRAST) fail(`${label}: تباين ${key} (${country[key]}) مع ${bg} = ${contrast.toFixed(2)} أقل من ${MIN_BRAND_CONTRAST}. اختر درجة أغمق.`);
+            if (contrast < MIN_BRAND_CONTRAST) warn(`${label}: تباين ${key} (${country[key]}) مع ${bg} = ${contrast.toFixed(2)} أقل من ${MIN_BRAND_CONTRAST}. اختر درجة أغمق.`);
         });
     });
 
     if (!isPositiveInt(country.totalDistanceKm)) fail(`${label}: المسافة الكلية (totalDistanceKm) غير صالحة.`);
     if (typeof country.estimatedDriveHours !== 'number' || country.estimatedDriveHours <= 0) fail(`${label}: ساعات الرحلة (estimatedDriveHours) غير صالحة.`);
     // الزمن الشامل للتوقفات لا يصح أن يقل عن الزمن الصافي (100 كم/س)
-    if (country.estimatedDriveHours < country.totalDistanceKm / 100) fail(`${label}: estimatedDriveHours (${country.estimatedDriveHours}) أقل من زمن القيادة الصافي (${(country.totalDistanceKm / 100).toFixed(1)} ساعة).`);
+    if (country.estimatedDriveHours < country.totalDistanceKm / 100) warn(`${label}: estimatedDriveHours (${country.estimatedDriveHours}) أقل من زمن القيادة الصافي (${(country.totalDistanceKm / 100).toFixed(1)} ساعة).`);
 
     if (!country.origin) fail(`${label}: نقطة الانطلاق (origin) مفقودة.`);
     requireBilingual(country.origin.name, `${label}.origin.name`);
@@ -466,7 +481,7 @@ function prepareCountry(country, fileName) {
         return route;
     });
     if (routes[0].distanceKm !== country.totalDistanceKm) {
-        fail(`${label}: مسافة المسار الرئيسي (${routes[0].distanceKm}) لا تطابق المسافة الكلية (${country.totalDistanceKm}).`);
+        warn(`${label}: مسافة المسار الرئيسي (${routes[0].distanceKm}) لا تطابق المسافة الكلية (${country.totalDistanceKm}).`);
     }
     if (!fs.existsSync(path.join(__dirname, 'assets', 'images', country.flagFile))) fail(`${label}: ملف العلم (${country.flagFile}) غير موجود في assets/images.`);
 
@@ -516,7 +531,8 @@ function prepareFullRoutes(country, routes, label) {
             const isDefault = route === routes[0];
             if (isDefault && route.estimatedDriveHours !== undefined) fail(`${where}: ساعات المسار الافتراضي تُكتب في estimatedDriveHours للدولة.`);
             const hours = isDefault ? country.estimatedDriveHours : route.estimatedDriveHours;
-            if (typeof hours !== 'number' || hours < route.distanceKm / 100) fail(`${where}: estimatedDriveHours مطلوبة ولا تقل عن زمن القيادة الصافي (${(route.distanceKm / 100).toFixed(1)} ساعة).`);
+            if (typeof hours !== 'number' || hours <= 0) fail(`${where}: estimatedDriveHours مطلوبة لغير المسار الافتراضي.`);
+            if (hours < route.distanceKm / 100) warn(`${where}: estimatedDriveHours (${hours}) أقل من زمن القيادة الصافي (${(route.distanceKm / 100).toFixed(1)} ساعة).`);
             const origin = route.origin || country.origin;
             if (route.origin) {
                 requireBilingual(origin.name, `${where}.origin.name`);
@@ -583,24 +599,56 @@ function deriveCountryValues(country, chains, lang) {
     };
 }
 
+/**
+ * يحمّل ملفات الدول ويتحقق منها ويبني سلاسل مساراتها. ملف الدولة الذي فيه خطأ لا يوقف البناء:
+ * يُسجَّل خطؤه في failed (مع slug إن أمكن قراءته)، وتُبنى بقية الدول.
+ */
 function loadActiveCountries() {
     const files = fs.readdirSync(COUNTRIES_DIR).filter(f => f.endsWith('.js')).sort();
     const bySlug = new Map();
+    const failed = [];
     for (const file of files) {
-        const country = prepareCountry(require(path.join(COUNTRIES_DIR, file)), file);
-        if (bySlug.has(country.slug)) fail(`الـ slug (${country.slug}) مكرر في أكثر من ملف دولة.`);
-        if (LANGS.includes(country.slug)) fail(`الـ slug (${country.slug}) محجوز لمسار اللغة.`);
-        bySlug.set(country.slug, country);
+        let raw = null;
+        try {
+            raw = require(path.join(COUNTRIES_DIR, file));
+            const country = prepareCountry(raw, file);
+            if (bySlug.has(country.slug)) fail(`الـ slug (${country.slug}) مكرر في أكثر من ملف دولة.`);
+            if (LANGS.includes(country.slug)) fail(`الـ slug (${country.slug}) محجوز لمسار اللغة.`);
+            country.routeChains = new Map(country.fullRoutes.map(r => [r.id, buildRouteChain(country, r)]));
+            bySlug.set(country.slug, country);
+        } catch (err) {
+            const slug = raw && typeof raw.slug === 'string' && !bySlug.has(raw.slug) ? raw.slug : null;
+            failed.push({ file, slug, raw, message: err.message.replace(/^\[Validation Error\] /, '') });
+        }
     }
-    return bySlug;
+    return { bySlug, failed };
 }
 
 /**
  * يوحّد قائمة الدول: كل slug يُبنى مرة واحدة فقط، إما دليلاً كاملاً (إن كان له ملف بيانات)
  * أو صفحة «قريباً». فلا يمكن أن تُكتب صفحة «قريباً» فوق دليل دولة فعّالة.
  */
-function resolveSiteCountries(activeBySlug) {
+/** هل المنشور حالياً لهذه الدولة دليل كامل (لا صفحة «قريباً»)؟ */
+function isPublishedGuide(slug, lang) {
+    const file = path.join(__dirname, pagePath(slug, lang), 'index.html');
+    return fs.existsSync(file) && fs.readFileSync(file, 'utf8').includes('window.COUNTRY_DATA');
+}
+
+/** اسم الدولة كما في الرئيسية المنشورة حالياً (حين يكون الاسم نفسه هو الخطأ في ملفها) */
+function publishedCountryName(slug) {
+    const name = {};
+    LANGS.forEach((lang) => {
+        const file = path.join(__dirname, pagePath(null, lang), 'index.html');
+        const html = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
+        const match = html.match(new RegExp(`href="\\./${slug}/"[^>]*><span>([^<]+)</span>`));
+        name[lang] = match ? match[1].replace(/&amp;/g, '&') : slug;
+    });
+    return name;
+}
+
+function resolveSiteCountries(activeBySlug, failed) {
     const seen = new Set();
+    const failedBySlug = new Map(failed.filter(f => f.slug).map(f => [f.slug, f]));
     const entries = countriesOrder.map((entry) => {
         if (!entry.slug) fail('عنصر في countriesOrder بلا slug.');
         if (seen.has(entry.slug)) fail(`الـ slug (${entry.slug}) مكرر في countriesOrder.`);
@@ -610,15 +658,26 @@ function resolveSiteCountries(activeBySlug) {
         if (active) {
             return { slug: entry.slug, name: active.countryName, flag: active.flagFile, active: true, country: active };
         }
+        // دولة في ملفها خطأ ولها دليل منشور سابقاً: يبقى الدليل كما هو (لا يُعاد بناؤه) وتبقى في الرئيسية.
+        // وإن لم يُنشر لها دليل بعد، تُبنى صفحة «قريباً» كما كانت قبل إضافة ملفها.
+        const broken = failedBySlug.get(entry.slug);
+        if (broken && LANGS.every(lang => isPublishedGuide(entry.slug, lang))) {
+            const raw = broken.raw;
+            const name = raw.countryName && hasLang(raw.countryName, 'ar') ? raw.countryName : publishedCountryName(entry.slug);
+            const flag = typeof raw.flagFile === 'string' && fs.existsSync(path.join(__dirname, 'assets', 'images', raw.flagFile)) ? raw.flagFile : entry.flagFile;
+            broken.keptPreviousPage = true;
+            return { slug: entry.slug, name, flag, active: true, stale: true, country: { slug: entry.slug, countryName: name } };
+        }
+        if (broken && !entry.countryName) return null; // لا دليل سابق ولا بيانات «قريباً»: لا تظهر حتى يُصحَّح ملفها
         requireBilingual(entry.countryName, `countriesOrder (${entry.slug}).countryName`);
         if (entry.heading !== undefined) requireBilingual(entry.heading, `countriesOrder (${entry.slug}).heading`);
         if (!entry.flagFile) fail(`الدولة (${entry.slug}) ليس لها ملف في data/countries وينقصها flagFile لصفحة «قريباً».`);
         if (!fs.existsSync(path.join(__dirname, 'assets', 'images', entry.flagFile))) fail(`الدولة (${entry.slug}): ملف العلم (${entry.flagFile}) غير موجود.`);
         return { slug: entry.slug, name: entry.countryName, flag: entry.flagFile, active: false, page: entry };
-    });
+    }).filter(Boolean);
 
     for (const slug of activeBySlug.keys()) {
-        if (!seen.has(slug)) fail(`الدولة (${slug}) لها ملف بيانات لكنها غير مدرجة في countriesOrder (data/site.js).`);
+        if (!seen.has(slug)) warn(`الدولة (${slug}) لها ملف بيانات لكنها غير مدرجة في countriesOrder (data/site.js)، فلم تُبنَ صفحتها.`);
     }
     return entries;
 }
@@ -656,10 +715,10 @@ function writeOutput(relPath, content) {
 
 function buildAll() {
     validateSharedData();
-    const activeBySlug = loadActiveCountries();
-    const siteCountries = resolveSiteCountries(activeBySlug);
+    const { bySlug: activeBySlug, failed } = loadActiveCountries();
+    const siteCountries = resolveSiteCountries(activeBySlug, failed);
+    // كل الأدلة المنشورة (ومنها الدليل السابق لدولة في ملفها خطأ): للرئيسية وروابط «قريباً» وخريطة الموقع
     const activeCountries = siteCountries.filter(c => c.active).map(c => c.country);
-    const routeChains = new Map(activeCountries.map(c => [c.slug, new Map(c.fullRoutes.map(r => [r.id, buildRouteChain(c, r)]))]));
 
     const lastUpdatedIso = getLastUpdatedIso();
     const assetHashes = {
@@ -674,14 +733,15 @@ function buildAll() {
         const ctx = { lang, assetHashes, activeCountries, lastUpdatedText: formatDate(lastUpdatedIso, lang), lastUpdatedYear: lastUpdatedIso.slice(0, 4) };
         pages.push({ relPath: `${pagePath(null, lang)}index.html`, html: renderHomePage(shared, siteCountries, ctx), isHome: true });
         for (const entry of siteCountries) {
+            if (entry.stale) continue; // يبقى الدليل المنشور سابقاً حتى يُصحَّح ملف الدولة
             const html = entry.active
-                ? renderCountryPage(entry.country, shared, { ...ctx, derived: deriveCountryValues(entry.country, routeChains.get(entry.slug), lang) })
+                ? renderCountryPage(entry.country, shared, { ...ctx, derived: deriveCountryValues(entry.country, entry.country.routeChains, lang) })
                 : renderComingSoonPage(entry.page, shared, ctx);
             pages.push({ relPath: `${pagePath(entry.slug, lang)}index.html`, html });
         }
     }
     pages.forEach(p => writeOutput(p.relPath, p.html));
-    console.log(`✅ Built ${pages.length} pages (${activeCountries.length} active countries × ${LANGS.length} languages) — آخر تحديث: ${formatDate(lastUpdatedIso, 'ar')}`);
+    console.log(`✅ Built ${pages.length} pages (${activeBySlug.size} active countries × ${LANGS.length} languages) — آخر تحديث: ${formatDate(lastUpdatedIso, 'ar')}`);
 
     // ملف manifest لكل لغة: من يضيف الموقع إلى الشاشة الرئيسية من الصفحة الإنجليزية يحصل على أيقونة باسم إنجليزي تفتح عليها
     const manifests = LANGS.map(lang => ({ relPath: `${pagePath(null, lang)}manifest.json`, json: renderManifest(lang) }));
@@ -727,9 +787,43 @@ function buildAll() {
     }));
     console.log(`✅ Built sw.js (shell cache: ${cacheHash})`);
 
+    reportProblems(failed);
+}
+
+/**
+ * يطبع تنبيهات البيانات وأخطاء ملفات الدول في نهاية البناء. في GitHub Actions تظهر أيضاً
+ * تنبيهات وأخطاء على صفحة الفحص، ويفشل الفحص إن وُجد ملف دولة لم تُبنَ صفحته (ليظهر الخطأ)،
+ * أما التنبيهات وحدها فلا تُفشله.
+ */
+function reportProblems(failed) {
+    const inCi = process.env.GITHUB_ACTIONS === 'true';
+    const annotate = (level, msg) => { if (inCi) console.log(`::${level}::${msg.replace(/\r?\n/g, ' ')}`); };
+
     if (missingTranslations.size) {
         console.warn(`⚠️ ${missingTranslations.size} نص بلا ترجمة، عُرض مكانه النص العربي:`);
         missingTranslations.forEach(item => console.warn(`   - ${item}`));
+    }
+
+    const warnings = [...new Set(buildWarnings)];
+    if (warnings.length) {
+        console.warn(`\n⚠️ ${warnings.length} تنبيه في البيانات (بُنيت الصفحات بها كما هي، صحّحها):`);
+        warnings.forEach((w) => {
+            console.warn(`   - ${w}`);
+            annotate('warning', w);
+        });
+    }
+
+    if (failed.length) {
+        console.error(`\n❌ ${failed.length} ملف دولة فيه خطأ يمنع بناء صفحته (بُنيت بقية الصفحات):`);
+        failed.forEach((f) => {
+            const outcome = f.keptPreviousPage
+                ? 'بقي الدليل المنشور سابقاً كما هو'
+                : (f.slug && countriesOrder.some(e => e.slug === f.slug && e.countryName) ? 'بُنيت صفحة «قريباً» مكانه' : 'لم تُبنَ له صفحة');
+            const msg = `data/countries/${f.file}: ${f.message} (${outcome})`;
+            console.error(`   - ${msg}`);
+            annotate('error', msg);
+        });
+        process.exitCode = 1;
     }
 }
 

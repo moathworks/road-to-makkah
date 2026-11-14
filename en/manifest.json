@@ -1,6 +1,6 @@
 {
-  "name": "Road to Makkah Guide",
-  "short_name": "Road to Makkah 🕋",
+  "name": "Road to Makkah",
+  "short_name": "Road to Makkah",
   "description": "An interactive digital guide for overland trips to Makkah: routes, fuel and rest stops, and a distance calculator",
   "start_url": "./",
   "scope": "../",

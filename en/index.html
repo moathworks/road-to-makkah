@@ -9,6 +9,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="Road to Makkah">
+    <meta name="apple-mobile-web-app-title" content="Road to Makkah">
     <meta name="description" content="A complete overland travel guide to Makkah from the Gulf and neighbouring Arab countries: routes, fuel stations, distance calculator and a pre-trip checklist.">
     <title>Road to Makkah Guide</title>
     <link rel="canonical" href="https://moathworks.github.io/road-to-makkah/en/">
@@ -35,7 +37,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
     <link rel="stylesheet" href="../css/fonts.css?v=4d81fe39">
-    <link rel="stylesheet" href="../css/home.css?v=18e70f36">
+    <link rel="stylesheet" href="../css/home.css?v=fe51c94c">
 </head>
 
 <body>
@@ -43,11 +45,13 @@
     <div class="bg-overlay"></div>
 
     <div class="container">
-        <a href="../" class="home-lang-toggle" lang="ar" hreflang="ar" title="العربية" aria-label="العربية">ع</a>
         <h1>Road to Makkah Guide</h1>
 
-        <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp" data-makkah-temp data-temp-format="Makkah now: {t}°C 🌤️" data-temp-fallback="Makkah 🕋">Makkah: loading weather… ⏳</span>
+        <div class="home-badges">
+            <div class="weather-widget" id="weatherWidget">
+                <span id="weatherTemp" data-makkah-temp data-temp-format="Makkah now: {t}°C 🌤️" data-temp-fallback="Makkah 🕋">Makkah: loading weather… ⏳</span>
+            </div>
+            <a href="../" class="home-lang-toggle" lang="ar" hreflang="ar" title="العربية" aria-label="العربية">ع</a>
         </div>
 
         <div class="countries">
@@ -117,8 +121,8 @@
         </div>
     </div>
 
-    <script>window.APP_I18N = {"locale":"en-US","captchaLang":"en","selectDeparture":"Select a departure time","km":"km","sar":"SAR","liter":"L","timeHM":"{h} h {m} min","timeH":"{h} h","timeM":"{m} min","themeToDark":"Switch to dark theme","themeToLight":"Switch to light theme","prayerLine1":"Fajr {a} | Sunrise {b}","prayerLine2":"Maghrib {a} | Isha {b}","am":"AM","pm":"PM","prayerOffline1":"Makkah prayer times","prayerOffline2":"need an internet connection","gpsBetween":"Between {a} and {b}","gpsLocate":"📍 Locate me now","gpsStop":"⏹️ Stop tracking","gpsLocating":"Locating…","gpsOffRoute":"Off route (nearest point: {n})","gpsFailed":"{city} (GPS unavailable)","gpsUnsupported":"This browser does not support GPS","shareText":"Remember us in your prayers 🤲","copied":"✅ Title and link copied!\nYou can now paste and share them.","copyFailed":"Could not copy automatically. Please copy the link from the address bar.","formNoKey":"⚠️ Please configure the Web3Forms access key in the code first.","formNoMessage":"⚠️ Please write your suggestion or question first.","formNoCaptcha":"⚠️ Please complete the captcha (I am not a robot) first.","formSending":"Sending…","formSuccess":"✅ Your suggestion was sent. Thank you for helping us improve the guide.","formError":"Something went wrong while sending. Please try again later.","formNetwork":"❌ Sorry, the server could not be reached. Check your internet connection and try again."};</script>
-    <script src="../js/app.js?v=7e55d42b"></script>
+    <script>window.APP_I18N = {"locale":"en-US","installTitle":"Install “Road to Makkah”","installText":"Opens like an app from your home screen and works offline on the road.","installBtn":"Install","installClose":"Close","captchaLang":"en","selectDeparture":"Select a departure time","km":"km","sar":"SAR","liter":"L","timeHM":"{h} h {m} min","timeH":"{h} h","timeM":"{m} min","themeToDark":"Switch to dark theme","themeToLight":"Switch to light theme","prayerLine1":"Fajr {a} | Sunrise {b}","prayerLine2":"Maghrib {a} | Isha {b}","am":"AM","pm":"PM","prayerOffline1":"Makkah prayer times","prayerOffline2":"need an internet connection","gpsBetween":"Between {a} and {b}","gpsLocate":"📍 Locate me now","gpsStop":"⏹️ Stop tracking","gpsLocating":"Locating…","gpsOffRoute":"Off route (nearest point: {n})","gpsFailed":"{city} (GPS unavailable)","gpsUnsupported":"This browser does not support GPS","shareText":"Remember us in your prayers 🤲","copied":"✅ Title and link copied!\nYou can now paste and share them.","copyFailed":"Could not copy automatically. Please copy the link from the address bar.","formNoKey":"⚠️ Please configure the Web3Forms access key in the code first.","formNoMessage":"⚠️ Please write your suggestion or question first.","formNoCaptcha":"⚠️ Please complete the captcha (I am not a robot) first.","formSending":"Sending…","formSuccess":"✅ Your suggestion was sent. Thank you for helping us improve the guide.","formError":"Something went wrong while sending. Please try again later.","formNetwork":"❌ Sorry, the server could not be reached. Check your internet connection and try again."};</script>
+    <script src="../js/app.js?v=2bdb21f6"></script>
 </body>
 
 </html>

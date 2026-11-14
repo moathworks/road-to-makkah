@@ -9,6 +9,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="طريق مكة">
+    <meta name="apple-mobile-web-app-title" content="طريق مكة">
     <meta name="description" content="دليل السفر البري الشامل إلى مكة المكرمة من دول الخليج والدول العربية المجاورة: مسارات الطرق، محطات الوقود، حاسبة المسافات، وقائمة الفحص.">
     <title>دليل السفر البري إلى مكة المكرمة</title>
     <link rel="canonical" href="https://moathworks.github.io/road-to-makkah/">
@@ -35,7 +37,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%95%8B%3C%2Ftext%3E%3C%2Fsvg%3E">
     <link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
     <link rel="stylesheet" href="./css/fonts.css?v=4d81fe39">
-    <link rel="stylesheet" href="./css/home.css?v=18e70f36">
+    <link rel="stylesheet" href="./css/home.css?v=fe51c94c">
 </head>
 
 <body>
@@ -43,11 +45,13 @@
     <div class="bg-overlay"></div>
 
     <div class="container">
-        <a href="./en/" class="home-lang-toggle" lang="en" hreflang="en" title="English" aria-label="English">EN</a>
         <h1>دليل السفر البري إلى مكة المكرمة</h1>
 
-        <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp" data-makkah-temp data-temp-format="مكة المكرمة الآن: {t}°C 🌤️" data-temp-fallback="مكة المكرمة 🕋">مكة المكرمة: جاري جلب الطقس... ⏳</span>
+        <div class="home-badges">
+            <div class="weather-widget" id="weatherWidget">
+                <span id="weatherTemp" data-makkah-temp data-temp-format="مكة المكرمة الآن: {t}°C 🌤️" data-temp-fallback="مكة المكرمة 🕋">مكة المكرمة: جاري جلب الطقس... ⏳</span>
+            </div>
+            <a href="./en/" class="home-lang-toggle" lang="en" hreflang="en" title="English" aria-label="English">EN</a>
         </div>
 
         <div class="countries">
@@ -117,8 +121,8 @@
         </div>
     </div>
 
-    <script>window.APP_I18N = {"locale":"ar-u-nu-latn","captchaLang":"ar","selectDeparture":"حدد وقت الانطلاق","km":"كم","sar":"ريال","liter":"لتر","timeHM":"{h} ساعة و {m} دقيقة","timeH":"{h} ساعة","timeM":"{m} دقيقة","themeToDark":"تفعيل المظهر الداكن","themeToLight":"تفعيل المظهر النهاري","prayerLine1":"الفجر {a} | الشروق {b}","prayerLine2":"المغرب {a} | العشاء {b}","am":"ص","pm":"م","prayerOffline1":"مواقيت الصلاة بمكة المكرمة","prayerOffline2":"تتطلب اتصالاً بالإنترنت","gpsBetween":"بين {a} و{b}","gpsLocate":"📍 حدّد موقعي الآن","gpsStop":"⏹️ إيقاف التتبّع","gpsLocating":"جاري تحديد الموقع...","gpsOffRoute":"خارج المسار (أقرب نقطة: {n})","gpsFailed":"{city} (تعذر جلب GPS)","gpsUnsupported":"المتصفح لا يدعم GPS","shareText":"تذكرونا بدعوة صالحة 🤲","copied":"✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.","copyFailed":"تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.","formNoKey":"⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.","formNoMessage":"⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.","formNoCaptcha":"⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.","formSending":"جاري الإرسال...","formSuccess":"✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.","formError":"حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.","formNetwork":"❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة."};</script>
-    <script src="./js/app.js?v=7e55d42b"></script>
+    <script>window.APP_I18N = {"locale":"ar-u-nu-latn","installTitle":"ثبّت «طريق مكة» على جهازك","installText":"يفتح كتطبيق من شاشتك ويعمل دون اتصال على الطريق.","installBtn":"تثبيت","installClose":"إغلاق","captchaLang":"ar","selectDeparture":"حدد وقت الانطلاق","km":"كم","sar":"ريال","liter":"لتر","timeHM":"{h} ساعة و {m} دقيقة","timeH":"{h} ساعة","timeM":"{m} دقيقة","themeToDark":"تفعيل المظهر الداكن","themeToLight":"تفعيل المظهر النهاري","prayerLine1":"الفجر {a} | الشروق {b}","prayerLine2":"المغرب {a} | العشاء {b}","am":"ص","pm":"م","prayerOffline1":"مواقيت الصلاة بمكة المكرمة","prayerOffline2":"تتطلب اتصالاً بالإنترنت","gpsBetween":"بين {a} و{b}","gpsLocate":"📍 حدّد موقعي الآن","gpsStop":"⏹️ إيقاف التتبّع","gpsLocating":"جاري تحديد الموقع...","gpsOffRoute":"خارج المسار (أقرب نقطة: {n})","gpsFailed":"{city} (تعذر جلب GPS)","gpsUnsupported":"المتصفح لا يدعم GPS","shareText":"تذكرونا بدعوة صالحة 🤲","copied":"✅ تم نسخ العنوان والرابط بنجاح!\nيمكنك الآن لصقه ومشاركته مع من تحب.","copyFailed":"تعذر النسخ التلقائي. يرجى نسخ الرابط من شريط المتصفح يدوياً.","formNoKey":"⚠️ الرجاء تهيئة مفتاح الوصول الخاص بـ Web3Forms في الكود أولاً.","formNoMessage":"⚠️ الرجاء كتابة الاقتراح أو الاستفسار أولاً.","formNoCaptcha":"⚠️ الرجاء التحقق من اختبار الكابتشا (أنا لست برنامج روبوت) أولاً.","formSending":"جاري الإرسال...","formSuccess":"✅ تم إرسال اقتراحك بنجاح! شكراً جزيلاً لك على مشاركتنا رأيك لتطوير الدليل.","formError":"حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى لاحقاً.","formNetwork":"❌ عذراً، تعذر الاتصال بالخادم. يرجى التحقق من اتصال الإنترنت وإعادة المحاولة."};</script>
+    <script src="./js/app.js?v=2bdb21f6"></script>
 </body>
 
 </html>

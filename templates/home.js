@@ -76,11 +76,13 @@ ${head}
     <div class="bg-overlay"></div>
 
     <div class="container">
-        ${renderLangSwitch(null, lang, 'home-lang-toggle')}
         <h1>${escapeHtml(pageTitle)}</h1>
 
-        <div class="weather-widget" id="weatherWidget">
-            <span id="weatherTemp" data-makkah-temp data-temp-format="${escapeHtml(t('home.weatherFormat'))}" data-temp-fallback="${escapeHtml(t('home.weatherFallback'))}">${escapeHtml(t('home.weatherLoading'))}</span>
+        <div class="home-badges">
+            <div class="weather-widget" id="weatherWidget">
+                <span id="weatherTemp" data-makkah-temp data-temp-format="${escapeHtml(t('home.weatherFormat'))}" data-temp-fallback="${escapeHtml(t('home.weatherFallback'))}">${escapeHtml(t('home.weatherLoading'))}</span>
+            </div>
+            ${renderLangSwitch(null, lang, 'home-lang-toggle')}
         </div>
 
         <div class="countries">

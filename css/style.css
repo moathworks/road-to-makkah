@@ -2210,3 +2210,81 @@ body.light-mode {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* تنبيه «تثبيت التطبيق» أعلى الصفحة (يُنشئه js/app.js حين يعرض المتصفح التثبيت).
+   النمط نفسه في css/style.css و css/home.css: لكل صفحة ملف أنماط واحد */
+.install-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: #121212;
+    color: #ffffff;
+    border-bottom: 2px solid #D4AF37;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    font-family: 'Tajawal', sans-serif;
+}
+
+.install-banner-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.4;
+}
+
+.install-banner-text strong {
+    font-size: 0.95rem;
+    color: #D4AF37;
+}
+
+.install-banner-text span {
+    font-size: 0.82rem;
+    color: #d8d8d8;
+}
+
+.install-banner-btn,
+.install-banner-close {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    flex-shrink: 0;
+}
+
+.install-banner-btn {
+    background: #D4AF37;
+    color: #121212;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    min-height: 40px;
+}
+
+.install-banner-close {
+    background: transparent;
+    color: #ffffff;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.install-banner-btn:focus-visible,
+.install-banner-close:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+@media print {
+    .install-banner {
+        display: none !important;
+    }
+}
